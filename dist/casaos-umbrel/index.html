@@ -35,7 +35,7 @@
   <link rel="preload" href="/static/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/static/fonts/inter-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/static/fonts/newsreader-500.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="/static/css/style.css?v=700350f1">
+  <link rel="stylesheet" href="/static/css/style.css?v=679fafb0">
   <script>
     (function () {
       try {
@@ -119,15 +119,15 @@
 <li><a href="#onde-o-home-assistant-entra">Onde o Home Assistant entra</a></li>
 <li><a href="#o-que-rodar-no-home-server-e-nao-no-home-assistant">O que rodar no home server (e não no Home Assistant)</a></li>
 <li><a href="#resumo">Resumo</a></li>
+<li><a href="#referencias-oficiais">Referências oficiais</a></li>
 </ul>
 </div>
 </nav>
       <div class="prose">
         <p>Home Assistant cuida da <strong>casa</strong>. CasaOS e umbrelOS cuidam dos <strong>serviços da casa</strong> — arquivos, fotos, mídia,
-backups, painéis, IA local. São camadas diferentes, e é muito comum (e recomendável) ter as duas.</p>
+backups, painéis, IA local. São funções complementares e podem conviver no mesmo projeto.</p>
 <h3 id="o-que-essas-coisas-sao-afinal">O que essas coisas são, afinal<a class="headerlink" href="#o-que-essas-coisas-sao-afinal" title="Permanent link">#</a></h3>
-<p>Ambos são <strong>camadas amigáveis em cima do Docker</strong>: uma interface web com loja de aplicativos, em que
-instalar o Jellyfin, o Nextcloud ou o Immich vira um clique em vez de um <code>docker-compose.yml</code> escrito à mão.</p>
+<p>O <strong>CasaOS</strong> adiciona um painel de arquivos e aplicativos Docker a um Linux compatível. O <strong>umbrelOS</strong> é um sistema completo para nuvem pessoal, com administração pelo navegador e loja de apps. Ambos facilitam o uso de serviços como Jellyfin e Nextcloud, mas têm instalação e licenças diferentes.</p>
 <table>
 <thead>
 <tr>
@@ -158,15 +158,15 @@ instalar o Jellyfin, o Nextcloud ou o Immich vira um clique em vez de um <code>d
 </tr>
 <tr>
 <td>Armazenamento</td>
-<td>Simples (montagem de discos)</td>
-<td>Inclui redundância (RAID/FailSafe)</td>
-<td>Gestão de discos mais completa</td>
+<td>Gerenciamento de arquivos e discos</td>
+<td>Arquivos, backups e recursos de armazenamento conforme versão e hardware</td>
+<td>Foco em gestão de discos e NAS</td>
 </tr>
 <tr>
 <td>Licença/código</td>
-<td>Aberto (Apache 2.0)</td>
-<td>Aberto</td>
-<td>Aberto</td>
+<td>Apache 2.0</td>
+<td>Código disponível; PolyForm Noncommercial 1.0.0</td>
+<td>Consulte as licenças dos componentes</td>
 </tr>
 <tr>
 <td>Melhor para</td>
@@ -176,14 +176,15 @@ instalar o Jellyfin, o Nextcloud ou o Immich vira um clique em vez de um <code>d
 </tr>
 </tbody>
 </table>
-<p>Links oficiais: <a class="ext" target="_blank" rel="noopener" href="https://casaos.io/">CasaOS</a> · <a class="ext" target="_blank" rel="noopener" href="https://github.com/IceWhaleTech/CasaOS">CasaOS no GitHub</a> ·
+<p><strong>Em poucas palavras:</strong> CasaOS ajuda a aproveitar um Linux que você já tem; umbrelOS oferece uma experiência de servidor pessoal integrada. O site do CasaOS também apresenta o <strong>ZimaOS</strong>, evolução do ecossistema com foco em NAS.</p>
+<p>Links oficiais: <a class="ext" target="_blank" rel="noopener" href="https://casaos.zimaspace.com/">CasaOS</a> · <a class="ext" target="_blank" rel="noopener" href="https://github.com/IceWhaleTech/CasaOS">CasaOS no GitHub</a> ·
 <a class="ext" target="_blank" rel="noopener" href="https://umbrel.com/umbrelos">umbrelOS</a> · <a class="ext" target="_blank" rel="noopener" href="https://apps.umbrel.com/">Umbrel App Store</a> ·
 <a class="ext" target="_blank" rel="noopener" href="https://github.com/getumbrel/umbrel">Umbrel no GitHub</a> · <a class="ext" target="_blank" rel="noopener" href="https://github.com/IceWhaleTech/ZimaOS">ZimaOS</a></p>
 <div class="admonition nota">
 <p class="admonition-title">Nenhum deles substitui o Home Assistant</p>
 <p>Os dois até oferecem o Home Assistant na loja de apps — mas nessa forma ele roda como <strong>container</strong>,
 sem Supervisor e, portanto, <strong>sem add-ons</strong> (Zigbee2MQTT, ESPHome Device Builder, Mosquitto, Terminal &amp;
-SSH). Serve para experimentar; para a casa de verdade, veja a comparação logo abaixo.</p>
+SSH) administrados pelo Supervisor. Esses serviços podem rodar separadamente. Veja as opções abaixo.</p>
 </div>
 <h3 id="casaos-na-pratica">CasaOS na prática<a class="headerlink" href="#casaos-na-pratica" title="Permanent link">#</a></h3>
 <p>Roda em amd64, arm64 e armv7 — de um Intel NUC ou mini-PC a um Raspberry Pi. Instala sobre um Linux que você
@@ -192,27 +193,25 @@ já tenha (Debian 12, Ubuntu Server, Raspberry Pi OS são os oficialmente suport
 wget -qO- https://get.casaos.io | sudo bash
 </code></pre>
 <p>Depois é só abrir <code>http://&lt;ip-do-servidor&gt;</code> no navegador. A interface traz monitor de CPU, memória e disco,
-gerenciador de arquivos visual e a loja de apps — e, como tudo é Docker por baixo, você pode importar
-qualquer <code>docker-compose</code> que encontrar.</p>
+gerenciador de arquivos visual e a loja de apps — e permite instalar containers adicionais. Confira volumes, portas e compatibilidade de cada aplicativo antes de importar uma configuração.</p>
 <div class="admonition atencao">
 <p class="admonition-title">Rode o instalador com cuidado</p>
 <p><code>wget | sudo bash</code> executa um script remoto como root. Use em uma máquina dedicada ao laboratório,
-nunca no servidor que cuida da casa, e leia o script antes se quiser ser rigoroso.</p>
+após conferir a documentação e fazer backup. O Home Assistant OS não é um Linux genérico para receber esse instalador.</p>
 </div>
 <p><strong>Bom para</strong>: reaproveitar aquele notebook velho ou um Raspberry Pi extra como servidor de mídia, backup e
-utilidades, sem virar administrador de Linux.</p>
+utilidades, com uma interface mais simples para administrar os serviços.</p>
 <h3 id="umbrelos-na-pratica">umbrelOS na prática<a class="headerlink" href="#umbrelos-na-pratica" title="Permanent link">#</a></h3>
 <p>É um sistema completo: você grava a imagem (Raspberry Pi, mini-PC/NUC ou máquina virtual), liga na rede e faz
 toda a configuração pelo navegador em <code>http://umbrel.local</code> — sem monitor nem teclado. Não precisa de Linux
 prévio nem de linha de comando.</p>
 <p>Destaques da linha atual: loja com mais de 300 apps, aplicativo de <strong>fotos</strong> com backup automático do rolo da
 câmera do iPhone, gerenciador de <strong>arquivos</strong> com busca, contas separadas para cada pessoa da casa,
-redundância de disco e integração com agentes de IA via <strong>MCP</strong>. A linha 2.x está em beta público, então
-confira o estado atual antes de migrar algo importante.</p>
+redundância de disco e integração com agentes de IA via <strong>MCP</strong>. Na consulta de <strong>21/09/2026</strong>, o site oficial informa beta público do umbrelOS 2.0 e lançamento previsto para 22/09. Confira a versão disponível antes de instalar; recursos variam por versão e hardware.</p>
 <p><strong>Bom para</strong>: quem quer sair do Google Fotos e do Dropbox com o mínimo de atrito, ou quem comprou um
 Umbrel Home / Umbrel Pro pronto.</p>
 <h3 id="onde-o-home-assistant-entra">Onde o Home Assistant entra<a class="headerlink" href="#onde-o-home-assistant-entra" title="Permanent link">#</a></h3>
-<p>Há três arranjos que funcionam bem — em ordem de recomendação:</p>
+<p>Há três arranjos possíveis, conforme sua experiência e disponibilidade de hardware:</p>
 <h4 id="1-duas-maquinas-o-mais-tranquilo">1. Duas máquinas (o mais tranquilo)<a class="headerlink" href="#1-duas-maquinas-o-mais-tranquilo" title="Permanent link">#</a></h4>
 <ul>
 <li><strong>Máquina A</strong>: Home Assistant OS (appliance, Raspberry Pi ou mini-PC) — só a casa, com Supervisor, add-ons
@@ -230,7 +229,7 @@ CasaOS/umbrelOS. Snapshot antes de cada atualização. É o caminho de quem gost
 <ul>
 <li>❌ sem add-ons → Zigbee2MQTT, Mosquitto, ESPHome e Terminal &amp; SSH viram containers que você instala e
   mantém manualmente</li>
-<li>❌ sem backup integrado do Supervisor → o backup passa a ser problema seu</li>
+<li>✅ backups do Home Assistant estão disponíveis também no Container; os dados dos outros containers e do sistema anfitrião precisam de uma estratégia própria</li>
 <li>⚠️ passar o dongle Zigbee para dentro do container exige mapear o dispositivo (<code>--device</code>) na mão</li>
 <li>✅ em compensação, tudo convive numa máquina só</li>
 </ul>
@@ -270,11 +269,17 @@ Apple TV, Sonos, impressoras e boa parte das integrações "mágicas" simplesmen
 ponte mais simples entre os dois mundos.</p>
 <h3 id="resumo">Resumo<a class="headerlink" href="#resumo" title="Permanent link">#</a></h3>
 <ul>
-<li>Quer <strong>automatizar a casa</strong>? Home Assistant OS, sempre.</li>
+<li>Quer <strong>automatizar a casa</strong>? Home Assistant OS é o caminho mais simples para a maioria das pessoas; Container é uma alternativa para quem administra Docker.</li>
 <li>Quer <strong>serviços caseiros</strong> com pouco esforço? CasaOS (sobre um Linux que você já tem) ou umbrelOS
   (sistema completo, mais "plug and play").</li>
-<li>Quer os dois? <strong>Separe as máquinas</strong> ou use virtualização. É a diferença entre um hobby e um
-  incidente doméstico numa noite de terça.</li>
+<li>Quer os dois? <strong>Separe as máquinas</strong> ou use virtualização. Isso permite manter automação e serviços com ciclos de manutenção separados.</li>
+</ul>
+<h3 id="referencias-oficiais">Referências oficiais<a class="headerlink" href="#referencias-oficiais" title="Permanent link">#</a></h3>
+<ul>
+<li><a class="ext" target="_blank" rel="noopener" href="https://github.com/IceWhaleTech/CasaOS">CasaOS: recursos, instalação e sistemas compatíveis</a>.</li>
+<li><a class="ext" target="_blank" rel="noopener" href="https://umbrel.com/umbrelos">umbrelOS: plataforma e novidades</a> e <a class="ext" target="_blank" rel="noopener" href="https://github.com/getumbrel/umbrel#license">licença do projeto</a>.</li>
+<li><a class="ext" target="_blank" rel="noopener" href="https://www.home-assistant.io/installation/">Métodos de instalação do Home Assistant</a>.</li>
+<li><a class="ext" target="_blank" rel="noopener" href="https://www.home-assistant.io/common-tasks/general/#backups">Backups do Home Assistant</a>.</li>
 </ul>
         <ul class="tags"><li>CasaOS</li><li>umbrelOS</li><li>ZimaOS</li><li>Docker</li><li>NAS</li><li>Self-hosting</li></ul>
       </div>
@@ -379,6 +384,6 @@ ponte mais simples entre os dois mundos.</p>
     </div>
   </div>
 
-  <script src="/static/js/main.js?v=119c164e" defer></script>
+  <script src="/static/js/main.js?v=b1b1216f" defer></script>
 </body>
 </html>

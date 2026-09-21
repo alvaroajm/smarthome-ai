@@ -1,6 +1,6 @@
 """Bilingual editorial components for the SmartHome-AI visual guide."""
 from html import escape as esc
-from pathlib import Path
+from connected_home import connected_home
 
 # name, group, protocol, PT description, EN description, PT check, EN check, guide
 DEVICES = [
@@ -67,6 +67,10 @@ DEVICES = [
 ]
 
 RESOURCES = [
+ ('CasaOS','https://casaos.zimaspace.com/','base','Um painel para arquivos e aplicativos Docker no seu servidor.','A dashboard for files and Docker apps on your server.','C'),
+ ('umbrelOS','https://umbrel.com/umbrelos','base','Sistema para criar sua nuvem pessoal em casa.','An operating system for your own home cloud.','u'),
+ ('Umbrel App Store','https://apps.umbrel.com/','build','Explore os aplicativos para instalar no umbrelOS.','Explore apps to install on umbrelOS.','u+'),
+ ('ZimaOS','https://www.zimaspace.com/zimaos','build','Conheça a evolução do ecossistema CasaOS, com foco em NAS.','Explore the CasaOS ecosystem’s evolution, focused on NAS.','Z'),
  ('Home Assistant','https://www.home-assistant.io/','base','O ponto de partida: plataforma, documentação e novidades.','The starting point: platform, documentation and news.','HA'),
  ('Nabu Casa','https://www.nabucasa.com/','base','Cloud opcional, acesso remoto e integração com Alexa.','Optional Cloud, remote access and Alexa integration.','NC'),
  ('ESPHome','https://esphome.io/','build','Crie sensores, controles e telas com microcontroladores.','Build sensors, controls and displays with microcontrollers.','ESP'),
@@ -104,12 +108,32 @@ def resource_cards(lang):
   out.append(f'''<a class="resource-card" data-resource-category="{group}" href="{url}"{ext(url)}><span class="resource-mark" aria-hidden="true">{mark}</span><span><strong>{esc(translations.get(name,name) if en else name)}</strong><small>{esc(eng if en else pt)}</small></span><span class="resource-arrow" aria-hidden="true">↗</span></a>''')
  return '\n'.join(out)
 
-def photo_gallery(lang):
+def photo_gallery(lang, hardware=False):
  en=lang=='en';out=[]
- photos=[('hue-photo.jpg','Philips Hue · '+('hub & bulbs' if en else 'ponte e lâmpadas'),'Sho Hashimoto','https://commons.wikimedia.org/wiki/File:Philips_Hue_hub_and_2_bulbs.jpg','CC BY 2.0','https://creativecommons.org/licenses/by/2.0/','800','503'),('echo-photo.jpg','Amazon Echo Dot · '+('3rd generation' if en else '3ª geração'),'Samuel Wiki','https://commons.wikimedia.org/wiki/File:Echo_Dot_(3rd_Gen)_02.jpg','CC0','https://creativecommons.org/publicdomain/zero/1.0/','3740','2805'),('plug-photo.jpg','Smart plug · '+('remote switching' if en else 'acionamento remoto'),'TBWABusted','https://commons.wikimedia.org/wiki/File:Smart-plug.jpg','CC BY 2.0','https://creativecommons.org/licenses/by/2.0/','2627','2255')]
- for file,name,author,url,license,licurl,w,h in photos:
-  out.append(f'''<figure class="photo-card"><a href="{url}"{ext(url)} aria-label="{'View original photo' if en else 'Ver foto original'}: {esc(name)}"><img src="/static/img/devices/{file}" width="{w}" height="{h}" alt="{esc(name)}" loading="lazy"></a><figcaption><strong>{esc(name)}</strong><small><a href="{url}"{ext(url)}>{author}</a> · <a href="{licurl}"{ext(licurl)}>{license}</a></small></figcaption></figure>''')
+ photos=[
+ ('hue-liane-2026.jpg','Philips Hue Liane 360°','Signify / Philips Hue','https://www.signify.com/global/our-company/news/press-releases/2026/20260903-philips-hue-expands-on-smart-lighting-with-ai-immersive-entertainment-and-design',800,450,'Lançamento de setembro de 2026. Iluminação contínua em 360°; disponibilidade por região.','September 2026 release. Continuous 360° lighting; availability varies by region.'),
+ ('echo-dot-max-2025.jpg','Echo Dot Max','Amazon','https://www.aboutamazon.com.br/noticias/dispositivos/echo-dot-max-chega-ao-brasil-com-novo-design-e-audio-premium',1176,751,'Geração lançada em 2025, com áudio de duas vias e Alexa.','Released in 2025, with two-way audio and Alexa.'),
+ ('shelly-plug-gen4.png','Shelly Plug US Gen4','Shelly','https://us.shelly.com/products/shelly-plug-us-gen4-black',800,800,'Geração 4 com medição de energia. A foto mostra o padrão dos EUA, 120 V; confira o padrão elétrico local.','Generation 4 with energy metering. Photo shows the US 120 V model; check local electrical standards.'),
+ ] if not hardware else [
+ ('raspberry-pi-5-case.jpg','Raspberry Pi 5 · '+('official case' if en else 'case oficial'),'Raspberry Pi','https://www.raspberrypi.com/news/m-2-hat-compact-on-sale-now-at-15/',800,535,'Raspberry Pi 5 no gabinete oficial, com o acessório M.2 HAT+ Compact visível na foto. Uma base compacta para projetos de automação.','Raspberry Pi 5 in its official case, with the M.2 HAT+ Compact accessory shown. A compact foundation for automation projects.'),
+ ('modern-mini-pc.png','Mini-PC · ASUS NUC 16 Pro','ASUS','https://www.asus.com/displays-desktops/nucs/nuc-mini-pcs/asus-nuc-16-pro/',800,800,'Exemplo real de mini-PC moderno. O formato compacto pode abrigar um servidor doméstico; dimensione CPU, RAM e SSD para seu projeto.','A real example of a modern mini PC. This compact format can host a home server; size CPU, RAM and SSD for your project.'),
+ ]
+ for file,name,author,url,w,h,pt,eng in photos:
+  out.append(f'''<figure class="photo-card"><a href="{url}"{ext(url)} aria-label="{'Official source' if en else 'Fonte oficial'}: {esc(name)}"><img src="/static/img/devices/{file}" width="{w}" height="{h}" alt="{esc(name)}" loading="lazy" decoding="async"></a><figcaption><strong>{esc(name)}</strong><p>{esc(eng if en else pt)}</p><small>{'Photo' if en else 'Imagem'}: <a href="{url}"{ext(url)}>{author} ↗</a></small></figcaption></figure>''')
  return '\n'.join(out)
 
+def server_section(lang):
+ en=lang=='en'
+ t=lambda pt,eng: eng if en else pt
+ return f'''<section class="server-section" id="servidor-em-casa" aria-labelledby="server-title"><div class="wrap section">
+ <header class="section-head editorial-head"><div><p class="eyebrow">04 / {t('Seu servidor, suas possibilidades', 'Your server, your possibilities')}</p><h2 id="server-title">{t('Uma nuvem com<br>endereço de casa.', 'A cloud with<br>a home address.')}</h2></div><p>{t('Fotos, arquivos, mídia e aplicativos no seu próprio equipamento. CasaOS e umbrelOS simplificam o dia a dia de um servidor doméstico.', 'Photos, files, media and apps on your own hardware. CasaOS and umbrelOS simplify everyday home-server tasks.')}</p></header>
+ <div class="server-platforms">
+  <article class="server-platform"><span class="server-monogram" aria-hidden="true">C</span><h3>CasaOS</h3><p>{t('Um painel web instalado sobre um Linux compatível. Reúne arquivos, discos e aplicativos Docker em uma interface simples — uma boa porta de entrada para reaproveitar um PC ou Raspberry Pi.', 'A web dashboard installed on a compatible Linux system. It brings files, disks and Docker apps into a simple interface — a useful starting point for repurposing a PC or Raspberry Pi.')}</p><p class="platform-detail">{t('O site oficial também apresenta o ZimaOS, evolução do ecossistema com foco em NAS.', 'The official site also introduces ZimaOS, the ecosystem’s evolution focused on NAS.')}</p><div class="platform-links"><a href="https://casaos.zimaspace.com/"{ext('https://')}>{t('Conhecer CasaOS', 'Explore CasaOS')} ↗</a><a href="https://github.com/IceWhaleTech/CasaOS"{ext('https://')}>GitHub ↗</a></div></article>
+  <article class="server-platform"><span class="server-monogram" aria-hidden="true">u</span><h3>umbrelOS</h3><p>{t('Um sistema completo para sua nuvem pessoal, administrado pelo navegador. Sua loja facilita a instalação de aplicativos de arquivos, fotos, mídia e outros serviços no hardware compatível.', 'A complete operating system for your personal cloud, managed in a browser. Its app store makes it easy to install file, photo, media and other services on compatible hardware.')}</p><p class="platform-detail">{t('Disponível para equipamentos Umbrel, PCs Intel/AMD, Raspberry Pi 5 e máquinas virtuais compatíveis.', 'Available for Umbrel devices, Intel/AMD PCs, Raspberry Pi 5 and compatible virtual machines.')}</p><div class="platform-links"><a href="https://umbrel.com/umbrelos"{ext('https://')}>{t('Conhecer umbrelOS', 'Explore umbrelOS')} ↗</a><a href="https://apps.umbrel.com/"{ext('https://')}>App Store ↗</a></div></article>
+ </div>
+ <div class="server-ha-note"><strong>{t('E o Home Assistant?', 'And Home Assistant?')}</strong><p>{t('Ele coordena a automação da casa. CasaOS e umbrelOS organizam os serviços do servidor. Se o Home Assistant rodar em container, os apps complementares são administrados separadamente.', 'It coordinates home automation. CasaOS and umbrelOS organize server services. When Home Assistant runs in a container, companion apps are managed separately.')}</p><a href="/casaos-umbrel/">{t('Comparar e escolher a instalação', 'Compare installation options (PT)')} →</a></div>
+ <header class="hardware-heading"><h3>{t('O hardware por trás das ideias', 'The hardware behind your ideas')}</h3><p>{t('Do Raspberry Pi ao mini-PC: dois formatos para explorar.', 'From Raspberry Pi to mini PC: two formats to explore.')}</p></header><div class="photo-grid hardware-gallery">{photo_gallery(lang,True)}</div>
+ </div></section>'''
+
 def home_visual_context(lang):
- return {'device_cards':device_cards(lang),'resource_cards':resource_cards(lang),'photo_gallery':photo_gallery(lang),'smart_room':(Path(__file__).parent/'static/img/smart-room.svg').read_text()}
+ return {'device_cards':device_cards(lang),'resource_cards':resource_cards(lang),'photo_gallery':photo_gallery(lang),'connected_home':connected_home(lang),'server_section':server_section(lang),'resource_total':str(len(RESOURCES))}

@@ -12,30 +12,31 @@ tags: [CasaOS, umbrelOS, ZimaOS, Docker, NAS, Self-hosting]
 ---
 
 Home Assistant cuida da **casa**. CasaOS e umbrelOS cuidam dos **serviços da casa** — arquivos, fotos, mídia,
-backups, painéis, IA local. São camadas diferentes, e é muito comum (e recomendável) ter as duas.
+backups, painéis, IA local. São funções complementares e podem conviver no mesmo projeto.
 
 ## O que essas coisas são, afinal
 
-Ambos são **camadas amigáveis em cima do Docker**: uma interface web com loja de aplicativos, em que
-instalar o Jellyfin, o Nextcloud ou o Immich vira um clique em vez de um `docker-compose.yml` escrito à mão.
+O **CasaOS** adiciona um painel de arquivos e aplicativos Docker a um Linux compatível. O **umbrelOS** é um sistema completo para nuvem pessoal, com administração pelo navegador e loja de apps. Ambos facilitam o uso de serviços como Jellyfin e Nextcloud, mas têm instalação e licenças diferentes.
 
 | | **CasaOS** | **umbrelOS** | **ZimaOS** |
 |---|---|---|---|
 | O que é | Camada instalável sobre Debian/Ubuntu/Raspberry Pi OS | Sistema completo para home server | Sistema completo com foco em NAS, da mesma equipe do CasaOS |
 | Instalação | Um comando sobre um Linux existente | Imagem gravada no disco ou VM | Imagem gravada no disco |
 | Loja de apps | Curada + qualquer container Docker | 300+ apps com instalação em um clique | Curada, orientada a armazenamento |
-| Armazenamento | Simples (montagem de discos) | Inclui redundância (RAID/FailSafe) | Gestão de discos mais completa |
-| Licença/código | Aberto (Apache 2.0) | Aberto | Aberto |
+| Armazenamento | Gerenciamento de arquivos e discos | Arquivos, backups e recursos de armazenamento conforme versão e hardware | Foco em gestão de discos e NAS |
+| Licença/código | Apache 2.0 | Código disponível; PolyForm Noncommercial 1.0.0 | Consulte as licenças dos componentes |
 | Melhor para | Reaproveitar um PC antigo ou Raspberry Pi | Quem quer "ligar e usar", com fotos e arquivos | Quem quer NAS de verdade em hardware Zima |
 
-Links oficiais: [CasaOS](https://casaos.io/) · [CasaOS no GitHub](https://github.com/IceWhaleTech/CasaOS) ·
+**Em poucas palavras:** CasaOS ajuda a aproveitar um Linux que você já tem; umbrelOS oferece uma experiência de servidor pessoal integrada. O site do CasaOS também apresenta o **ZimaOS**, evolução do ecossistema com foco em NAS.
+
+Links oficiais: [CasaOS](https://casaos.zimaspace.com/) · [CasaOS no GitHub](https://github.com/IceWhaleTech/CasaOS) ·
 [umbrelOS](https://umbrel.com/umbrelos) · [Umbrel App Store](https://apps.umbrel.com/) ·
 [Umbrel no GitHub](https://github.com/getumbrel/umbrel) · [ZimaOS](https://github.com/IceWhaleTech/ZimaOS)
 
 !!! nota "Nenhum deles substitui o Home Assistant"
     Os dois até oferecem o Home Assistant na loja de apps — mas nessa forma ele roda como **container**,
     sem Supervisor e, portanto, **sem add-ons** (Zigbee2MQTT, ESPHome Device Builder, Mosquitto, Terminal &
-    SSH). Serve para experimentar; para a casa de verdade, veja a comparação logo abaixo.
+    SSH) administrados pelo Supervisor. Esses serviços podem rodar separadamente. Veja as opções abaixo.
 
 ## CasaOS na prática
 
@@ -48,15 +49,14 @@ wget -qO- https://get.casaos.io | sudo bash
 ```
 
 Depois é só abrir `http://<ip-do-servidor>` no navegador. A interface traz monitor de CPU, memória e disco,
-gerenciador de arquivos visual e a loja de apps — e, como tudo é Docker por baixo, você pode importar
-qualquer `docker-compose` que encontrar.
+gerenciador de arquivos visual e a loja de apps — e permite instalar containers adicionais. Confira volumes, portas e compatibilidade de cada aplicativo antes de importar uma configuração.
 
 !!! atencao "Rode o instalador com cuidado"
     `wget | sudo bash` executa um script remoto como root. Use em uma máquina dedicada ao laboratório,
-    nunca no servidor que cuida da casa, e leia o script antes se quiser ser rigoroso.
+    após conferir a documentação e fazer backup. O Home Assistant OS não é um Linux genérico para receber esse instalador.
 
 **Bom para**: reaproveitar aquele notebook velho ou um Raspberry Pi extra como servidor de mídia, backup e
-utilidades, sem virar administrador de Linux.
+utilidades, com uma interface mais simples para administrar os serviços.
 
 ## umbrelOS na prática
 
@@ -66,15 +66,14 @@ prévio nem de linha de comando.
 
 Destaques da linha atual: loja com mais de 300 apps, aplicativo de **fotos** com backup automático do rolo da
 câmera do iPhone, gerenciador de **arquivos** com busca, contas separadas para cada pessoa da casa,
-redundância de disco e integração com agentes de IA via **MCP**. A linha 2.x está em beta público, então
-confira o estado atual antes de migrar algo importante.
+redundância de disco e integração com agentes de IA via **MCP**. Na consulta de **21/09/2026**, o site oficial informa beta público do umbrelOS 2.0 e lançamento previsto para 22/09. Confira a versão disponível antes de instalar; recursos variam por versão e hardware.
 
 **Bom para**: quem quer sair do Google Fotos e do Dropbox com o mínimo de atrito, ou quem comprou um
 Umbrel Home / Umbrel Pro pronto.
 
 ## Onde o Home Assistant entra
 
-Há três arranjos que funcionam bem — em ordem de recomendação:
+Há três arranjos possíveis, conforme sua experiência e disponibilidade de hardware:
 
 ### 1. Duas máquinas (o mais tranquilo)
 
@@ -97,7 +96,7 @@ Instalar o Home Assistant pela loja de apps funciona, mas você fica com o **Hom
 
 - ❌ sem add-ons → Zigbee2MQTT, Mosquitto, ESPHome e Terminal & SSH viram containers que você instala e
   mantém manualmente
-- ❌ sem backup integrado do Supervisor → o backup passa a ser problema seu
+- ✅ backups do Home Assistant estão disponíveis também no Container; os dados dos outros containers e do sistema anfitrião precisam de uma estratégia própria
 - ⚠️ passar o dongle Zigbee para dentro do container exige mapear o dispositivo (`--device`) na mão
 - ✅ em compensação, tudo convive numa máquina só
 
@@ -141,8 +140,14 @@ ponte mais simples entre os dois mundos.
 
 ## Resumo
 
-- Quer **automatizar a casa**? Home Assistant OS, sempre.
+- Quer **automatizar a casa**? Home Assistant OS é o caminho mais simples para a maioria das pessoas; Container é uma alternativa para quem administra Docker.
 - Quer **serviços caseiros** com pouco esforço? CasaOS (sobre um Linux que você já tem) ou umbrelOS
   (sistema completo, mais "plug and play").
-- Quer os dois? **Separe as máquinas** ou use virtualização. É a diferença entre um hobby e um
-  incidente doméstico numa noite de terça.
+- Quer os dois? **Separe as máquinas** ou use virtualização. Isso permite manter automação e serviços com ciclos de manutenção separados.
+
+## Referências oficiais
+
+- [CasaOS: recursos, instalação e sistemas compatíveis](https://github.com/IceWhaleTech/CasaOS).
+- [umbrelOS: plataforma e novidades](https://umbrel.com/umbrelos) e [licença do projeto](https://github.com/getumbrel/umbrel#license).
+- [Métodos de instalação do Home Assistant](https://www.home-assistant.io/installation/).
+- [Backups do Home Assistant](https://www.home-assistant.io/common-tasks/general/#backups).

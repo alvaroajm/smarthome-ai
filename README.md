@@ -136,8 +136,9 @@ Código do gerador: MIT. Conteúdo dos artigos: © SmartHome-AI.
 ## Redesign visual (setembro de 2026)
 
 As homes PT/EN incluem uma sala SVG interativa, um catálogo de 12 tipos de dispositivos,
-três fotografias com crédito e 16 links filtráveis. As cenas são apenas demonstrações visuais.
-O conteúdo desses componentes está em `visual_content.py`; os layouts estão em `templates/home.*.html`.
+cinco fotografias de produtos com crédito e 20 links filtráveis. A planta 3D tem 16 zonas de iluminação, cenas e controles por clique, toque e teclado. É uma simulação visual local; não controla dispositivos reais.
+As zonas e os controles da planta estão em `connected_home.py`, com estado persistente em PT/EN.
+O conteúdo dos demais componentes está em `visual_content.py`; os layouts estão em `templates/home.*.html`.
 Ilustrações dos gadgets: `python3 scripts/draw-devices.py`. Fontes, autoria e licenças: `docs-assets.md`.
 
 Newsreader e Inter são servidas localmente. O tema claro é o padrão; uma preferência anterior

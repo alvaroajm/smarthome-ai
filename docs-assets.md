@@ -8,20 +8,32 @@ Arquivos copiados sem alteração dos anexos: `author-original.jpg` (IMG_2923), 
 
 ## Ilustrações originais
 
-- `static/img/smart-room.svg`: sala em perspectiva, com luminária, sofá, TV, painel, fechadura e sensor. As três cenas são demonstrações visuais; não se conectam a uma instalação de Home Assistant.
+- `static/img/smart-room.svg`: ilustração da sala mantida no acervo. A home passou a usar a planta 3D enviada pelo autor.
 - `static/img/devices/*.svg`: 12 ilustrações genéricas. Fonte editável em `scripts/draw-devices.py`. Não são imagens de modelos comerciais específicos, nem desenhos de instalação elétrica.
 
-## Fotografias licenciadas
+## Fotografias de produtos atuais
 
-Arquivos originais preservados; enquadramento responsivo com CSS, sem retoque. Autoria, link da fonte e licença estão junto a cada foto no site.
+Atualizadas em 21/09/2026. Arquivos locais, sem retoque; a apresentação responsiva é feita por CSS. As legendas identificam o modelo e remetem à fonte. Imagens de divulgação dos fabricantes não são apresentadas como Creative Commons nem como fotografias do autor. A galeria tem finalidade editorial, sem preços, compra, patrocínio ou promessa de compatibilidade.
 
-| Arquivo | Fotógrafo | Fonte | Licença |
-|---|---|---|---|
-| hue-photo.jpg | Sho Hashimoto | https://commons.wikimedia.org/wiki/File:Philips_Hue_hub_and_2_bulbs.jpg | https://creativecommons.org/licenses/by/2.0/ |
-| echo-photo.jpg | Samuel Wiki | https://commons.wikimedia.org/wiki/File:Echo_Dot_(3rd_Gen)_02.jpg | https://creativecommons.org/publicdomain/zero/1.0/ |
-| plug-photo.jpg | TBWABusted | https://commons.wikimedia.org/wiki/File:Smart-plug.jpg | https://creativecommons.org/licenses/by/2.0/ |
+| Arquivo | Modelo | Fonte editorial |
+|---|---|---|
+| hue-liane-2026.jpg | Philips Hue Liane 360°, anúncio de 03/09/2026 | https://www.signify.com/global/our-company/news/press-releases/2026/20260903-philips-hue-expands-on-smart-lighting-with-ai-immersive-entertainment-and-design |
+| echo-dot-max-2025.jpg | Echo Dot Max, geração 2025 | https://www.aboutamazon.com.br/noticias/dispositivos/echo-dot-max-chega-ao-brasil-com-novo-design-e-audio-premium |
+| shelly-plug-gen4.png | Shelly Plug US Gen4, padrão EUA 120 V explicitado | https://us.shelly.com/products/shelly-plug-us-gen4-black |
+| raspberry-pi-5-case.jpg | Raspberry Pi 5 na case oficial, com M.2 HAT+ Compact | https://www.raspberrypi.com/news/m-2-hat-compact-on-sale-now-at-15/ |
+| modern-mini-pc.png | ASUS NUC 16 Pro, exemplo de formato de mini-PC moderno | https://www.asus.com/displays-desktops/nucs/nuc-mini-pcs/asus-nuc-16-pro/ |
 
-São exemplos visuais de gerações distintas, sem recomendação de compra, patrocínio ou garantia de compatibilidade. As imagens são hospedadas no próprio site e carregadas sob demanda.
+As antigas fotos `hue-photo.jpg` (Sho Hashimoto, CC BY 2.0), `echo-photo.jpg` (Samuel Wiki, CC0) e `plug-photo.jpg` (TBWABusted, CC BY 2.0) permanecem nos arquivos históricos; não são mais exibidas.
+
+## Planta interativa
+
+`static/img/connected-home-plan.jpg` é uma cópia inalterada da imagem IMG_3211.JPG fornecida pelo usuário. `connected_home.py` registra os 16 polígonos e nomes de ambientes nas coordenadas originais (1136 × 1744). SVG e CSS simulam a iluminação; a imagem original não é redesenhada. São zonas didáticas, sem cálculo luminotécnico. A demonstração não se comunica com dispositivos reais.
+
+Cliques nos cômodos e botões da lista compartilham um único estado. Enter/espaço acionam os marcadores; controles equivalentes de pelo menos 44 px atendem às áreas pequenas no celular. A ampliação é contida na planta. Preferências de luz ficam em `sha-house-lights-v1`, com validação, e persistem em PT/EN. O site continua exibindo conteúdo sem JavaScript, com controles desativados e explicação.
+
+## CasaOS e umbrelOS
+
+Bloco próprio em PT/EN na home e links para CasaOS, seu GitHub, umbrelOS, Umbrel App Store e ZimaOS. Guia `/casaos-umbrel/` revisto: CasaOS é um painel sobre Linux; umbrelOS é um sistema completo com licença PolyForm Noncommercial. A informação de beta 2.0 traz data de consulta. O texto sobre Container agora reconhece os backups do Home Assistant e separa a manutenção dos demais containers.
 
 ## Fontes
 
@@ -42,4 +54,8 @@ Links verificados nas páginas dos projetos, não em preços ou recomendações 
 
 ## Verificação
 
-Use `python3 build.py` e `python3 scripts/check.py`. A inspeção no navegador deve incluir filtros, cenas, busca por teclado e toque, idiomas, temas, navegação de artigos, imagens e larguras de 320 a 1440 px. A pasta `dist/` é versionada e publicada automaticamente pelo Cloudflare ao enviar `main`; esta alteração deve ser revisada antes desse envio.
+Use `python3 build.py` e `python3 scripts/check.py`. A inspeção no navegador deve incluir filtros, cenas, busca por teclado e toque, idiomas, temas, navegação de artigos, imagens e larguras de 320 a 1440 px. A pasta `dist/` é versionada e publicada automaticamente pelo Cloudflare ao enviar `main`. Confira a planta em 320–1440 px, mouse/toque/teclado, PT/EN, recarga, zoom, cenas e os estados sincronizados. A emulação Chromium não substitui testes físicos em iPhone/Safari ou Android.
+
+### Validação da planta (21/09/2026)
+
+Chromium desktop/toque emulado em 1440, 1024, 768, 390 e 320 px, PT/EN e claro/escuro: 16 zonas acionadas separadamente, sincronização bidirecional, Enter/espaço, quatro cenas, zoom sem transbordamento, recarga, idioma, armazenamento inválido, busca, filtros e carregamento das imagens. Conteúdo preservado com JS desligado. Sem erros JavaScript. Testes físicos de VoiceOver, Safari/iPhone e Android não executados.

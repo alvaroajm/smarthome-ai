@@ -35,7 +35,7 @@
   <link rel="preload" href="/static/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/static/fonts/inter-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/static/fonts/newsreader-500.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="/static/css/style.css?v=700350f1">
+  <link rel="stylesheet" href="/static/css/style.css?v=679fafb0">
   <script>
     (function () {
       try {
@@ -108,69 +108,203 @@
    <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span>Tecnologia que faz parte da vida</p>
    <h1>Uma casa mais inteligente.<br><em>Do seu jeito.</em></h1>
    <p class="hero-intro">Conecte luzes, sensores e ideias. Aprenda a criar uma casa confortável, com controle local e tecnologia que trabalha por você.</p>
-   <div class="cta-row"><a class="btn btn-primary" href="/instalacao/">Começar minha casa inteligente <span aria-hidden="true">↗</span></a><a class="hero-secondary" href="#dispositivos">Explorar dispositivos <span aria-hidden="true">↓</span></a></div>
+   <div class="cta-row"><a class="btn btn-primary" href="/instalacao/">Começar minha casa inteligente <span aria-hidden="true">↗</span></a><a class="hero-secondary" href="#casa-interativa">Explorar a casa <span aria-hidden="true">↓</span></a></div>
    <div class="hero-footnote"><span aria-hidden="true">◎</span><p>Home Assistant no centro.<br><strong>Liberdade para escolher o que se conecta.</strong></p></div>
   </div>
-  <div class="room-card" data-scene="welcome">
-   <div class="room-caption"><span>Uma casa, muitas possibilidades</span><span class="demo-tag">Ilustração interativa</span></div>
-   <div class="room-art"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 570" fill="none" aria-hidden="true">
-<defs>
- <linearGradient id="floor" x1="135" y1="310" x2="569" y2="530" gradientUnits="userSpaceOnUse"><stop stop-color="#dfccb0"/><stop offset="1" stop-color="#c5ac84"/></linearGradient>
- <linearGradient id="wall" x1="87" y1="190" x2="367" y2="380" gradientUnits="userSpaceOnUse"><stop stop-color="#fcf9ed"/><stop offset="1" stop-color="#e8e4d3"/></linearGradient>
- <linearGradient id="window" x2="1" y2="1"><stop stop-color="#cadeda"/><stop offset="1" stop-color="#e8ede0"/></linearGradient>
- <linearGradient id="couch" x2="0" y2="1"><stop stop-color="#779980"/><stop offset="1" stop-color="#315b46"/></linearGradient>
- <linearGradient id="screen" x2="1" y2="1"><stop stop-color="#5d9180"/><stop offset=".5" stop-color="#96b2a0"/><stop offset="1" stop-color="#e2cf9c"/></linearGradient>
- <radialGradient id="light"><stop stop-color="#ffe3a0" stop-opacity=".9"/><stop offset="1" stop-color="#ffe3a0" stop-opacity="0"/></radialGradient>
- <filter id="roomshadow" x="-20%" y="-20%" width="140%" height="160%"><feGaussianBlur stdDeviation="14"/></filter>
- <pattern id="wood" width="43" height="50" patternUnits="userSpaceOnUse" patternTransform="skewY(27)"><path d="M1 0v50" stroke="#fff5d6" stroke-opacity=".4"/></pattern>
-</defs>
-<ellipse cx="369" cy="465" rx="276" ry="46" fill="#2d4c36" opacity=".13" filter="url(#roomshadow)"/>
-<!-- A cutaway living room, drawn in an architectural perspective. -->
-<path d="m75 322 289-152 286 158v77L363 555 75 397Z" fill="#c0b398"/>
-<path d="m75 322 289-152 286 158-287 155Z" fill="url(#floor)"/>
-<path d="m75 322 289-152 286 158-287 155Z" fill="url(#wood)"/>
-<path d="m75 322 289-152v-130L75 192Z" fill="url(#wall)"/>
-<path d="m364 40 286 156v172L364 170Z" fill="#dde4d5"/>
-<path d="m75 192 289-152 286 116 0 14L364 54 75 207Z" fill="#faf9f0"/>
-<!-- Window on the left wall. -->
-<path d="m104 208 130-68v108l-130 68Z" fill="#9aae9e"/>
-<path d="m111 212 116-61v91l-116 61Z" fill="url(#window)"/>
-<path d="m169 181 0 91m-58-15 116-62" stroke="#faf9ee" stroke-width="7"/>
-<path d="m104 316 132-69 0 8-132 70Z" fill="#fefbef"/>
-<!-- Door, wall panel and round presence sensor. -->
-<path d="m562 191 58 32v123l-58-32Z" fill="#b09c7a"/><path d="m568 204 46 26v103l-46-26Z" fill="#c9b796"/><path d="m579 259 9 5v31l-9-5Z" fill="#234333"/><path d="m584 279 10 6" stroke="#dfc281" stroke-width="4"/>
-<path d="m509 197 30 16v30l-30-16Z" fill="#294838"/><path d="m513 204 22 12v17l-22-12Z" fill="#b3c3a9"/><ellipse cx="395" cy="117" rx="8" ry="10" fill="#fdf9ee"/><circle cx="395" cy="119" r="3" fill="#86a18b"/>
-<!-- Smart TV and cabinet. -->
-<path d="m402 148 109 60v80l-109-60Z" fill="#193d2c"/><path d="m409 159 94 51v63l-94-51Z" fill="url(#screen)" class="room-screen"/><path class="room-screen-art" d="m409 206 28-15 27 35 22-1 17 30v18l-94-51Z" fill="#376850" opacity=".7"/>
-<path d="m393 260 105 57 36-21-106-59Z" fill="#cebb93"/><path d="m393 260 105 57v41l-105-57Z" fill="#ae986e"/><path d="m498 317 36-21v42l-36 20Z" fill="#8d8867"/><path d="m405 278 78 42m-46-27v22m-10-19v13" stroke="#d9c5a0" stroke-width="2"/>
-<!-- Rug, sofa and cushions. -->
-<path d="m174 346 160-85 174 95-156 90Z" fill="#f3f0dd"/><path d="m187 347 148-77 159 86-143 80Z" stroke="#d9d8c0" stroke-width="2"/>
-<path d="m129 313 155-80 85 45v63l-153 84-87-46Z" fill="#284a37"/><path d="m130 298 154-81 39 22-154 83Z" fill="#98b09a"/><path d="m130 298 39 24v58l-39-21Z" fill="#729377"/><path d="m169 322 154-83v47l-154 82Z" fill="url(#couch)"/><path d="m169 357 154-81 40 23-153 84Z" fill="#8ca78e"/>
-<path d="m177 352 62-33 35 19-61 33Z" fill="#a3b89d"/><path d="m244 316 67-35 36 19-67 36Z" fill="#a3b89d"/>
-<path d="m193 323 23-12 20 19-24 13Z" fill="#e0cfaa"/><path d="m268 281 24-12 19 18-23 14Z" fill="#d8bc7a"/>
-<path d="m149 348 22-12 42 24v35l-23 12-41-23Z" fill="#6b8e70"/><path d="m322 259 20-11 40 22v35l-20 12-40-24Z" fill="#6b8e70"/>
-<!-- Coffee table, book, and smart speaker. -->
-<path d="M303 370v35m73-41v34m-18-48v32" stroke="#5b5d43" stroke-width="7"/>
-<ellipse cx="340" cy="362" rx="61" ry="28" fill="#9b8965"/><ellipse cx="340" cy="356" rx="61" ry="27" fill="#e8d2a8"/>
-<path d="m316 353 24-12 26 13-25 13Z" fill="#446e53"/><path d="m316 356 25 14 25-13" stroke="#f4eee0" stroke-width="3"/>
-<ellipse cx="366" cy="347" rx="14" ry="8" fill="#244a39"/><path d="M352 346a14 14 0 0 1 28 0v3c-3 11-25 11-28 0Z" fill="#496b51"/><path d="M354 351c5 6 20 6 24 0" stroke="#6fd1b9" stroke-width="2"/>
-<!-- Floor lamp and an LED strip behind the TV. -->
-<ellipse cx="271" cy="267" rx="18" ry="9" fill="#89835e"/><path d="M271 266V161" stroke="#977b43" stroke-width="5"/><path d="m247 161 13-34h23l14 34c-15 12-35 12-50 0Z" fill="#fbecd0"/>
-<ellipse class="room-light" cx="272" cy="249" rx="86" ry="44" fill="url(#light)"/>
-<path class="room-led" d="m401 146 111 61v82" stroke="#e6c975" stroke-width="4" stroke-linecap="round"/>
-<!-- Indoor plant. -->
-<ellipse cx="570" cy="380" rx="31" ry="14" fill="#b9b69b"/><path d="m546 359 8 39c4 10 29 10 33 0l8-39" fill="#e7e4cf"/><ellipse cx="570" cy="359" rx="25" ry="12" fill="#b3b391"/><path d="M570 363v-84m0 50-30-26m30 18 31-37" stroke="#4a7950" stroke-width="4"/>
-<path d="M570 309c-29-16-31-42-12-53 16 17 13 37 12 53Z" fill="#416b43"/><path d="M570 334c-36-2-45-25-33-44 24 2 34 21 33 44Z" fill="#64885a"/><path d="M573 322c-4-32 14-51 33-41 7 28-12 43-33 41Z" fill="#799665"/>
-</svg>
-<span class="room-label label-light">Luz acolhedora</span><span class="room-label label-panel">Tudo ao alcance</span><span class="room-label label-local">Controle local</span></div>
-   <div class="scene-switch" role="group" aria-label="Simular uma cena"><button type="button" data-scene-button="welcome" aria-pressed="true">Chegar em casa</button><button type="button" data-scene-button="cinema" aria-pressed="false">Modo cinema</button><button type="button" data-scene-button="night" aria-pressed="false">Boa noite</button></div>
-   <p class="scene-description" id="scene-description" aria-live="polite">Luz quente e ambiente pronto para receber você. Simulação visual.</p>
-  </div>
+  <a class="house-preview" href="#casa-interativa">
+   <img src="/static/img/connected-home-plan.jpg" alt="Explore a planta da casa conectada" width="1136" height="1744" fetchpriority="high">
+   <span class="preview-caption"><span>16 ambientes · um toque</span><strong>Experimente a iluminação <span aria-hidden="true">↗</span></strong></span>
+  </a>
  </div>
 </section>
-<nav class="explore-nav wrap" aria-label="Explore esta página"><span>Explore a casa conectada</span><a href="#dispositivos">Dispositivos</a><a href="#primeiros-passos">Primeiros passos</a><a href="#guias">Guias</a><a href="#recursos">Links úteis</a></nav>
+<nav class="explore-nav wrap" aria-label="Explore esta página"><span>Explore a casa conectada</span><a href="#casa-interativa">Casa interativa</a><a href="#dispositivos">Dispositivos</a><a href="#servidor-em-casa">Home server</a><a href="#primeiros-passos">Primeiros passos</a><a href="#guias">Guias</a><a href="#recursos">Links úteis</a></nav>
+<section class="wrap section connected-home" id="casa-interativa" aria-labelledby="house-title" data-house-demo>
+      <header class="section-head editorial-head"><div><p class="eyebrow">01 / Experimente a casa conectada</p><h2 id="house-title">Um toque.<br>Um ambiente diferente.</h2></div><p id="house-help">Toque em um cômodo da planta ou use os botões para acender e apagar sua luz. Experimente também as cenas prontas.</p></header>
+      <div class="house-demo-grid">
+       <div class="plan-frame">
+        <div class="plan-toolbar"><span class="plan-demo-tag">Demonstração interativa</span><button type="button" class="plan-zoom" data-plan-zoom aria-pressed="false" disabled>Ampliar planta <span aria-hidden="true">⤢</span></button></div>
+        <div class="plan-viewport" tabindex="0" role="region" aria-label="Planta da casa. Quando ampliada, role para explorar.">
+         <svg class="house-plan" viewBox="0 150 1136 1450" xmlns="http://www.w3.org/2000/svg" role="group" aria-labelledby="plan-title plan-description">
+          <title id="plan-title">Planta 3D de uma casa conectada</title><desc id="plan-description">Dezesseis zonas de iluminação. Use Tab para escolher e Enter ou espaço para alternar. Os mesmos controles estão na lista de ambientes.</desc>
+          <defs><image id="plan-photo" href="/static/img/connected-home-plan.jpg" width="1136" height="1744"/><clipPath id="clip-suite"><polygon points="375,195 626,234 553,442 303,392"/></clipPath><clipPath id="clip-bedroom-2"><polygon points="635,234 817,253 757,473 565,431"/></clipPath><clipPath id="clip-bedroom-3"><polygon points="911,270 1136,316 1136,540 885,493"/></clipPath><clipPath id="clip-bath-1"><polygon points="292,404 510,436 478,537 250,492"/></clipPath><clipPath id="clip-bath-2"><polygon points="827,259 894,270 844,513 773,490"/></clipPath><clipPath id="clip-bath-3"><polygon points="923,515 1136,545 1090,825 875,778"/></clipPath><clipPath id="clip-living"><polygon points="336,517 653,567 621,803 275,764"/></clipPath><clipPath id="clip-office"><polygon points="689,546 912,590 873,780 640,743"/></clipPath><clipPath id="clip-dining"><polygon points="278,775 606,811 528,1056 208,980"/></clipPath><clipPath id="clip-kitchen"><polygon points="755,818 1087,843 1036,1214 671,1128 711,988"/></clipPath><clipPath id="clip-laundry"><polygon points="610,846 739,879 702,995 571,969"/></clipPath><clipPath id="clip-utility"><polygon points="190,976 420,1021 411,1238 109,1157"/></clipPath><clipPath id="clip-storage"><polygon points="534,1055 661,1090 633,1283 488,1239"/></clipPath><clipPath id="clip-entry"><polygon points="493,1270 625,1303 592,1485 364,1431 405,1274"/></clipPath><clipPath id="clip-terrace"><polygon points="131,544 283,581 211,783 163,946 29,916 70,752"/></clipPath><clipPath id="clip-pool"><polygon points="26,964 102,979 41,1170 0,1145 0,1060"/></clipPath></defs>
+          <use href="#plan-photo" class="plan-base"/><g class="plan-zone" data-room-zone="suite" data-on="true">
+          <g class="plan-lit" clip-path="url(#clip-suite)" pointer-events="none">
+           <use href="#plan-photo"/><polygon points="375,195 626,234 553,442 303,392" fill="#ffcb68" opacity=".14"/>
+          </g>
+          <polygon class="plan-zone-hit" data-room-hit="suite" points="375,195 626,234 553,442 303,392"/>
+         </g><g class="plan-zone" data-room-zone="bedroom-2" data-on="true">
+          <g class="plan-lit" clip-path="url(#clip-bedroom-2)" pointer-events="none">
+           <use href="#plan-photo"/><polygon points="635,234 817,253 757,473 565,431" fill="#ffcb68" opacity=".14"/>
+          </g>
+          <polygon class="plan-zone-hit" data-room-hit="bedroom-2" points="635,234 817,253 757,473 565,431"/>
+         </g><g class="plan-zone" data-room-zone="bedroom-3" data-on="true">
+          <g class="plan-lit" clip-path="url(#clip-bedroom-3)" pointer-events="none">
+           <use href="#plan-photo"/><polygon points="911,270 1136,316 1136,540 885,493" fill="#ffcb68" opacity=".14"/>
+          </g>
+          <polygon class="plan-zone-hit" data-room-hit="bedroom-3" points="911,270 1136,316 1136,540 885,493"/>
+         </g><g class="plan-zone" data-room-zone="bath-1" data-on="true">
+          <g class="plan-lit" clip-path="url(#clip-bath-1)" pointer-events="none">
+           <use href="#plan-photo"/><polygon points="292,404 510,436 478,537 250,492" fill="#ffcb68" opacity=".14"/>
+          </g>
+          <polygon class="plan-zone-hit" data-room-hit="bath-1" points="292,404 510,436 478,537 250,492"/>
+         </g><g class="plan-zone" data-room-zone="bath-2" data-on="true">
+          <g class="plan-lit" clip-path="url(#clip-bath-2)" pointer-events="none">
+           <use href="#plan-photo"/><polygon points="827,259 894,270 844,513 773,490" fill="#ffcb68" opacity=".14"/>
+          </g>
+          <polygon class="plan-zone-hit" data-room-hit="bath-2" points="827,259 894,270 844,513 773,490"/>
+         </g><g class="plan-zone" data-room-zone="bath-3" data-on="true">
+          <g class="plan-lit" clip-path="url(#clip-bath-3)" pointer-events="none">
+           <use href="#plan-photo"/><polygon points="923,515 1136,545 1090,825 875,778" fill="#ffcb68" opacity=".14"/>
+          </g>
+          <polygon class="plan-zone-hit" data-room-hit="bath-3" points="923,515 1136,545 1090,825 875,778"/>
+         </g><g class="plan-zone" data-room-zone="living" data-on="true">
+          <g class="plan-lit" clip-path="url(#clip-living)" pointer-events="none">
+           <use href="#plan-photo"/><polygon points="336,517 653,567 621,803 275,764" fill="#ffcb68" opacity=".14"/>
+          </g>
+          <polygon class="plan-zone-hit" data-room-hit="living" points="336,517 653,567 621,803 275,764"/>
+         </g><g class="plan-zone" data-room-zone="office" data-on="true">
+          <g class="plan-lit" clip-path="url(#clip-office)" pointer-events="none">
+           <use href="#plan-photo"/><polygon points="689,546 912,590 873,780 640,743" fill="#ffcb68" opacity=".14"/>
+          </g>
+          <polygon class="plan-zone-hit" data-room-hit="office" points="689,546 912,590 873,780 640,743"/>
+         </g><g class="plan-zone" data-room-zone="dining" data-on="true">
+          <g class="plan-lit" clip-path="url(#clip-dining)" pointer-events="none">
+           <use href="#plan-photo"/><polygon points="278,775 606,811 528,1056 208,980" fill="#ffcb68" opacity=".14"/>
+          </g>
+          <polygon class="plan-zone-hit" data-room-hit="dining" points="278,775 606,811 528,1056 208,980"/>
+         </g><g class="plan-zone" data-room-zone="kitchen" data-on="true">
+          <g class="plan-lit" clip-path="url(#clip-kitchen)" pointer-events="none">
+           <use href="#plan-photo"/><polygon points="755,818 1087,843 1036,1214 671,1128 711,988" fill="#ffcb68" opacity=".14"/>
+          </g>
+          <polygon class="plan-zone-hit" data-room-hit="kitchen" points="755,818 1087,843 1036,1214 671,1128 711,988"/>
+         </g><g class="plan-zone" data-room-zone="laundry" data-on="true">
+          <g class="plan-lit" clip-path="url(#clip-laundry)" pointer-events="none">
+           <use href="#plan-photo"/><polygon points="610,846 739,879 702,995 571,969" fill="#ffcb68" opacity=".14"/>
+          </g>
+          <polygon class="plan-zone-hit" data-room-hit="laundry" points="610,846 739,879 702,995 571,969"/>
+         </g><g class="plan-zone" data-room-zone="utility" data-on="true">
+          <g class="plan-lit" clip-path="url(#clip-utility)" pointer-events="none">
+           <use href="#plan-photo"/><polygon points="190,976 420,1021 411,1238 109,1157" fill="#ffcb68" opacity=".14"/>
+          </g>
+          <polygon class="plan-zone-hit" data-room-hit="utility" points="190,976 420,1021 411,1238 109,1157"/>
+         </g><g class="plan-zone" data-room-zone="storage" data-on="true">
+          <g class="plan-lit" clip-path="url(#clip-storage)" pointer-events="none">
+           <use href="#plan-photo"/><polygon points="534,1055 661,1090 633,1283 488,1239" fill="#ffcb68" opacity=".14"/>
+          </g>
+          <polygon class="plan-zone-hit" data-room-hit="storage" points="534,1055 661,1090 633,1283 488,1239"/>
+         </g><g class="plan-zone" data-room-zone="entry" data-on="true">
+          <g class="plan-lit" clip-path="url(#clip-entry)" pointer-events="none">
+           <use href="#plan-photo"/><polygon points="493,1270 625,1303 592,1485 364,1431 405,1274" fill="#ffcb68" opacity=".14"/>
+          </g>
+          <polygon class="plan-zone-hit" data-room-hit="entry" points="493,1270 625,1303 592,1485 364,1431 405,1274"/>
+         </g><g class="plan-zone" data-room-zone="terrace" data-on="true">
+          <g class="plan-lit" clip-path="url(#clip-terrace)" pointer-events="none">
+           <use href="#plan-photo"/><polygon points="131,544 283,581 211,783 163,946 29,916 70,752" fill="#ffcb68" opacity=".14"/>
+          </g>
+          <polygon class="plan-zone-hit" data-room-hit="terrace" points="131,544 283,581 211,783 163,946 29,916 70,752"/>
+         </g><g class="plan-zone" data-room-zone="pool" data-on="true">
+          <g class="plan-lit" clip-path="url(#clip-pool)" pointer-events="none">
+           <use href="#plan-photo"/><polygon points="26,964 102,979 41,1170 0,1145 0,1060" fill="#ffcb68" opacity=".14"/>
+          </g>
+          <polygon class="plan-zone-hit" data-room-hit="pool" points="26,964 102,979 41,1170 0,1145 0,1060"/>
+         </g><g class="plan-marker" data-room-marker="suite" data-on="true" transform="translate(455 325)" role="button" tabindex="-1" aria-disabled="true" aria-pressed="true" aria-label="Luz: Suíte principal">
+          <title>Suíte principal</title><circle class="marker-target" r="39"/><circle class="marker-disc" r="26"/>
+          <text text-anchor="middle" dy=".35em" aria-hidden="true">01</text>
+         </g><g class="plan-marker" data-room-marker="bedroom-2" data-on="true" transform="translate(687 361)" role="button" tabindex="-1" aria-disabled="true" aria-pressed="true" aria-label="Luz: Quarto 2">
+          <title>Quarto 2</title><circle class="marker-target" r="39"/><circle class="marker-disc" r="26"/>
+          <text text-anchor="middle" dy=".35em" aria-hidden="true">02</text>
+         </g><g class="plan-marker" data-room-marker="bedroom-3" data-on="true" transform="translate(1010 418)" role="button" tabindex="-1" aria-disabled="true" aria-pressed="true" aria-label="Luz: Quarto 3">
+          <title>Quarto 3</title><circle class="marker-target" r="39"/><circle class="marker-disc" r="26"/>
+          <text text-anchor="middle" dy=".35em" aria-hidden="true">03</text>
+         </g><g class="plan-marker" data-room-marker="bath-1" data-on="true" transform="translate(376 475)" role="button" tabindex="-1" aria-disabled="true" aria-pressed="true" aria-label="Luz: Banheiro da suíte">
+          <title>Banheiro da suíte</title><circle class="marker-target" r="39"/><circle class="marker-disc" r="26"/>
+          <text text-anchor="middle" dy=".35em" aria-hidden="true">04</text>
+         </g><g class="plan-marker" data-room-marker="bath-2" data-on="true" transform="translate(829 408)" role="button" tabindex="-1" aria-disabled="true" aria-pressed="true" aria-label="Luz: Banheiro central">
+          <title>Banheiro central</title><circle class="marker-target" r="39"/><circle class="marker-disc" r="26"/>
+          <text text-anchor="middle" dy=".35em" aria-hidden="true">05</text>
+         </g><g class="plan-marker" data-room-marker="bath-3" data-on="true" transform="translate(1009 674)" role="button" tabindex="-1" aria-disabled="true" aria-pressed="true" aria-label="Luz: Banheiro social">
+          <title>Banheiro social</title><circle class="marker-target" r="39"/><circle class="marker-disc" r="26"/>
+          <text text-anchor="middle" dy=".35em" aria-hidden="true">06</text>
+         </g><g class="plan-marker" data-room-marker="living" data-on="true" transform="translate(455 659)" role="button" tabindex="-1" aria-disabled="true" aria-pressed="true" aria-label="Luz: Sala de estar">
+          <title>Sala de estar</title><circle class="marker-target" r="39"/><circle class="marker-disc" r="26"/>
+          <text text-anchor="middle" dy=".35em" aria-hidden="true">07</text>
+         </g><g class="plan-marker" data-room-marker="office" data-on="true" transform="translate(779 661)" role="button" tabindex="-1" aria-disabled="true" aria-pressed="true" aria-label="Luz: Escritório">
+          <title>Escritório</title><circle class="marker-target" r="39"/><circle class="marker-disc" r="26"/>
+          <text text-anchor="middle" dy=".35em" aria-hidden="true">08</text>
+         </g><g class="plan-marker" data-room-marker="dining" data-on="true" transform="translate(405 895)" role="button" tabindex="-1" aria-disabled="true" aria-pressed="true" aria-label="Luz: Sala de jantar">
+          <title>Sala de jantar</title><circle class="marker-target" r="39"/><circle class="marker-disc" r="26"/>
+          <text text-anchor="middle" dy=".35em" aria-hidden="true">09</text>
+         </g><g class="plan-marker" data-room-marker="kitchen" data-on="true" transform="translate(871 1029)" role="button" tabindex="-1" aria-disabled="true" aria-pressed="true" aria-label="Luz: Cozinha">
+          <title>Cozinha</title><circle class="marker-target" r="39"/><circle class="marker-disc" r="26"/>
+          <text text-anchor="middle" dy=".35em" aria-hidden="true">10</text>
+         </g><g class="plan-marker" data-room-marker="laundry" data-on="true" transform="translate(652 926)" role="button" tabindex="-1" aria-disabled="true" aria-pressed="true" aria-label="Luz: Lavanderia">
+          <title>Lavanderia</title><circle class="marker-target" r="39"/><circle class="marker-disc" r="26"/>
+          <text text-anchor="middle" dy=".35em" aria-hidden="true">11</text>
+         </g><g class="plan-marker" data-room-marker="utility" data-on="true" transform="translate(273 1105)" role="button" tabindex="-1" aria-disabled="true" aria-pressed="true" aria-label="Luz: Área de serviço">
+          <title>Área de serviço</title><circle class="marker-target" r="39"/><circle class="marker-disc" r="26"/>
+          <text text-anchor="middle" dy=".35em" aria-hidden="true">12</text>
+         </g><g class="plan-marker" data-room-marker="storage" data-on="true" transform="translate(570 1176)" role="button" tabindex="-1" aria-disabled="true" aria-pressed="true" aria-label="Luz: Depósito">
+          <title>Depósito</title><circle class="marker-target" r="39"/><circle class="marker-disc" r="26"/>
+          <text text-anchor="middle" dy=".35em" aria-hidden="true">13</text>
+         </g><g class="plan-marker" data-room-marker="entry" data-on="true" transform="translate(490 1374)" role="button" tabindex="-1" aria-disabled="true" aria-pressed="true" aria-label="Luz: Hall de entrada">
+          <title>Hall de entrada</title><circle class="marker-target" r="39"/><circle class="marker-disc" r="26"/>
+          <text text-anchor="middle" dy=".35em" aria-hidden="true">14</text>
+         </g><g class="plan-marker" data-room-marker="terrace" data-on="true" transform="translate(150 777)" role="button" tabindex="-1" aria-disabled="true" aria-pressed="true" aria-label="Luz: Varanda">
+          <title>Varanda</title><circle class="marker-target" r="39"/><circle class="marker-disc" r="26"/>
+          <text text-anchor="middle" dy=".35em" aria-hidden="true">15</text>
+         </g><g class="plan-marker" data-room-marker="pool" data-on="true" transform="translate(48 1066)" role="button" tabindex="-1" aria-disabled="true" aria-pressed="true" aria-label="Luz: Piscina">
+          <title>Piscina</title><circle class="marker-target" r="39"/><circle class="marker-disc" r="26"/>
+          <text text-anchor="middle" dy=".35em" aria-hidden="true">16</text>
+         </g>
+         </svg>
+        </div>
+        <p class="plan-feedback" data-plan-feedback aria-live="polite">Escolha um ambiente para começar.</p>
+       </div>
+       <div class="house-controls">
+        <div class="house-controls-title"><h3>Luzes da casa</h3><span data-lights-count>16 / 16 acesas</span></div>
+        <div class="house-scenes" role="group" aria-label="Cenas de iluminação">
+         <button type="button" data-house-scene="all" aria-pressed="true" disabled>Acender todas</button><button type="button" data-house-scene="off" aria-pressed="false" disabled>Apagar todas</button><button type="button" data-house-scene="welcome" aria-pressed="false" disabled>Chegar em casa</button><button type="button" data-house-scene="night" aria-pressed="false" disabled>Boa noite</button>
+        </div>
+        <div class="room-toggle-grid" role="group" aria-label="Iluminação por ambiente"><button class="room-toggle" type="button" data-room-toggle="suite" aria-pressed="true" aria-label="Luz: Suíte principal" disabled>
+          <span class="room-number" aria-hidden="true">01</span><span class="room-toggle-copy"><strong>Suíte principal</strong><small data-room-state>Acesa</small></span><span class="room-switch" aria-hidden="true"></span>
+         </button><button class="room-toggle" type="button" data-room-toggle="bedroom-2" aria-pressed="true" aria-label="Luz: Quarto 2" disabled>
+          <span class="room-number" aria-hidden="true">02</span><span class="room-toggle-copy"><strong>Quarto 2</strong><small data-room-state>Acesa</small></span><span class="room-switch" aria-hidden="true"></span>
+         </button><button class="room-toggle" type="button" data-room-toggle="bedroom-3" aria-pressed="true" aria-label="Luz: Quarto 3" disabled>
+          <span class="room-number" aria-hidden="true">03</span><span class="room-toggle-copy"><strong>Quarto 3</strong><small data-room-state>Acesa</small></span><span class="room-switch" aria-hidden="true"></span>
+         </button><button class="room-toggle" type="button" data-room-toggle="bath-1" aria-pressed="true" aria-label="Luz: Banheiro da suíte" disabled>
+          <span class="room-number" aria-hidden="true">04</span><span class="room-toggle-copy"><strong>Banheiro da suíte</strong><small data-room-state>Acesa</small></span><span class="room-switch" aria-hidden="true"></span>
+         </button><button class="room-toggle" type="button" data-room-toggle="bath-2" aria-pressed="true" aria-label="Luz: Banheiro central" disabled>
+          <span class="room-number" aria-hidden="true">05</span><span class="room-toggle-copy"><strong>Banheiro central</strong><small data-room-state>Acesa</small></span><span class="room-switch" aria-hidden="true"></span>
+         </button><button class="room-toggle" type="button" data-room-toggle="bath-3" aria-pressed="true" aria-label="Luz: Banheiro social" disabled>
+          <span class="room-number" aria-hidden="true">06</span><span class="room-toggle-copy"><strong>Banheiro social</strong><small data-room-state>Acesa</small></span><span class="room-switch" aria-hidden="true"></span>
+         </button><button class="room-toggle" type="button" data-room-toggle="living" aria-pressed="true" aria-label="Luz: Sala de estar" disabled>
+          <span class="room-number" aria-hidden="true">07</span><span class="room-toggle-copy"><strong>Sala de estar</strong><small data-room-state>Acesa</small></span><span class="room-switch" aria-hidden="true"></span>
+         </button><button class="room-toggle" type="button" data-room-toggle="office" aria-pressed="true" aria-label="Luz: Escritório" disabled>
+          <span class="room-number" aria-hidden="true">08</span><span class="room-toggle-copy"><strong>Escritório</strong><small data-room-state>Acesa</small></span><span class="room-switch" aria-hidden="true"></span>
+         </button><button class="room-toggle" type="button" data-room-toggle="dining" aria-pressed="true" aria-label="Luz: Sala de jantar" disabled>
+          <span class="room-number" aria-hidden="true">09</span><span class="room-toggle-copy"><strong>Sala de jantar</strong><small data-room-state>Acesa</small></span><span class="room-switch" aria-hidden="true"></span>
+         </button><button class="room-toggle" type="button" data-room-toggle="kitchen" aria-pressed="true" aria-label="Luz: Cozinha" disabled>
+          <span class="room-number" aria-hidden="true">10</span><span class="room-toggle-copy"><strong>Cozinha</strong><small data-room-state>Acesa</small></span><span class="room-switch" aria-hidden="true"></span>
+         </button><button class="room-toggle" type="button" data-room-toggle="laundry" aria-pressed="true" aria-label="Luz: Lavanderia" disabled>
+          <span class="room-number" aria-hidden="true">11</span><span class="room-toggle-copy"><strong>Lavanderia</strong><small data-room-state>Acesa</small></span><span class="room-switch" aria-hidden="true"></span>
+         </button><button class="room-toggle" type="button" data-room-toggle="utility" aria-pressed="true" aria-label="Luz: Área de serviço" disabled>
+          <span class="room-number" aria-hidden="true">12</span><span class="room-toggle-copy"><strong>Área de serviço</strong><small data-room-state>Acesa</small></span><span class="room-switch" aria-hidden="true"></span>
+         </button><button class="room-toggle" type="button" data-room-toggle="storage" aria-pressed="true" aria-label="Luz: Depósito" disabled>
+          <span class="room-number" aria-hidden="true">13</span><span class="room-toggle-copy"><strong>Depósito</strong><small data-room-state>Acesa</small></span><span class="room-switch" aria-hidden="true"></span>
+         </button><button class="room-toggle" type="button" data-room-toggle="entry" aria-pressed="true" aria-label="Luz: Hall de entrada" disabled>
+          <span class="room-number" aria-hidden="true">14</span><span class="room-toggle-copy"><strong>Hall de entrada</strong><small data-room-state>Acesa</small></span><span class="room-switch" aria-hidden="true"></span>
+         </button><button class="room-toggle" type="button" data-room-toggle="terrace" aria-pressed="true" aria-label="Luz: Varanda" disabled>
+          <span class="room-number" aria-hidden="true">15</span><span class="room-toggle-copy"><strong>Varanda</strong><small data-room-state>Acesa</small></span><span class="room-switch" aria-hidden="true"></span>
+         </button><button class="room-toggle" type="button" data-room-toggle="pool" aria-pressed="true" aria-label="Luz: Piscina" disabled>
+          <span class="room-number" aria-hidden="true">16</span><span class="room-toggle-copy"><strong>Piscina</strong><small data-room-state>Acesa</small></span><span class="room-switch" aria-hidden="true"></span>
+         </button></div>
+        <p class="house-demo-note">Simulação visual: os cliques mudam apenas a iluminação desta planta. As escolhas ficam salvas neste navegador, inclusive ao trocar PT/EN.</p>
+        <noscript><p>Ative o JavaScript para experimentar os controles de iluminação.</p></noscript>
+       </div>
+      </div>
+    </section>
 <section class="wrap section device-section" aria-labelledby="dispositivos">
- <header class="section-head editorial-head"><div><p class="eyebrow">01 / Conheça as possibilidades</p><h2 id="dispositivos">Pequenos dispositivos.<br>Grandes possibilidades.</h2></div><p>Veja o que cada gadget faz e o que observar antes de integrá-lo. As ilustrações representam categorias, não modelos específicos.</p></header>
+ <header class="section-head editorial-head"><div><p class="eyebrow">02 / Conheça as possibilidades</p><h2 id="dispositivos">Pequenos dispositivos.<br>Grandes possibilidades.</h2></div><p>Veja o que cada gadget faz e o que observar antes de integrá-lo. As ilustrações representam categorias, não modelos específicos.</p></header>
  <div class="filter-bar" data-filter-bar="device" role="group" aria-label="Filtrar dispositivos"><button type="button" data-filter="all" aria-pressed="true">Todos</button><button type="button" data-filter="light" aria-pressed="false">Iluminação</button><button type="button" data-filter="sensor" aria-pressed="false">Sensores</button><button type="button" data-filter="control" aria-pressed="false">Controle e energia</button><button type="button" data-filter="media" aria-pressed="false">Mídia e acesso</button></div><p class="filter-count" id="device-count" aria-live="polite">12 dispositivos para explorar</p><div class="device-grid"><article class="device-card" data-device-category="light" id="device-bulb">
   <div class="device-art"><img src="/static/img/devices/bulb.svg" alt="" width="320" height="220" loading="lazy"><span>Zigbee</span></div>
   <div class="device-copy"><h3>Lâmpadas RGBCCT</h3><p>Cores para criar ambientes. Branco quente ou frio para cada momento.</p>
@@ -219,14 +353,24 @@
   <div class="device-art"><img src="/static/img/devices/esp32.svg" alt="" width="320" height="220" loading="lazy"><span>ESPHome · Wi-Fi</span></div>
   <div class="device-copy"><h3>ESP32 e projetos DIY</h3><p>Crie sensores, controles e dispositivos que atendem à sua ideia.</p>
   <details><summary>O que observar</summary><p>Escolha a placa e os componentes suportados. Comece por um projeto de baixa tensão e use a documentação do ESPHome.</p><a href="/esphome-esp32/">Consultar guia ↗</a></details></div></article></div>
- <details class="gallery-details" open><summary>Ver fotografias de dispositivos reais <span>3 imagens</span></summary><p>Exemplos visuais de produtos e gerações diferentes. Confira a compatibilidade do modelo exato; as fotos não são uma recomendação de compra.</p><div class="photo-grid"><figure class="photo-card"><a href="https://commons.wikimedia.org/wiki/File:Philips_Hue_hub_and_2_bulbs.jpg" target="_blank" rel="noopener noreferrer" aria-label="Ver foto original: Philips Hue · ponte e lâmpadas"><img src="/static/img/devices/hue-photo.jpg" width="800" height="503" alt="Philips Hue · ponte e lâmpadas" loading="lazy"></a><figcaption><strong>Philips Hue · ponte e lâmpadas</strong><small><a href="https://commons.wikimedia.org/wiki/File:Philips_Hue_hub_and_2_bulbs.jpg" target="_blank" rel="noopener noreferrer">Sho Hashimoto</a> · <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener noreferrer">CC BY 2.0</a></small></figcaption></figure>
-<figure class="photo-card"><a href="https://commons.wikimedia.org/wiki/File:Echo_Dot_(3rd_Gen)_02.jpg" target="_blank" rel="noopener noreferrer" aria-label="Ver foto original: Amazon Echo Dot · 3ª geração"><img src="/static/img/devices/echo-photo.jpg" width="3740" height="2805" alt="Amazon Echo Dot · 3ª geração" loading="lazy"></a><figcaption><strong>Amazon Echo Dot · 3ª geração</strong><small><a href="https://commons.wikimedia.org/wiki/File:Echo_Dot_(3rd_Gen)_02.jpg" target="_blank" rel="noopener noreferrer">Samuel Wiki</a> · <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a></small></figcaption></figure>
-<figure class="photo-card"><a href="https://commons.wikimedia.org/wiki/File:Smart-plug.jpg" target="_blank" rel="noopener noreferrer" aria-label="Ver foto original: Smart plug · acionamento remoto"><img src="/static/img/devices/plug-photo.jpg" width="2627" height="2255" alt="Smart plug · acionamento remoto" loading="lazy"></a><figcaption><strong>Smart plug · acionamento remoto</strong><small><a href="https://commons.wikimedia.org/wiki/File:Smart-plug.jpg" target="_blank" rel="noopener noreferrer">TBWABusted</a> · <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener noreferrer">CC BY 2.0</a></small></figcaption></figure></div></details>
+ <details class="gallery-details" open><summary>Fotografias de gerações atuais <span>3 imagens</span></summary><p>Philips Hue, Echo e smart plug com modelos identificados e fontes oficiais. Seleção verificada em setembro de 2026; disponibilidade e recursos variam por país.</p><div class="photo-grid"><figure class="photo-card"><a href="https://www.signify.com/global/our-company/news/press-releases/2026/20260903-philips-hue-expands-on-smart-lighting-with-ai-immersive-entertainment-and-design" target="_blank" rel="noopener noreferrer" aria-label="Fonte oficial: Philips Hue Liane 360°"><img src="/static/img/devices/hue-liane-2026.jpg" width="800" height="450" alt="Philips Hue Liane 360°" loading="lazy" decoding="async"></a><figcaption><strong>Philips Hue Liane 360°</strong><p>Lançamento de setembro de 2026. Iluminação contínua em 360°; disponibilidade por região.</p><small>Imagem: <a href="https://www.signify.com/global/our-company/news/press-releases/2026/20260903-philips-hue-expands-on-smart-lighting-with-ai-immersive-entertainment-and-design" target="_blank" rel="noopener noreferrer">Signify / Philips Hue ↗</a></small></figcaption></figure>
+<figure class="photo-card"><a href="https://www.aboutamazon.com.br/noticias/dispositivos/echo-dot-max-chega-ao-brasil-com-novo-design-e-audio-premium" target="_blank" rel="noopener noreferrer" aria-label="Fonte oficial: Echo Dot Max"><img src="/static/img/devices/echo-dot-max-2025.jpg" width="1176" height="751" alt="Echo Dot Max" loading="lazy" decoding="async"></a><figcaption><strong>Echo Dot Max</strong><p>Geração lançada em 2025, com áudio de duas vias e Alexa.</p><small>Imagem: <a href="https://www.aboutamazon.com.br/noticias/dispositivos/echo-dot-max-chega-ao-brasil-com-novo-design-e-audio-premium" target="_blank" rel="noopener noreferrer">Amazon ↗</a></small></figcaption></figure>
+<figure class="photo-card"><a href="https://us.shelly.com/products/shelly-plug-us-gen4-black" target="_blank" rel="noopener noreferrer" aria-label="Fonte oficial: Shelly Plug US Gen4"><img src="/static/img/devices/shelly-plug-gen4.png" width="800" height="800" alt="Shelly Plug US Gen4" loading="lazy" decoding="async"></a><figcaption><strong>Shelly Plug US Gen4</strong><p>Geração 4 com medição de energia. A foto mostra o padrão dos EUA, 120 V; confira o padrão elétrico local.</p><small>Imagem: <a href="https://us.shelly.com/products/shelly-plug-us-gen4-black" target="_blank" rel="noopener noreferrer">Shelly ↗</a></small></figcaption></figure></div></details>
 </section>
-<section class="journey-section" aria-labelledby="primeiros-passos"><div class="wrap section"><header class="section-head"><p class="eyebrow">02 / Um passo de cada vez</p><h2 id="primeiros-passos">Da ideia à primeira automação.</h2><p>Uma base bem escolhida deixa o caminho mais simples.</p></header>
+<section class="journey-section" aria-labelledby="primeiros-passos"><div class="wrap section"><header class="section-head"><p class="eyebrow">03 / Um passo de cada vez</p><h2 id="primeiros-passos">Da ideia à primeira automação.</h2><p>Uma base bem escolhida deixa o caminho mais simples.</p></header>
  <ol class="journey-steps"><li><span>01</span><h3>Escolha a central</h3><p>Home Assistant Green, Raspberry Pi ou mini-PC: entenda o que combina com o seu projeto.</p><a href="/hardware/">Conhecer o hardware →</a></li><li><span>02</span><h3>Prepare o Home Assistant</h3><p>Instale o sistema, configure um backup e organize os ambientes da casa.</p><a href="/instalar-haos/">Seguir a instalação →</a></li><li><span>03</span><h3>Comece por um cômodo</h3><p>Um sensor e uma luz já permitem uma automação útil. Expanda quando a base estiver funcionando.</p><a href="/zigbee/">Entender as conexões →</a></li></ol>
  <div class="connection-flow"><span>Sensor detecta</span><b aria-hidden="true">→</b><strong>Home Assistant</strong><b aria-hidden="true">→</b><span>A casa responde</span></div><p class="flow-caption">Exemplo: presença + pouca luz → acender a luminária. O funcionamento local depende das integrações escolhidas.</p></div></section>
-<section class="wrap section" aria-labelledby="guias"><header class="section-head editorial-head"><div><p class="eyebrow">03 / Aprenda na prática</p><h2 id="guias">O próximo passo tem um guia.</h2></div><p>Plataformas, protocolos e projetos explicados para você consultar no seu ritmo.</p></header><div class="cards"><a class="card" href="/instalacao/">
+<section class="server-section" id="servidor-em-casa" aria-labelledby="server-title"><div class="wrap section">
+ <header class="section-head editorial-head"><div><p class="eyebrow">04 / Seu servidor, suas possibilidades</p><h2 id="server-title">Uma nuvem com<br>endereço de casa.</h2></div><p>Fotos, arquivos, mídia e aplicativos no seu próprio equipamento. CasaOS e umbrelOS simplificam o dia a dia de um servidor doméstico.</p></header>
+ <div class="server-platforms">
+  <article class="server-platform"><span class="server-monogram" aria-hidden="true">C</span><h3>CasaOS</h3><p>Um painel web instalado sobre um Linux compatível. Reúne arquivos, discos e aplicativos Docker em uma interface simples — uma boa porta de entrada para reaproveitar um PC ou Raspberry Pi.</p><p class="platform-detail">O site oficial também apresenta o ZimaOS, evolução do ecossistema com foco em NAS.</p><div class="platform-links"><a href="https://casaos.zimaspace.com/" target="_blank" rel="noopener noreferrer">Conhecer CasaOS ↗</a><a href="https://github.com/IceWhaleTech/CasaOS" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div></article>
+  <article class="server-platform"><span class="server-monogram" aria-hidden="true">u</span><h3>umbrelOS</h3><p>Um sistema completo para sua nuvem pessoal, administrado pelo navegador. Sua loja facilita a instalação de aplicativos de arquivos, fotos, mídia e outros serviços no hardware compatível.</p><p class="platform-detail">Disponível para equipamentos Umbrel, PCs Intel/AMD, Raspberry Pi 5 e máquinas virtuais compatíveis.</p><div class="platform-links"><a href="https://umbrel.com/umbrelos" target="_blank" rel="noopener noreferrer">Conhecer umbrelOS ↗</a><a href="https://apps.umbrel.com/" target="_blank" rel="noopener noreferrer">App Store ↗</a></div></article>
+ </div>
+ <div class="server-ha-note"><strong>E o Home Assistant?</strong><p>Ele coordena a automação da casa. CasaOS e umbrelOS organizam os serviços do servidor. Se o Home Assistant rodar em container, os apps complementares são administrados separadamente.</p><a href="/casaos-umbrel/">Comparar e escolher a instalação →</a></div>
+ <header class="hardware-heading"><h3>O hardware por trás das ideias</h3><p>Do Raspberry Pi ao mini-PC: dois formatos para explorar.</p></header><div class="photo-grid hardware-gallery"><figure class="photo-card"><a href="https://www.raspberrypi.com/news/m-2-hat-compact-on-sale-now-at-15/" target="_blank" rel="noopener noreferrer" aria-label="Fonte oficial: Raspberry Pi 5 · case oficial"><img src="/static/img/devices/raspberry-pi-5-case.jpg" width="800" height="535" alt="Raspberry Pi 5 · case oficial" loading="lazy" decoding="async"></a><figcaption><strong>Raspberry Pi 5 · case oficial</strong><p>Raspberry Pi 5 no gabinete oficial, com o acessório M.2 HAT+ Compact visível na foto. Uma base compacta para projetos de automação.</p><small>Imagem: <a href="https://www.raspberrypi.com/news/m-2-hat-compact-on-sale-now-at-15/" target="_blank" rel="noopener noreferrer">Raspberry Pi ↗</a></small></figcaption></figure>
+<figure class="photo-card"><a href="https://www.asus.com/displays-desktops/nucs/nuc-mini-pcs/asus-nuc-16-pro/" target="_blank" rel="noopener noreferrer" aria-label="Fonte oficial: Mini-PC · ASUS NUC 16 Pro"><img src="/static/img/devices/modern-mini-pc.png" width="800" height="800" alt="Mini-PC · ASUS NUC 16 Pro" loading="lazy" decoding="async"></a><figcaption><strong>Mini-PC · ASUS NUC 16 Pro</strong><p>Exemplo real de mini-PC moderno. O formato compacto pode abrigar um servidor doméstico; dimensione CPU, RAM e SSD para seu projeto.</p><small>Imagem: <a href="https://www.asus.com/displays-desktops/nucs/nuc-mini-pcs/asus-nuc-16-pro/" target="_blank" rel="noopener noreferrer">ASUS ↗</a></small></figcaption></figure></div>
+ </div></section>
+<section class="wrap section" aria-labelledby="guias"><header class="section-head editorial-head"><div><p class="eyebrow">05 / Aprenda na prática</p><h2 id="guias">O próximo passo tem um guia.</h2></div><p>Plataformas, protocolos e projetos explicados para você consultar no seu ritmo.</p></header><div class="cards"><a class="card" href="/instalacao/">
         <span class="card-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 15c-1 2-1 4-1 4s2 0 4-1"/><path d="M13.5 4.5C16 2 21 3 21 3s1 5-1.5 7.5L14 16l-6-6 5.5-5.5Z"/><circle cx="15.5" cy="8.5" r="1.5"/><path d="m8 10-4 1 1 4 4-1"/></svg></span>
         <span class="card-tag">Começando</span>
         <h3>Comece aqui: instalando o Home Assistant do zero</h3>
@@ -352,9 +496,13 @@
         <p>Referência prática do CLI ha, do terminal Alpine do app Terminal &amp; SSH e dos comandos de diagnóstico que resolvem 90% dos problemas do Home Assistant.</p>
         <span class="card-go">Ler o guia <span aria-hidden="true">→</span></span>
       </a></div><p class="section-more"><a class="btn btn-ghost" href="/artigos/">Explorar os 18 guias →</a></p></section>
-<section class="wrap section protocol-section" aria-labelledby="protocolos"><header class="section-head"><p class="eyebrow">04 / Entenda as conexões</p><h2 id="protocolos">Cada conexão tem seu lugar.</h2><p>Zigbee, Thread e Wi-Fi são redes. Matter é uma camada de interoperabilidade que pode usar Thread ou Wi-Fi/Ethernet.</p></header>
+<section class="wrap section protocol-section" aria-labelledby="protocolos"><header class="section-head"><p class="eyebrow">06 / Entenda as conexões</p><h2 id="protocolos">Cada conexão tem seu lugar.</h2><p>Zigbee, Thread e Wi-Fi são redes. Matter é uma camada de interoperabilidade que pode usar Thread ou Wi-Fi/Ethernet.</p></header>
  <div class="protocol-grid"><article><span class="protocol-symbol" aria-hidden="true">◈</span><h3>Zigbee</h3><p>Rede em malha comum em sensores, lâmpadas e botões. Usa um coordenador compatível.</p><a href="/zigbee/">Conhecer Zigbee →</a></article><article><span class="protocol-symbol" aria-hidden="true">◎</span><h3>Thread + Matter</h3><p>Thread forma a rede de baixo consumo. Para dispositivos Matter sobre Thread, é necessário um border router e um controlador Matter.</p><a href="/matter-thread/">Entender a diferença →</a></article><article><span class="protocol-symbol" aria-hidden="true">⌁</span><h3>Wi-Fi / Ethernet</h3><p>Conexão IP para TVs, câmeras, painéis e outros equipamentos. Controle local depende do dispositivo e da integração.</p><a href="/rede-wifi/">Planejar a rede →</a></article></div></section>
-<section class="resources-section" aria-labelledby="recursos"><div class="wrap section"><header class="section-head editorial-head"><div><p class="eyebrow">05 / Uma comunidade inteira por perto</p><h2 id="recursos">Bons links.<br>Novas ideias.</h2></div><p>Acesse os projetos oficiais, confira a documentação e encontre quem está construindo junto.</p></header><div class="filter-bar" data-filter-bar="resource" role="group" aria-label="Filtrar links úteis"><button type="button" data-filter="all" aria-pressed="true">Todos os links</button><button type="button" data-filter="base" aria-pressed="false">Começar e integrar</button><button type="button" data-filter="build" aria-pressed="false">Construir e configurar</button><button type="button" data-filter="community" aria-pressed="false">Comunidade</button></div><p class="filter-count" id="resource-count" aria-live="polite">16 links para consultar</p><div class="resource-grid"><a class="resource-card" data-resource-category="base" href="https://www.home-assistant.io/" target="_blank" rel="noopener noreferrer"><span class="resource-mark" aria-hidden="true">HA</span><span><strong>Home Assistant</strong><small>O ponto de partida: plataforma, documentação e novidades.</small></span><span class="resource-arrow" aria-hidden="true">↗</span></a>
+<section class="resources-section" aria-labelledby="recursos"><div class="wrap section"><header class="section-head editorial-head"><div><p class="eyebrow">07 / Uma comunidade inteira por perto</p><h2 id="recursos">Bons links.<br>Novas ideias.</h2></div><p>Acesse os projetos oficiais, confira a documentação e encontre quem está construindo junto.</p></header><div class="filter-bar" data-filter-bar="resource" role="group" aria-label="Filtrar links úteis"><button type="button" data-filter="all" aria-pressed="true">Todos os links</button><button type="button" data-filter="base" aria-pressed="false">Começar e integrar</button><button type="button" data-filter="build" aria-pressed="false">Construir e configurar</button><button type="button" data-filter="community" aria-pressed="false">Comunidade</button></div><p class="filter-count" id="resource-count" aria-live="polite">20 links para consultar</p><div class="resource-grid"><a class="resource-card" data-resource-category="base" href="https://casaos.zimaspace.com/" target="_blank" rel="noopener noreferrer"><span class="resource-mark" aria-hidden="true">C</span><span><strong>CasaOS</strong><small>Um painel para arquivos e aplicativos Docker no seu servidor.</small></span><span class="resource-arrow" aria-hidden="true">↗</span></a>
+<a class="resource-card" data-resource-category="base" href="https://umbrel.com/umbrelos" target="_blank" rel="noopener noreferrer"><span class="resource-mark" aria-hidden="true">u</span><span><strong>umbrelOS</strong><small>Sistema para criar sua nuvem pessoal em casa.</small></span><span class="resource-arrow" aria-hidden="true">↗</span></a>
+<a class="resource-card" data-resource-category="build" href="https://apps.umbrel.com/" target="_blank" rel="noopener noreferrer"><span class="resource-mark" aria-hidden="true">u+</span><span><strong>Umbrel App Store</strong><small>Explore os aplicativos para instalar no umbrelOS.</small></span><span class="resource-arrow" aria-hidden="true">↗</span></a>
+<a class="resource-card" data-resource-category="build" href="https://www.zimaspace.com/zimaos" target="_blank" rel="noopener noreferrer"><span class="resource-mark" aria-hidden="true">Z</span><span><strong>ZimaOS</strong><small>Conheça a evolução do ecossistema CasaOS, com foco em NAS.</small></span><span class="resource-arrow" aria-hidden="true">↗</span></a>
+<a class="resource-card" data-resource-category="base" href="https://www.home-assistant.io/" target="_blank" rel="noopener noreferrer"><span class="resource-mark" aria-hidden="true">HA</span><span><strong>Home Assistant</strong><small>O ponto de partida: plataforma, documentação e novidades.</small></span><span class="resource-arrow" aria-hidden="true">↗</span></a>
 <a class="resource-card" data-resource-category="base" href="https://www.nabucasa.com/" target="_blank" rel="noopener noreferrer"><span class="resource-mark" aria-hidden="true">NC</span><span><strong>Nabu Casa</strong><small>Cloud opcional, acesso remoto e integração com Alexa.</small></span><span class="resource-arrow" aria-hidden="true">↗</span></a>
 <a class="resource-card" data-resource-category="build" href="https://esphome.io/" target="_blank" rel="noopener noreferrer"><span class="resource-mark" aria-hidden="true">ESP</span><span><strong>ESPHome</strong><small>Crie sensores, controles e telas com microcontroladores.</small></span><span class="resource-arrow" aria-hidden="true">↗</span></a>
 <a class="resource-card" data-resource-category="build" href="https://www.zigbee2mqtt.io/" target="_blank" rel="noopener noreferrer"><span class="resource-mark" aria-hidden="true">Z2M</span><span><strong>Zigbee2MQTT</strong><small>Documentação e catálogo de dispositivos Zigbee compatíveis.</small></span><span class="resource-arrow" aria-hidden="true">↗</span></a>
@@ -445,6 +593,6 @@
     </div>
   </div>
 
-  <script src="/static/js/main.js?v=119c164e" defer></script>
+  <script src="/static/js/main.js?v=b1b1216f" defer></script>
 </body>
 </html>

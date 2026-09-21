@@ -276,12 +276,66 @@
       var result=$('#'+kind+'-count');if(result)result.textContent=count+' '+(kind==='device'?(en?'devices to explore':'dispositivos para explorar'):(en?'links to explore':'links para consultar'));
     });});
   });
-  var room=$('.room-card');
-  var sceneText={welcome:en?'Warm lighting and a room ready to welcome you. Visual simulation.':'Luz quente e ambiente pronto para receber você. Simulação visual.',cinema:en?'Dimmed lighting, blue accent LEDs and TV on. Visual simulation.':'Luz reduzida, LED azul e TV ligada. Simulação visual.',night:en?'Lights and TV off, with a dim orientation light. Visual simulation.':'Luzes e TV desligadas, com iluminação suave de orientação. Simulação visual.'};
-  $$('[data-scene-button]').forEach(function(button){button.addEventListener('click',function(){
-    var scene=button.getAttribute('data-scene-button');room.setAttribute('data-scene',scene);
-    $$('[data-scene-button]').forEach(function(b){b.setAttribute('aria-pressed',String(b===button));});
-    $('#scene-description').textContent=sceneText[scene];
-    $('.label-light').textContent=scene==='cinema'?(en?'Movie lighting':'Luz de cinema'):scene==='night'?(en?'Rest mode':'Hora de descansar'):(en?'Warm light':'Luz acolhedora');
-  });});
+  /* The supplied floor plan is a local lighting simulation, with no device API. */
+  var house=$('[data-house-demo]');
+  if(house){
+    var toggles=$$('[data-room-toggle]',house), ids=toggles.map(function(b){return b.dataset.roomToggle;});
+    var lights={}, storageKey='sha-house-lights-v1', saved;
+    try { saved=JSON.parse(localStorage.getItem(storageKey)); } catch(e) {}
+    ids.forEach(function(id){lights[id]=saved&&typeof saved[id]==='boolean'?saved[id]:true;});
+    var presets={all:ids,off:[],welcome:['living','dining','kitchen','entry','terrace'],night:['entry']};
+    var feedback=$('[data-plan-feedback]',house);
+    var announce=function(id){
+      var name=$('[data-room-toggle="'+id+'"] strong',house).textContent;
+      feedback.textContent=name+' · '+(lights[id]?(en?'light on':'luz acesa'):(en?'light off':'luz apagada'));
+    };
+    var renderLights=function(){
+      ids.forEach(function(id){
+        var on=lights[id];
+        var toggle=$('[data-room-toggle="'+id+'"]',house);
+        toggle.setAttribute('aria-pressed',String(on));
+        $('[data-room-state]',toggle).textContent=on?(en?'On':'Acesa'):(en?'Off':'Apagada');
+        var zone=$('[data-room-zone="'+id+'"]',house),marker=$('[data-room-marker="'+id+'"]',house);
+        zone.dataset.on=String(on);marker.dataset.on=String(on);marker.setAttribute('aria-pressed',String(on));
+      });
+      var count=ids.filter(function(id){return lights[id];}).length;
+      $('[data-lights-count]',house).textContent=count+' / '+ids.length+' '+(en?'on':'acesas');
+      $$('[data-house-scene]',house).forEach(function(button){
+        var set=presets[button.dataset.houseScene];
+        button.setAttribute('aria-pressed',String(ids.every(function(id){return lights[id]===(set.indexOf(id)!==-1);})));
+      });
+    };
+    var saveLights=function(){try {localStorage.setItem(storageKey,JSON.stringify(lights));} catch(e) {}};
+    var toggleLight=function(id){lights[id]=!lights[id];renderLights();saveLights();announce(id);};
+    $$('button',house).forEach(function(button){button.disabled=false;});
+    toggles.forEach(function(button){button.addEventListener('click',function(){toggleLight(button.dataset.roomToggle);});});
+    $$('[data-room-hit]',house).forEach(function(area){area.addEventListener('click',function(){toggleLight(area.dataset.roomHit);});});
+    $$('[data-room-marker]',house).forEach(function(marker){
+      var id=marker.dataset.roomMarker;
+      marker.setAttribute('tabindex','0');marker.removeAttribute('aria-disabled');
+      marker.addEventListener('click',function(){toggleLight(id);});
+      marker.addEventListener('keydown',function(e){
+        if(e.key==='Enter'||e.key===' '){e.preventDefault();if(!e.repeat)toggleLight(id);}
+      });
+    });
+    $$('[data-room-toggle],[data-room-marker],[data-room-hit]',house).forEach(function(control){
+      var id=control.dataset.roomToggle||control.dataset.roomMarker||control.dataset.roomHit;
+      var highlight=function(value){$('[data-room-zone="'+id+'"]',house).dataset.active=String(value);};
+      control.addEventListener('pointerenter',function(){highlight(true);});
+      control.addEventListener('pointerleave',function(){highlight(false);});
+      control.addEventListener('focus',function(){highlight(true);});
+      control.addEventListener('blur',function(){highlight(false);});
+    });
+    $$('[data-house-scene]',house).forEach(function(button){button.addEventListener('click',function(){
+      var on=presets[button.dataset.houseScene];ids.forEach(function(id){lights[id]=on.indexOf(id)!==-1;});
+      renderLights();saveLights();feedback.textContent=button.textContent+' · '+$('[data-lights-count]',house).textContent;
+    });});
+    $('[data-plan-zoom]',house).addEventListener('click',function(){
+      var zoom=this.getAttribute('aria-pressed')!=='true';
+      this.setAttribute('aria-pressed',String(zoom));$('.plan-frame',house).dataset.zoom=String(zoom);
+      this.textContent=zoom?(en?'Fit plan ↙':'Ajustar planta ↙'):(en?'Enlarge plan ⤢':'Ampliar planta ⤢');
+      var viewport=$('.plan-viewport',house);viewport.scrollLeft=0;viewport.scrollTop=0;
+    });
+    renderLights();
+  }
 })();
