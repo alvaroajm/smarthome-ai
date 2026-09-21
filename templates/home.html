@@ -1,0 +1,107 @@
+<section class="hero">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="wrap hero-inner">
+      <p class="eyebrow">Casa inteligente · Local · Código aberto</p>
+      <h1>Sua casa inteligente,<br><span class="grad">sem depender da nuvem</span></h1>
+      <p class="lead">
+        Guias diretos e testados sobre <strong>Home Assistant</strong>, <strong>ESPHome</strong> e <strong>ESP32</strong>,
+        <strong>Zigbee2MQTT</strong>, <strong>ZHA</strong>, <strong>Matter over Thread</strong>, <strong>Apple HomeKit</strong>,
+        <strong>Scrypted</strong>, Raspberry Pi e mini-PCs. Do primeiro sensor à automação que ninguém percebe que existe.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="/instalacao/">Comece por aqui</a>
+        <a class="btn btn-ghost" href="/artigos/">Ver os {{total_guias}} guias</a>
+      </div>
+      <dl class="hero-stats">
+        <div><dt>Processamento</dt><dd>100% local</dd></div>
+        <div><dt>Protocolos</dt><dd>Zigbee · Thread · Wi-Fi</dd></div>
+        <div><dt>Licença</dt><dd>Open source</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="wrap section" aria-labelledby="trilha">
+    <header class="section-head">
+      <h2 id="trilha">Três passos para sair do zero</h2>
+      <p>Uma trilha curta, na ordem certa, sem comprar nada antes de entender o porquê.</p>
+    </header>
+    <ol class="steps">
+      <li>
+        <span class="step-num">1</span>
+        <h3>Escolha o cérebro</h3>
+        <p>Raspberry Pi 5, mini-PC N100 ou um appliance pronto. O que muda é consumo, custo e o quanto você quer manter.</p>
+        <a href="/hardware/">Comparar hardware →</a>
+      </li>
+      <li>
+        <span class="step-num">2</span>
+        <h3>Instale o Home Assistant</h3>
+        <p>Home Assistant OS em 30 minutos, com backup configurado antes da primeira automação.</p>
+        <a href="/instalacao/">Guia de instalação →</a>
+      </li>
+      <li>
+        <span class="step-num">3</span>
+        <h3>Escolha o rádio certo</h3>
+        <p>Zigbee para o grosso dos sensores, Thread para o que é Matter, Wi-Fi só quando fizer sentido.</p>
+        <a href="/zigbee/">Entender Zigbee →</a>
+      </li>
+    </ol>
+  </section>
+
+  <section class="wrap section" aria-labelledby="topicos">
+    <header class="section-head">
+      <h2 id="topicos">Explore por tema</h2>
+      <p>Cada guia é independente: leia o que interessa agora e volte depois.</p>
+    </header>
+    <div class="cards">
+      {{cards}}
+    </div>
+  </section>
+
+  <section class="wrap section" aria-labelledby="protocolos">
+    <header class="section-head">
+      <h2 id="protocolos">Zigbee, Thread ou Wi-Fi?</h2>
+      <p>A pergunta que mais chega por e-mail. A resposta curta: use os três, cada um no seu lugar.</p>
+    </header>
+    <div class="table-wrap">
+      <table class="compare">
+        <thead>
+          <tr><th scope="col">Critério</th><th scope="col">Zigbee</th><th scope="col">Thread / Matter</th><th scope="col">Wi-Fi</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Consumo</th><td class="good">Baixíssimo (pilha dura anos)</td><td class="good">Baixíssimo</td><td class="bad">Alto — exige tomada</td></tr>
+          <tr><th scope="row">Rede mesh</th><td class="good">Sim, via dispositivos de tomada</td><td class="good">Sim, nativa</td><td class="mid">Não (depende do roteador)</td></tr>
+          <tr><th scope="row">Precisa de ponte</th><td class="mid">Coordenador USB</td><td class="mid">Border router (Apple TV, HomePod, SkyConnect…)</td><td class="good">Não</td></tr>
+          <tr><th scope="row">Maturidade</th><td class="good">Muito alta</td><td class="mid">Em evolução rápida</td><td class="good">Alta</td></tr>
+          <tr><th scope="row">Melhor para</th><td>Sensores, botões, válvulas</td><td>Dispositivos novos multiplataforma</td><td>Câmeras, TVs, aspiradores</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note">Regra prática: se funciona com pilha, prefira Zigbee ou Thread. Se precisa de banda (vídeo, áudio), Wi-Fi.</p>
+  </section>
+
+  <section class="wrap section" aria-labelledby="recentes">
+    <header class="section-head">
+      <h2 id="recentes">Guias em destaque</h2>
+      <p>Comece por qualquer um — todos assumem que você está começando.</p>
+    </header>
+    <ul class="post-list">
+      {{recentes}}
+    </ul>
+    <p class="section-more"><a href="/artigos/">Ver todos os guias →</a></p>
+  </section>
+
+  <section class="wrap section">
+    <div class="panel">
+      <h2>Automação local não é radicalismo, é engenharia</h2>
+      <p>
+        Uma casa que depende da nuvem para acender a luz falha quando a internet cai, quando o fabricante
+        encerra o serviço e quando o app muda de dono. O modelo defendido aqui é simples: o controle mora
+        dentro de casa, a nuvem é opcional e todo dispositivo precisa ter um plano B. É mais barato,
+        mais rápido e infinitamente mais previsível.
+      </p>
+      <p class="cta-row">
+        <a class="btn btn-primary" href="/instalacao/">Montar a base da sua casa</a>
+        <a class="btn btn-ghost" href="/faq/">Tirar dúvidas primeiro</a>
+      </p>
+    </div>
+  </section>

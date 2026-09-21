@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Apple HomeKit + Home Assistant: o melhor dos dois mundos · SmartHome-AI</title>
+  <meta name="description" content="Como expor tudo do Home Assistant no app Casa, usar Siri e atalhos sem abrir mão da automação local, e quando o caminho inverso faz mais sentido.">
+  <meta name="author" content="Dr. Álvaro Menezes">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0b1110">
+  <link rel="canonical" href="https://smarthome-ai.com/apple-homekit/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SmartHome-AI">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="Apple HomeKit + Home Assistant: o melhor dos dois mundos · SmartHome-AI">
+  <meta property="og:description" content="Como expor tudo do Home Assistant no app Casa, usar Siri e atalhos sem abrir mão da automação local, e quando o caminho inverso faz mais sentido.">
+  <meta property="og:url" content="https://smarthome-ai.com/apple-homekit/">
+  <meta property="og:image" content="https://smarthome-ai.com/static/img/logo-smarthome-ai.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Apple HomeKit + Home Assistant: o melhor dos dois mundos · SmartHome-AI">
+  <meta name="twitter:description" content="Como expor tudo do Home Assistant no app Casa, usar Siri e atalhos sem abrir mão da automação local, e quando o caminho inverso faz mais sentido.">
+  <meta name="twitter:image" content="https://smarthome-ai.com/static/img/logo-smarthome-ai.jpg">
+
+  <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/static/img/logo-smarthome-ai.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script>
+    // Evita "flash" de tema errado: aplica a preferência salva antes da pintura.
+    (function () {
+      try {
+        var t = localStorage.getItem('sha-theme');
+        if (t) document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+  
+</head>
+<body class="article">
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="SmartHome-AI — início">
+        <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+          <defs>
+            <linearGradient id="g-gold" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#F3D68B"/><stop offset="1" stop-color="#B8891F"/>
+            </linearGradient>
+          </defs>
+          <rect x="1.5" y="1.5" width="37" height="37" rx="11" fill="none" stroke="url(#g-gold)" stroke-width="1.6"/>
+          <path d="M9 21.5 20 12l11 9.5" fill="none" stroke="url(#g-gold)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12.5 20.5V29h15v-8.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>
+          <circle cx="20" cy="24.5" r="2.6" fill="none" stroke="url(#g-gold)" stroke-width="1.8"/>
+          <path d="M20 21.9v-2.2M20 27.1v1.9M17.4 24.5h-2M24.6 24.5h-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".6"/>
+        </svg>
+        <span class="brand-text">
+          <strong>SmartHome<span class="accent">-AI</span></strong>
+          <small>Inteligência para o seu lar</small>
+        </span>
+      </a>
+
+      <nav class="site-nav" id="menu" aria-label="Navegação principal">
+        <a href="/">Início</a>
+        <a href="/artigos/">Artigos</a>
+        <a href="/instalacao/">Comece aqui</a>
+        <a href="/faq/">FAQ</a>
+        <a href="/sobre/">Sobre</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-btn" id="search-open" aria-label="Buscar no site" title="Buscar (tecla /)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </button>
+        <button class="icon-btn" id="theme-toggle" aria-label="Alternar tema claro/escuro" title="Alternar tema">
+          <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5Z"/></svg>
+          <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.6 5.6l1.4 1.4m10 10 1.4 1.4m0-12.8-1.4 1.4m-10 10-1.4 1.4"/></svg>
+        </button>
+        <button class="icon-btn menu-btn" id="menu-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <article class="page">
+    <header class="page-head">
+      <p class="eyebrow">Ecossistemas</p>
+      <h1>Apple HomeKit + Home Assistant: o melhor dos dois mundos</h1>
+      <p class="lead">Como expor tudo do Home Assistant no app Casa, usar Siri e atalhos sem abrir mão da automação local, e quando o caminho inverso faz mais sentido.</p>
+      <p class="byline">8 min de leitura</p>
+    </header>
+    <div class="article-grid">
+      <nav class="toc" aria-label="Sumário"><p class="toc-title">Neste guia</p><div class="toc">
+<ul>
+<li><a href="#as-tres-formas-de-conectar">As três formas de conectar</a></li>
+<li><a href="#o-arranjo-que-funciona-bem-no-dia-a-dia">O arranjo que funciona bem no dia a dia</a></li>
+<li><a href="#siri-e-a-linguagem-natural">Siri e a linguagem natural</a></li>
+<li><a href="#presenca-o-que-funciona-melhor-no-iphone">Presença: o que funciona melhor no iPhone</a></li>
+<li><a href="#cameras-da-apple-x-cameras-no-home-assistant">Câmeras da Apple x câmeras no Home Assistant</a></li>
+</ul>
+</div>
+</nav>
+      <div class="prose">
+        <p>Quem vive no ecossistema Apple costuma querer duas coisas ao mesmo tempo: a elegância do app <strong>Casa</strong> no
+iPhone, no Apple Watch e no CarPlay, e a liberdade do <strong>Home Assistant</strong> para automações que o app Casa nunca
+vai permitir. A boa notícia: não é preciso escolher.</p>
+<h3 id="as-tres-formas-de-conectar">As três formas de conectar<a class="headerlink" href="#as-tres-formas-de-conectar" title="Permanent link">#</a></h3>
+<h4 id="1-homekit-bridge-do-home-assistant-para-a-apple-o-caminho-principal">1. HomeKit Bridge — do Home Assistant para a Apple (o caminho principal)<a class="headerlink" href="#1-homekit-bridge-do-home-assistant-para-a-apple-o-caminho-principal" title="Permanent link">#</a></h4>
+<p>O Home Assistant vira um acessório HomeKit e publica as entidades que você escolher no app Casa. Qualquer
+dispositivo — Zigbee, ESPHome, Wi-Fi, Matter, sensores calculados — aparece no iPhone como acessório nativo,
+com Siri e automações do app Casa funcionando.</p>
+<pre><code class="language-yaml"># configuration.yaml — publique só o que interessa
+homekit:
+  - name: Casa HA
+    port: 21063
+    filter:
+      include_domains:
+        - light
+        - climate
+        - cover
+        - lock
+      include_entities:
+        - sensor.temperatura_quarto
+        - binary_sensor.porta_garagem
+      exclude_entity_globs:
+        - &quot;*_bateria&quot;
+</code></pre>
+<p>Depois de reiniciar, o Home Assistant mostra uma notificação com o <strong>código de pareamento</strong> — escaneie no
+app Casa. A partir daí, tudo o que você criar no Home Assistant pode ser espelhado na Apple.</p>
+<div class="admonition dica">
+<p class="admonition-title">Publique pouco e com critério</p>
+<p>Enviar 300 entidades para o HomeKit deixa o app Casa lento e bagunçado. Exponha o que você realmente
+controla pelo iPhone: luzes, cortinas, ar-condicionado, fechaduras e uns poucos sensores.</p>
+</div>
+<h4 id="2-homekit-device-da-apple-para-o-home-assistant">2. HomeKit Device — da Apple para o Home Assistant<a class="headerlink" href="#2-homekit-device-da-apple-para-o-home-assistant" title="Permanent link">#</a></h4>
+<p>O caminho inverso: acessórios que falam HomeKit nativamente (Eve, Aqara, Nanoleaf, muitas câmeras) podem ser
+adicionados <strong>diretamente</strong> ao Home Assistant pela integração <em>HomeKit Device</em>, sem app Casa e sem nuvem.
+Funciona muito bem — mas um acessório só pode ser pareado por um controlador HomeKit por vez, então escolha
+antes se ele vai morar na Casa da Apple ou no Home Assistant.</p>
+<h4 id="3-matter-os-dois-ao-mesmo-tempo-de-verdade">3. Matter — os dois ao mesmo tempo, de verdade<a class="headerlink" href="#3-matter-os-dois-ao-mesmo-tempo-de-verdade" title="Permanent link">#</a></h4>
+<p>Com <a href="/matter-thread/">Matter</a>, o recurso <strong>multi-admin</strong> permite que o mesmo dispositivo esteja na Casa da
+Apple <strong>e</strong> no Home Assistant simultaneamente, sem ponte e sem duplicação. É a melhor situação possível e o
+motivo principal para preferir Matter nos aparelhos novos.</p>
+<h3 id="o-arranjo-que-funciona-bem-no-dia-a-dia">O arranjo que funciona bem no dia a dia<a class="headerlink" href="#o-arranjo-que-funciona-bem-no-dia-a-dia" title="Permanent link">#</a></h3>
+<ol>
+<li><strong>Automação de verdade no Home Assistant</strong>: condições, horários, presença, lógica com vários sensores.</li>
+<li><strong>App Casa como controle remoto</strong>: botões, Siri, widgets, Apple Watch, CarPlay e a tela bloqueada.</li>
+<li><strong>Atalhos (Shortcuts) como cola</strong>: um atalho pode chamar um webhook do Home Assistant, e um NFC colado
+   na mesa de cabeceira dispara "modo dormir" sem tocar em nada.</li>
+</ol>
+<pre><code class="language-text">NFC na cabeceira → Atalho do iOS → webhook do Home Assistant
+→ apaga luzes, tranca portas, arma sensores, baixa o ar para 24 °C
+</code></pre>
+<p>Webhook correspondente:</p>
+<pre><code class="language-yaml">alias: Modo dormir (via NFC)
+triggers:
+  - trigger: webhook
+    webhook_id: modo_dormir_cabeceira
+    allowed_methods: [POST]
+    local_only: true
+actions:
+  - action: script.rotina_dormir
+</code></pre>
+<h3 id="siri-e-a-linguagem-natural">Siri e a linguagem natural<a class="headerlink" href="#siri-e-a-linguagem-natural" title="Permanent link">#</a></h3>
+<p>O truque para a Siri entender sua casa é <strong>nomear bem os acessórios</strong> no app Casa: nomes curtos, sem
+acentuação exótica e sem repetir o cômodo ("Luz" no quarto, e não "Luz do Quarto do Quarto"). Se você
+prefere falar com o <strong>Assist</strong> do Home Assistant, também dá: um atalho chamando a conversação do Home
+Assistant pode ser acionado por "E aí, Siri, falar com a casa".</p>
+<h3 id="presenca-o-que-funciona-melhor-no-iphone">Presença: o que funciona melhor no iPhone<a class="headerlink" href="#presenca-o-que-funciona-melhor-no-iphone" title="Permanent link">#</a></h3>
+<ul>
+<li><strong>App oficial do Home Assistant</strong> (Companion) com localização em segundo plano e <strong>zonas</strong> definidas.</li>
+<li><strong>Geofencing do app Casa</strong> disparando um atalho quando chega/sai.</li>
+<li><strong>Bluetooth por cômodo</strong> com ESP32 (<code>esp32_ble_tracker</code>) para presença interna — mais preciso e sem GPS.</li>
+</ul>
+<div class="admonition atencao">
+<p class="admonition-title">Automação boa não depende só de presença</p>
+<p>Presença por celular tem latência e falha quando a bateria acaba. Combine com sensores de porta, de
+movimento e horários; a casa precisa se comportar bem mesmo quando o telefone está sem sinal.</p>
+</div>
+<h3 id="cameras-da-apple-x-cameras-no-home-assistant">Câmeras da Apple x câmeras no Home Assistant<a class="headerlink" href="#cameras-da-apple-x-cameras-no-home-assistant" title="Permanent link">#</a></h3>
+<p>O HomeKit Secure Video é conveniente, mas fecha as imagens no ecossistema Apple e cobra armazenamento no
+iCloud. Se você quer detecção de objetos local, gravação contínua e exportação, veja
+<a href="/scrypted/">Scrypted e câmeras</a> — inclusive para levar câmeras "não-HomeKit" para dentro do app Casa.</p>
+        <ul class="tags"><li>HomeKit</li><li>Apple</li><li>Siri</li><li>Matter</li><li>iOS</li></ul>
+      </div>
+    </div>
+    <nav class="pager" aria-label="Navegação entre guias">
+      <a class="pager-prev" href="/matter-thread/"><span>← Anterior</span><strong>Matter e Thread explicados sem marketing</strong></a>
+      <a class="pager-next" href="/scrypted/"><span>Próximo →</span><strong>Câmeras em casa: Scrypted, Frigate e HomeKit Secure Video</strong></a>
+    </nav>
+  </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <strong>SmartHome<span class="accent">-AI</span></strong>
+        <p>Inteligência para o seu lar — guias independentes de casa inteligente, automação local e código aberto.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Rodapé">
+        <div>
+          <h4>Plataformas</h4>
+          <a href="/home-assistant/">Home Assistant</a>
+          <a href="/esphome-esp32/">ESPHome &amp; ESP32</a>
+          <a href="/scrypted/">Scrypted &amp; câmeras</a>
+        </div>
+        <div>
+          <h4>Protocolos</h4>
+          <a href="/zigbee/">Zigbee2MQTT &amp; ZHA</a>
+          <a href="/matter-thread/">Matter &amp; Thread</a>
+          <a href="/apple-homekit/">Apple HomeKit</a>
+        </div>
+        <div>
+          <h4>Site</h4>
+          <a href="/artigos/">Todos os guias</a>
+          <a href="/instalacao/">Comece aqui</a>
+          <a href="/faq/">Dúvidas frequentes</a>
+          <a href="/sobre/">Sobre</a>
+        </div>
+      </nav>
+    </div>
+    <div class="wrap footer-bottom">
+      <p>© 2026 SmartHome-AI · conteúdo por Dr. Álvaro Menezes</p>
+      <p>Feito com HTML, CSS, JavaScript e um gerador estático em Python.</p>
+    </div>
+  </footer>
+
+  <div class="search-modal" id="search-modal" hidden>
+    <div class="search-backdrop" data-close></div>
+    <div class="search-box" role="dialog" aria-modal="true" aria-label="Buscar no site">
+      <div class="search-field">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" id="search-input" placeholder="Buscar: Zigbee, ESPHome, Matter, Raspberry Pi…" autocomplete="off" spellcheck="false">
+        <kbd>Esc</kbd>
+      </div>
+      <ul class="search-results" id="search-results"></ul>
+    </div>
+  </div>
+
+  <script src="/static/js/main.js" defer></script>
+</body>
+</html>

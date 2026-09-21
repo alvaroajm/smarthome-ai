@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ESPHome e ESP32: construa seus próprios dispositivos · SmartHome-AI</title>
+  <meta name="description" content="Como transformar um ESP32 de vinte reais em sensor, interruptor ou controlador integrado ao Home Assistant — com YAML, sem escrever uma linha de C++.">
+  <meta name="author" content="Dr. Álvaro Menezes">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0b1110">
+  <link rel="canonical" href="https://smarthome-ai.com/esphome-esp32/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SmartHome-AI">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="ESPHome e ESP32: construa seus próprios dispositivos · SmartHome-AI">
+  <meta property="og:description" content="Como transformar um ESP32 de vinte reais em sensor, interruptor ou controlador integrado ao Home Assistant — com YAML, sem escrever uma linha de C++.">
+  <meta property="og:url" content="https://smarthome-ai.com/esphome-esp32/">
+  <meta property="og:image" content="https://smarthome-ai.com/static/img/logo-smarthome-ai.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ESPHome e ESP32: construa seus próprios dispositivos · SmartHome-AI">
+  <meta name="twitter:description" content="Como transformar um ESP32 de vinte reais em sensor, interruptor ou controlador integrado ao Home Assistant — com YAML, sem escrever uma linha de C++.">
+  <meta name="twitter:image" content="https://smarthome-ai.com/static/img/logo-smarthome-ai.jpg">
+
+  <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/static/img/logo-smarthome-ai.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script>
+    // Evita "flash" de tema errado: aplica a preferência salva antes da pintura.
+    (function () {
+      try {
+        var t = localStorage.getItem('sha-theme');
+        if (t) document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+  
+</head>
+<body class="article">
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="SmartHome-AI — início">
+        <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+          <defs>
+            <linearGradient id="g-gold" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#F3D68B"/><stop offset="1" stop-color="#B8891F"/>
+            </linearGradient>
+          </defs>
+          <rect x="1.5" y="1.5" width="37" height="37" rx="11" fill="none" stroke="url(#g-gold)" stroke-width="1.6"/>
+          <path d="M9 21.5 20 12l11 9.5" fill="none" stroke="url(#g-gold)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12.5 20.5V29h15v-8.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>
+          <circle cx="20" cy="24.5" r="2.6" fill="none" stroke="url(#g-gold)" stroke-width="1.8"/>
+          <path d="M20 21.9v-2.2M20 27.1v1.9M17.4 24.5h-2M24.6 24.5h-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".6"/>
+        </svg>
+        <span class="brand-text">
+          <strong>SmartHome<span class="accent">-AI</span></strong>
+          <small>Inteligência para o seu lar</small>
+        </span>
+      </a>
+
+      <nav class="site-nav" id="menu" aria-label="Navegação principal">
+        <a href="/">Início</a>
+        <a href="/artigos/">Artigos</a>
+        <a href="/instalacao/">Comece aqui</a>
+        <a href="/faq/">FAQ</a>
+        <a href="/sobre/">Sobre</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-btn" id="search-open" aria-label="Buscar no site" title="Buscar (tecla /)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </button>
+        <button class="icon-btn" id="theme-toggle" aria-label="Alternar tema claro/escuro" title="Alternar tema">
+          <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5Z"/></svg>
+          <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.6 5.6l1.4 1.4m10 10 1.4 1.4m0-12.8-1.4 1.4m-10 10-1.4 1.4"/></svg>
+        </button>
+        <button class="icon-btn menu-btn" id="menu-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <article class="page">
+    <header class="page-head">
+      <p class="eyebrow">DIY & firmware</p>
+      <h1>ESPHome e ESP32: construa seus próprios dispositivos</h1>
+      <p class="lead">Como transformar um ESP32 de vinte reais em sensor, interruptor ou controlador integrado ao Home Assistant — com YAML, sem escrever uma linha de C++.</p>
+      <p class="byline">12 min de leitura</p>
+    </header>
+    <div class="article-grid">
+      <nav class="toc" aria-label="Sumário"><p class="toc-title">Neste guia</p><div class="toc">
+<ul>
+<li><a href="#por-que-isso-muda-o-jogo">Por que isso muda o jogo</a></li>
+<li><a href="#qual-placa-escolher">Qual placa escolher</a></li>
+<li><a href="#o-primeiro-dispositivo-do-zero">O primeiro dispositivo, do zero</a></li>
+<li><a href="#projetos-que-valem-o-fim-de-semana">Projetos que valem o fim de semana</a></li>
+<li><a href="#boas-praticas-que-evitam-dor-de-cabeca">Boas práticas que evitam dor de cabeça</a></li>
+<li><a href="#esphome-x-tasmota-x-firmware-de-fabrica">ESPHome x Tasmota x firmware de fábrica</a></li>
+</ul>
+</div>
+</nav>
+      <div class="prose">
+        <p>O ESPHome é o atalho mais elegante da casa inteligente: você descreve o dispositivo em <strong>YAML</strong>, ele compila
+um firmware sob medida, grava no microcontrolador e o aparelho aparece sozinho no Home Assistant — com
+atualização por Wi-Fi para sempre.</p>
+<h3 id="por-que-isso-muda-o-jogo">Por que isso muda o jogo<a class="headerlink" href="#por-que-isso-muda-o-jogo" title="Permanent link">#</a></h3>
+<ul>
+<li><strong>Sem nuvem e sem app</strong>: o ESP32 conversa direto com o Home Assistant pela API nativa (criptografada).</li>
+<li><strong>Sem programação</strong>: nada de Arduino IDE, bibliotecas e conflitos de versão.</li>
+<li><strong>Atualização OTA</strong>: subiu uma mudança no YAML, o dispositivo se atualiza pelo ar.</li>
+<li><strong>Custo</strong>: um sensor comercial de presença custa o equivalente a três ESP32 com sensores.</li>
+</ul>
+<h3 id="qual-placa-escolher">Qual placa escolher<a class="headerlink" href="#qual-placa-escolher" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Placa</th>
+<th>Boa para</th>
+<th>Observação</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ESP32 (clássico)</strong></td>
+<td>Uso geral, Bluetooth</td>
+<td>Melhor custo-benefício; muitos exemplos</td>
+</tr>
+<tr>
+<td><strong>ESP32-S3</strong></td>
+<td>Voz, câmera, telas</td>
+<td>Mais RAM e PSRAM</td>
+</tr>
+<tr>
+<td><strong>ESP32-C6</strong></td>
+<td>Futuro: <strong>Thread/Matter</strong> e Wi-Fi 6</td>
+<td>Suporte em amadurecimento</td>
+</tr>
+<tr>
+<td><strong>ESP8266</strong></td>
+<td>Projetos mínimos</td>
+<td>Sem Bluetooth; evite em projetos novos</td>
+</tr>
+<tr>
+<td><strong>M5Stack ATOM / ATOM Echo</strong></td>
+<td>Protótipo pronto em caixinha</td>
+<td>Ótimo para satélites de voz</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition dica">
+<p class="admonition-title">Compre com USB-C e antena externa quando possível</p>
+<p>Placas com conector de antena resolvem casos de Wi-Fi fraco em áreas externas e garagens.</p>
+</div>
+<h3 id="o-primeiro-dispositivo-do-zero">O primeiro dispositivo, do zero<a class="headerlink" href="#o-primeiro-dispositivo-do-zero" title="Permanent link">#</a></h3>
+<p>Instale o add-on <strong>ESPHome Device Builder</strong> no Home Assistant (<em>Configurações → Add-ons</em>). Crie um novo
+dispositivo, conecte a placa por USB e grave a primeira vez pelo navegador — depois disso, só OTA.</p>
+<p>Um sensor de temperatura e umidade completo cabe em 30 linhas:</p>
+<pre><code class="language-yaml">esphome:
+  name: sensor-varanda
+  friendly_name: Sensor da Varanda
+
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
+
+logger:
+api:
+  encryption:
+    key: !secret api_key_varanda
+ota:
+  - platform: esphome
+    password: !secret ota_password
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  # Cria um ponto de acesso de resgate se o Wi-Fi sumir
+  ap:
+    ssid: &quot;Varanda Fallback&quot;
+
+sensor:
+  - platform: dht
+    pin: GPIO4
+    model: DHT22
+    temperature:
+      name: &quot;Temperatura da varanda&quot;
+      filters:
+        - median:
+            window_size: 5
+    humidity:
+      name: &quot;Umidade da varanda&quot;
+    update_interval: 60s
+
+  - platform: wifi_signal
+    name: &quot;Sinal Wi-Fi&quot;
+    update_interval: 120s
+</code></pre>
+<p>Salve, clique em <em>Install → Wirelessly</em> e o dispositivo aparece no Home Assistant com as entidades prontas.</p>
+<h3 id="projetos-que-valem-o-fim-de-semana">Projetos que valem o fim de semana<a class="headerlink" href="#projetos-que-valem-o-fim-de-semana" title="Permanent link">#</a></h3>
+<h4 id="1-sensor-de-presenca-real-mmwave">1. Sensor de presença real (mmWave)<a class="headerlink" href="#1-sensor-de-presenca-real-mmwave" title="Permanent link">#</a></h4>
+<p>Sensores PIR só detectam movimento — você fica parado lendo e a luz apaga. Um sensor de radar de onda
+milimétrica (LD2410, LD2450) detecta <strong>presença</strong>, inclusive de quem está imóvel:</p>
+<pre><code class="language-yaml">uart:
+  tx_pin: GPIO17
+  rx_pin: GPIO16
+  baud_rate: 256000
+  parity: NONE
+  stop_bits: 1
+
+ld2410:
+
+binary_sensor:
+  - platform: ld2410
+    has_target:
+      name: &quot;Presença&quot;
+    has_moving_target:
+      name: &quot;Movimento&quot;
+
+number:
+  - platform: ld2410
+    timeout:
+      name: &quot;Tempo até considerar vazio&quot;
+</code></pre>
+<h4 id="2-interruptor-de-parede-que-mantem-a-tecla-fisica">2. Interruptor de parede que mantém a tecla física<a class="headerlink" href="#2-interruptor-de-parede-que-mantem-a-tecla-fisica" title="Permanent link">#</a></h4>
+<p>Um módulo relé atrás do interruptor preserva o uso normal da casa e adiciona controle remoto:</p>
+<pre><code class="language-yaml">switch:
+  - platform: gpio
+    pin: GPIO12
+    id: rele_corredor
+    name: &quot;Luz do corredor&quot;
+    restore_mode: RESTORE_DEFAULT_OFF
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO14
+      mode: INPUT_PULLUP
+      inverted: true
+    id: tecla
+    on_press:
+      - switch.toggle: rele_corredor
+</code></pre>
+<div class="admonition atencao">
+<p class="admonition-title">Rede elétrica exige respeito</p>
+<p>Trabalhar com 127/220 V dentro de caixas de parede é sério: desligue o disjuntor, confira com um
+detector de tensão e, em caso de dúvida, chame um eletricista. Módulos certificados (Sonoff, Shelly)
+já vêm com isolamento adequado e também rodam ESPHome.</p>
+</div>
+<h4 id="3-rastreador-de-presenca-por-bluetooth">3. Rastreador de presença por Bluetooth<a class="headerlink" href="#3-rastreador-de-presenca-por-bluetooth" title="Permanent link">#</a></h4>
+<p>Um ESP32 por cômodo com <code>esp32_ble_tracker</code> transforma a casa num sistema de localização por aproximação,
+útil para saber em qual ambiente alguém está sem instalar câmeras.</p>
+<h4 id="4-satelite-de-voz">4. Satélite de voz<a class="headerlink" href="#4-satelite-de-voz" title="Permanent link">#</a></h4>
+<p>Com um M5Stack ATOM Echo e 15 linhas de YAML você tem um ponto de voz do <em>Assist</em> na cozinha —
+processamento local, sem enviar áudio para fora.</p>
+<h3 id="boas-praticas-que-evitam-dor-de-cabeca">Boas práticas que evitam dor de cabeça<a class="headerlink" href="#boas-praticas-que-evitam-dor-de-cabeca" title="Permanent link">#</a></h3>
+<ul>
+<li><strong>Use <code>secrets.yaml</code></strong> para Wi-Fi, chaves de API e senhas OTA; nunca versione esse arquivo no Git.</li>
+<li><strong>Nomes com padrão</strong>: <code>sala-presenca</code>, <code>varanda-clima</code>. O nome vira o hostname e o prefixo das entidades.</li>
+<li><strong><code>update_interval</code> honesto</strong>: um sensor de temperatura a cada 10 segundos só enche o banco de dados.</li>
+<li><strong>Filtros no dispositivo</strong> (<code>median</code>, <code>sliding_window_moving_average</code>, <code>delta</code>) evitam ruído e escrita inútil.</li>
+<li><strong><code>api: reboot_timeout</code></strong> define o que acontece se o Home Assistant cair — avalie antes de deixar o padrão.</li>
+<li><strong>Guarde os YAMLs num repositório Git</strong>; são a documentação real da sua casa.</li>
+</ul>
+<h3 id="esphome-x-tasmota-x-firmware-de-fabrica">ESPHome x Tasmota x firmware de fábrica<a class="headerlink" href="#esphome-x-tasmota-x-firmware-de-fabrica" title="Permanent link">#</a></h3>
+<ul>
+<li><strong>ESPHome</strong>: integração mais profunda com o Home Assistant, configuração declarativa. <strong>Padrão recomendado.</strong></li>
+<li><strong>Tasmota</strong>: excelente para flashar dispositivos comerciais prontos e falar MQTT com qualquer sistema.</li>
+<li><strong>Firmware de fábrica</strong>: funciona, mas costuma exigir nuvem e app próprio. Quando o aparelho é baseado em
+  ESP, vale trocar — muitos aceitam gravação pelo ar com ferramentas da comunidade.</li>
+</ul>
+<p>Próximo passo natural: escolher o rádio dos sensores comprados prontos em
+<a href="/zigbee/">Zigbee2MQTT ou ZHA</a> e entender onde entra o <a href="/matter-thread/">Matter over Thread</a>.</p>
+        <ul class="tags"><li>ESPHome</li><li>ESP32</li><li>DIY</li><li>YAML</li><li>Sensores</li></ul>
+      </div>
+    </div>
+    <nav class="pager" aria-label="Navegação entre guias">
+      <a class="pager-prev" href="/hardware/"><span>← Anterior</span><strong>Raspberry Pi, mini-PC ou appliance: escolhendo o hardware</strong></a>
+      <a class="pager-next" href="/zigbee/"><span>Próximo →</span><strong>Zigbee na prática: Zigbee2MQTT ou ZHA?</strong></a>
+    </nav>
+  </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <strong>SmartHome<span class="accent">-AI</span></strong>
+        <p>Inteligência para o seu lar — guias independentes de casa inteligente, automação local e código aberto.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Rodapé">
+        <div>
+          <h4>Plataformas</h4>
+          <a href="/home-assistant/">Home Assistant</a>
+          <a href="/esphome-esp32/">ESPHome &amp; ESP32</a>
+          <a href="/scrypted/">Scrypted &amp; câmeras</a>
+        </div>
+        <div>
+          <h4>Protocolos</h4>
+          <a href="/zigbee/">Zigbee2MQTT &amp; ZHA</a>
+          <a href="/matter-thread/">Matter &amp; Thread</a>
+          <a href="/apple-homekit/">Apple HomeKit</a>
+        </div>
+        <div>
+          <h4>Site</h4>
+          <a href="/artigos/">Todos os guias</a>
+          <a href="/instalacao/">Comece aqui</a>
+          <a href="/faq/">Dúvidas frequentes</a>
+          <a href="/sobre/">Sobre</a>
+        </div>
+      </nav>
+    </div>
+    <div class="wrap footer-bottom">
+      <p>© 2026 SmartHome-AI · conteúdo por Dr. Álvaro Menezes</p>
+      <p>Feito com HTML, CSS, JavaScript e um gerador estático em Python.</p>
+    </div>
+  </footer>
+
+  <div class="search-modal" id="search-modal" hidden>
+    <div class="search-backdrop" data-close></div>
+    <div class="search-box" role="dialog" aria-modal="true" aria-label="Buscar no site">
+      <div class="search-field">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" id="search-input" placeholder="Buscar: Zigbee, ESPHome, Matter, Raspberry Pi…" autocomplete="off" spellcheck="false">
+        <kbd>Esc</kbd>
+      </div>
+      <ul class="search-results" id="search-results"></ul>
+    </div>
+  </div>
+
+  <script src="/static/js/main.js" defer></script>
+</body>
+</html>

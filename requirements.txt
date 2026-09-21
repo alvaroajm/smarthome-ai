@@ -1,0 +1,2 @@
+# Dependências do gerador estático do SmartHome-AI
+Markdown>=3.5

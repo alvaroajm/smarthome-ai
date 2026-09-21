@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Matter e Thread explicados sem marketing · SmartHome-AI</title>
+  <meta name="description" content="O que Matter realmente resolve, a diferença entre Matter over Thread e over Wi-Fi, o que é um border router e como isso funciona com Home Assistant e Apple.">
+  <meta name="author" content="Dr. Álvaro Menezes">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0b1110">
+  <link rel="canonical" href="https://smarthome-ai.com/matter-thread/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SmartHome-AI">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="Matter e Thread explicados sem marketing · SmartHome-AI">
+  <meta property="og:description" content="O que Matter realmente resolve, a diferença entre Matter over Thread e over Wi-Fi, o que é um border router e como isso funciona com Home Assistant e Apple.">
+  <meta property="og:url" content="https://smarthome-ai.com/matter-thread/">
+  <meta property="og:image" content="https://smarthome-ai.com/static/img/logo-smarthome-ai.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Matter e Thread explicados sem marketing · SmartHome-AI">
+  <meta name="twitter:description" content="O que Matter realmente resolve, a diferença entre Matter over Thread e over Wi-Fi, o que é um border router e como isso funciona com Home Assistant e Apple.">
+  <meta name="twitter:image" content="https://smarthome-ai.com/static/img/logo-smarthome-ai.jpg">
+
+  <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/static/img/logo-smarthome-ai.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script>
+    // Evita "flash" de tema errado: aplica a preferência salva antes da pintura.
+    (function () {
+      try {
+        var t = localStorage.getItem('sha-theme');
+        if (t) document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+  
+</head>
+<body class="article">
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="SmartHome-AI — início">
+        <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+          <defs>
+            <linearGradient id="g-gold" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#F3D68B"/><stop offset="1" stop-color="#B8891F"/>
+            </linearGradient>
+          </defs>
+          <rect x="1.5" y="1.5" width="37" height="37" rx="11" fill="none" stroke="url(#g-gold)" stroke-width="1.6"/>
+          <path d="M9 21.5 20 12l11 9.5" fill="none" stroke="url(#g-gold)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12.5 20.5V29h15v-8.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>
+          <circle cx="20" cy="24.5" r="2.6" fill="none" stroke="url(#g-gold)" stroke-width="1.8"/>
+          <path d="M20 21.9v-2.2M20 27.1v1.9M17.4 24.5h-2M24.6 24.5h-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".6"/>
+        </svg>
+        <span class="brand-text">
+          <strong>SmartHome<span class="accent">-AI</span></strong>
+          <small>Inteligência para o seu lar</small>
+        </span>
+      </a>
+
+      <nav class="site-nav" id="menu" aria-label="Navegação principal">
+        <a href="/">Início</a>
+        <a href="/artigos/">Artigos</a>
+        <a href="/instalacao/">Comece aqui</a>
+        <a href="/faq/">FAQ</a>
+        <a href="/sobre/">Sobre</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-btn" id="search-open" aria-label="Buscar no site" title="Buscar (tecla /)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </button>
+        <button class="icon-btn" id="theme-toggle" aria-label="Alternar tema claro/escuro" title="Alternar tema">
+          <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5Z"/></svg>
+          <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.6 5.6l1.4 1.4m10 10 1.4 1.4m0-12.8-1.4 1.4m-10 10-1.4 1.4"/></svg>
+        </button>
+        <button class="icon-btn menu-btn" id="menu-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <article class="page">
+    <header class="page-head">
+      <p class="eyebrow">Protocolos</p>
+      <h1>Matter e Thread explicados sem marketing</h1>
+      <p class="lead">O que Matter realmente resolve, a diferença entre Matter over Thread e over Wi-Fi, o que é um border router e como isso funciona com Home Assistant e Apple.</p>
+      <p class="byline">10 min de leitura</p>
+    </header>
+    <div class="article-grid">
+      <nav class="toc" aria-label="Sumário"><p class="toc-title">Neste guia</p><div class="toc">
+<ul>
+<li><a href="#matter-over-thread-x-matter-over-wi-fi">Matter over Thread x Matter over Wi-Fi</a></li>
+<li><a href="#o-que-e-um-border-router-e-voce-provavelmente-ja-tem-um">O que é um border router (e você provavelmente já tem um)</a></li>
+<li><a href="#matter-no-home-assistant-passo-a-passo">Matter no Home Assistant, passo a passo</a></li>
+<li><a href="#requisitos-de-rede-que-ninguem-avisa">Requisitos de rede que ninguém avisa</a></li>
+<li><a href="#vale-esperar-tudo-virar-matter">Vale esperar tudo virar Matter?</a></li>
+</ul>
+</div>
+</nav>
+      <div class="prose">
+        <p>A confusão começa aqui, então vamos separar de uma vez: <strong>Matter é o idioma, Thread é a estrada.</strong></p>
+<ul>
+<li><strong>Matter</strong> é o protocolo de aplicação — o vocabulário comum que define o que é uma lâmpada, uma
+  fechadura ou um sensor, para que Apple, Google, Amazon e Home Assistant entendam o mesmo aparelho.</li>
+<li><strong>Thread</strong> é a rede de rádio de baixo consumo, em malha, parecida com Zigbee na ideia, mas baseada em IPv6.</li>
+<li><strong>Wi-Fi e Ethernet</strong> também transportam Matter, para aparelhos que já têm energia de sobra.</li>
+</ul>
+<p>Portanto: um dispositivo pode ser <strong>Matter over Thread</strong> ou <strong>Matter over Wi-Fi</strong> — e a diferença prática é grande.</p>
+<h3 id="matter-over-thread-x-matter-over-wi-fi">Matter over Thread x Matter over Wi-Fi<a class="headerlink" href="#matter-over-thread-x-matter-over-wi-fi" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Matter over Thread</strong></th>
+<th><strong>Matter over Wi-Fi</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Consumo</td>
+<td>Baixíssimo — funciona com pilha</td>
+<td>Alto — precisa de tomada</td>
+</tr>
+<tr>
+<td>Precisa de ponte</td>
+<td>Sim, um <strong>border router</strong></td>
+<td>Não</td>
+</tr>
+<tr>
+<td>Malha</td>
+<td>Sim, entre dispositivos alimentados</td>
+<td>Não</td>
+</tr>
+<tr>
+<td>Típico</td>
+<td>Sensores, fechaduras, botões, válvulas</td>
+<td>Tomadas, purificadores, eletrodomésticos</td>
+</tr>
+<tr>
+<td>Carga na rede Wi-Fi</td>
+<td>Nenhuma</td>
+<td>Mais um cliente por dispositivo</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition dica">
+<p class="admonition-title">Como saber antes de comprar</p>
+<p>A caixa costuma trazer o logotipo Matter e, em letras menores, "Thread" ou "Wi-Fi". Se for sensor a
+pilha e disser Matter, quase certamente é Thread — e você vai precisar de um border router.</p>
+</div>
+<h3 id="o-que-e-um-border-router-e-voce-provavelmente-ja-tem-um">O que é um border router (e você provavelmente já tem um)<a class="headerlink" href="#o-que-e-um-border-router-e-voce-provavelmente-ja-tem-um" title="Permanent link">#</a></h3>
+<p>O border router liga a malha Thread à sua rede IP doméstica. Aparelhos que fazem esse papel:</p>
+<ul>
+<li><strong>Apple TV 4K</strong> (modelos recentes) e <strong>HomePod / HomePod mini</strong></li>
+<li><strong>Google Nest Hub (2ª geração)</strong> e <strong>Nest Wifi Pro</strong></li>
+<li><strong>Amazon Echo</strong> (vários modelos recentes)</li>
+<li><strong>Home Assistant Connect ZBT-1 / SkyConnect</strong> com firmware Thread, via add-on <strong>OpenThread Border Router</strong></li>
+<li>Alguns roteadores e hubs de fabricantes (eero, SmartThings, Aqara)</li>
+</ul>
+<div class="admonition atencao">
+<p class="admonition-title">Várias redes Thread não se juntam sozinhas</p>
+<p>Ter uma Apple TV e um Nest Hub pode criar <strong>duas malhas Thread separadas</strong>. O padrão prevê credenciais
+compartilhadas, e a Apple e o Google já trocam chaves em muitos cenários — mas a realidade doméstica ainda
+varia. Sinal de alerta: sensores que caem quando você desliga um aparelho específico.
+Verifique em <em>Configurações → Dispositivos e serviços → Thread</em> no Home Assistant, que lista as redes
+visíveis e qual é a preferencial.</p>
+</div>
+<h3 id="matter-no-home-assistant-passo-a-passo">Matter no Home Assistant, passo a passo<a class="headerlink" href="#matter-no-home-assistant-passo-a-passo" title="Permanent link">#</a></h3>
+<ol>
+<li>Instale o add-on <strong>Matter Server</strong> e adicione a integração <strong>Matter</strong>.</li>
+<li>Garanta um border router Thread na rede (add-on OpenThread com o ZBT-1, ou um aparelho Apple/Google).</li>
+<li>Comissione o dispositivo pelo <strong>app do Home Assistant no celular</strong> — o comissionamento exige Bluetooth,
+   por isso é feito pelo telefone, e não pelo navegador.</li>
+<li>Aponte a câmera para o <strong>QR code Matter</strong> do produto (guarde esse código: ele é necessário em recomissionamentos).</li>
+</ol>
+<h4 id="multi-admin-o-superpoder-do-matter">Multi-admin: o superpoder do Matter<a class="headerlink" href="#multi-admin-o-superpoder-do-matter" title="Permanent link">#</a></h4>
+<p>Um mesmo dispositivo pode ser controlado por <strong>vários ecossistemas ao mesmo tempo</strong>. A fechadura pode estar
+na Casa da Apple (para o Face ID e os atalhos do iPhone) e no Home Assistant (para as automações sérias),
+sem ponte nenhuma. O caminho é sempre: comissione em um sistema, depois gere um <strong>código de pareamento
+adicional</strong> e adicione no segundo.</p>
+<pre><code class="language-text">Home Assistant → Dispositivo Matter → ⋮ → &quot;Compartilhar dispositivo&quot;
+→ gera um código de 11 dígitos → use no app Casa (Apple), Google Home, etc.
+</code></pre>
+<h3 id="requisitos-de-rede-que-ninguem-avisa">Requisitos de rede que ninguém avisa<a class="headerlink" href="#requisitos-de-rede-que-ninguem-avisa" title="Permanent link">#</a></h3>
+<ul>
+<li><strong>IPv6 precisa estar ativo</strong> na sua rede local — Thread é IPv6 nativo. Roteadores com IPv6 desligado
+  simplesmente não fazem Matter over Thread funcionar.</li>
+<li><strong>mDNS/Bonjour</strong> precisa circular. Se você separa dispositivos em VLANs ou usa "isolamento de clientes"
+  no Wi-Fi, é necessário liberar mDNS entre as redes.</li>
+<li><strong>Wi-Fi 2,4 GHz disponível</strong>: muitos dispositivos Matter over Wi-Fi não enxergam redes exclusivas de 5 GHz
+  durante o comissionamento. Redes unificadas (mesmo SSID) às vezes atrapalham; um SSID temporário de 2,4 GHz resolve.</li>
+</ul>
+<h3 id="vale-esperar-tudo-virar-matter">Vale esperar tudo virar Matter?<a class="headerlink" href="#vale-esperar-tudo-virar-matter" title="Permanent link">#</a></h3>
+<p>Não. Recomendação prática para quem está montando a casa hoje:</p>
+<ul>
+<li><strong>Sensores baratos, em quantidade</strong>: Zigbee. Preço e catálogo ainda ganham.</li>
+<li><strong>Dispositivos novos que você quer usar em mais de um ecossistema</strong> (fechaduras, persianas, termostatos):
+  Matter over Thread.</li>
+<li><strong>Coisas que precisam de banda</strong> (câmeras, alto-falantes, TVs): Wi-Fi.</li>
+<li><strong>O que for crítico</strong> (portão, alarme, irrigação): prefira o que funcione <strong>sem internet</strong> e tenha
+  acionamento físico de reserva.</li>
+</ul>
+<p>Matter amadurece a cada revisão da especificação, incorporando novas categorias de dispositivos. É a aposta
+certa para o longo prazo — desde que você não descarte o que já funciona bem.</p>
+<p>Continue em <a href="/apple-homekit/">Apple HomeKit</a> para ver como tudo isso aparece no iPhone.</p>
+        <ul class="tags"><li>Matter</li><li>Thread</li><li>Border Router</li><li>HomeKit</li><li>Interoperabilidade</li></ul>
+      </div>
+    </div>
+    <nav class="pager" aria-label="Navegação entre guias">
+      <a class="pager-prev" href="/zigbee/"><span>← Anterior</span><strong>Zigbee na prática: Zigbee2MQTT ou ZHA?</strong></a>
+      <a class="pager-next" href="/apple-homekit/"><span>Próximo →</span><strong>Apple HomeKit + Home Assistant: o melhor dos dois mundos</strong></a>
+    </nav>
+  </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <strong>SmartHome<span class="accent">-AI</span></strong>
+        <p>Inteligência para o seu lar — guias independentes de casa inteligente, automação local e código aberto.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Rodapé">
+        <div>
+          <h4>Plataformas</h4>
+          <a href="/home-assistant/">Home Assistant</a>
+          <a href="/esphome-esp32/">ESPHome &amp; ESP32</a>
+          <a href="/scrypted/">Scrypted &amp; câmeras</a>
+        </div>
+        <div>
+          <h4>Protocolos</h4>
+          <a href="/zigbee/">Zigbee2MQTT &amp; ZHA</a>
+          <a href="/matter-thread/">Matter &amp; Thread</a>
+          <a href="/apple-homekit/">Apple HomeKit</a>
+        </div>
+        <div>
+          <h4>Site</h4>
+          <a href="/artigos/">Todos os guias</a>
+          <a href="/instalacao/">Comece aqui</a>
+          <a href="/faq/">Dúvidas frequentes</a>
+          <a href="/sobre/">Sobre</a>
+        </div>
+      </nav>
+    </div>
+    <div class="wrap footer-bottom">
+      <p>© 2026 SmartHome-AI · conteúdo por Dr. Álvaro Menezes</p>
+      <p>Feito com HTML, CSS, JavaScript e um gerador estático em Python.</p>
+    </div>
+  </footer>
+
+  <div class="search-modal" id="search-modal" hidden>
+    <div class="search-backdrop" data-close></div>
+    <div class="search-box" role="dialog" aria-modal="true" aria-label="Buscar no site">
+      <div class="search-field">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" id="search-input" placeholder="Buscar: Zigbee, ESPHome, Matter, Raspberry Pi…" autocomplete="off" spellcheck="false">
+        <kbd>Esc</kbd>
+      </div>
+      <ul class="search-results" id="search-results"></ul>
+    </div>
+  </div>
+
+  <script src="/static/js/main.js" defer></script>
+</body>
+</html>

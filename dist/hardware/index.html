@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Raspberry Pi, mini-PC ou appliance: escolhendo o hardware · SmartHome-AI</title>
+  <meta name="description" content="Comparação honesta entre Home Assistant Green, Raspberry Pi 5, mini-PCs N100 e NAS, com consumo, armazenamento e quando cada um vale a pena.">
+  <meta name="author" content="Dr. Álvaro Menezes">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0b1110">
+  <link rel="canonical" href="https://smarthome-ai.com/hardware/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SmartHome-AI">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="Raspberry Pi, mini-PC ou appliance: escolhendo o hardware · SmartHome-AI">
+  <meta property="og:description" content="Comparação honesta entre Home Assistant Green, Raspberry Pi 5, mini-PCs N100 e NAS, com consumo, armazenamento e quando cada um vale a pena.">
+  <meta property="og:url" content="https://smarthome-ai.com/hardware/">
+  <meta property="og:image" content="https://smarthome-ai.com/static/img/logo-smarthome-ai.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Raspberry Pi, mini-PC ou appliance: escolhendo o hardware · SmartHome-AI">
+  <meta name="twitter:description" content="Comparação honesta entre Home Assistant Green, Raspberry Pi 5, mini-PCs N100 e NAS, com consumo, armazenamento e quando cada um vale a pena.">
+  <meta name="twitter:image" content="https://smarthome-ai.com/static/img/logo-smarthome-ai.jpg">
+
+  <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/static/img/logo-smarthome-ai.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script>
+    // Evita "flash" de tema errado: aplica a preferência salva antes da pintura.
+    (function () {
+      try {
+        var t = localStorage.getItem('sha-theme');
+        if (t) document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+  
+</head>
+<body class="article">
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="SmartHome-AI — início">
+        <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+          <defs>
+            <linearGradient id="g-gold" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#F3D68B"/><stop offset="1" stop-color="#B8891F"/>
+            </linearGradient>
+          </defs>
+          <rect x="1.5" y="1.5" width="37" height="37" rx="11" fill="none" stroke="url(#g-gold)" stroke-width="1.6"/>
+          <path d="M9 21.5 20 12l11 9.5" fill="none" stroke="url(#g-gold)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12.5 20.5V29h15v-8.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>
+          <circle cx="20" cy="24.5" r="2.6" fill="none" stroke="url(#g-gold)" stroke-width="1.8"/>
+          <path d="M20 21.9v-2.2M20 27.1v1.9M17.4 24.5h-2M24.6 24.5h-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".6"/>
+        </svg>
+        <span class="brand-text">
+          <strong>SmartHome<span class="accent">-AI</span></strong>
+          <small>Inteligência para o seu lar</small>
+        </span>
+      </a>
+
+      <nav class="site-nav" id="menu" aria-label="Navegação principal">
+        <a href="/">Início</a>
+        <a href="/artigos/">Artigos</a>
+        <a href="/instalacao/">Comece aqui</a>
+        <a href="/faq/">FAQ</a>
+        <a href="/sobre/">Sobre</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-btn" id="search-open" aria-label="Buscar no site" title="Buscar (tecla /)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </button>
+        <button class="icon-btn" id="theme-toggle" aria-label="Alternar tema claro/escuro" title="Alternar tema">
+          <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5Z"/></svg>
+          <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.6 5.6l1.4 1.4m10 10 1.4 1.4m0-12.8-1.4 1.4m-10 10-1.4 1.4"/></svg>
+        </button>
+        <button class="icon-btn menu-btn" id="menu-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <article class="page">
+    <header class="page-head">
+      <p class="eyebrow">Hardware</p>
+      <h1>Raspberry Pi, mini-PC ou appliance: escolhendo o hardware</h1>
+      <p class="lead">Comparação honesta entre Home Assistant Green, Raspberry Pi 5, mini-PCs N100 e NAS, com consumo, armazenamento e quando cada um vale a pena.</p>
+      <p class="byline">9 min de leitura</p>
+    </header>
+    <div class="article-grid">
+      <nav class="toc" aria-label="Sumário"><p class="toc-title">Neste guia</p><div class="toc">
+<ul>
+<li><a href="#comparacao-direta">Comparação direta</a></li>
+<li><a href="#armazenamento-onde-quase-todo-projeto-morre">Armazenamento: onde quase todo projeto morre</a></li>
+<li><a href="#raspberry-pi-5-o-que-comprar-junto">Raspberry Pi 5: o que comprar junto</a></li>
+<li><a href="#mini-pc-x86-quando-compensa">Mini-PC x86: quando compensa</a></li>
+<li><a href="#o-detalhe-que-salva-a-rede-zigbee">O detalhe que salva a rede Zigbee</a></li>
+<li><a href="#energia-e-continuidade">Energia e continuidade</a></li>
+<li><a href="#roteiro-de-compra-sugerido">Roteiro de compra sugerido</a></li>
+</ul>
+</div>
+</nav>
+      <div class="prose">
+        <p>A pergunta certa não é "qual é o mais potente", e sim <strong>"quanto trabalho de manutenção eu quero ter"</strong>.
+Quem escolhe hardware demais acaba com um servidor para cuidar; quem escolhe de menos troca tudo em um ano.</p>
+<h3 id="comparacao-direta">Comparação direta<a class="headerlink" href="#comparacao-direta" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Appliance (HA Green)</th>
+<th>Raspberry Pi 5 + NVMe</th>
+<th>Mini-PC N100/N150</th>
+<th>NAS / servidor existente</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Instalação</strong></td>
+<td>Ligou, funcionou</td>
+<td>Média</td>
+<td>Média</td>
+<td>Avançada (Docker/VM)</td>
+</tr>
+<tr>
+<td><strong>Consumo típico</strong></td>
+<td>~2 W</td>
+<td>4–7 W</td>
+<td>7–15 W</td>
+<td>20–40 W</td>
+</tr>
+<tr>
+<td><strong>Preço (BR, estimado)</strong></td>
+<td>Médio</td>
+<td>Médio-alto</td>
+<td>Médio-alto</td>
+<td>Já é seu</td>
+</tr>
+<tr>
+<td><strong>Roda Frigate/IA</strong></td>
+<td>Não</td>
+<td>Limitado</td>
+<td><strong>Sim</strong></td>
+<td>Sim</td>
+</tr>
+<tr>
+<td><strong>Expansão</strong></td>
+<td>Baixa</td>
+<td>Boa (HAT, PoE)</td>
+<td>Ótima</td>
+<td>Ótima</td>
+</tr>
+<tr>
+<td><strong>Manutenção</strong></td>
+<td>Mínima</td>
+<td>Baixa</td>
+<td>Baixa</td>
+<td>Alta</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition dica">
+<p class="admonition-title">Resumo em uma linha</p>
+<p>Quer uma casa inteligente? <strong>HA Green ou Pi 5 com SSD.</strong> Quer também câmeras com detecção de objetos,
+dupla função de servidor de mídia e experimentos com IA local? <strong>Mini-PC x86.</strong></p>
+</div>
+<h3 id="armazenamento-onde-quase-todo-projeto-morre">Armazenamento: onde quase todo projeto morre<a class="headerlink" href="#armazenamento-onde-quase-todo-projeto-morre" title="Permanent link">#</a></h3>
+<ul>
+<li><strong>Cartão microSD: não.</strong> O Home Assistant grava métricas continuamente no banco de dados; cartões de consumo
+  desgastam e corrompem, em geral entre 6 e 18 meses.</li>
+<li><strong>SSD NVMe via HAT</strong> no Raspberry Pi 5 ou <strong>SSD interno</strong> no mini-PC é o padrão hoje.</li>
+<li>128 GB bastam para o sistema; câmeras exigem disco à parte (e, de preferência, um HDD, que aguenta escrita contínua).</li>
+<li>Se você insiste em SD para testar, <strong>reduza a retenção</strong> do recorder e mantenha backups diários.</li>
+</ul>
+<pre><code class="language-yaml"># configuration.yaml — banco de dados mais leve
+recorder:
+  purge_keep_days: 10
+  commit_interval: 30
+  exclude:
+    domains:
+      - device_tracker
+      - automation
+    entity_globs:
+      - sensor.*_rssi
+      - sensor.*_uptime
+</code></pre>
+<h3 id="raspberry-pi-5-o-que-comprar-junto">Raspberry Pi 5: o que comprar junto<a class="headerlink" href="#raspberry-pi-5-o-que-comprar-junto" title="Permanent link">#</a></h3>
+<ul>
+<li>Fonte oficial de 27 W (USB-C PD) — fontes genéricas causam reinícios aleatórios</li>
+<li>HAT NVMe + SSD de 128–256 GB</li>
+<li>Gabinete com dissipador e ventoinha (o Pi 5 esquenta mais que os anteriores)</li>
+<li><strong>Uma extensão USB 2.0 de 1 metro</strong> para o coordenador Zigbee (explicação abaixo)</li>
+<li>Cabo de rede — deixe o Wi-Fi para os dispositivos, não para o servidor</li>
+</ul>
+<h3 id="mini-pc-x86-quando-compensa">Mini-PC x86: quando compensa<a class="headerlink" href="#mini-pc-x86-quando-compensa" title="Permanent link">#</a></h3>
+<p>Um N100 com 16 GB de RAM e SSD de 512 GB roda, ao mesmo tempo: Home Assistant, Frigate com detecção por
+aceleração Intel (OpenVINO/Quick Sync), Zigbee2MQTT, Mosquitto, Scrypted, um servidor de mídia e ainda sobra.
+Duas formas de instalar:</p>
+<ol>
+<li><strong>HAOS direto no disco</strong> — mais simples, o aparelho é "do Home Assistant".</li>
+<li><strong>Proxmox com o Home Assistant em VM</strong> — permite snapshots antes de cada atualização, outras VMs e
+   containers. É a escolha de quem gosta de laboratório — e o caminho natural para quem já tem um
+   <a href="/rede-wifi/">NAS ou homelab</a>.</li>
+</ol>
+<div class="admonition atencao">
+<p class="admonition-title">Mac mini e Raspberry Pi como servidor</p>
+<p>Um Mac mini M4 é excelente para Scrypted, transcodificação e IA local — mas o Home Assistant no macOS só
+roda em Docker/VM, sem add-ons. O arranjo que funciona bem: <strong>HAOS num Pi ou mini-PC</strong> cuidando da casa e
+o <strong>Mac cuidando de vídeo, mídia e modelos locais</strong>.</p>
+</div>
+<h3 id="o-detalhe-que-salva-a-rede-zigbee">O detalhe que salva a rede Zigbee<a class="headerlink" href="#o-detalhe-que-salva-a-rede-zigbee" title="Permanent link">#</a></h3>
+<p>Coordenadores USB (SkyConnect/ZBT-1, Sonoff ZBDongle, ConBee) operam em 2,4 GHz — exatamente a faixa que as
+portas <strong>USB 3.0 e SSDs NVMe poluem</strong> com ruído eletromagnético. Plugar o dongle direto no gabinete é a causa
+número um de "meus sensores caem sozinhos".</p>
+<p><strong>Solução</strong>: extensão USB 2.0 de 1 a 2 metros, dongle longe do servidor, do roteador e de qualquer metal.
+É barato e resolve 80% dos problemas de estabilidade.</p>
+<h3 id="energia-e-continuidade">Energia e continuidade<a class="headerlink" href="#energia-e-continuidade" title="Permanent link">#</a></h3>
+<ul>
+<li>Um <strong>nobreak pequeno (600 VA)</strong> cobre servidor, roteador e ONT por 20 a 40 minutos. Numa casa com automação,
+  isso é a diferença entre uma queda de energia e uma remontagem de rede.</li>
+<li>Ligue o nobreak ao Home Assistant por USB com a integração <strong>NUT</strong> e crie uma automação que desliga
+  o sistema com elegância quando a bateria chega a 20%.</li>
+</ul>
+<h3 id="roteiro-de-compra-sugerido">Roteiro de compra sugerido<a class="headerlink" href="#roteiro-de-compra-sugerido" title="Permanent link">#</a></h3>
+<ol>
+<li>Servidor (Green, Pi 5 + NVMe ou mini-PC)</li>
+<li>Coordenador Zigbee + extensão USB</li>
+<li>Três a cinco sensores baratos (movimento, porta, temperatura)</li>
+<li>Dois ou três atuadores que resolvam incômodos reais (módulo de relé, tomada inteligente com medição)</li>
+<li><strong>Só depois</strong> pense em painel dedicado, voz e câmeras</li>
+</ol>
+<p>Comprar nessa ordem evita a gaveta cheia de aparelhos que nunca foram integrados.</p>
+        <ul class="tags"><li>Raspberry Pi</li><li>Mini-PC</li><li>Proxmox</li><li>NAS</li><li>Hardware</li></ul>
+      </div>
+    </div>
+    <nav class="pager" aria-label="Navegação entre guias">
+      <a class="pager-prev" href="/home-assistant/"><span>← Anterior</span><strong>Home Assistant: o cérebro local da sua casa</strong></a>
+      <a class="pager-next" href="/esphome-esp32/"><span>Próximo →</span><strong>ESPHome e ESP32: construa seus próprios dispositivos</strong></a>
+    </nav>
+  </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <strong>SmartHome<span class="accent">-AI</span></strong>
+        <p>Inteligência para o seu lar — guias independentes de casa inteligente, automação local e código aberto.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Rodapé">
+        <div>
+          <h4>Plataformas</h4>
+          <a href="/home-assistant/">Home Assistant</a>
+          <a href="/esphome-esp32/">ESPHome &amp; ESP32</a>
+          <a href="/scrypted/">Scrypted &amp; câmeras</a>
+        </div>
+        <div>
+          <h4>Protocolos</h4>
+          <a href="/zigbee/">Zigbee2MQTT &amp; ZHA</a>
+          <a href="/matter-thread/">Matter &amp; Thread</a>
+          <a href="/apple-homekit/">Apple HomeKit</a>
+        </div>
+        <div>
+          <h4>Site</h4>
+          <a href="/artigos/">Todos os guias</a>
+          <a href="/instalacao/">Comece aqui</a>
+          <a href="/faq/">Dúvidas frequentes</a>
+          <a href="/sobre/">Sobre</a>
+        </div>
+      </nav>
+    </div>
+    <div class="wrap footer-bottom">
+      <p>© 2026 SmartHome-AI · conteúdo por Dr. Álvaro Menezes</p>
+      <p>Feito com HTML, CSS, JavaScript e um gerador estático em Python.</p>
+    </div>
+  </footer>
+
+  <div class="search-modal" id="search-modal" hidden>
+    <div class="search-backdrop" data-close></div>
+    <div class="search-box" role="dialog" aria-modal="true" aria-label="Buscar no site">
+      <div class="search-field">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" id="search-input" placeholder="Buscar: Zigbee, ESPHome, Matter, Raspberry Pi…" autocomplete="off" spellcheck="false">
+        <kbd>Esc</kbd>
+      </div>
+      <ul class="search-results" id="search-results"></ul>
+    </div>
+  </div>
+
+  <script src="/static/js/main.js" defer></script>
+</body>
+</html>

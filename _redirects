@@ -1,0 +1,3 @@
+# Redirecionamentos do Cloudflare Pages
+/home-assistant.html   /home-assistant/   301
+/index.html            /                  301
