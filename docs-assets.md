@@ -37,6 +37,14 @@ Bloco próprio em PT/EN na home e links para CasaOS, seu GitHub, umbrelOS, Umbre
 
 ## Fontes
 
+### Ícones oficiais dos projetos
+
+`static/img/brands/` contém cópias locais, sem redesenho ou recoloração, dos ícones publicados pelos próprios projetos. `sources.json` registra a página oficial, o URL de origem, a data de consulta e o SHA-256 de cada arquivo. São marcas de seus respectivos titulares, usadas para identificar os destinos dos links; não indicam parceria ou endosso.
+
+`brand_icons.py` centraliza a associação entre destinos e marcas. A aplicação acontece durante a geração do HTML, nos 20 cartões de recursos, nos cartões CasaOS/umbrelOS, nos guias e nos links do rodapé, em PT/EN. Links de comparação CasaOS/umbrelOS exibem os dois ícones. GitHub e Wikipedia usam suas próprias marcas, identificando o destino. Links com fotografias ou ícones próprios não recebem imagens duplicadas.
+
+Os arquivos mantêm suas cores e proporções e usam fundo claro para legibilidade no tema escuro. Ícones ao lado de texto são decorativos (`alt=""` e `aria-hidden`); nomes e destinos dos links são preservados. URLs locais incluem hash de conteúdo. Não há dependência de CDN ou de JavaScript para exibir as marcas.
+
 Newsreader 500 para títulos: https://github.com/google/fonts/tree/main/ofl/newsreader — SIL Open Font License, incluída em `static/fonts/newsreader-OFL.txt`. Arquivo obtido pelo CSS oficial Google Fonts. Inter e JetBrains Mono locais já existentes foram preservadas. Nenhuma chamada ao Google Fonts é necessária na navegação.
 
 ## Referências de conteúdo e links

@@ -140,6 +140,8 @@ cinco fotografias de produtos com crédito e 20 links filtráveis. A planta 3D t
 As zonas e os controles da planta estão em `connected_home.py`, com estado persistente em PT/EN.
 O conteúdo dos demais componentes está em `visual_content.py`; os layouts estão em `templates/home.*.html`.
 Ilustrações dos gadgets: `python3 scripts/draw-devices.py`. Fontes, autoria e licenças: `docs-assets.md`.
+Ícones oficiais dos projetos: `brand_icons.py` aplica as marcas aos links durante o build;
+arquivos originais e fontes em `static/img/brands/`. Nomes acessíveis e destinos são mantidos em PT/EN.
 
 Newsreader e Inter são servidas localmente. O tema claro é o padrão; uma preferência anterior
 é mantida. Busca com foco contido no diálogo, fechamento por botão/Esc e navegação por teclado.

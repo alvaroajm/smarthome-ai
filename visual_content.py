@@ -1,6 +1,7 @@
 """Bilingual editorial components for the SmartHome-AI visual guide."""
 from html import escape as esc
 from connected_home import connected_home
+from brand_icons import project_icons
 
 # name, group, protocol, PT description, EN description, PT check, EN check, guide
 DEVICES = [
@@ -67,26 +68,26 @@ DEVICES = [
 ]
 
 RESOURCES = [
- ('CasaOS','https://casaos.zimaspace.com/','base','Um painel para arquivos e aplicativos Docker no seu servidor.','A dashboard for files and Docker apps on your server.','C'),
- ('umbrelOS','https://umbrel.com/umbrelos','base','Sistema para criar sua nuvem pessoal em casa.','An operating system for your own home cloud.','u'),
- ('Umbrel App Store','https://apps.umbrel.com/','build','Explore os aplicativos para instalar no umbrelOS.','Explore apps to install on umbrelOS.','u+'),
- ('ZimaOS','https://www.zimaspace.com/zimaos','build','Conheça a evolução do ecossistema CasaOS, com foco em NAS.','Explore the CasaOS ecosystem’s evolution, focused on NAS.','Z'),
- ('Home Assistant','https://www.home-assistant.io/','base','O ponto de partida: plataforma, documentação e novidades.','The starting point: platform, documentation and news.','HA'),
- ('Nabu Casa','https://www.nabucasa.com/','base','Cloud opcional, acesso remoto e integração com Alexa.','Optional Cloud, remote access and Alexa integration.','NC'),
- ('ESPHome','https://esphome.io/','build','Crie sensores, controles e telas com microcontroladores.','Build sensors, controls and displays with microcontrollers.','ESP'),
- ('Zigbee2MQTT','https://www.zigbee2mqtt.io/','build','Documentação e catálogo de dispositivos Zigbee compatíveis.','Documentation and compatible Zigbee device catalog.','Z2M'),
- ('Instalador WLED','https://install.wled.me/','build','Instale WLED em uma placa compatível pelo navegador.','Install WLED on a supported board through your browser.','W'),
- ('Documentação WLED','https://kno.wled.ge/','build','Controladores, fitas de LED, efeitos e integrações.','Controllers, LED strips, effects and integrations.','W'),
- ('Home Assistant Brasil','https://homeassistantbrasil.com.br/','community','Projetos, dúvidas e troca de experiências em português.','Projects, questions and discussions in Portuguese.','BR'),
- ('Home Assistant Community','https://community.home-assistant.io/','community','Fórum internacional com tutoriais e projetos da comunidade.','International forum with tutorials and community projects.','HA'),
- ('Home Assistant no GitHub','https://github.com/home-assistant','community','Código-fonte, repositórios e acompanhamento do projeto.','Source code, repositories and project development.','GH'),
- ('Home Assistant · Wikipedia','https://en.wikipedia.org/wiki/Home_Assistant','community','Uma visão geral da história e do ecossistema, em inglês.','An overview of the history and ecosystem, in English.','Wk'),
- ('Integrações do Home Assistant','https://www.home-assistant.io/integrations/','base','Confira como conectar cada marca, serviço e dispositivo.','Check how to connect brands, services and devices.','+'),
- ('Assist','https://www.home-assistant.io/voice_control/','base','Conheça as opções de voz do Home Assistant.','Explore Home Assistant’s voice options.','A'),
- ('Dispositivos ESPHome','https://devices.esphome.io/','build','Receitas e configurações para diferentes equipamentos.','Recipes and configurations for different devices.','DIY'),
- ('Matter no Home Assistant','https://www.home-assistant.io/integrations/matter/','base','Entenda requisitos, Thread, Wi-Fi e compatibilidade.','Understand requirements, Thread, Wi-Fi and compatibility.','M'),
- ('Scrypted','https://www.scrypted.app/','build','Integração de câmeras e vídeo para a casa inteligente.','Camera and video integration for the smart home.','S'),
- ('Open Home Foundation','https://www.openhomefoundation.org/','community','Privacidade, escolha e sustentabilidade para o lar conectado.','Privacy, choice and sustainability for the connected home.','OH'),
+ ('CasaOS', 'https://casaos.zimaspace.com/', 'base', 'Um painel para arquivos e aplicativos Docker no seu servidor.', 'A dashboard for files and Docker apps on your server.', 'casaos'),
+ ('umbrelOS', 'https://umbrel.com/umbrelos', 'base', 'Sistema para criar sua nuvem pessoal em casa.', 'An operating system for your own home cloud.', 'umbrel'),
+ ('Umbrel App Store', 'https://apps.umbrel.com/', 'build', 'Explore os aplicativos para instalar no umbrelOS.', 'Explore apps to install on umbrelOS.', 'umbrel'),
+ ('ZimaOS', 'https://www.zimaspace.com/zimaos', 'build', 'Conheça a evolução do ecossistema CasaOS, com foco em NAS.', 'Explore the CasaOS ecosystem’s evolution, focused on NAS.', 'zimaos'),
+ ('Home Assistant', 'https://www.home-assistant.io/', 'base', 'O ponto de partida: plataforma, documentação e novidades.', 'The starting point: platform, documentation and news.', 'home-assistant'),
+ ('Nabu Casa', 'https://www.nabucasa.com/', 'base', 'Cloud opcional, acesso remoto e integração com Alexa.', 'Optional Cloud, remote access and Alexa integration.', 'nabu-casa'),
+ ('ESPHome', 'https://esphome.io/', 'build', 'Crie sensores, controles e telas com microcontroladores.', 'Build sensors, controls and displays with microcontrollers.', 'esphome'),
+ ('Zigbee2MQTT', 'https://www.zigbee2mqtt.io/', 'build', 'Documentação e catálogo de dispositivos Zigbee compatíveis.', 'Documentation and compatible Zigbee device catalog.', 'zigbee2mqtt'),
+ ('Instalador WLED', 'https://install.wled.me/', 'build', 'Instale WLED em uma placa compatível pelo navegador.', 'Install WLED on a supported board through your browser.', 'wled'),
+ ('Documentação WLED', 'https://kno.wled.ge/', 'build', 'Controladores, fitas de LED, efeitos e integrações.', 'Controllers, LED strips, effects and integrations.', 'wled'),
+ ('Home Assistant Brasil', 'https://homeassistantbrasil.com.br/', 'community', 'Projetos, dúvidas e troca de experiências em português.', 'Projects, questions and discussions in Portuguese.', 'home-assistant-brasil'),
+ ('Home Assistant Community', 'https://community.home-assistant.io/', 'community', 'Fórum internacional com tutoriais e projetos da comunidade.', 'International forum with tutorials and community projects.', 'home-assistant'),
+ ('Home Assistant no GitHub', 'https://github.com/home-assistant', 'community', 'Código-fonte, repositórios e acompanhamento do projeto.', 'Source code, repositories and project development.', 'github'),
+ ('Home Assistant · Wikipedia', 'https://en.wikipedia.org/wiki/Home_Assistant', 'community', 'Uma visão geral da história e do ecossistema, em inglês.', 'An overview of the history and ecosystem, in English.', 'wikipedia'),
+ ('Integrações do Home Assistant', 'https://www.home-assistant.io/integrations/', 'base', 'Confira como conectar cada marca, serviço e dispositivo.', 'Check how to connect brands, services and devices.', 'home-assistant'),
+ ('Assist', 'https://www.home-assistant.io/voice_control/', 'base', 'Conheça as opções de voz do Home Assistant.', 'Explore Home Assistant’s voice options.', 'assist'),
+ ('Dispositivos ESPHome', 'https://devices.esphome.io/', 'build', 'Receitas e configurações para diferentes equipamentos.', 'Recipes and configurations for different devices.', 'esphome'),
+ ('Matter no Home Assistant', 'https://www.home-assistant.io/integrations/matter/', 'base', 'Entenda requisitos, Thread, Wi-Fi e compatibilidade.', 'Understand requirements, Thread, Wi-Fi and compatibility.', 'home-assistant'),
+ ('Scrypted', 'https://www.scrypted.app/', 'build', 'Integração de câmeras e vídeo para a casa inteligente.', 'Camera and video integration for the smart home.', 'scrypted'),
+ ('Open Home Foundation', 'https://www.openhomefoundation.org/', 'community', 'Privacidade, escolha e sustentabilidade para o lar conectado.', 'Privacy, choice and sustainability for the connected home.', 'open-home'),
 ]
 
 def ext(url):
@@ -105,7 +106,7 @@ def resource_cards(lang):
  en=lang=='en';out=[]
  for name,url,group,pt,eng,mark in RESOURCES:
   translations={'Instalador WLED':'WLED installer','Documentação WLED':'WLED documentation','Home Assistant no GitHub':'Home Assistant on GitHub','Integrações do Home Assistant':'Home Assistant integrations','Dispositivos ESPHome':'ESPHome devices','Matter no Home Assistant':'Matter in Home Assistant'}
-  out.append(f'''<a class="resource-card" data-resource-category="{group}" href="{url}"{ext(url)}><span class="resource-mark" aria-hidden="true">{mark}</span><span><strong>{esc(translations.get(name,name) if en else name)}</strong><small>{esc(eng if en else pt)}</small></span><span class="resource-arrow" aria-hidden="true">↗</span></a>''')
+  out.append(f'''<a class="resource-card" data-resource-category="{group}" href="{url}"{ext(url)}><span class="resource-mark" aria-hidden="true">{project_icons(mark)}</span><span><strong>{esc(translations.get(name,name) if en else name)}</strong><small>{esc(eng if en else pt)}</small></span><span class="resource-arrow" aria-hidden="true">↗</span></a>''')
  return '\n'.join(out)
 
 def photo_gallery(lang, hardware=False):
@@ -128,8 +129,8 @@ def server_section(lang):
  return f'''<section class="server-section" id="servidor-em-casa" aria-labelledby="server-title"><div class="wrap section">
  <header class="section-head editorial-head"><div><p class="eyebrow">04 / {t('Seu servidor, suas possibilidades', 'Your server, your possibilities')}</p><h2 id="server-title">{t('Uma nuvem com<br>endereço de casa.', 'A cloud with<br>a home address.')}</h2></div><p>{t('Fotos, arquivos, mídia e aplicativos no seu próprio equipamento. CasaOS e umbrelOS simplificam o dia a dia de um servidor doméstico.', 'Photos, files, media and apps on your own hardware. CasaOS and umbrelOS simplify everyday home-server tasks.')}</p></header>
  <div class="server-platforms">
-  <article class="server-platform"><span class="server-monogram" aria-hidden="true">C</span><h3>CasaOS</h3><p>{t('Um painel web instalado sobre um Linux compatível. Reúne arquivos, discos e aplicativos Docker em uma interface simples — uma boa porta de entrada para reaproveitar um PC ou Raspberry Pi.', 'A web dashboard installed on a compatible Linux system. It brings files, disks and Docker apps into a simple interface — a useful starting point for repurposing a PC or Raspberry Pi.')}</p><p class="platform-detail">{t('O site oficial também apresenta o ZimaOS, evolução do ecossistema com foco em NAS.', 'The official site also introduces ZimaOS, the ecosystem’s evolution focused on NAS.')}</p><div class="platform-links"><a href="https://casaos.zimaspace.com/"{ext('https://')}>{t('Conhecer CasaOS', 'Explore CasaOS')} ↗</a><a href="https://github.com/IceWhaleTech/CasaOS"{ext('https://')}>GitHub ↗</a></div></article>
-  <article class="server-platform"><span class="server-monogram" aria-hidden="true">u</span><h3>umbrelOS</h3><p>{t('Um sistema completo para sua nuvem pessoal, administrado pelo navegador. Sua loja facilita a instalação de aplicativos de arquivos, fotos, mídia e outros serviços no hardware compatível.', 'A complete operating system for your personal cloud, managed in a browser. Its app store makes it easy to install file, photo, media and other services on compatible hardware.')}</p><p class="platform-detail">{t('Disponível para equipamentos Umbrel, PCs Intel/AMD, Raspberry Pi 5 e máquinas virtuais compatíveis.', 'Available for Umbrel devices, Intel/AMD PCs, Raspberry Pi 5 and compatible virtual machines.')}</p><div class="platform-links"><a href="https://umbrel.com/umbrelos"{ext('https://')}>{t('Conhecer umbrelOS', 'Explore umbrelOS')} ↗</a><a href="https://apps.umbrel.com/"{ext('https://')}>App Store ↗</a></div></article>
+  <article class="server-platform"><a class="server-brand" href="https://casaos.zimaspace.com/"{ext("https://")} aria-label="CasaOS — {t('site oficial', 'official website')}">{project_icons("casaos")}</a><h3>CasaOS</h3><p>{t('Um painel web instalado sobre um Linux compatível. Reúne arquivos, discos e aplicativos Docker em uma interface simples — uma boa porta de entrada para reaproveitar um PC ou Raspberry Pi.', 'A web dashboard installed on a compatible Linux system. It brings files, disks and Docker apps into a simple interface — a useful starting point for repurposing a PC or Raspberry Pi.')}</p><p class="platform-detail">{t('O site oficial também apresenta o ZimaOS, evolução do ecossistema com foco em NAS.', 'The official site also introduces ZimaOS, the ecosystem’s evolution focused on NAS.')}</p><div class="platform-links"><a href="https://casaos.zimaspace.com/"{ext('https://')}>{t('Conhecer CasaOS', 'Explore CasaOS')} ↗</a><a href="https://github.com/IceWhaleTech/CasaOS"{ext('https://')}>GitHub ↗</a></div></article>
+  <article class="server-platform"><a class="server-brand" href="https://umbrel.com/umbrelos"{ext("https://")} aria-label="umbrelOS — {t('site oficial', 'official website')}">{project_icons("umbrel")}</a><h3>umbrelOS</h3><p>{t('Um sistema completo para sua nuvem pessoal, administrado pelo navegador. Sua loja facilita a instalação de aplicativos de arquivos, fotos, mídia e outros serviços no hardware compatível.', 'A complete operating system for your personal cloud, managed in a browser. Its app store makes it easy to install file, photo, media and other services on compatible hardware.')}</p><p class="platform-detail">{t('Disponível para equipamentos Umbrel, PCs Intel/AMD, Raspberry Pi 5 e máquinas virtuais compatíveis.', 'Available for Umbrel devices, Intel/AMD PCs, Raspberry Pi 5 and compatible virtual machines.')}</p><div class="platform-links"><a href="https://umbrel.com/umbrelos"{ext('https://')}>{t('Conhecer umbrelOS', 'Explore umbrelOS')} ↗</a><a href="https://apps.umbrel.com/"{ext('https://')}>App Store ↗</a></div></article>
  </div>
  <div class="server-ha-note"><strong>{t('E o Home Assistant?', 'And Home Assistant?')}</strong><p>{t('Ele coordena a automação da casa. CasaOS e umbrelOS organizam os serviços do servidor. Se o Home Assistant rodar em container, os apps complementares são administrados separadamente.', 'It coordinates home automation. CasaOS and umbrelOS organize server services. When Home Assistant runs in a container, companion apps are managed separately.')}</p><a href="/casaos-umbrel/">{t('Comparar e escolher a instalação', 'Compare installation options (PT)')} →</a></div>
  <header class="hardware-heading"><h3>{t('O hardware por trás das ideias', 'The hardware behind your ideas')}</h3><p>{t('Do Raspberry Pi ao mini-PC: dois formatos para explorar.', 'From Raspberry Pi to mini PC: two formats to explore.')}</p></header><div class="photo-grid hardware-gallery">{photo_gallery(lang,True)}</div>

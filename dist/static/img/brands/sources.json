@@ -1,0 +1,175 @@
+{
+  "retrieved": "2026-09-21",
+  "note": "Official assets copied without modification; trademarks belong to their respective owners.",
+  "assets": [
+    {
+      "file": "casaos.png",
+      "source": "https://casaos.zimaspace.com/",
+      "asset": "https://casaos.zimaspace.com/favicon/apple-touch-icon.png",
+      "sha256": "d6116428bf2e5287efefa0f24f07b0a3227ddfa8a11b4f3bb2bdb7bf2f9732db",
+      "bytes": 11518
+    },
+    {
+      "file": "umbrel.png",
+      "source": "https://umbrel.com/",
+      "asset": "https://umbrel.com/icons/icon-192.png",
+      "sha256": "c8f0957fe60d5634645c9607463988b8c2f6f921a4423a3f703d887d961a73ee",
+      "bytes": 7867
+    },
+    {
+      "file": "home-assistant.svg",
+      "source": "https://www.home-assistant.io/",
+      "asset": "https://www.home-assistant.io/images/favicon.svg",
+      "sha256": "47fe7a74b836716b8a577543d29efadf227a2a0c9bb02075b5881d151b950811",
+      "bytes": 1321
+    },
+    {
+      "file": "esphome.svg",
+      "source": "https://esphome.io/",
+      "asset": "https://esphome.io/favicon.svg",
+      "sha256": "929788931bfeec3ada93b749ba896ff2f262b3840359a332ebc384cb7703e5ba",
+      "bytes": 1362
+    },
+    {
+      "file": "nabu-casa.svg",
+      "source": "https://www.nabucasa.com/",
+      "asset": "https://www.nabucasa.com/favicon.svg",
+      "sha256": "78d52a4fb060eb4f17a2a93642dcef94cd9fb09104f66e474b74a81a7431e534",
+      "bytes": 22950
+    },
+    {
+      "file": "zigbee2mqtt.png",
+      "source": "https://www.zigbee2mqtt.io/",
+      "asset": "https://www.zigbee2mqtt.io/logo.png",
+      "sha256": "d7f2bb169b8f6884f112c48b34c2d3121163bff038580d9da3d1f3bbe4f0e75c",
+      "bytes": 83057
+    },
+    {
+      "file": "wled.png",
+      "source": "https://kno.wled.ge/",
+      "asset": "https://kno.wled.ge/assets/images/ui/aircoookie/blurple.png",
+      "sha256": "b22eb89dc3edbe2a4d062b1c73d807714810177f0dabc8f99a0fab31f8719878",
+      "bytes": 1905
+    },
+    {
+      "file": "home-assistant-brasil.png",
+      "source": "https://homeassistantbrasil.com.br/",
+      "asset": "https://homeassistantbrasil.com.br/uploads/default/optimized/1X/0e84817c2dd1590a1b3a4fa79d8304351065e839_2_180x180.png",
+      "sha256": "cdfb936aa3d9f107c05cee47c7c63e71319a7482b8d685a617549e454e0e8a59",
+      "bytes": 5932
+    },
+    {
+      "file": "scrypted.png",
+      "source": "https://www.scrypted.app/",
+      "asset": "https://www.scrypted.app/img/icons/favicon-196.png",
+      "sha256": "56382a7b729a3e869452c5dc4aacc0ad54d3f021dc42afbef919f6fd357db026",
+      "bytes": 2268
+    },
+    {
+      "file": "open-home.png",
+      "source": "https://www.openhomefoundation.org/",
+      "asset": "https://www.openhomefoundation.org/favicon-32x32.png",
+      "sha256": "d732b61d14817c7e76a18cd2858d8d028e64ebb9aa1a7432637cc3add199374e",
+      "bytes": 630
+    },
+    {
+      "file": "zimaos.png",
+      "source": "https://www.zimaspace.com/zimaos",
+      "asset": "https://www.zimaspace.com/_ipx/f_png&s_192x192/image/zimaos/logo.png",
+      "sha256": "7083affc2801049e5c4c426cb1c19d05d781fd754691aefd5b7a285953122b8d",
+      "bytes": 23698
+    },
+    {
+      "file": "wikipedia.svg",
+      "source": "https://en.wikipedia.org/wiki/Home_Assistant",
+      "asset": "https://en.wikipedia.org/static/images/icons/enwiki-25.svg",
+      "sha256": "095fb188212ac25419535feb7aee7a6a7b2d58270ae42a168abf9942d1b44315",
+      "bytes": 115918
+    },
+    {
+      "file": "assist.png",
+      "source": "https://www.nabucasa.com/",
+      "asset": "https://www.nabucasa.com/img/assist-logo.png",
+      "sha256": "a3ccf3dbe7545b18752b91b9c554cfe122adda8671b23b6f5b38fd2bbfd15f5a",
+      "bytes": 8091
+    },
+    {
+      "file": "ubuntu.png",
+      "source": "https://ubuntu.com/",
+      "asset": "https://assets.ubuntu.com/v1/f38b9c7e-COF%20apple-touch-icon.png",
+      "sha256": "2570d464cfa61f1b893ff8a5e91073be58cd34d88986adb7bc2ddfc4a2611f52",
+      "bytes": 7900
+    },
+    {
+      "file": "hacs.png",
+      "source": "https://hacs.xyz/",
+      "asset": "https://hacs.xyz/assets/images/hacs_logo.png",
+      "sha256": "5397826fc6468aeb348669d4599ec9cd5a03c15eec1ec184131a60dac0440d3b",
+      "bytes": 4475
+    },
+    {
+      "file": "frigate.svg",
+      "source": "https://frigate.video/",
+      "asset": "https://frigate.video/images/logo.svg",
+      "sha256": "ce57d5a8e33281b11ec7151d3908f06b4dbcd719c3f648c4b700afc135318403",
+      "bytes": 3324
+    },
+    {
+      "file": "balena-etcher.png",
+      "source": "https://etcher.balena.io/",
+      "asset": "https://etcher.balena.io/images/webclip.png",
+      "sha256": "4e03cd83477547de376454a63a3813373780d0afbd4e34ec491454cac7e6b2ca",
+      "bytes": 5841
+    },
+    {
+      "file": "ventoy.ico",
+      "source": "https://www.ventoy.net/",
+      "asset": "https://www.ventoy.net/favicon.ico",
+      "sha256": "d061d137a58daefeee3ae745aab806b05987ce015b4ae6ce84d668186019f269",
+      "bytes": 9662
+    },
+    {
+      "file": "llmvision.png",
+      "source": "https://llmvision.org/",
+      "asset": "https://llmvision.org/assets/icon-light.png",
+      "sha256": "4e092d95569ee0097a5978534f9143cb69702ba92210ee4d083d6ce79b728af9",
+      "bytes": 15652
+    },
+    {
+      "file": "alpine.ico",
+      "source": "https://alpinelinux.org/",
+      "asset": "https://alpinelinux.org/alpine-logo.ico",
+      "sha256": "6a9d135fdc7d2ad8275b27711babf4e12a6eb2680c1bc91fac4418b5207f4307",
+      "bytes": 4286
+    },
+    {
+      "file": "github.svg",
+      "source": "https://brand.github.com/foundations/logo",
+      "asset": "https://brand.github.com/GitHub_Logos.zip",
+      "archive_member": "GitHub Logos/SVG/GitHub_Invertocat_Black.svg",
+      "sha256": "693d7abe6f899646cc2e96856723b45e95f71885a54910b2749f6decdf7e1ee1",
+      "bytes": 1559
+    },
+    {
+      "file": "ollama.png",
+      "source": "https://ollama.com/",
+      "asset": "https://ollama.com/public/apple-touch-icon.png",
+      "sha256": "8a5d4f0444d756d1d64c6615eb163ecd71fba180bd07c4199e88461c921778d1",
+      "bytes": 5579
+    },
+    {
+      "file": "raspberry-pi.png",
+      "source": "https://www.raspberrypi.com/news/m-2-hat-compact-on-sale-now-at-15/",
+      "asset": "https://www.raspberrypi.com/app/uploads/2021/10/cropped-Raspberry-Pi-Favicon-100x100-1-300x300.png",
+      "sha256": "18babb748e76df364e887430c24e70090b222ce182d9904986bb4ccef390fc52",
+      "bytes": 13159
+    },
+    {
+      "file": "proxmox.png",
+      "source": "https://www.proxmox.com/",
+      "asset": "https://www.proxmox.com/apple-touch-icon.png",
+      "sha256": "e48e376a2fbb549b3bc27c78e9a7ecaeacd31090b416045dcadfbae46c6e5403",
+      "bytes": 8208
+    }
+  ]
+}

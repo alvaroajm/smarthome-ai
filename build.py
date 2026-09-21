@@ -12,6 +12,7 @@ de templates/, copia static/ e escreve o site pronto em dist/.
 from __future__ import annotations
 
 from visual_content import home_visual_context
+from brand_icons import decorate_project_links, icons_for_link, project_icons
 
 import hashlib
 import html as html_lib
@@ -339,6 +340,8 @@ def icon_svg(name: str, cls: str = "icon") -> str:
 
 
 def brand_svg(name: str) -> str:
+    if name == "github":
+        return project_icons("github")
     return (f'<svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">'
             f'<path d="{BRAND_ICONS[name]}"/></svg>')
 
@@ -426,7 +429,7 @@ def nav_html(lang: str, current: str) -> str:
 def card_html(page: Page, ui: dict, foreign: bool = False) -> str:
     badge = f'<span class="badge-lang">{ui["pt_badge"]}</span>' if foreign else ""
     return f"""<a class="card" href="{page.url}">
-        <span class="card-icon">{icon_svg(page.icon)}</span>
+        <span class="card-icon">{icons_for_link(page.url) or icon_svg(page.icon)}</span>
         <span class="card-tag">{esc(page.category)}{badge}</span>
         <h3>{esc(page.title)}</h3>
         <p>{esc(page.description)}</p>
@@ -439,7 +442,7 @@ def list_item_html(page: Page, ui: dict, foreign: bool = False) -> str:
     badge = f'<span class="badge-lang">{ui["pt_badge"]}</span>' if foreign else ""
     return f"""<li class="post">
         <a href="{page.url}">
-          <span class="post-icon">{icon_svg(page.icon)}</span>
+          <span class="post-icon">{icons_for_link(page.url) or icon_svg(page.icon)}</span>
           <span class="post-body">
             <span class="post-title">{esc(page.title)}{badge}</span>
             <span class="post-desc">{esc(page.description)}</span>
@@ -677,6 +680,8 @@ def faq_ld(page) -> dict | None:
 
 def write(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
+    if path.suffix == ".html":
+        content = decorate_project_links(content)
     path.write_text(content, encoding="utf-8")
 
 
