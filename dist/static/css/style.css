@@ -415,3 +415,118 @@ mark { background: color-mix(in srgb, var(--gold-500) 35%, transparent); color: 
   .site-header, .site-footer, .toc, .pager, .search-modal { display: none !important; }
   body { background: #fff; color: #000; }
 }
+
+/* =========================================================================
+   Faixa superior: relógio, idioma e tema
+   ========================================================================= */
+.topbar { border-bottom: 1px solid var(--border-soft); background: var(--bg-soft); font-size: .82rem; }
+.topbar-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 40px; }
+.clock {
+  margin: 0; color: var(--text-dim); font-variant-numeric: tabular-nums;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.clock b { color: var(--text-soft); font-weight: 600; }
+.topbar-actions { display: flex; align-items: center; gap: .6rem; flex: none; }
+.lang-switch { display: flex; align-items: center; gap: .4rem; color: var(--text-dim); font-weight: 600; letter-spacing: .04em; }
+.lang-switch a { color: var(--text-dim); padding: .1rem .15rem; }
+.lang-switch a:hover { color: var(--accent); text-decoration: none; }
+.lang-current { color: var(--accent); }
+.topbar .icon-btn { width: 30px; height: 30px; border-radius: 8px; }
+.topbar .icon-btn svg { width: 15px; height: 15px; }
+
+/* marca com imagem */
+.brand-mark { border-radius: 10px; background: #fff; padding: 2px; object-fit: contain; }
+
+/* selo de idioma */
+.badge-lang {
+  display: inline-block; margin-left: .5rem; padding: .05rem .4rem;
+  font-size: .62rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  border: 1px solid var(--border); border-radius: 99px; color: var(--text-dim);
+  vertical-align: middle;
+}
+
+/* aviso */
+.notice {
+  padding: 1rem 1.2rem; border-radius: var(--radius);
+  border: 1px solid var(--border); border-left: 3px solid var(--gold-500);
+  background: var(--surface); color: var(--text-soft); font-size: .95rem;
+}
+.notice p { margin: 0; }
+
+/* =========================================================================
+   Rodapé: ecossistema e cartão de contato
+   ========================================================================= */
+.eco { padding: 3rem 0 1rem; }
+.eco-title {
+  font-size: .76rem; text-transform: uppercase; letter-spacing: .12em;
+  color: var(--text-dim); margin: 0 0 1rem; font-weight: 600;
+}
+.eco-grid { display: grid; gap: .8rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.eco-tile {
+  display: flex; align-items: center; gap: .9rem; padding: .9rem 1rem; color: var(--text);
+  background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius);
+  transition: border-color .18s, transform .18s;
+}
+.eco-tile:hover { text-decoration: none; border-color: color-mix(in srgb, var(--gold-500) 45%, var(--border)); transform: translateY(-2px); }
+.eco-logo {
+  display: grid; place-items: center; width: 52px; height: 52px; flex: none;
+  background: #fff; border-radius: 12px; overflow: hidden;
+}
+.eco-logo img { width: 48px; height: 48px; object-fit: contain; }
+.eco-text strong { display: block; font-size: .95rem; }
+.eco-text small { display: block; color: var(--text-dim); font-size: .8rem; margin-top: .1rem; }
+
+.contact-card {
+  display: grid; gap: 2rem; padding: 2rem 0 1rem;
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 900px) { .contact-card { grid-template-columns: 1.4fr 1fr 1.2fr; } }
+.contact-person { display: flex; gap: 1rem; align-items: flex-start; }
+.contact-photo {
+  width: 84px; height: 84px; border-radius: 50%; object-fit: cover; flex: none;
+  border: 2px solid color-mix(in srgb, var(--gold-500) 55%, transparent);
+}
+.contact-name { margin: 0; font-weight: 650; font-size: 1.02rem; }
+.contact-cred { margin: .15rem 0 0; color: var(--text-dim); font-size: .84rem; max-width: 38ch; }
+.contact-social { display: flex; gap: .4rem; margin-top: .8rem; flex-wrap: wrap; }
+.social {
+  display: grid; place-items: center; width: 34px; height: 34px;
+  border: 1px solid var(--border); border-radius: 9px; color: var(--text-soft);
+  background: var(--surface); transition: color .15s, border-color .15s, transform .15s;
+}
+.social:hover { color: var(--accent); border-color: var(--accent); transform: translateY(-2px); text-decoration: none; }
+.social .icon { width: 17px; height: 17px; }
+
+.contact-actions h4, .contact-places h4 {
+  font-size: .76rem; text-transform: uppercase; letter-spacing: .1em;
+  color: var(--text-dim); margin: 0 0 .8rem;
+}
+.contact-line {
+  display: flex; align-items: center; gap: .6rem; padding: .35rem 0;
+  color: var(--text-soft); font-size: .92rem;
+}
+.contact-line:hover { color: var(--accent); text-decoration: none; }
+.contact-line .icon { width: 18px; height: 18px; flex: none; }
+.contact-places ul { list-style: none; margin: 0; padding: 0; }
+.contact-places li { margin-bottom: .7rem; }
+.contact-places strong { display: block; font-size: .88rem; font-weight: 600; }
+.contact-places span { display: block; color: var(--text-dim); font-size: .8rem; }
+
+@media (max-width: 860px) {
+  .clock { font-size: .74rem; }
+  .site-nav { inset: 108px 0 auto; }
+}
+@media (max-width: 560px) {
+  .clock span.clock-sec { display: none; }
+}
+
+/* caixa do autor (páginas Sobre / About) */
+.author-box {
+  display: flex; gap: 1.4rem; align-items: flex-start; flex-wrap: wrap;
+  margin: 1.5rem 0 2rem; padding: 1.4rem; border-radius: var(--radius-lg);
+  border: 1px solid var(--border); background: var(--surface);
+}
+.author-box img { width: 150px; border-radius: var(--radius); object-fit: cover; flex: none; }
+.author-name { margin: 0; font-weight: 650; font-size: 1.05rem; }
+.author-role { margin: .3rem 0 .7rem; color: var(--text-soft); font-size: .92rem; }
+.author-links { margin: 0; font-size: .9rem; }

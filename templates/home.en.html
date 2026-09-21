@@ -1,0 +1,142 @@
+<section class="hero">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="wrap hero-inner">
+      <p class="eyebrow">Smart home · Local · Open source</p>
+      <h1>Your smart home,<br><span class="grad">without the cloud</span></h1>
+      <p class="lead">
+        Practical, tested guides on <strong>Home Assistant</strong>, <strong>ESPHome</strong> and <strong>ESP32</strong>,
+        <strong>Zigbee2MQTT</strong>, <strong>Matter over Thread</strong>, <strong>MQTT</strong>, <strong>Apple HomeKit</strong>,
+        <strong>AI cameras</strong> and agents over <strong>MCP</strong>. From the first sensor to the automation nobody notices.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="/en/start/">Start here</a>
+        <a class="btn btn-ghost" href="/en/guides/">Browse the {{total_guias}} guides</a>
+      </div>
+      <dl class="hero-stats">
+        <div><dt>Processing</dt><dd>100% local</dd></div>
+        <div><dt>Protocols</dt><dd>Zigbee · Thread · Wi-Fi</dd></div>
+        <div><dt>License</dt><dd>Open source</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <div class="notice">
+      <p><strong>A note on language.</strong> This site is written and maintained in Brazilian Portuguese —
+      the guide library below is being translated into English one guide at a time. Every page is open,
+      code samples and configuration are language-neutral, and browser translation handles these pages well.</p>
+    </div>
+  </section>
+
+  <section class="wrap section" aria-labelledby="path">
+    <header class="section-head">
+      <h2 id="path">Three steps from zero</h2>
+      <p>A short path, in the right order, without buying anything before you understand why.</p>
+    </header>
+    <ol class="steps">
+      <li>
+        <span class="step-num">1</span>
+        <h3>Pick the brain</h3>
+        <p>Raspberry Pi 5, an N100 or Ryzen mini PC, or a ready-made appliance. What changes is power draw, cost and how much you want to maintain.</p>
+        <a href="/hardware/">Compare hardware →</a>
+      </li>
+      <li>
+        <span class="step-num">2</span>
+        <h3>Install Home Assistant</h3>
+        <p>Home Assistant OS in 30 minutes, with backups configured before the first automation.</p>
+        <a href="/instalacao/">Installation guide →</a>
+      </li>
+      <li>
+        <span class="step-num">3</span>
+        <h3>Choose the right radio</h3>
+        <p>Zigbee for most sensors, Thread for anything Matter, Wi-Fi only when it earns its place.</p>
+        <a href="/zigbee/">Understand Zigbee →</a>
+      </li>
+    </ol>
+  </section>
+
+  <section class="wrap section" aria-labelledby="topics">
+    <header class="section-head">
+      <h2 id="topics">Explore by topic</h2>
+      <p>Each guide stands alone: read what matters now and come back later.</p>
+    </header>
+    <div class="cards">
+      {{cards}}
+    </div>
+  </section>
+
+  <section class="wrap section" aria-labelledby="protocols">
+    <header class="section-head">
+      <h2 id="protocols">Zigbee, Thread or Wi-Fi?</h2>
+      <p>The most common question by email. The short answer: use all three, each where it belongs.</p>
+    </header>
+    <div class="table-wrap">
+      <table class="compare">
+        <thead>
+          <tr><th scope="col">Criterion</th><th scope="col">Zigbee</th><th scope="col">Thread / Matter</th><th scope="col">Wi-Fi</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Power use</th><td class="good">Tiny — batteries last years</td><td class="good">Tiny</td><td class="bad">High — needs mains power</td></tr>
+          <tr><th scope="row">Mesh network</th><td class="good">Yes, through mains-powered devices</td><td class="good">Yes, native</td><td class="mid">No (depends on the router)</td></tr>
+          <tr><th scope="row">Needs a bridge</th><td class="mid">USB coordinator</td><td class="mid">Border router (Apple TV, HomePod, ZBT…)</td><td class="good">No</td></tr>
+          <tr><th scope="row">Maturity</th><td class="good">Very high</td><td class="mid">Evolving fast</td><td class="good">High</td></tr>
+          <tr><th scope="row">Best for</th><td>Sensors, buttons, valves</td><td>New cross-ecosystem devices</td><td>Cameras, TVs, vacuums</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note">Rule of thumb: if it runs on a battery, prefer Zigbee or Thread. If it needs bandwidth (video, audio), Wi-Fi.</p>
+  </section>
+
+  <section class="wrap section" aria-labelledby="ai">
+    <header class="section-head">
+      <h2 id="ai">Smart home with real AI</h2>
+      <p>Not just a voice assistant: talking to your house, getting alerts that describe what happened, and delegating the boring work — with clear limits.</p>
+    </header>
+    <ol class="steps">
+      <li>
+        <span class="step-num">A</span>
+        <h3>Talk to your house</h3>
+        <p>MCP connects Claude (on your Mac or in the terminal) to Home Assistant: read states, control devices, write automations.</p>
+        <a href="/claude-mcp/">Claude + MCP →</a>
+      </li>
+      <li>
+        <span class="step-num">B</span>
+        <h3>Cameras that describe</h3>
+        <p>From "motion detected" to "a courier left a box at the gate", with Frigate and local or cloud models.</p>
+        <a href="/cameras-ia/">AI cameras →</a>
+      </li>
+      <li>
+        <span class="step-num">C</span>
+        <h3>Autonomous agents</h3>
+        <p>What OpenClaw actually does, where it helps, and the security precautions you cannot skip.</p>
+        <a href="/openclaw/">Understand the risks →</a>
+      </li>
+    </ol>
+  </section>
+
+  <section class="wrap section" aria-labelledby="latest">
+    <header class="section-head">
+      <h2 id="latest">Featured guides</h2>
+      <p>Start anywhere — every guide assumes you are new to this.</p>
+    </header>
+    <ul class="post-list">
+      {{recentes}}
+    </ul>
+    <p class="section-more"><a href="/en/guides/">See all guides →</a></p>
+  </section>
+
+  <section class="wrap section">
+    <div class="panel">
+      <h2>Local automation is not ideology, it is engineering</h2>
+      <p>
+        A house that needs the cloud to switch on a light fails when the internet drops, when the vendor
+        shuts the service down and when the app changes hands. The model defended here is simple: control
+        lives inside the house, the cloud is optional, and every device needs a plan B. It is cheaper,
+        faster and far more predictable.
+      </p>
+      <p class="cta-row">
+        <a class="btn btn-primary" href="/en/start/">Build the foundation</a>
+        <a class="btn btn-ghost" href="/en/faq/">Questions first</a>
+      </p>
+    </div>
+  </section>

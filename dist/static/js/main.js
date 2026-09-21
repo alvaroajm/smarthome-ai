@@ -18,6 +18,27 @@
     });
   }
 
+  /* ------------------------------------------- relógio (America/Fortaleza) -- */
+  var clock = $('#clock');
+  if (clock) {
+    var intl = doc.body.getAttribute('data-intl') || 'pt-BR';
+    var fData = new Intl.DateTimeFormat(intl, {
+      timeZone: 'America/Fortaleza', weekday: 'long', day: 'numeric',
+      month: 'long', year: 'numeric'
+    });
+    var fHora = new Intl.DateTimeFormat(intl, {
+      timeZone: 'America/Fortaleza', hour: '2-digit', minute: '2-digit',
+      second: '2-digit', hour12: false
+    });
+    var tick = function () {
+      var agora = new Date();
+      clock.innerHTML = fData.format(agora) +
+        ' <span aria-hidden="true">·</span> <b>' + fHora.format(agora) + '</b>';
+    };
+    tick();
+    setInterval(tick, 1000);
+  }
+
   /* ---------------------------------------------------- menu (mobile) -- */
   var menuBtn = $('#menu-btn');
   var menu = $('#menu');
@@ -92,7 +113,7 @@
 
   function loadIndex() {
     if (index) return Promise.resolve(index);
-    return fetch('/search-index.json')
+    return fetch(doc.body.getAttribute('data-search-index') || '/search-index.json')
       .then(function (r) { return r.json(); })
       .then(function (data) { index = data; return index; })
       .catch(function () { index = []; return index; });
@@ -137,7 +158,10 @@
 
   function search(q) {
     var terms = norm(q).split(/\s+/).filter(Boolean);
-    if (!terms.length) { results.innerHTML = '<li class="search-empty">Digite para buscar nos guias.</li>'; return; }
+    if (!terms.length) {
+      results.innerHTML = '<li class="search-empty">' + (doc.body.getAttribute('data-search-empty') || '') + '</li>';
+      return;
+    }
     var hits = (index || []).map(function (p) {
       var hayTitle = norm(p.t + ' ' + p.c);
       var hayBody = norm(p.d + ' ' + p.x);
@@ -152,7 +176,7 @@
       .slice(0, 8);
 
     if (!hits.length) {
-      results.innerHTML = '<li class="search-empty">Nada encontrado. Tente “zigbee”, “esp32” ou “matter”.</li>';
+      results.innerHTML = '<li class="search-empty">' + (doc.body.getAttribute('data-search-none') || '') + '</li>';
       return;
     }
     results.innerHTML = hits.map(function (h, i) {

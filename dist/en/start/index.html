@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Start here: installing Home Assistant from scratch · SmartHome-AI</title>
+  <meta name="description" content="The complete path — choosing hardware, flashing the image, the first login, protecting it with backups and adding your first device.">
+  <meta name="author" content="Dr. Álvaro Menezes">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#080d0c">
+  <link rel="canonical" href="https://smarthome-ai.com/en/start/">
+  <link rel="alternate" hreflang="pt" href="https://smarthome-ai.com/instalacao/">
+  <link rel="alternate" hreflang="en" href="https://smarthome-ai.com/en/start/">
+  <link rel="alternate" hreflang="x-default" href="https://smarthome-ai.com/instalacao/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SmartHome-AI">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Start here: installing Home Assistant from scratch · SmartHome-AI">
+  <meta property="og:description" content="The complete path — choosing hardware, flashing the image, the first login, protecting it with backups and adding your first device.">
+  <meta property="og:url" content="https://smarthome-ai.com/en/start/">
+  <meta property="og:image" content="https://smarthome-ai.com/static/img/logo-smarthome-ai.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Start here: installing Home Assistant from scratch · SmartHome-AI">
+  <meta name="twitter:description" content="The complete path — choosing hardware, flashing the image, the first login, protecting it with backups and adding your first device.">
+  <meta name="twitter:image" content="https://smarthome-ai.com/static/img/logo-smarthome-ai.jpg">
+
+  <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/static/img/logo-smarthome-ai-marca.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('sha-theme');
+        if (t) document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+  
+</head>
+<body class="article"
+      data-lang="en"
+      data-intl="en-US"
+      data-search-index="/en/search-index.json"
+      data-search-empty="Type to search the guides."
+      data-search-none="Nothing found. Try “zigbee”, “esp32” or “matter”.">
+  <a class="skip-link" href="#conteudo">Skip to content</a>
+
+  <div class="topbar">
+    <div class="wrap topbar-inner">
+      <p class="clock" id="clock" data-intl="en-US" aria-label="Date and time in Fortaleza">&nbsp;</p>
+      <div class="topbar-actions">
+        <div class="lang-switch" role="group" aria-label="Language">
+          <a href="/instalacao/" hreflang="pt" lang="pt">PT</a>
+          <span aria-hidden="true">·</span>
+          <span class="lang-current" aria-current="true">EN</span>
+        </div>
+        <button class="icon-btn" id="theme-toggle" aria-label="Toggle light/dark theme" title="Toggle light/dark theme">
+          <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5Z"/></svg>
+          <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.6 5.6l1.4 1.4m10 10 1.4 1.4m0-12.8-1.4 1.4m-10 10-1.4 1.4"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="/en/" aria-label="SmartHome-AI">
+        <img class="brand-mark" src="/static/img/logo-smarthome-ai-marca.png" width="44" height="44" alt="" loading="eager">
+        <span class="brand-text">
+          <strong>SmartHome<span class="accent">-AI</span></strong>
+          <small>Intelligence for your home</small>
+        </span>
+      </a>
+      <nav class="site-nav" id="menu" aria-label="Main navigation">
+        <a href="/en/">Home</a>
+        <a href="/en/guides/">Guides</a>
+        <a href="/en/start/" class="active" aria-current="page">Start here</a>
+        <a href="/en/faq/">FAQ</a>
+        <a href="/en/about/">About</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" id="search-open" aria-label="Search the site" title="Search the site (/)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </button>
+        <button class="icon-btn menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <article class="page">
+    <header class="page-head">
+      <p class="eyebrow">Getting started</p>
+      <h1>Start here: installing Home Assistant from scratch</h1>
+      <p class="lead">The complete path — choosing hardware, flashing the image, the first login, protecting it with backups and adding your first device.</p>
+      <p class="byline">12 min read</p>
+    </header>
+    <div class="article-grid">
+      <nav class="toc" aria-label="In this guide"><p class="toc-title">In this guide</p><div class="toc">
+<ul>
+<li><a href="#1-choose-where-home-assistant-will-live">1. Choose where Home Assistant will live</a></li>
+<li><a href="#2-choose-the-installation-method">2. Choose the installation method</a></li>
+<li><a href="#3-flash-the-image-and-boot">3. Flash the image and boot</a></li>
+<li><a href="#4-the-first-10-minutes-that-matter">4. The first 10 minutes that matter</a></li>
+<li><a href="#5-add-your-first-device">5. Add your first device</a></li>
+<li><a href="#6-your-first-automation-one-you-will-actually-use">6. Your first automation (one you will actually use)</a></li>
+<li><a href="#7-checklist-before-expanding">7. Checklist before expanding</a></li>
+</ul>
+</div>
+</nav>
+      <div class="prose">
+        <p>If you simply want <strong>the lights to turn on by themselves</strong> and have no plans to become a server
+administrator, this is the shortest route. The goal of this page is to take you from "I have nothing" to
+"my first automation is running", without decisions you will regret in six months.</p>
+<h3 id="1-choose-where-home-assistant-will-live">1. Choose where Home Assistant will live<a class="headerlink" href="#1-choose-where-home-assistant-will-live" title="Permanent link">#</a></h3>
+<p>Home Assistant needs a computer that stays on 24/7. The three sensible options:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Best for</th>
+<th>Watch out for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ready-made appliance</strong> (Home Assistant Green and similar)</td>
+<td>Plug in and use</td>
+<td>Less expandable; fixed storage</td>
+</tr>
+<tr>
+<td><strong>Raspberry Pi 5 + NVMe SSD</strong></td>
+<td>People who like tinkering</td>
+<td><strong>Never use an SD card</strong> as the main disk</td>
+</tr>
+<tr>
+<td><strong>x86 mini PC (N100 / Ryzen)</strong></td>
+<td>Cameras, local AI, Frigate</td>
+<td>Higher power draw; install via Proxmox or HAOS directly</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Golden rule</p>
+<p>Any of the three works. What does <strong>not</strong> work is running your home on a laptop you take to the office,
+or on a cheap microSD card — SD cards die from write wear, usually at the worst possible moment.</p>
+</div>
+<p>Details of each option, with power draw and cost, are in the <a href="/hardware/">hardware guide</a>.</p>
+<h3 id="2-choose-the-installation-method">2. Choose the installation method<a class="headerlink" href="#2-choose-the-installation-method" title="Permanent link">#</a></h3>
+<p>There are four ways to install, and they are <strong>not</strong> equivalent:</p>
+<ul>
+<li><strong>Home Assistant OS (HAOS)</strong> — a dedicated operating system. It has the add-on store, one-click updates
+  and built-in backups. <strong>This is the right choice for 95% of people.</strong></li>
+<li><strong>Home Assistant Supervised</strong> — on top of a Debian you maintain. Only if you know exactly why.</li>
+<li><strong>Home Assistant Container (Docker)</strong> — light and flexible, but <strong>no add-ons</strong>; you install Mosquitto,
+  Zigbee2MQTT and friends yourself.</li>
+<li><strong>Home Assistant Core (Python venv)</strong> — for development. Avoid it day to day.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">The most common beginner mistake</p>
+<p>Installing the Container version because it sounds "more professional", then discovering weeks later
+that half the tutorials online assume add-ons you do not have. Start with <strong>HAOS</strong>.</p>
+</div>
+<h3 id="3-flash-the-image-and-boot">3. Flash the image and boot<a class="headerlink" href="#3-flash-the-image-and-boot" title="Permanent link">#</a></h3>
+<ol>
+<li>Download the HAOS image for your hardware at <a href="https://www.home-assistant.io/installation/">home-assistant.io/installation</a>.</li>
+<li>Flash it with <strong>Raspberry Pi Imager</strong> ("Use custom image") or <strong>balenaEtcher</strong>, onto the SSD or eMMC.</li>
+<li>Connect the device <strong>to your router with an Ethernet cable</strong> for the first install — Wi-Fi at this stage
+   only makes troubleshooting harder.</li>
+<li>Power it on and wait 5 to 20 minutes on first boot: the system is expanding itself and downloading components.</li>
+<li>In a browser on your Mac or PC, open:</li>
+</ol>
+<pre><code class="language-text">http://homeassistant.local:8123
+</code></pre>
+<p>If the <code>.local</code> address does not resolve (common with mesh Wi-Fi or VLANs), find the IP in your router and
+use <code>http://192.168.x.y:8123</code>.</p>
+<h3 id="4-the-first-10-minutes-that-matter">4. The first 10 minutes that matter<a class="headerlink" href="#4-the-first-10-minutes-that-matter" title="Permanent link">#</a></h3>
+<p>When you create the administrator account, the wizard discovers much of your network automatically.
+Before clicking around, do these four things:</p>
+<ol>
+<li><strong>Set the correct location and time zone.</strong> Half of all automations depend on sunrise and sunset.</li>
+<li><strong>Create the first backup</strong> under <em>Settings → System → Backups</em> and enable automatic backups.</li>
+<li><strong>Reserve the IP in your router</strong> (static DHCP lease) so Home Assistant never changes address.</li>
+<li><strong>Rename everything, calmly.</strong> <code>sensor.bedroom_temperature</code> ages well; <code>sensor.0x00158d0004f2a1</code> does not.</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Backups separate a hobby from a disaster</p>
+<p>Keep a copy <strong>off the device</strong> — Google Drive, a NAS, an iCloud folder on your Mac. The <em>Samba Backup</em>
+add-on or a cloud storage integration solves this in five minutes.</p>
+</div>
+<h3 id="5-add-your-first-device">5. Add your first device<a class="headerlink" href="#5-add-your-first-device" title="Permanent link">#</a></h3>
+<p>The order that causes the least frustration:</p>
+<ol>
+<li><strong>Something already on your network</strong>: your TV, AV receiver, printer, robot vacuum. Go to
+   <em>Settings → Devices &amp; services</em> and accept the automatically discovered integrations.</li>
+<li><strong>A cheap Zigbee sensor</strong> (temperature or door contact) with a USB coordinator.
+   See <a href="/zigbee/">Zigbee2MQTT or ZHA</a> to pick the radio and the software.</li>
+<li><strong>A Matter device</strong>, if you already own an Apple TV, a HomePod or any hub that can act as a
+   <a href="/matter-thread/">Thread border router</a>.</li>
+</ol>
+<h3 id="6-your-first-automation-one-you-will-actually-use">6. Your first automation (one you will actually use)<a class="headerlink" href="#6-your-first-automation-one-you-will-actually-use" title="Permanent link">#</a></h3>
+<p>Forget elaborate scenes. Start with something that solves a real annoyance — the hallway light at night:</p>
+<pre><code class="language-yaml">alias: Hallway - soft light on motion at night
+description: Turns on at 20% between 10pm and 6am and turns itself off
+triggers:
+  - trigger: state
+    entity_id: binary_sensor.hallway_motion
+    to: &quot;on&quot;
+conditions:
+  - condition: time
+    after: &quot;22:00:00&quot;
+    before: &quot;06:00:00&quot;
+actions:
+  - action: light.turn_on
+    target:
+      entity_id: light.hallway
+    data:
+      brightness_pct: 20
+  - delay: &quot;00:02:00&quot;
+  - action: light.turn_off
+    target:
+      entity_id: light.hallway
+mode: restart
+</code></pre>
+<p><code>mode: restart</code> is the detail that makes the automation feel intelligent: if motion happens again during
+those two minutes, the timer restarts instead of switching the light off in your face.</p>
+<h3 id="7-checklist-before-expanding">7. Checklist before expanding<a class="headerlink" href="#7-checklist-before-expanding" title="Permanent link">#</a></h3>
+<ul>
+<li>[x] Automatic backups enabled, with an off-device copy</li>
+<li>[x] IP reserved in the router</li>
+<li>[x] Remote access solved (Nabu Casa, router VPN or Tailscale — <strong>never</strong> by opening port 8123)</li>
+<li>[x] Zigbee coordinator on a USB extension cable, away from the case and from USB 3.0 ports</li>
+<li>[x] Names and areas organised</li>
+</ul>
+<p>With that in place, continue with the guides in the library — they are currently written in Portuguese and
+translate well in the browser while the English versions are being written.</p>
+        <ul class="tags"><li>Home Assistant</li><li>Installation</li><li>Raspberry Pi</li><li>Backup</li></ul>
+      </div>
+    </div>
+    <nav class="pager">
+      
+      
+    </nav>
+  </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <section class="wrap eco">
+      <h2 class="eco-title">Ecosystem</h2>
+      <div class="eco-grid">
+        <a class="eco-tile" href="/en/">
+          <span class="eco-logo"><img src="/static/img/logo-smarthome-ai-marca.png" alt="SmartHome-AI" width="56" height="56" loading="lazy"></span>
+          <span class="eco-text"><strong>SmartHome-AI</strong><small>Smart home, local automation and open source</small></span>
+        </a>
+        <a class="eco-tile" href="https://alvaro-menezes.com" target="_blank" rel="noopener">
+          <span class="eco-logo"><img src="/static/img/logo-alvaro-menezes.png" alt="Dr. Álvaro Menezes" width="56" height="56" loading="lazy"></span>
+          <span class="eco-text"><strong>Dr. Álvaro Menezes</strong><small>General and musculoskeletal radiology · Fortaleza, Brazil</small></span>
+        </a>
+        <a class="eco-tile" href="https://radapps.app" target="_blank" rel="noopener">
+          <span class="eco-logo"><img src="/static/img/logo-radapps.png" alt="RadApps" width="56" height="56" loading="lazy"></span>
+          <span class="eco-text"><strong>RadApps</strong><small>Apps for radiologists · iOS and Android</small></span>
+        </a>
+      </div>
+    </section>
+
+    <section class="wrap contact-card" id="contato">
+      <div class="contact-person">
+        <img class="contact-photo" src="/static/img/foto-alvaro-menezes.jpg" width="96" height="96" alt="Dr. Álvaro Menezes" loading="lazy">
+        <div>
+          <p class="contact-name">Dr. Álvaro Menezes</p>
+          <p class="contact-cred">CRM 11.393/CE · RQE 6562</p>
+          <p class="contact-cred">Independent guides on smart homes, local automation and open source.</p>
+          <div class="contact-social"><a class="social" href="https://github.com/alvaroajm" target="_blank" rel="noopener me" aria-label="GitHub" title="GitHub"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a><a class="social" href="https://www.instagram.com/alvaroajm/" target="_blank" rel="noopener me" aria-label="Instagram" title="Instagram"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg></a><a class="social" href="https://facebook.com/alvaroajm" target="_blank" rel="noopener me" aria-label="Facebook" title="Facebook"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg></a><a class="social" href="https://x.com/alvaromenezesMD" target="_blank" rel="noopener me" aria-label="X" title="X"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"/></svg></a><a class="social" href="https://www.linkedin.com/in/dr-alvaro-menezes/" target="_blank" rel="noopener me" aria-label="LinkedIn" title="LinkedIn"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></div>
+        </div>
+      </div>
+      <div class="contact-actions">
+        <h4>Contact</h4>
+        <a class="contact-line" href="https://wa.me/5585996621818" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg><span>+55 (85) 99662-1818</span></a>
+        <a class="contact-line" href="mailto:admin@alvaro-menezes.com"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6 8.5-6"/></svg><span>admin@alvaro-menezes.com</span></a>
+        <a class="contact-line" href="https://alvaro-menezes.com/" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3 10h18M7 14.5h4"/></svg><span>Contact card</span></a>
+      </div>
+      <div class="contact-places">
+        <h4>Practice locations</h4>
+        <ul><li><strong>Instituto Doutor José Frota</strong><span>Rua Barão do Rio Branco, 1816 · Centro, Fortaleza/CE</span></li><li><strong>Hospital Universitário Walter Cantídio</strong><span>Rua Pastor Samuel Munguba, 1290 · Rodolfo Teófilo, Fortaleza/CE</span></li><li><strong>Clínica Boghos Boyadjian</strong><span>Av. Rui Barbosa, 1975 · Aldeota, Fortaleza/CE</span></li></ul>
+      </div>
+    </section>
+
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <strong>SmartHome<span class="accent">-AI</span></strong>
+        <p>Intelligence for your home — Independent guides on smart homes, local automation and open source.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Site">
+        <div><h4>Platforms</h4><a href="/home-assistant/">Home Assistant</a><a href="/esphome-esp32/">ESPHome &amp; ESP32</a><a href="/scrypted/">Scrypted &amp; cameras</a><a href="/casaos-umbrel/">CasaOS &amp; umbrelOS</a><a href="/nabu-casa/">Nabu Casa</a></div><div><h4>Protocols</h4><a href="/zigbee/">Zigbee2MQTT &amp; ZHA</a><a href="/zbt-dongles/">ZBT-1 &amp; ZBT-2 dongles</a><a href="/matter-thread/">Matter &amp; Thread</a><a href="/mqtt/">MQTT</a><a href="/apple-homekit/">Apple HomeKit</a></div><div><h4>AI & agents</h4><a href="/claude-mcp/">Claude &amp; MCP</a><a href="/cameras-ia/">AI cameras</a><a href="/openclaw/">OpenClaw</a></div><div><h4>Site</h4><a href="/en/guides/">All guides</a><a href="/en/start/">Start here</a><a href="/en/faq/">FAQ</a><a href="/en/about/">About</a></div>
+      </nav>
+    </div>
+    <div class="wrap footer-bottom">
+      <p>© 2026 SmartHome-AI · written by Dr. Álvaro Menezes</p>
+      <p>Built with HTML, CSS, JavaScript and a static site generator in Python.</p>
+    </div>
+  </footer>
+
+  <div class="search-modal" id="search-modal" hidden>
+    <div class="search-backdrop" data-close></div>
+    <div class="search-box" role="dialog" aria-modal="true" aria-label="Search the site">
+      <div class="search-field">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" id="search-input" placeholder="Search: Zigbee, ESPHome, Matter, Raspberry Pi…" autocomplete="off" spellcheck="false">
+        <kbd>Esc</kbd>
+      </div>
+      <ul class="search-results" id="search-results"></ul>
+    </div>
+  </div>
+
+  <script src="/static/js/main.js" defer></script>
+</body>
+</html>

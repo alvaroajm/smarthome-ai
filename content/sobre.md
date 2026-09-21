@@ -53,6 +53,19 @@ rodar `python3 build.py` e ter o site pronto.
 
 ## Quem escreve
 
+<div class="author-box" markdown="0">
+  <img src="/static/img/foto-alvaro-menezes-retrato.jpg" alt="Dr. Álvaro Menezes" width="170" height="238" loading="lazy">
+  <div>
+    <p class="author-name">Dr. Álvaro Menezes</p>
+    <p class="author-role">Médico radiologista · CRM 11.393/CE · RQE 6562<br>Radiologia geral e musculoesquelética — Fortaleza/CE</p>
+    <p class="author-links">
+      <a href="https://alvaro-menezes.com" target="_blank" rel="noopener">alvaro-menezes.com</a> ·
+      <a href="https://radapps.app" target="_blank" rel="noopener">radapps.app</a> ·
+      <a href="https://github.com/alvaroajm" target="_blank" rel="noopener">GitHub</a>
+    </p>
+  </div>
+</div>
+
 Conteúdo por **Dr. Álvaro Menezes** — médico radiologista, entusiasta de automação residencial, Home Assistant,
 ESP32 e sistemas locais. As configurações publicadas aqui rodam numa casa de verdade, com os erros já cometidos.
 

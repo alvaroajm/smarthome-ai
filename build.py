@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-build.py — Gerador estático do site SmartHome-AI (https://smarthome-ai.com)
+build.py — Gerador estático bilíngue (pt-BR / en) do SmartHome-AI
 
-Lê os arquivos Markdown de content/, aplica os templates de templates/,
-copia static/ e escreve o site pronto em dist/.
+Lê content/*.md (português) e content/en/*.md (inglês), aplica os templates
+de templates/, copia static/ e escreve o site pronto em dist/.
 
-Uso:
     python3 build.py            # gera o site em dist/
     python3 build.py --clean    # apaga dist/ antes de gerar
 """
@@ -25,9 +24,6 @@ try:
 except ImportError:  # pragma: no cover
     sys.exit("Falta a dependência 'Markdown'. Rode:  pip3 install -r requirements.txt")
 
-# --------------------------------------------------------------------------
-# Configuração do site
-# --------------------------------------------------------------------------
 ROOT = Path(__file__).resolve().parent
 CONTENT = ROOT / "content"
 TEMPLATES = ROOT / "templates"
@@ -36,30 +32,74 @@ DIST = ROOT / "dist"
 
 SITE = {
     "name": "SmartHome-AI",
-    "tagline": "Inteligência para o seu lar",
     "url": "https://smarthome-ai.com",
-    "description": (
-        "Guias práticos e independentes de casa inteligente: Home Assistant, ESPHome, "
-        "ESP32, Zigbee2MQTT, ZHA, Matter over Thread, Apple HomeKit, Scrypted, "
-        "Raspberry Pi e mini-PCs."
-    ),
     "author": "Dr. Álvaro Menezes",
-    "lang": "pt-BR",
-    "locale": "pt_BR",
     "og_image": "/static/img/logo-smarthome-ai.jpg",
-    "github": "https://github.com/alvaroajm/smarthome-ai",
 }
 
-NAV = [
-    ("Início", "/"),
-    ("Artigos", "/artigos/"),
-    ("Comece aqui", "/instalacao/"),
-    ("Comandos", "/comandos-haos/"),
-    ("FAQ", "/faq/"),
-    ("Sobre", "/sobre/"),
+# --------------------------------------------------------------------------
+# Contato e ecossistema
+# --------------------------------------------------------------------------
+CONTACT = {
+    "name": "Dr. Álvaro Menezes",
+    "credentials": "CRM 11.393/CE · RQE 6562",
+    "photo": "/static/img/foto-alvaro-menezes.jpg",
+    "phone_display": "+55 (85) 99662-1818",
+    "tel": "+5585996621818",
+    "whatsapp": "https://wa.me/5585996621818",
+    "email": "admin@alvaro-menezes.com",
+    "card": "https://alvaro-menezes.com/",
+}
+
+SOCIAL = [
+    ("GitHub", "https://github.com/alvaroajm", "github"),
+    ("Instagram", "https://www.instagram.com/alvaroajm/", "instagram"),
+    ("Facebook", "https://facebook.com/alvaroajm", "facebook"),
+    ("X", "https://x.com/alvaromenezesMD", "x"),
+    ("LinkedIn", "https://www.linkedin.com/in/dr-alvaro-menezes/", "linkedin"),
 ]
 
-# Ícones SVG (traço 1.5, currentColor) usados nos cards da home
+PLACES = [
+    ("Instituto Doutor José Frota", "Rua Barão do Rio Branco, 1816 · Centro, Fortaleza/CE"),
+    ("Hospital Universitário Walter Cantídio", "Rua Pastor Samuel Munguba, 1290 · Rodolfo Teófilo, Fortaleza/CE"),
+    ("Clínica Boghos Boyadjian", "Av. Rui Barbosa, 1975 · Aldeota, Fortaleza/CE"),
+]
+
+ECOSYSTEM = [
+    {
+        "name": "SmartHome-AI",
+        "url": "https://smarthome-ai.com",
+        "img": "/static/img/logo-smarthome-ai-marca.png",
+        "pt": "Casa inteligente, automação local e código aberto",
+        "en": "Smart home, local automation and open source",
+    },
+    {
+        "name": "Dr. Álvaro Menezes",
+        "url": "https://alvaro-menezes.com",
+        "img": "/static/img/logo-alvaro-menezes.png",
+        "pt": "Radiologia geral e musculoesquelética · Fortaleza/CE",
+        "en": "General and musculoskeletal radiology · Fortaleza, Brazil",
+    },
+    {
+        "name": "RadApps",
+        "url": "https://radapps.app",
+        "img": "/static/img/logo-radapps.png",
+        "pt": "Aplicativos para radiologistas · iOS e Android",
+        "en": "Apps for radiologists · iOS and Android",
+    },
+]
+
+# Ícones de marca — Simple Icons (CC0)
+BRAND_ICONS = {
+    "github": "M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12",
+    "instagram": "M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077",
+    "facebook": "M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z",
+    "x": "M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z",
+    "linkedin": "M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z",
+    "whatsapp": "M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z",
+}
+
+# Ícones de linha usados nos cards de conteúdo
 ICONS = {
     "hub": '<path d="M12 3v4m0 10v4m9-9h-4M7 12H3m12.4-5.4-2.8 2.8m-5.2 5.2-2.8 2.8m10.8 0-2.8-2.8M8.6 8.6 5.8 5.8"/><circle cx="12" cy="12" r="3"/>',
     "chip": '<rect x="7" y="7" width="10" height="10" rx="2"/><path d="M10 3v4m4-4v4m-4 10v4m4-4v4M3 10h4m-4 4h4m10-4h4m-4 4h4"/>',
@@ -78,27 +118,173 @@ ICONS = {
     "key": '<circle cx="8" cy="12" r="4"/><path d="M12 12h9m-3 0v3m-2.5-3v2"/>',
     "terminal": '<rect x="3" y="4.5" width="18" height="15" rx="2.5"/><path d="m7.5 10 2.8 2.4-2.8 2.4M13.2 15h3.5"/>',
     "book": '<path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2Z"/><path d="M6 17h13"/>',
+    "mail": '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6 8.5-6"/>',
+    "pin": '<path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/>',
+    "card": '<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3 10h18M7 14.5h4"/>',
 }
 
-MD_EXTENSIONS = [
-    "extra",          # tabelas, listas de definição, atributos, fenced code
-    "toc",
-    "sane_lists",
-    "admonition",
-    "attr_list",
-]
+MD_EXTENSIONS = ["extra", "toc", "sane_lists", "admonition", "attr_list"]
 MD_CONFIG = {"toc": {"permalink": "#", "toc_depth": "2-3", "baselevel": 2}}
+
+# --------------------------------------------------------------------------
+# Idiomas
+# --------------------------------------------------------------------------
+LANGS = {
+    "pt": {
+        "code": "pt",
+        "html_lang": "pt-BR",
+        "locale": "pt_BR",
+        "intl": "pt-BR",
+        "prefix": "",
+        "dir": CONTENT,
+        "home_tpl": "home.pt.html",
+        "tagline": "Inteligência para o seu lar",
+        "description": (
+            "Guias práticos e independentes de casa inteligente: Home Assistant, ESPHome, "
+            "ESP32, Zigbee2MQTT, ZHA, Matter over Thread, Apple HomeKit, Scrypted, "
+            "Raspberry Pi e mini-PCs."
+        ),
+        "nav": [
+            ("Início", ""),
+            ("Artigos", "artigos/"),
+            ("Comece aqui", "instalacao/"),
+            ("Comandos", "comandos-haos/"),
+            ("FAQ", "faq/"),
+            ("Sobre", "sobre/"),
+        ],
+        "ui": {
+            "skip": "Pular para o conteúdo",
+            "search": "Buscar no site",
+            "search_ph": "Buscar: Zigbee, ESPHome, Matter, Raspberry Pi…",
+            "search_empty": "Digite para buscar nos guias.",
+            "search_none": "Nada encontrado. Tente “zigbee”, “esp32” ou “matter”.",
+            "theme": "Alternar tema claro/escuro",
+            "menu": "Abrir menu",
+            "nav_label": "Navegação principal",
+            "toc": "Neste guia",
+            "prev": "← Anterior",
+            "next": "Próximo →",
+            "listing_eyebrow": "Biblioteca",
+            "listing_title": "Todos os guias",
+            "listing_lead": "{n} guias sobre plataformas, protocolos e hardware de casa inteligente — do primeiro sensor até a automação que ninguém percebe que existe.",
+            "all_guides": "Ver todos os guias →",
+            "pt_badge": "em português",
+            "e404_eyebrow": "Erro 404",
+            "e404_title": "Esta automação não existe (ainda)",
+            "e404_lead": "A página que você procurou não foi encontrada. Que tal voltar ao início ou consultar a lista de guias?",
+            "e404_home": "Voltar ao início",
+            "e404_list": "Ver todos os guias",
+            "f_platforms": "Plataformas",
+            "f_protocols": "Protocolos",
+            "f_ai": "IA & agentes",
+            "f_site": "Site",
+            "f_ecosystem": "Ecossistema",
+            "f_contact": "Contato",
+            "f_follow": "Redes",
+            "f_places": "Locais de atendimento",
+            "f_card": "Cartão de contato",
+            "f_about_site": "Guias independentes de casa inteligente, automação local e código aberto.",
+            "f_made": "Feito com HTML, CSS, JavaScript e um gerador estático em Python.",
+            "f_by": "conteúdo por",
+            "lang_label": "Idioma",
+            "clock_label": "Data e hora em Fortaleza",
+        },
+    },
+    "en": {
+        "code": "en",
+        "html_lang": "en",
+        "locale": "en_US",
+        "intl": "en-US",
+        "prefix": "en/",
+        "dir": CONTENT / "en",
+        "home_tpl": "home.en.html",
+        "tagline": "Intelligence for your home",
+        "description": (
+            "Independent, practical smart home guides: Home Assistant, ESPHome, ESP32, "
+            "Zigbee2MQTT, ZHA, Matter over Thread, Apple HomeKit, Scrypted, Raspberry Pi "
+            "and mini PCs."
+        ),
+        "nav": [
+            ("Home", ""),
+            ("Guides", "guides/"),
+            ("Start here", "start/"),
+            ("FAQ", "faq/"),
+            ("About", "about/"),
+        ],
+        "ui": {
+            "skip": "Skip to content",
+            "search": "Search the site",
+            "search_ph": "Search: Zigbee, ESPHome, Matter, Raspberry Pi…",
+            "search_empty": "Type to search the guides.",
+            "search_none": "Nothing found. Try “zigbee”, “esp32” or “matter”.",
+            "theme": "Toggle light/dark theme",
+            "menu": "Open menu",
+            "nav_label": "Main navigation",
+            "toc": "In this guide",
+            "prev": "← Previous",
+            "next": "Next →",
+            "listing_eyebrow": "Library",
+            "listing_title": "All guides",
+            "listing_lead": "{n} guides on smart home platforms, protocols and hardware — from the first sensor to the automation nobody notices.",
+            "all_guides": "See all guides →",
+            "pt_badge": "in Portuguese",
+            "e404_eyebrow": "Error 404",
+            "e404_title": "This automation doesn't exist (yet)",
+            "e404_lead": "The page you asked for was not found. Head back home or browse the guides.",
+            "e404_home": "Back home",
+            "e404_list": "See all guides",
+            "f_platforms": "Platforms",
+            "f_protocols": "Protocols",
+            "f_ai": "AI & agents",
+            "f_site": "Site",
+            "f_ecosystem": "Ecosystem",
+            "f_contact": "Contact",
+            "f_follow": "Social",
+            "f_places": "Practice locations",
+            "f_card": "Contact card",
+            "f_about_site": "Independent guides on smart homes, local automation and open source.",
+            "f_made": "Built with HTML, CSS, JavaScript and a static site generator in Python.",
+            "f_by": "written by",
+            "lang_label": "Language",
+            "clock_label": "Date and time in Fortaleza",
+        },
+    },
+}
+
+FOOTER_LINKS = {
+    "pt": {
+        "f_platforms": [("Home Assistant", "/home-assistant/"), ("ESPHome & ESP32", "/esphome-esp32/"),
+                        ("Scrypted & câmeras", "/scrypted/"), ("CasaOS & umbrelOS", "/casaos-umbrel/"),
+                        ("Nabu Casa", "/nabu-casa/")],
+        "f_protocols": [("Zigbee2MQTT & ZHA", "/zigbee/"), ("Dongles ZBT-1 & ZBT-2", "/zbt-dongles/"),
+                        ("Matter & Thread", "/matter-thread/"), ("MQTT", "/mqtt/"),
+                        ("Apple HomeKit", "/apple-homekit/")],
+        "f_ai": [("Claude & MCP", "/claude-mcp/"), ("Câmeras com IA", "/cameras-ia/"), ("OpenClaw", "/openclaw/")],
+        "f_site": [("Todos os guias", "/artigos/"), ("Comece aqui", "/instalacao/"),
+                   ("Comandos do HA", "/comandos-haos/"), ("Dúvidas frequentes", "/faq/"), ("Sobre", "/sobre/")],
+    },
+    "en": {
+        "f_platforms": [("Home Assistant", "/home-assistant/"), ("ESPHome & ESP32", "/esphome-esp32/"),
+                        ("Scrypted & cameras", "/scrypted/"), ("CasaOS & umbrelOS", "/casaos-umbrel/"),
+                        ("Nabu Casa", "/nabu-casa/")],
+        "f_protocols": [("Zigbee2MQTT & ZHA", "/zigbee/"), ("ZBT-1 & ZBT-2 dongles", "/zbt-dongles/"),
+                        ("Matter & Thread", "/matter-thread/"), ("MQTT", "/mqtt/"),
+                        ("Apple HomeKit", "/apple-homekit/")],
+        "f_ai": [("Claude & MCP", "/claude-mcp/"), ("AI cameras", "/cameras-ia/"), ("OpenClaw", "/openclaw/")],
+        "f_site": [("All guides", "/en/guides/"), ("Start here", "/en/start/"),
+                   ("FAQ", "/en/faq/"), ("About", "/en/about/")],
+    },
+}
 
 
 # --------------------------------------------------------------------------
-# Utilitários
+# Utilidades
 # --------------------------------------------------------------------------
 def log(msg: str) -> None:
     print(f"  {msg}")
 
 
 def parse_front_matter(raw: str) -> tuple[dict, str]:
-    """Lê um bloco de metadados delimitado por --- no topo do arquivo."""
     meta: dict = {}
     body = raw
     if raw.lstrip().startswith("---"):
@@ -107,9 +293,7 @@ def parse_front_matter(raw: str) -> tuple[dict, str]:
         if len(parts) >= 3:
             block, body = parts[1], parts[2]
             for line in block.strip().splitlines():
-                if not line.strip() or line.strip().startswith("#"):
-                    continue
-                if ":" not in line:
+                if not line.strip() or line.strip().startswith("#") or ":" not in line:
                     continue
                 key, _, value = line.partition(":")
                 key = key.strip()
@@ -127,7 +311,6 @@ TPL_RE = re.compile(r"\{\{\s*([a-zA-Z0-9_]+)\s*\}\}")
 
 
 def render(template: str, ctx: dict) -> str:
-    """Substituição simples de {{chave}} — sem dependências externas."""
     return TPL_RE.sub(lambda m: str(ctx.get(m.group(1), "")), template)
 
 
@@ -137,11 +320,14 @@ def read_template(name: str) -> str:
 
 def icon_svg(name: str, cls: str = "icon") -> str:
     path = ICONS.get(name, ICONS["book"])
-    return (
-        f'<svg class="{cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
-        f'stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" '
-        f'aria-hidden="true">{path}</svg>'
-    )
+    return (f'<svg class="{cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+            f'stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" '
+            f'aria-hidden="true">{path}</svg>')
+
+
+def brand_svg(name: str) -> str:
+    return (f'<svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">'
+            f'<path d="{BRAND_ICONS[name]}"/></svg>')
 
 
 def strip_html(text: str) -> str:
@@ -151,80 +337,81 @@ def strip_html(text: str) -> str:
     return re.sub(r"\s+", " ", text).strip()
 
 
-def fmt_date(value: str) -> str:
-    try:
-        d = datetime.strptime(str(value), "%Y-%m-%d").date()
-    except (ValueError, TypeError):
-        return ""
-    meses = ["jan", "fev", "mar", "abr", "mai", "jun",
-             "jul", "ago", "set", "out", "nov", "dez"]
-    return f"{d.day} {meses[d.month - 1]} {d.year}"
+def esc(text: str) -> str:
+    return html_lib.escape(text or "", quote=True)
 
 
 # --------------------------------------------------------------------------
-# Leitura do conteúdo
+# Conteúdo
 # --------------------------------------------------------------------------
 class Page:
-    def __init__(self, path: Path):
+    def __init__(self, path: Path, lang: str):
         raw = path.read_text(encoding="utf-8")
         self.meta, body = parse_front_matter(raw)
         md = markdown.Markdown(extensions=MD_EXTENSIONS, extension_configs=MD_CONFIG)
         self.html = md.convert(body)
         self.toc = getattr(md, "toc", "")
+        self.lang = lang
         self.source = path
         self.slug = self.meta.get("slug", path.stem)
+        self.key = self.meta.get("key", self.slug)
         self.title = self.meta.get("title", self.slug)
         self.description = self.meta.get("description", "")
         self.category = self.meta.get("category", "Guia")
         self.icon = self.meta.get("icon", "book")
-        self.section = self.meta.get("section", "artigo")   # artigo | pagina
+        self.section = self.meta.get("section", "artigo")
         self.featured = bool(self.meta.get("featured", False))
         self.order = int(self.meta.get("order", 99))
         self.date = self.meta.get("date", "")
         self.tags = self.meta.get("tags", []) or []
         self.reading = self.meta.get("reading", "")
-        self.url = "/" if self.slug == "index" else f"/{self.slug}/"
+        self.url = "/" + LANGS[lang]["prefix"] + self.slug + "/"
         self.text = strip_html(self.html)
 
-    def __repr__(self) -> str:  # pragma: no cover
-        return f"<Page {self.slug}>"
 
-
-def load_pages() -> list[Page]:
-    pages = [Page(p) for p in sorted(CONTENT.glob("*.md"))]
+def load_pages(lang: str) -> list[Page]:
+    folder = LANGS[lang]["dir"]
+    if not folder.exists():
+        return []
+    files = sorted(p for p in folder.glob("*.md"))
+    pages = [Page(p, lang) for p in files]
     pages.sort(key=lambda p: (p.order, p.title))
     return pages
 
 
 # --------------------------------------------------------------------------
-# Componentes de HTML
+# Componentes
 # --------------------------------------------------------------------------
-def nav_html(current: str) -> str:
+def nav_html(lang: str, current: str) -> str:
+    prefix = "/" + LANGS[lang]["prefix"]
     items = []
-    for label, url in NAV:
+    for label, path in LANGS[lang]["nav"]:
+        url = prefix + path
         active = ' class="active" aria-current="page"' if url == current else ""
         items.append(f'<a href="{url}"{active}>{label}</a>')
     return "\n        ".join(items)
 
 
-def card_html(page: Page) -> str:
+def card_html(page: Page, ui: dict, foreign: bool = False) -> str:
+    badge = f'<span class="badge-lang">{ui["pt_badge"]}</span>' if foreign else ""
     return f"""<a class="card" href="{page.url}">
         <span class="card-icon">{icon_svg(page.icon)}</span>
-        <span class="card-tag">{page.category}</span>
-        <h3>{page.title}</h3>
-        <p>{page.description}</p>
-        <span class="card-go">Ler o guia <span aria-hidden="true">→</span></span>
+        <span class="card-tag">{esc(page.category)}{badge}</span>
+        <h3>{esc(page.title)}</h3>
+        <p>{esc(page.description)}</p>
+        <span class="card-go">{'Read the guide' if foreign or page.lang == 'en' else 'Ler o guia'} <span aria-hidden="true">→</span></span>
       </a>"""
 
 
-def list_item_html(page: Page) -> str:
-    meta = " · ".join(x for x in [page.category, page.reading] if x)
+def list_item_html(page: Page, ui: dict, foreign: bool = False) -> str:
+    meta = " · ".join(x for x in [esc(page.category), esc(page.reading)] if x)
+    badge = f'<span class="badge-lang">{ui["pt_badge"]}</span>' if foreign else ""
     return f"""<li class="post">
         <a href="{page.url}">
           <span class="post-icon">{icon_svg(page.icon)}</span>
           <span class="post-body">
-            <span class="post-title">{page.title}</span>
-            <span class="post-desc">{page.description}</span>
+            <span class="post-title">{esc(page.title)}{badge}</span>
+            <span class="post-desc">{esc(page.description)}</span>
             <span class="post-meta">{meta}</span>
           </span>
         </a>
@@ -234,69 +421,193 @@ def list_item_html(page: Page) -> str:
 def tags_html(tags: list[str]) -> str:
     if not tags:
         return ""
-    return '<ul class="tags">' + "".join(f"<li>{t}</li>" for t in tags) + "</ul>"
+    return '<ul class="tags">' + "".join(f"<li>{esc(t)}</li>" for t in tags) + "</ul>"
+
+
+def topbar_html(lang: str, alt_url: str) -> str:
+    ui = LANGS[lang]["ui"]
+    other = "en" if lang == "pt" else "pt"
+    pt_url = alt_url if lang == "en" else "#"
+    en_url = alt_url if lang == "pt" else "#"
+    def lang_link(code: str, label: str, url: str) -> str:
+        if code == lang:
+            return f'<span class="lang-current" aria-current="true">{label}</span>'
+        return f'<a href="{url}" hreflang="{code}" lang="{code}">{label}</a>'
+    return f"""<div class="topbar">
+    <div class="wrap topbar-inner">
+      <p class="clock" id="clock" data-intl="{LANGS[lang]['intl']}" aria-label="{ui['clock_label']}">&nbsp;</p>
+      <div class="topbar-actions">
+        <div class="lang-switch" role="group" aria-label="{ui['lang_label']}">
+          {lang_link('pt', 'PT', pt_url)}
+          <span aria-hidden="true">·</span>
+          {lang_link('en', 'EN', en_url)}
+        </div>
+        <button class="icon-btn" id="theme-toggle" aria-label="{ui['theme']}" title="{ui['theme']}">
+          <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5Z"/></svg>
+          <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.6 5.6l1.4 1.4m10 10 1.4 1.4m0-12.8-1.4 1.4m-10 10-1.4 1.4"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>"""
+
+
+def header_html(lang: str, current: str) -> str:
+    ui = LANGS[lang]["ui"]
+    home = "/" + LANGS[lang]["prefix"]
+    return f"""<header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="{home}" aria-label="{SITE['name']}">
+        <img class="brand-mark" src="/static/img/logo-smarthome-ai-marca.png" width="44" height="44" alt="" loading="eager">
+        <span class="brand-text">
+          <strong>SmartHome<span class="accent">-AI</span></strong>
+          <small>{LANGS[lang]['tagline']}</small>
+        </span>
+      </a>
+      <nav class="site-nav" id="menu" aria-label="{ui['nav_label']}">
+        {nav_html(lang, current)}
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" id="search-open" aria-label="{ui['search']}" title="{ui['search']} (/)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </button>
+        <button class="icon-btn menu-btn" id="menu-btn" aria-label="{ui['menu']}" aria-expanded="false" aria-controls="menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>"""
+
+
+def ecosystem_html(lang: str) -> str:
+    tiles = []
+    for item in ECOSYSTEM:
+        current = item["url"].startswith(SITE["url"])
+        rel = "" if current else ' target="_blank" rel="noopener"'
+        href = ("/" + LANGS[lang]["prefix"]) if current else item["url"]
+        tiles.append(f"""<a class="eco-tile" href="{href}"{rel}>
+          <span class="eco-logo"><img src="{item['img']}" alt="{esc(item['name'])}" width="56" height="56" loading="lazy"></span>
+          <span class="eco-text"><strong>{esc(item['name'])}</strong><small>{esc(item[lang])}</small></span>
+        </a>""")
+    return "\n        ".join(tiles)
+
+
+def footer_html(lang: str) -> str:
+    ui = LANGS[lang]["ui"]
+    links = FOOTER_LINKS[lang]
+    cols = []
+    for key in ("f_platforms", "f_protocols", "f_ai", "f_site"):
+        items = "".join(f'<a href="{u}">{esc(t)}</a>' for t, u in links[key])
+        cols.append(f'<div><h4>{ui[key]}</h4>{items}</div>')
+    social = "".join(
+        f'<a class="social" href="{url}" target="_blank" rel="noopener me" aria-label="{name}" title="{name}">{brand_svg(key)}</a>'
+        for name, url, key in SOCIAL
+    )
+    places = "".join(f'<li><strong>{esc(n)}</strong><span>{esc(a)}</span></li>' for n, a in PLACES)
+    return f"""<footer class="site-footer">
+    <section class="wrap eco">
+      <h2 class="eco-title">{ui['f_ecosystem']}</h2>
+      <div class="eco-grid">
+        {ecosystem_html(lang)}
+      </div>
+    </section>
+
+    <section class="wrap contact-card" id="contato">
+      <div class="contact-person">
+        <img class="contact-photo" src="{CONTACT['photo']}" width="96" height="96" alt="{esc(CONTACT['name'])}" loading="lazy">
+        <div>
+          <p class="contact-name">{esc(CONTACT['name'])}</p>
+          <p class="contact-cred">{esc(CONTACT['credentials'])}</p>
+          <p class="contact-cred">{ui['f_about_site']}</p>
+          <div class="contact-social">{social}</div>
+        </div>
+      </div>
+      <div class="contact-actions">
+        <h4>{ui['f_contact']}</h4>
+        <a class="contact-line" href="{CONTACT['whatsapp']}" target="_blank" rel="noopener">{brand_svg('whatsapp')}<span>{esc(CONTACT['phone_display'])}</span></a>
+        <a class="contact-line" href="mailto:{CONTACT['email']}">{icon_svg('mail')}<span>{esc(CONTACT['email'])}</span></a>
+        <a class="contact-line" href="{CONTACT['card']}" target="_blank" rel="noopener">{icon_svg('card')}<span>{ui['f_card']}</span></a>
+      </div>
+      <div class="contact-places">
+        <h4>{ui['f_places']}</h4>
+        <ul>{places}</ul>
+      </div>
+    </section>
+
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <strong>SmartHome<span class="accent">-AI</span></strong>
+        <p>{LANGS[lang]['tagline']} — {ui['f_about_site']}</p>
+      </div>
+      <nav class="footer-nav" aria-label="{ui['f_site']}">
+        {''.join(cols)}
+      </nav>
+    </div>
+    <div class="wrap footer-bottom">
+      <p>© {date.today().year} {SITE['name']} · {ui['f_by']} {esc(SITE['author'])}</p>
+      <p>{ui['f_made']}</p>
+    </div>
+  </footer>"""
 
 
 # --------------------------------------------------------------------------
-# Geração
+# Montagem das páginas
 # --------------------------------------------------------------------------
 def write(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content, encoding="utf-8")
 
 
-def base_context(page_title: str, description: str, url_path: str, **extra) -> dict:
-    canonical = SITE["url"].rstrip("/") + url_path
+def out_path(url: str) -> Path:
+    if url == "/":
+        return DIST / "index.html"
+    return DIST / url.strip("/") / "index.html"
+
+
+def hreflang_html(alts: dict) -> str:
+    tags = [f'<link rel="alternate" hreflang="{code}" href="{SITE["url"]}{url}">'
+            for code, url in alts.items()]
+    tags.append(f'<link rel="alternate" hreflang="x-default" href="{SITE["url"]}{alts.get("pt", "/")}">')
+    return "\n  ".join(tags)
+
+
+def base_context(lang: str, page_title: str, description: str, url_path: str,
+                 alts: dict, content: str, body_class: str = "") -> dict:
+    cfg = LANGS[lang]
+    ui = cfg["ui"]
+    other = "en" if lang == "pt" else "pt"
+    alt_url = alts.get(other, "/" + LANGS[other]["prefix"])
     title = page_title if page_title == SITE["name"] else f"{page_title} · {SITE['name']}"
-    ctx = {
+    return {
         "site_name": SITE["name"],
-        "tagline": SITE["tagline"],
-        "lang": SITE["lang"],
-        "locale": SITE["locale"],
-        "title": html_lib.escape(title, quote=True),
-        "description": html_lib.escape(description or SITE["description"], quote=True),
-        "canonical": canonical,
+        "lang": cfg["html_lang"],
+        "locale": cfg["locale"],
+        "lang_code": lang,
+        "intl": cfg["intl"],
+        "title": esc(title),
+        "description": esc(description or cfg["description"]),
+        "canonical": SITE["url"] + url_path,
         "og_image": SITE["url"] + SITE["og_image"],
-        "nav": nav_html(url_path),
-        "year": date.today().year,
-        "author": SITE["author"],
-        "github": SITE["github"],
-        "site_url": SITE["url"],
-        "body_class": "",
+        "alternates": hreflang_html(alts),
+        "topbar": topbar_html(lang, alt_url),
+        "header": header_html(lang, url_path),
+        "footer": footer_html(lang),
+        "content": content,
+        "body_class": body_class,
+        "author": esc(SITE["author"]),
+        "search_index": "/" + cfg["prefix"] + "search-index.json",
+        "ui_skip": ui["skip"],
+        "ui_search": ui["search"],
+        "ui_search_ph": ui["search_ph"],
+        "ui_search_empty": ui["search_empty"],
+        "ui_search_none": ui["search_none"],
         "extra_head": "",
     }
-    ctx.update(extra)
-    return ctx
 
 
-def build_home(pages: list[Page]) -> None:
-    tpl_home = read_template("home.html")
-    tpl_base = read_template("base.html")
-
-    featured = [p for p in pages if p.featured]
-    artigos = [p for p in pages if p.section == "artigo"]
-
-    cards = "\n      ".join(card_html(p) for p in featured)
-    recentes = "\n      ".join(list_item_html(p) for p in artigos[:6])
-
-    body = render(tpl_home, {
-        "cards": cards,
-        "recentes": recentes,
-        "tagline": SITE["tagline"],
-        "total_guias": len(artigos),
-        "icon_rocket": icon_svg("rocket", "icon icon-lg"),
-        "icon_hub": icon_svg("hub", "icon icon-lg"),
-        "icon_mesh": icon_svg("mesh", "icon icon-lg"),
-    })
-    ctx = base_context(SITE["name"], SITE["description"], "/", content=body,
-                       body_class="home")
-    write(DIST / "index.html", render(tpl_base, ctx))
-    log("index.html")
-
-
-def build_pages(pages: list[Page]) -> None:
+def build_articles(lang: str, pages: list[Page], alts_for) -> None:
     tpl_base = read_template("base.html")
     tpl_article = read_template("article.html")
+    ui = LANGS[lang]["ui"]
     artigos = [p for p in pages if p.section == "artigo"]
 
     for page in pages:
@@ -304,96 +615,133 @@ def build_pages(pages: list[Page]) -> None:
         prev_html = next_html = ""
         if idx > 0:
             p = artigos[idx - 1]
-            prev_html = f'<a class="pager-prev" href="{p.url}"><span>← Anterior</span><strong>{p.title}</strong></a>'
+            prev_html = f'<a class="pager-prev" href="{p.url}"><span>{ui["prev"]}</span><strong>{esc(p.title)}</strong></a>'
         if 0 <= idx < len(artigos) - 1:
             n = artigos[idx + 1]
-            next_html = f'<a class="pager-next" href="{n.url}"><span>Próximo →</span><strong>{n.title}</strong></a>'
+            next_html = f'<a class="pager-next" href="{n.url}"><span>{ui["next"]}</span><strong>{esc(n.title)}</strong></a>'
 
         toc_block = ""
         if page.toc and page.meta.get("toc", True) is not False and "<li>" in page.toc:
-            toc_block = f'<nav class="toc" aria-label="Sumário"><p class="toc-title">Neste guia</p>{page.toc}</nav>'
+            toc_block = (f'<nav class="toc" aria-label="{ui["toc"]}">'
+                         f'<p class="toc-title">{ui["toc"]}</p>{page.toc}</nav>')
 
         body = render(tpl_article, {
-            "title": page.title,
-            "description": page.description,
-            "category": page.category,
-            "icon": icon_svg(page.icon, "icon icon-lg"),
+            "title": esc(page.title),
+            "description": esc(page.description),
+            "category": esc(page.category),
             "content": page.html,
             "toc": toc_block,
             "tags": tags_html(page.tags),
-            "date": fmt_date(page.date),
-            "reading": page.reading,
+            "reading": esc(page.reading),
             "prev": prev_html,
             "next": next_html,
         })
-        ctx = base_context(page.title, page.description, page.url, content=body,
-                           body_class="article")
-        out = DIST / "index.html" if page.url == "/" else DIST / page.slug / "index.html"
-        write(out, render(tpl_base, ctx))
-        log(f"{page.url}")
+        ctx = base_context(lang, page.title, page.description, page.url,
+                           alts_for(page.key, page.url), body, "article")
+        write(out_path(page.url), render(tpl_base, ctx))
+        log(page.url)
 
 
-def build_index_artigos(pages: list[Page]) -> None:
+def build_home(lang: str, own: list[Page], foreign: list[Page], alts_for) -> None:
+    cfg = LANGS[lang]
+    ui = cfg["ui"]
+    tpl = read_template(cfg["home_tpl"])
     tpl_base = read_template("base.html")
-    artigos = [p for p in pages if p.section == "artigo"]
-    items = "\n      ".join(list_item_html(p) for p in artigos)
+
+    guides = [p for p in foreign if p.section == "artigo"] if lang == "en" else \
+             [p for p in own if p.section == "artigo"]
+    featured = [p for p in (foreign if lang == "en" else own) if p.featured]
+    is_foreign = lang == "en"
+
+    body = render(tpl, {
+        "cards": "\n      ".join(card_html(p, ui, is_foreign) for p in featured),
+        "recentes": "\n      ".join(list_item_html(p, ui, is_foreign) for p in guides[:6]),
+        "total_guias": len(guides),
+        "tagline": cfg["tagline"],
+    })
+    url = "/" + cfg["prefix"]
+    ctx = base_context(lang, SITE["name"], cfg["description"], url,
+                       alts_for("home", url), body, "home")
+    write(out_path(url), render(tpl_base, ctx))
+    log(url)
+
+
+def build_listing(lang: str, own: list[Page], foreign: list[Page], alts_for) -> None:
+    cfg = LANGS[lang]
+    ui = cfg["ui"]
+    tpl_base = read_template("base.html")
+    url = "/" + cfg["prefix"] + ("artigos/" if lang == "pt" else "guides/")
+
+    own_articles = [p for p in own if p.section == "artigo"]
+    foreign_articles = [p for p in foreign if p.section == "artigo"] if lang == "en" else []
+    total = len(own_articles) + len(foreign_articles)
+
+    items = "\n      ".join(list_item_html(p, ui) for p in own_articles)
+    if foreign_articles:
+        items += "\n      " + "\n      ".join(list_item_html(p, ui, True) for p in foreign_articles)
+
+    note = ""
+    if lang == "en":
+        note = ('<p class="table-note">The full guide library is currently written in Brazilian '
+                'Portuguese and is being translated. Every guide below is open and readable — '
+                'browser translation works well on these pages.</p>')
+
     body = f"""<article class="page">
     <header class="page-head">
-      <p class="eyebrow">Biblioteca</p>
-      <h1>Todos os guias</h1>
-      <p class="lead">{len(artigos)} guias sobre plataformas, protocolos e hardware de casa inteligente — do primeiro sensor até a automação que ninguém percebe que existe.</p>
+      <p class="eyebrow">{ui['listing_eyebrow']}</p>
+      <h1>{ui['listing_title']}</h1>
+      <p class="lead">{ui['listing_lead'].format(n=total)}</p>
+      {note}
     </header>
     <ul class="post-list">
       {items}
     </ul>
   </article>"""
-    ctx = base_context("Todos os guias", "Índice completo dos guias do SmartHome-AI.",
-                       "/artigos/", content=body, body_class="listing")
-    write(DIST / "artigos" / "index.html", render(tpl_base, ctx))
-    log("/artigos/")
+    ctx = base_context(lang, ui["listing_title"], ui["listing_lead"].format(n=total), url,
+                       alts_for("listing", url), body, "listing")
+    write(out_path(url), render(tpl_base, ctx))
+    log(url)
 
 
-def build_404() -> None:
+def build_404(lang: str, alts_for) -> None:
+    cfg = LANGS[lang]
+    ui = cfg["ui"]
     tpl_base = read_template("base.html")
-    body = """<article class="page page-404">
+    home = "/" + cfg["prefix"]
+    listing = home + ("artigos/" if lang == "pt" else "guides/")
+    body = f"""<article class="page page-404">
     <header class="page-head">
-      <p class="eyebrow">Erro 404</p>
-      <h1>Esta automação não existe (ainda)</h1>
-      <p class="lead">A página que você procurou não foi encontrada. Que tal voltar ao início ou consultar a lista de guias?</p>
+      <p class="eyebrow">{ui['e404_eyebrow']}</p>
+      <h1>{ui['e404_title']}</h1>
+      <p class="lead">{ui['e404_lead']}</p>
       <p class="cta-row">
-        <a class="btn btn-primary" href="/">Voltar ao início</a>
-        <a class="btn btn-ghost" href="/artigos/">Ver todos os guias</a>
+        <a class="btn btn-primary" href="{home}">{ui['e404_home']}</a>
+        <a class="btn btn-ghost" href="{listing}">{ui['e404_list']}</a>
       </p>
     </header>
   </article>"""
-    ctx = base_context("Página não encontrada", "Página não encontrada.", "/404.html",
-                       content=body, body_class="error")
-    write(DIST / "404.html", render(tpl_base, ctx))
-    log("404.html")
+    url = home + "404.html"
+    ctx = base_context(lang, ui["e404_title"], ui["e404_lead"], url,
+                       {"pt": "/404.html", "en": "/en/404.html"}, body, "error")
+    write(DIST / ("404.html" if lang == "pt" else "en/404.html"), render(tpl_base, ctx))
+    log(url)
 
 
-def build_search_index(pages: list[Page]) -> None:
-    data = [
-        {
-            "t": p.title,
-            "u": p.url,
-            "d": p.description,
-            "c": p.category,
-            "x": p.text[:1200],
-        }
-        for p in pages
-    ]
-    write(DIST / "search-index.json", json.dumps(data, ensure_ascii=False))
-    log("search-index.json")
+def build_search_index(lang: str, own: list[Page], foreign: list[Page]) -> None:
+    pages = own + ([p for p in foreign if p.section == "artigo"] if lang == "en" else [])
+    data = [{"t": p.title, "u": p.url, "d": p.description, "c": p.category, "x": p.text[:1200]}
+            for p in pages]
+    path = DIST / (LANGS[lang]["prefix"] + "search-index.json")
+    write(path, json.dumps(data, ensure_ascii=False))
+    log("/" + LANGS[lang]["prefix"] + "search-index.json")
 
 
-def build_sitemap(pages: list[Page]) -> None:
-    urls = ["/", "/artigos/"] + [p.url for p in pages if p.url != "/"]
+def build_sitemap(all_urls: list[str]) -> None:
     today = date.today().isoformat()
     entries = "\n".join(
         f"  <url><loc>{SITE['url']}{u}</loc><lastmod>{today}</lastmod>"
-        f"<changefreq>monthly</changefreq><priority>{'1.0' if u == '/' else '0.7'}</priority></url>"
-        for u in dict.fromkeys(urls)
+        f"<changefreq>monthly</changefreq><priority>{'1.0' if u in ('/', '/en/') else '0.7'}</priority></url>"
+        for u in dict.fromkeys(all_urls)
     )
     write(DIST / "sitemap.xml",
           '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -420,21 +768,45 @@ def main() -> None:
         shutil.rmtree(DIST)
     DIST.mkdir(parents=True, exist_ok=True)
 
-    print(f"\n🏠  Gerando {SITE['name']} → {DIST.relative_to(ROOT)}/\n")
-    pages = load_pages()
-    if not pages:
+    print(f"\n🏠  Gerando {SITE['name']} (pt + en) → {DIST.relative_to(ROOT)}/\n")
+
+    pages = {lang: load_pages(lang) for lang in LANGS}
+    if not pages["pt"]:
         sys.exit("Nenhum arquivo .md encontrado em content/.")
 
-    build_pages(pages)
-    build_home(pages)
-    build_index_artigos(pages)
-    build_404()
-    build_search_index(pages)
-    build_sitemap(pages)
+    # mapa de equivalências entre idiomas
+    index: dict[str, dict[str, str]] = {}
+    for lang, plist in pages.items():
+        for p in plist:
+            index.setdefault(p.key, {})[lang] = p.url
+    for lang in LANGS:
+        prefix = "/" + LANGS[lang]["prefix"]
+        index.setdefault("home", {})[lang] = prefix
+        index.setdefault("listing", {})[lang] = prefix + ("artigos/" if lang == "pt" else "guides/")
+
+    def alts_for(key: str, own_url: str) -> dict:
+        found = dict(index.get(key, {}))
+        for lang in LANGS:
+            found.setdefault(lang, "/" + LANGS[lang]["prefix"])
+        return found
+
+    all_urls: list[str] = []
+    for lang in ("pt", "en"):
+        other = "en" if lang == "pt" else "pt"
+        build_articles(lang, pages[lang], alts_for)
+        build_home(lang, pages[lang], pages[other], alts_for)
+        build_listing(lang, pages[lang], pages[other], alts_for)
+        build_404(lang, alts_for)
+        build_search_index(lang, pages[lang], pages[other])
+        all_urls.append("/" + LANGS[lang]["prefix"])
+        all_urls.append("/" + LANGS[lang]["prefix"] + ("artigos/" if lang == "pt" else "guides/"))
+        all_urls.extend(p.url for p in pages[lang])
+
+    build_sitemap(all_urls)
     copy_static()
 
-    files = sum(1 for _ in DIST.rglob("*") if _.is_file())
-    print(f"\n✅  {len(pages)} páginas de conteúdo · {files} arquivos em dist/\n")
+    files = sum(1 for f in DIST.rglob("*") if f.is_file())
+    print(f"\n✅  {len(pages['pt'])} páginas em pt · {len(pages['en'])} em en · {files} arquivos em dist/\n")
     print("    Pré-visualize com:  python3 serve.py\n")
 
 
