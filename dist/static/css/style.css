@@ -530,3 +530,77 @@ mark { background: color-mix(in srgb, var(--gold-500) 35%, transparent); color: 
 .author-name { margin: 0; font-weight: 650; font-size: 1.05rem; }
 .author-role { margin: .3rem 0 .7rem; color: var(--text-soft); font-size: .92rem; }
 .author-links { margin: 0; font-size: .9rem; }
+
+/* =========================================================================
+   Melhorias de UI/UX
+   ========================================================================= */
+
+/* barra de progresso de leitura */
+.progress {
+  position: fixed; top: 0; left: 0; z-index: 60; height: 3px; width: 0;
+  background: linear-gradient(90deg, var(--gold-400), var(--green-400));
+  transition: width .1s linear; pointer-events: none;
+}
+body:not(.article) .progress { display: none; }
+
+/* migalhas */
+.crumbs { margin: 0 0 1.4rem; font-size: .82rem; }
+.crumbs ol { display: flex; flex-wrap: wrap; gap: .4rem; list-style: none; margin: 0; padding: 0; }
+.crumbs li { color: var(--text-dim); }
+.crumbs li + li::before { content: "›"; margin-right: .4rem; color: var(--border); }
+.crumbs a { color: var(--text-dim); }
+.crumbs a:hover { color: var(--accent); text-decoration: none; }
+.crumbs [aria-current] { color: var(--text-soft); }
+
+/* guias relacionados */
+.related { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--border-soft); }
+.related h2 { font-size: 1.15rem; margin-bottom: 1.1rem; }
+.related .cards { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+.related .card { padding: 1.2rem 1.1rem; }
+.related .card h3 { font-size: .98rem; }
+.related .card p { font-size: .88rem; }
+
+/* voltar ao topo */
+.to-top {
+  position: fixed; right: 1.2rem; bottom: 1.2rem; z-index: 45;
+  width: 42px; height: 42px; display: grid; place-items: center;
+  border-radius: 50%; cursor: pointer;
+  background: var(--surface); color: var(--text-soft);
+  border: 1px solid var(--border); box-shadow: var(--shadow);
+  opacity: 0; visibility: hidden; transform: translateY(8px);
+  transition: opacity .2s, transform .2s, visibility .2s, color .15s, border-color .15s;
+}
+.to-top.show { opacity: 1; visibility: visible; transform: none; }
+.to-top:hover { color: var(--accent); border-color: var(--accent); }
+.to-top svg { width: 19px; height: 19px; }
+
+/* links externos */
+.prose a.ext::after {
+  content: "↗"; font-size: .78em; margin-left: .18em;
+  color: var(--text-dim); text-decoration: none; vertical-align: super;
+}
+.prose a.ext:hover::after { color: var(--accent); }
+
+/* sugestões na busca */
+.search-hint {
+  padding: .5rem .8rem .2rem; font-size: .7rem; text-transform: uppercase;
+  letter-spacing: .1em; color: var(--text-dim);
+}
+
+/* sumário recolhível no celular */
+@media (max-width: 999px) {
+  .toc {
+    border: 1px solid var(--border-soft); border-left-width: 2px;
+    border-radius: var(--radius); padding: 1rem 1.1rem; background: var(--surface);
+  }
+  .toc ul { max-height: 260px; overflow-y: auto; }
+}
+
+/* foco visível também nas âncoras dos títulos */
+.prose h2 .headerlink:focus-visible, .prose h3 .headerlink:focus-visible { opacity: 1; }
+
+/* melhor alvo de toque no menu do celular */
+@media (max-width: 860px) {
+  .site-nav a { padding: .95rem .4rem; }
+  .to-top { right: .9rem; bottom: .9rem; }
+}

@@ -4,7 +4,7 @@ slug: zbt-dongles
 description: O que faz um dongle Zigbee/Thread, a diferença real entre o ZBT-1 e o ZBT-2, qual comprar e como instalar sem sofrer com quedas de sinal.
 category: Hardware
 icon: mesh
-order: 6
+order: 7
 featured: true
 reading: 9 min de leitura
 date: 2026-09-21

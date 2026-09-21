@@ -4,7 +4,7 @@ slug: zigbee
 description: Como funciona a malha Zigbee, qual coordenador comprar, a diferença real entre Zigbee2MQTT e ZHA e como construir uma rede que não cai.
 category: Protocolos
 icon: mesh
-order: 5
+order: 6
 featured: true
 reading: 10 min de leitura
 date: 2026-09-21

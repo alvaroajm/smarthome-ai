@@ -4,7 +4,7 @@ slug: apple-homekit
 description: Como expor tudo do Home Assistant no app Casa, usar Siri e atalhos sem abrir mão da automação local, e quando o caminho inverso faz mais sentido.
 category: Ecossistemas
 icon: apple
-order: 9
+order: 10
 featured: true
 reading: 8 min de leitura
 date: 2026-09-21

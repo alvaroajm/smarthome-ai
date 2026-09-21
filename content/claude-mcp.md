@@ -4,7 +4,7 @@ slug: claude-mcp
 description: O que é MCP explicado sem jargão, como ligar o Claude Desktop e o Claude no terminal ao Home Assistant, quais servidores MCP valem a pena e como fazer isso com segurança.
 category: IA & agentes
 icon: bot
-order: 13
+order: 14
 featured: true
 reading: 13 min de leitura
 date: 2026-09-21

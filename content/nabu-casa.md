@@ -4,7 +4,7 @@ slug: nabu-casa
 description: O que a assinatura oficial inclui, quanto custa, como ela resolve acesso remoto, Alexa e Google, e quais são as alternativas gratuitas — com os prós e contras de cada uma.
 category: Serviços
 icon: cloud
-order: 10
+order: 11
 featured: true
 reading: 8 min de leitura
 date: 2026-09-21

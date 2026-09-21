@@ -4,7 +4,7 @@ slug: scrypted
 description: Como integrar câmeras de qualquer marca ao Home Assistant e ao app Casa, com detecção local de objetos e sem enviar vídeo para a nuvem.
 category: Câmeras & vídeo
 icon: camera
-order: 11
+order: 12
 featured: true
 reading: 9 min de leitura
 date: 2026-09-21

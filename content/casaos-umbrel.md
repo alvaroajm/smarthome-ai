@@ -4,7 +4,7 @@ slug: casaos-umbrel
 description: O que são esses sistemas de home server, como se comparam entre si e ao Home Assistant, e como fazer os dois conviverem na mesma casa sem conflito.
 category: Home server
 icon: server
-order: 16
+order: 17
 featured: true
 reading: 10 min de leitura
 date: 2026-09-21

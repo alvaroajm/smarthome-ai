@@ -45,9 +45,6 @@ CONTACT = {
     "name": "Dr. Álvaro Menezes",
     "credentials": "CRM 11.393/CE · RQE 6562",
     "photo": "/static/img/foto-alvaro-menezes.jpg",
-    "phone_display": "+55 (85) 99662-1818",
-    "tel": "+5585996621818",
-    "whatsapp": "https://wa.me/5585996621818",
     "email": "admin@alvaro-menezes.com",
     "card": "https://alvaro-menezes.com/",
 }
@@ -97,7 +94,6 @@ BRAND_ICONS = {
     "facebook": "M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z",
     "x": "M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z",
     "linkedin": "M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z",
-    "whatsapp": "M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z",
 }
 
 # Ícones de linha usados nos cards de conteúdo
@@ -188,6 +184,10 @@ LANGS = {
             "f_made": "Feito com HTML, CSS, JavaScript e um gerador estático em Python.",
             "f_by": "conteúdo por",
             "lang_label": "Idioma",
+            "to_top": "Voltar ao topo",
+            "search_suggest": "Guias populares",
+            "breadcrumb_home": "Início",
+            "related": "Continue por aqui",
             "clock_label": "Data e hora em Fortaleza",
         },
     },
@@ -247,6 +247,10 @@ LANGS = {
             "f_made": "Built with HTML, CSS, JavaScript and a static site generator in Python.",
             "f_by": "written by",
             "lang_label": "Language",
+            "to_top": "Back to top",
+            "search_suggest": "Popular guides",
+            "breadcrumb_home": "Home",
+            "related": "Read next",
             "clock_label": "Date and time in Fortaleza",
         },
     },
@@ -262,6 +266,7 @@ FOOTER_LINKS = {
                         ("Apple HomeKit", "/apple-homekit/")],
         "f_ai": [("Claude & MCP", "/claude-mcp/"), ("Câmeras com IA", "/cameras-ia/"), ("OpenClaw", "/openclaw/")],
         "f_site": [("Todos os guias", "/artigos/"), ("Comece aqui", "/instalacao/"),
+                   ("Instalar o HAOS", "/instalar-haos/"),
                    ("Comandos do HA", "/comandos-haos/"), ("Dúvidas frequentes", "/faq/"), ("Sobre", "/sobre/")],
     },
     "en": {
@@ -273,6 +278,7 @@ FOOTER_LINKS = {
                         ("Apple HomeKit", "/apple-homekit/")],
         "f_ai": [("Claude & MCP", "/claude-mcp/"), ("AI cameras", "/cameras-ia/"), ("OpenClaw", "/openclaw/")],
         "f_site": [("All guides", "/en/guides/"), ("Start here", "/en/start/"),
+                   ("Install HAOS", "/instalar-haos/"),
                    ("FAQ", "/en/faq/"), ("About", "/en/about/")],
     },
 }
@@ -331,6 +337,14 @@ def brand_svg(name: str) -> str:
             f'<path d="{BRAND_ICONS[name]}"/></svg>')
 
 
+EXT_RE = re.compile(r'<a href="(https?://(?!(?:www\.)?smarthome-ai\.com)[^"]+)"')
+
+
+def mark_external_links(html: str) -> str:
+    """Links para fora do site abrem em nova aba e ganham um indicador visual."""
+    return EXT_RE.sub(lambda m: f'<a class="ext" target="_blank" rel="noopener" href="{m.group(1)}"', html)
+
+
 def strip_html(text: str) -> str:
     text = re.sub(r"<script.*?</script>", " ", text, flags=re.S)
     text = re.sub(r"<[^>]+>", " ", text)
@@ -376,6 +390,7 @@ class Page:
         self.tags = self.meta.get("tags", []) or []
         self.reading = self.meta.get("reading", "")
         self.url = "/" + LANGS[lang]["prefix"] + self.slug + "/"
+        self.html = mark_external_links(self.html)
         self.text = strip_html(self.html)
 
 
@@ -533,7 +548,6 @@ def footer_html(lang: str) -> str:
       </div>
       <div class="contact-actions">
         <h4>{ui['f_contact']}</h4>
-        <a class="contact-line" href="{CONTACT['whatsapp']}" target="_blank" rel="noopener">{brand_svg('whatsapp')}<span>{esc(CONTACT['phone_display'])}</span></a>
         <a class="contact-line" href="mailto:{CONTACT['email']}">{icon_svg('mail')}<span>{esc(CONTACT['email'])}</span></a>
         <a class="contact-line" href="{CONTACT['card']}" target="_blank" rel="noopener">{icon_svg('card')}<span>{ui['f_card']}</span></a>
       </div>
@@ -612,15 +626,41 @@ def base_context(lang: str, page_title: str, description: str, url_path: str,
         "ui_search_ph": ui["search_ph"],
         "ui_search_empty": ui["search_empty"],
         "ui_search_none": ui["search_none"],
+        "ui_search_suggest": ui["search_suggest"],
+        "ui_to_top": ui["to_top"],
         "extra_head": "",
     }
 
 
-def build_articles(lang: str, pages: list[Page], alts_for) -> None:
+def breadcrumbs_html(lang: str, page: Page) -> str:
+    ui = LANGS[lang]["ui"]
+    home = "/" + LANGS[lang]["prefix"]
+    listing = home + ("artigos/" if lang == "pt" else "guides/")
+    return (f'<nav class="crumbs" aria-label="breadcrumb"><ol>'
+            f'<li><a href="{home}">{ui["breadcrumb_home"]}</a></li>'
+            f'<li><a href="{listing}">{ui["listing_title"]}</a></li>'
+            f'<li aria-current="page">{esc(page.category)}</li>'
+            f'</ol></nav>')
+
+
+def related_html(lang: str, page: Page, pool: list[Page]) -> str:
+    ui = LANGS[lang]["ui"]
+    same = [p for p in pool if p is not page and p.category == page.category]
+    rest = [p for p in pool if p is not page and p not in same]
+    picked = (same + rest)[:3]
+    if not picked:
+        return ""
+    cards = "\n      ".join(card_html(p, ui, lang == "en" and p.lang != lang) for p in picked)
+    return (f'<section class="related"><h2>{ui["related"]}</h2>'
+            f'<div class="cards">{cards}</div></section>')
+
+
+def build_articles(lang: str, pages: list[Page], alts_for, pool: list[Page] | None = None) -> None:
     tpl_base = read_template("base.html")
     tpl_article = read_template("article.html")
     ui = LANGS[lang]["ui"]
     artigos = [p for p in pages if p.section == "artigo"]
+    pool = pool or artigos
 
     for page in pages:
         idx = artigos.index(page) if page in artigos else -1
@@ -647,6 +687,8 @@ def build_articles(lang: str, pages: list[Page], alts_for) -> None:
             "reading": esc(page.reading),
             "prev": prev_html,
             "next": next_html,
+            "crumbs": breadcrumbs_html(lang, page),
+            "related": related_html(lang, page, [p for p in pool if p.section == "artigo"]),
         })
         ctx = base_context(lang, page.title, page.description, page.url,
                            alts_for(page.key, page.url), body, "article")
@@ -805,7 +847,8 @@ def main() -> None:
     all_urls: list[str] = []
     for lang in ("pt", "en"):
         other = "en" if lang == "pt" else "pt"
-        build_articles(lang, pages[lang], alts_for)
+        pool = pages[lang] + (pages[other] if lang == "en" else [])
+        build_articles(lang, pages[lang], alts_for, pool)
         build_home(lang, pages[lang], pages[other], alts_for)
         build_listing(lang, pages[lang], pages[other], alts_for)
         build_404(lang, alts_for)

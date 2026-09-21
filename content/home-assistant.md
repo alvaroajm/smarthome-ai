@@ -4,7 +4,7 @@ slug: home-assistant
 description: O que é, por que roda local, como se organiza em entidades, dispositivos e áreas, e as decisões que definem se a sua casa será estável ou frustrante.
 category: Plataforma
 icon: hub
-order: 2
+order: 3
 featured: true
 reading: 11 min de leitura
 date: 2026-09-21

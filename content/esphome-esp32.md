@@ -4,7 +4,7 @@ slug: esphome-esp32
 description: Como transformar um ESP32 de vinte reais em sensor, interruptor ou controlador integrado ao Home Assistant — com YAML, sem escrever uma linha de C++.
 category: DIY & firmware
 icon: chip
-order: 4
+order: 5
 featured: true
 reading: 12 min de leitura
 date: 2026-09-21

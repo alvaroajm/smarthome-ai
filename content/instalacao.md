@@ -46,6 +46,11 @@ Existem quatro formas de instalar, e elas **não** são equivalentes:
     Instalar a versão Container por achar "mais profissional" e só descobrir semanas depois que metade dos
     tutoriais da internet pressupõe add-ons que você não tem. Comece com **HAOS**.
 
+!!! dica "Quer o passo a passo detalhado?"
+    Este guia é a visão geral. Para o tutorial completo, com todos os links de download, gravação no
+    Raspberry Pi 5 (inclusive NVMe) e no mini-PC x86, e criação da VM no Proxmox, veja
+    **[Instalar o Home Assistant OS passo a passo](/instalar-haos/)**.
+
 ## 3. Grave a imagem e ligue
 
 1. Baixe a imagem HAOS correspondente ao seu hardware em [home-assistant.io/installation](https://www.home-assistant.io/installation/).

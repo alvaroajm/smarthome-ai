@@ -4,7 +4,7 @@ slug: cameras-ia
 description: Como sair do alerta genérico de movimento para uma notificação que diz "um entregador deixou uma caixa no portão" — com Frigate, LLM Vision e modelos locais ou na nuvem.
 category: Câmeras & vídeo
 icon: eye
-order: 12
+order: 13
 featured: true
 reading: 10 min de leitura
 date: 2026-09-21

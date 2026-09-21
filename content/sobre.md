@@ -4,7 +4,7 @@ slug: sobre
 description: Um projeto independente sobre casa inteligente local, código aberto e automação que funciona no mundo real.
 category: Sobre
 icon: book
-order: 19
+order: 20
 section: pagina
 reading: 3 min de leitura
 date: 2026-09-21

@@ -4,7 +4,7 @@ slug: faq
 description: Respostas diretas às perguntas que mais aparecem — custo, internet, aluguel, marcas, privacidade, Alexa e por onde começar.
 category: FAQ
 icon: help
-order: 18
+order: 19
 section: pagina
 reading: 7 min de leitura
 date: 2026-09-21

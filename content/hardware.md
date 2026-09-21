@@ -4,7 +4,7 @@ slug: hardware
 description: Comparação honesta entre Home Assistant Green, Raspberry Pi 5, mini-PCs N100 e NAS, com consumo, armazenamento e quando cada um vale a pena.
 category: Hardware
 icon: server
-order: 3
+order: 4
 featured: true
 reading: 9 min de leitura
 date: 2026-09-21

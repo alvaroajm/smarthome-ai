@@ -4,7 +4,7 @@ slug: matter-thread
 description: O que Matter realmente resolve, a diferença entre Matter over Thread e over Wi-Fi, o que é um border router e como isso funciona com Home Assistant e Apple.
 category: Protocolos
 icon: thread
-order: 7
+order: 8
 featured: true
 reading: 10 min de leitura
 date: 2026-09-21

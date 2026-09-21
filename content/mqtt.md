@@ -4,7 +4,7 @@ slug: mqtt
 description: O que é um broker, o que são tópicos e payloads, para que servem retain e QoS, e como instalar o Mosquitto no Home Assistant em dez minutos.
 category: Protocolos
 icon: message
-order: 8
+order: 9
 featured: true
 reading: 11 min de leitura
 date: 2026-09-21

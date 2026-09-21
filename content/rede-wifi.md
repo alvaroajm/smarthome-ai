@@ -4,7 +4,7 @@ slug: rede-wifi
 description: Como preparar a rede doméstica para dezenas de dispositivos: canais, SSID de 2,4 GHz, VLAN de IoT, mDNS, IPv6 e acesso remoto seguro.
 category: Rede
 icon: wifi
-order: 15
+order: 16
 featured: true
 reading: 9 min de leitura
 date: 2026-09-21

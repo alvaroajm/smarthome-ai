@@ -44,8 +44,10 @@
       data-intl="{{intl}}"
       data-search-index="{{search_index}}"
       data-search-empty="{{ui_search_empty}}"
-      data-search-none="{{ui_search_none}}">
+      data-search-none="{{ui_search_none}}"
+      data-search-suggest="{{ui_search_suggest}}">
   <a class="skip-link" href="#conteudo">{{ui_skip}}</a>
+  <div class="progress" id="progress" aria-hidden="true"></div>
 
   {{topbar}}
 
@@ -56,6 +58,10 @@
   </main>
 
   {{footer}}
+
+  <button class="to-top" id="to-top" type="button" aria-label="{{ui_to_top}}" title="{{ui_to_top}}">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 14 6-6 6 6"/></svg>
+  </button>
 
   <div class="search-modal" id="search-modal" hidden>
     <div class="search-backdrop" data-close></div>

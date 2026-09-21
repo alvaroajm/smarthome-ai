@@ -103,6 +103,27 @@
     });
   }
 
+  /* ------------------------------------ progresso de leitura e topo -- */
+  var progress = $('#progress');
+  var toTop = $('#to-top');
+  if (progress || toTop) {
+    var onScroll = function () {
+      var y = window.scrollY || doc.documentElement.scrollTop;
+      if (progress) {
+        var alcance = doc.documentElement.scrollHeight - window.innerHeight;
+        progress.style.width = (alcance > 0 ? Math.min(100, (y / alcance) * 100) : 0) + '%';
+      }
+      if (toTop) toTop.classList.toggle('show', y > 600);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+  if (toTop) {
+    toTop.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
   /* -------------------------------------------------------------- busca -- */
   var modal = $('#search-modal');
   var input = $('#search-input');
@@ -122,7 +143,7 @@
   function openSearch() {
     if (!modal) return;
     modal.hidden = false;
-    loadIndex();
+    loadIndex().then(function () { search(input.value); });
     setTimeout(function () { input.focus(); input.select(); }, 20);
   }
 
@@ -159,7 +180,17 @@
   function search(q) {
     var terms = norm(q).split(/\s+/).filter(Boolean);
     if (!terms.length) {
-      results.innerHTML = '<li class="search-empty">' + (doc.body.getAttribute('data-search-empty') || '') + '</li>';
+      var sugestoes = (index || []).slice(0, 6);
+      if (!sugestoes.length) {
+        results.innerHTML = '<li class="search-empty">' + (doc.body.getAttribute('data-search-empty') || '') + '</li>';
+        return;
+      }
+      results.innerHTML = '<li class="search-hint">' + (doc.body.getAttribute('data-search-suggest') || '') + '</li>' +
+        sugestoes.map(function (p, i) {
+          return '<li' + (i === 0 ? ' class="sel"' : '') + '><a href="' + p.u + '">' +
+            '<strong>' + escapeHtml(p.t) + '</strong><small>' + escapeHtml(p.c) + '</small></a></li>';
+        }).join('');
+      sel = 0;
       return;
     }
     var hits = (index || []).map(function (p) {

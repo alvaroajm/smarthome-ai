@@ -4,7 +4,7 @@ slug: comandos-haos
 description: Referência prática do CLI ha, do terminal Alpine do app Terminal & SSH e dos comandos de diagnóstico que resolvem 90% dos problemas do Home Assistant.
 category: Referência
 icon: terminal
-order: 17
+order: 18
 featured: true
 reading: 11 min de leitura
 date: 2026-09-21

@@ -4,7 +4,7 @@ slug: openclaw
 description: O agente autônomo de código aberto que virou febre, como ele se conecta ao Home Assistant e as precauções de segurança que ninguém deveria ignorar.
 category: IA & agentes
 icon: key
-order: 14
+order: 15
 featured: true
 reading: 10 min de leitura
 date: 2026-09-21
