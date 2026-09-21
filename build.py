@@ -931,6 +931,11 @@ def copy_static() -> None:
         if src.exists():
             shutil.copy2(src, DIST / extra)
             log(extra)
+    # chave do IndexNow (arquivo de 32 caracteres hexadecimais na raiz)
+    for chave in ROOT.glob("*.txt"):
+        if re.fullmatch(r"[0-9a-f]{32}", chave.stem):
+            shutil.copy2(chave, DIST / chave.name)
+            log(chave.name + " (IndexNow)")
 
 
 def main() -> None:

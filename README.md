@@ -114,6 +114,21 @@ e lidos automaticamente pelo Cloudflare Pages.
 
 ---
 
+## IndexNow (Bing, Yandex, Seznam)
+
+A chave fica em `static/98575e0ecd5320e9a56c0a1e956b825d.txt` e é publicada em `https://smarthome-ai.com/98575e0ecd5320e9a56c0a1e956b825d.txt`.
+Para avisar os buscadores depois de publicar novidades:
+
+```bash
+curl -X POST https://api.indexnow.org/indexnow \
+  -H 'Content-Type: application/json' \
+  -d '{"host":"smarthome-ai.com","key":"98575e0ecd5320e9a56c0a1e956b825d",
+       "keyLocation":"https://smarthome-ai.com/98575e0ecd5320e9a56c0a1e956b825d.txt",
+       "urlList":["https://smarthome-ai.com/","https://smarthome-ai.com/instalar-haos/"]}'
+```
+
+O Google não usa IndexNow — para ele, use o Search Console.
+
 ## Licença
 
 Código do gerador: MIT. Conteúdo dos artigos: © SmartHome-AI.
