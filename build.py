@@ -12,6 +12,7 @@ Uso:
 """
 from __future__ import annotations
 
+import html as html_lib
 import json
 import re
 import shutil
@@ -247,8 +248,8 @@ def base_context(page_title: str, description: str, url_path: str, **extra) -> d
         "tagline": SITE["tagline"],
         "lang": SITE["lang"],
         "locale": SITE["locale"],
-        "title": title,
-        "description": description or SITE["description"],
+        "title": html_lib.escape(title, quote=True),
+        "description": html_lib.escape(description or SITE["description"], quote=True),
         "canonical": canonical,
         "og_image": SITE["url"] + SITE["og_image"],
         "nav": nav_html(url_path),
