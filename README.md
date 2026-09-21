@@ -3,7 +3,13 @@
 Site estático sobre casa inteligente local e código aberto — Home Assistant, ESPHome, ESP32,
 Zigbee2MQTT, ZHA, Matter over Thread, Matter over Wi-Fi, Apple HomeKit, Scrypted, Raspberry Pi e mini-PCs.
 
-**Produção:** https://smarthome-ai.com
+**Produção:** https://smarthome-ai.com · https://www.smarthome-ai.com
+**Pré-visualização Cloudflare:** https://smarthome-ai.pages.dev
+**Repositório:** https://github.com/alvaroajm/smarthome-ai
+
+> O projeto no Cloudflare Pages está conectado a este repositório: **cada `git push` na branch `main`
+> publica o site automaticamente** (sem build na Cloudflare — a pasta `dist/` já vem pronta).
+> Fluxo de atualização: editar `content/*.md` → `python3 build.py` → `git commit` → `git push`.
 
 ---
 
