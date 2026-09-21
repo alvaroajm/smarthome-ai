@@ -11,6 +11,7 @@ de templates/, copia static/ e escreve o site pronto em dist/.
 """
 from __future__ import annotations
 
+import hashlib
 import html as html_lib
 import json
 import re
@@ -341,6 +342,15 @@ def esc(text: str) -> str:
     return html_lib.escape(text or "", quote=True)
 
 
+def asset_url(rel: str) -> str:
+    """URL do arquivo estático com hash de conteúdo — invalida o cache do navegador."""
+    f = STATIC / rel
+    if not f.exists():
+        return "/static/" + rel
+    digest = hashlib.md5(f.read_bytes()).hexdigest()[:8]
+    return f"/static/{rel}?v={digest}"
+
+
 # --------------------------------------------------------------------------
 # Conteúdo
 # --------------------------------------------------------------------------
@@ -595,6 +605,8 @@ def base_context(lang: str, page_title: str, description: str, url_path: str,
         "body_class": body_class,
         "author": esc(SITE["author"]),
         "search_index": "/" + cfg["prefix"] + "search-index.json",
+        "css_url": asset_url("css/style.css"),
+        "js_url": asset_url("js/main.js"),
         "ui_skip": ui["skip"],
         "ui_search": ui["search"],
         "ui_search_ph": ui["search_ph"],
