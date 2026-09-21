@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="dark">
+<html lang="pt-BR" data-theme="light">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,7 +8,7 @@
   <meta name="author" content="Dr. Álvaro Menezes">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <meta name="color-scheme" content="dark light">
-  <meta name="theme-color" content="#080d0c">
+  <meta name="theme-color" content="#f8f8f1">
   <link rel="canonical" href="https://smarthome-ai.com/faq/">
   <link rel="alternate" hreflang="pt" href="https://smarthome-ai.com/faq/">
   <link rel="alternate" hreflang="en" href="https://smarthome-ai.com/en/faq/">
@@ -34,12 +34,13 @@
   <link rel="apple-touch-icon" href="/static/img/logo-smarthome-ai-marca.png">
   <link rel="preload" href="/static/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/static/fonts/inter-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/static/css/style.css?v=90b18158">
+  <link rel="preload" href="/static/fonts/newsreader-500.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="/static/css/style.css?v=700350f1">
   <script>
     (function () {
       try {
         var t = localStorage.getItem('sha-theme');
-        if (t) document.documentElement.setAttribute('data-theme', t);
+        if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
       } catch (e) {}
     })();
   </script>
@@ -83,10 +84,10 @@
       </a>
       <nav class="site-nav" id="menu" aria-label="Navegação principal">
         <a href="/">Início</a>
-        <a href="/artigos/">Artigos</a>
+        <a href="/artigos/">Guias</a>
+        <a href="/#dispositivos">Dispositivos</a>
+        <a href="/#recursos">Links úteis</a>
         <a href="/instalacao/">Comece aqui</a>
-        <a href="/comandos-haos/">Comandos</a>
-        <a href="/faq/" class="active" aria-current="page">FAQ</a>
         <a href="/sobre/">Sobre</a>
       </nav>
       <div class="header-actions">
@@ -247,11 +248,11 @@ qual condição falhou. Em 90% dos casos o culpado é uma condição de tempo/es
           <span class="eco-text"><strong>SmartHome-AI</strong><small>Casa inteligente, automação local e código aberto</small></span>
         </a>
         <a class="eco-tile" href="https://alvaro-menezes.com" target="_blank" rel="noopener">
-          <span class="eco-logo"><img src="/static/img/logo-alvaro-menezes.png" alt="Dr. Álvaro Menezes" width="56" height="56" loading="lazy"></span>
+          <span class="eco-logo"><img src="/static/img/author-seal.jpg" alt="Dr. Álvaro Menezes" width="56" height="56" loading="lazy"></span>
           <span class="eco-text"><strong>Dr. Álvaro Menezes</strong><small>Radiologia geral e musculoesquelética · Fortaleza/CE</small></span>
         </a>
         <a class="eco-tile" href="https://radapps.app" target="_blank" rel="noopener">
-          <span class="eco-logo"><img src="/static/img/logo-radapps.png" alt="RadApps" width="56" height="56" loading="lazy"></span>
+          <span class="eco-logo"><img src="/static/img/radapps-brand.jpg" alt="RadApps" width="56" height="56" loading="lazy"></span>
           <span class="eco-text"><strong>RadApps</strong><small>Aplicativos para radiologistas · iOS e Android</small></span>
         </a>
       </div>
@@ -259,7 +260,7 @@ qual condição falhou. Em 90% dos casos o culpado é uma condição de tempo/es
 
     <section class="wrap contact-card" id="contato">
       <div class="contact-person">
-        <img class="contact-photo" src="/static/img/foto-alvaro-menezes.jpg" width="96" height="96" alt="Dr. Álvaro Menezes" loading="lazy">
+        <img class="contact-photo" src="/static/img/author-original.jpg" width="96" height="96" alt="Dr. Álvaro Menezes" loading="lazy">
         <div>
           <p class="contact-name">Dr. Álvaro Menezes</p>
           <p class="contact-cred">CRM 11.393/CE · RQE 6562</p>
@@ -302,13 +303,13 @@ qual condição falhou. Em 90% dos casos o culpado é uma condição de tempo/es
     <div class="search-box" role="dialog" aria-modal="true" aria-label="Buscar no site">
       <div class="search-field">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input type="search" id="search-input" placeholder="Buscar: Zigbee, ESPHome, Matter, Raspberry Pi…" autocomplete="off" spellcheck="false">
-        <kbd>Esc</kbd>
+        <input type="search" id="search-input" aria-label="Buscar no site" placeholder="Buscar: Zigbee, ESPHome, Matter, Raspberry Pi…" autocomplete="off" spellcheck="false">
+        <button class="search-close icon-btn" type="button" data-close aria-label="Fechar busca">×</button>
       </div>
       <ul class="search-results" id="search-results"></ul>
     </div>
   </div>
 
-  <script src="/static/js/main.js?v=b71f7cc4" defer></script>
+  <script src="/static/js/main.js?v=119c164e" defer></script>
 </body>
 </html>

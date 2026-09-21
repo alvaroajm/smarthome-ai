@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{lang}}" data-theme="dark">
+<html lang="{{lang}}" data-theme="light">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,7 +8,7 @@
   <meta name="author" content="{{author}}">
   <meta name="robots" content="{{robots}}">
   <meta name="color-scheme" content="dark light">
-  <meta name="theme-color" content="#080d0c">
+  <meta name="theme-color" content="#f8f8f1">
   <link rel="canonical" href="{{canonical}}">
   {{alternates}}
 
@@ -32,12 +32,13 @@
   <link rel="apple-touch-icon" href="/static/img/logo-smarthome-ai-marca.png">
   <link rel="preload" href="/static/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/static/fonts/inter-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/static/fonts/newsreader-500.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="stylesheet" href="{{css_url}}">
   <script>
     (function () {
       try {
         var t = localStorage.getItem('sha-theme');
-        if (t) document.documentElement.setAttribute('data-theme', t);
+        if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
       } catch (e) {}
     })();
   </script>
@@ -72,8 +73,8 @@
     <div class="search-box" role="dialog" aria-modal="true" aria-label="{{ui_search}}">
       <div class="search-field">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input type="search" id="search-input" placeholder="{{ui_search_ph}}" autocomplete="off" spellcheck="false">
-        <kbd>Esc</kbd>
+        <input type="search" id="search-input" aria-label="{{ui_search}}" placeholder="{{ui_search_ph}}" autocomplete="off" spellcheck="false">
+        <button class="search-close icon-btn" type="button" data-close aria-label="{{ui_close}}">×</button>
       </div>
       <ul class="search-results" id="search-results"></ul>
     </div>

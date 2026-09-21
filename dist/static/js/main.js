@@ -60,13 +60,14 @@
     var btn = doc.createElement('button');
     btn.className = 'copy-btn';
     btn.type = 'button';
-    btn.textContent = 'copiar';
+    var copyLabel=doc.body.getAttribute('data-lang')==='en'?'Copy':'Copiar';
+    btn.textContent = copyLabel;
     btn.addEventListener('click', function () {
       var code = pre.querySelector('code');
       var text = code ? code.innerText : pre.innerText;
       var done = function () {
-        btn.textContent = 'copiado ✓';
-        setTimeout(function () { btn.textContent = 'copiar'; }, 1600);
+        btn.textContent = doc.body.getAttribute('data-lang')==='en'?'Copied ✓':'Copiado ✓';
+        setTimeout(function () { btn.textContent = copyLabel; }, 1600);
       };
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(done, function () { btn.textContent = 'erro'; });
@@ -129,6 +130,7 @@
   var input = $('#search-input');
   var results = $('#search-results');
   var openBtn = $('#search-open');
+  var previousFocus = null;
   var index = null;
   var sel = -1;
 
@@ -142,14 +144,22 @@
 
   function openSearch() {
     if (!modal) return;
+    if (!modal.hidden) { input.focus(); return; }
+    previousFocus = doc.activeElement;
     modal.hidden = false;
+    doc.body.style.overflow = 'hidden';
+    ['.site-header','.topbar','main','.site-footer','#to-top'].forEach(function(sel){var el=$(sel);if(el)el.inert=true;});
     loadIndex().then(function () { search(input.value); });
     setTimeout(function () { input.focus(); input.select(); }, 20);
   }
 
   function closeSearch() {
     if (!modal) return;
+    if (modal.hidden) return;
     modal.hidden = true;
+    doc.body.style.overflow = '';
+    ['.site-header','.topbar','main','.site-footer','#to-top'].forEach(function(sel){var el=$(sel);if(el)el.inert=false;});
+    if(previousFocus)previousFocus.focus();
     sel = -1;
   }
 
@@ -243,8 +253,35 @@
 
   doc.addEventListener('keydown', function (e) {
     var tag = (e.target.tagName || '').toLowerCase();
-    if (e.key === 'Escape') closeSearch();
+    if (e.key === 'Escape') { closeSearch(); if(menu && menu.classList.contains('open')){menu.classList.remove('open');menuBtn.setAttribute('aria-expanded','false');menuBtn.focus();} }
+    if (modal && !modal.hidden && e.key === 'Tab') {
+      var focusable=$$('input,button,a[href]',modal).filter(function(el){return el.offsetParent!==null;});
+      var first=focusable[0],last=focusable[focusable.length-1];
+      if(e.shiftKey && doc.activeElement===first){e.preventDefault();last.focus();}
+      else if(!e.shiftKey && doc.activeElement===last){e.preventDefault();first.focus();}
+    }
     if (e.key === '/' && tag !== 'input' && tag !== 'textarea') { e.preventDefault(); openSearch(); }
     if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); openSearch(); }
   });
+
+  /* Visual home: progressive enhancement, with every card available without JS. */
+  var en=doc.body.getAttribute('data-lang')==='en';
+  $$('[data-filter-bar]').forEach(function(bar){
+    var kind=bar.getAttribute('data-filter-bar');
+    var cards=$$('[data-'+kind+'-category]');
+    $$('button',bar).forEach(function(button){button.addEventListener('click',function(){
+      var filter=button.getAttribute('data-filter');
+      $$('button',bar).forEach(function(b){b.setAttribute('aria-pressed',String(b===button));});
+      var count=0;cards.forEach(function(card){card.hidden=filter!=='all'&&card.getAttribute('data-'+kind+'-category')!==filter;if(!card.hidden)count++;});
+      var result=$('#'+kind+'-count');if(result)result.textContent=count+' '+(kind==='device'?(en?'devices to explore':'dispositivos para explorar'):(en?'links to explore':'links para consultar'));
+    });});
+  });
+  var room=$('.room-card');
+  var sceneText={welcome:en?'Warm lighting and a room ready to welcome you. Visual simulation.':'Luz quente e ambiente pronto para receber você. Simulação visual.',cinema:en?'Dimmed lighting, blue accent LEDs and TV on. Visual simulation.':'Luz reduzida, LED azul e TV ligada. Simulação visual.',night:en?'Lights and TV off, with a dim orientation light. Visual simulation.':'Luzes e TV desligadas, com iluminação suave de orientação. Simulação visual.'};
+  $$('[data-scene-button]').forEach(function(button){button.addEventListener('click',function(){
+    var scene=button.getAttribute('data-scene-button');room.setAttribute('data-scene',scene);
+    $$('[data-scene-button]').forEach(function(b){b.setAttribute('aria-pressed',String(b===button));});
+    $('#scene-description').textContent=sceneText[scene];
+    $('.label-light').textContent=scene==='cinema'?(en?'Movie lighting':'Luz de cinema'):scene==='night'?(en?'Rest mode':'Hora de descansar'):(en?'Warm light':'Luz acolhedora');
+  });});
 })();

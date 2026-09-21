@@ -12,6 +12,9 @@ date: 2026-09-21
 tags: [About, Contact, Open Source]
 ---
 
+![SmartHome-AI](/static/img/smarthome-banner.jpg)
+
+
 **SmartHome-AI** started from a common frustration: most smart home content is either product marketing, or
 so technical that it assumes you already know what an MQTT broker is.
 
@@ -53,7 +56,7 @@ it loads fast even on a bad mobile connection.
 ## Who writes it
 
 <div class="author-box" markdown="0">
-  <img src="/static/img/foto-alvaro-menezes-retrato.jpg" alt="Dr. Álvaro Menezes" width="170" height="238" loading="lazy">
+  <img src="/static/img/author-original.jpg" alt="Dr. Álvaro Menezes" width="170" height="238" loading="lazy">
   <div>
     <p class="author-name">Dr. Álvaro Menezes</p>
     <p class="author-role">Radiologist · CRM 11.393/CE · RQE 6562<br>General and musculoskeletal radiology — Fortaleza, Brazil</p>

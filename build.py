@@ -11,6 +11,8 @@ de templates/, copia static/ e escreve o site pronto em dist/.
 """
 from __future__ import annotations
 
+from visual_content import home_visual_context
+
 import hashlib
 import html as html_lib
 import json
@@ -44,7 +46,7 @@ SITE = {
 CONTACT = {
     "name": "Dr. Álvaro Menezes",
     "credentials": "CRM 11.393/CE · RQE 6562",
-    "photo": "/static/img/foto-alvaro-menezes.jpg",
+    "photo": "/static/img/author-original.jpg",
     "email": "admin@alvaro-menezes.com",
     "card": "https://alvaro-menezes.com/",
 }
@@ -74,14 +76,14 @@ ECOSYSTEM = [
     {
         "name": "Dr. Álvaro Menezes",
         "url": "https://alvaro-menezes.com",
-        "img": "/static/img/logo-alvaro-menezes.png",
+        "img": "/static/img/author-seal.jpg",
         "pt": "Radiologia geral e musculoesquelética · Fortaleza/CE",
         "en": "General and musculoskeletal radiology · Fortaleza, Brazil",
     },
     {
         "name": "RadApps",
         "url": "https://radapps.app",
-        "img": "/static/img/logo-radapps.png",
+        "img": "/static/img/radapps-brand.jpg",
         "pt": "Aplicativos para radiologistas · iOS e Android",
         "en": "Apps for radiologists · iOS and Android",
     },
@@ -143,14 +145,15 @@ LANGS = {
         ),
         "nav": [
             ("Início", ""),
-            ("Artigos", "artigos/"),
+            ("Guias", "artigos/"),
+            ("Dispositivos", "#dispositivos"),
+            ("Links úteis", "#recursos"),
             ("Comece aqui", "instalacao/"),
-            ("Comandos", "comandos-haos/"),
-            ("FAQ", "faq/"),
             ("Sobre", "sobre/"),
         ],
         "ui": {
             "skip": "Pular para o conteúdo",
+            "close": "Fechar busca",
             "search": "Buscar no site",
             "search_ph": "Buscar: Zigbee, ESPHome, Matter, Raspberry Pi…",
             "search_empty": "Digite para buscar nos guias.",
@@ -208,12 +211,15 @@ LANGS = {
         "nav": [
             ("Home", ""),
             ("Guides", "guides/"),
+            ("Devices", "#dispositivos"),
+            ("Resources", "#recursos"),
             ("Start here", "start/"),
             ("FAQ", "faq/"),
             ("About", "about/"),
         ],
         "ui": {
             "skip": "Skip to content",
+            "close": "Close search",
             "search": "Search the site",
             "search_ph": "Search: Zigbee, ESPHome, Matter, Raspberry Pi…",
             "search_empty": "Type to search the guides.",
@@ -715,6 +721,7 @@ def base_context(lang: str, page_title: str, description: str, url_path: str,
         "css_url": asset_url("css/style.css"),
         "js_url": asset_url("js/main.js"),
         "ui_skip": ui["skip"],
+        "ui_close": ui["close"],
         "ui_search": ui["search"],
         "ui_search_ph": ui["search_ph"],
         "ui_search_empty": ui["search_empty"],
@@ -811,6 +818,7 @@ def build_home(lang: str, own: list[Page], foreign: list[Page], alts_for) -> Non
     is_foreign = lang == "en"
 
     body = render(tpl, {
+        **home_visual_context(lang),
         "cards": "\n      ".join(card_html(p, ui, is_foreign) for p in featured),
         "recentes": "\n      ".join(list_item_html(p, ui, is_foreign) for p in guides[:6]),
         "total_guias": len(guides),

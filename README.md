@@ -132,3 +132,14 @@ O Google não usa IndexNow — para ele, use o Search Console.
 ## Licença
 
 Código do gerador: MIT. Conteúdo dos artigos: © SmartHome-AI.
+
+## Redesign visual (setembro de 2026)
+
+As homes PT/EN incluem uma sala SVG interativa, um catálogo de 12 tipos de dispositivos,
+três fotografias com crédito e 16 links filtráveis. As cenas são apenas demonstrações visuais.
+O conteúdo desses componentes está em `visual_content.py`; os layouts estão em `templates/home.*.html`.
+Ilustrações dos gadgets: `python3 scripts/draw-devices.py`. Fontes, autoria e licenças: `docs-assets.md`.
+
+Newsreader e Inter são servidas localmente. O tema claro é o padrão; uma preferência anterior
+é mantida. Busca com foco contido no diálogo, fechamento por botão/Esc e navegação por teclado.
+Todas as cartas e links estão no HTML, inclusive sem JavaScript.

@@ -11,6 +11,9 @@ date: 2026-09-21
 tags: [Sobre, Contato, Open Source]
 ---
 
+![SmartHome-AI](/static/img/smarthome-banner.jpg)
+
+
 O **SmartHome-AI** nasceu de uma frustração comum: a maior parte do conteúdo sobre casa inteligente ou é
 propaganda de produto, ou é tão técnica que assume que você já sabe o que é um broker MQTT.
 
@@ -54,7 +57,7 @@ rodar `python3 build.py` e ter o site pronto.
 ## Quem escreve
 
 <div class="author-box" markdown="0">
-  <img src="/static/img/foto-alvaro-menezes-retrato.jpg" alt="Dr. Álvaro Menezes" width="170" height="238" loading="lazy">
+  <img src="/static/img/author-original.jpg" alt="Dr. Álvaro Menezes" width="170" height="238" loading="lazy">
   <div>
     <p class="author-name">Dr. Álvaro Menezes</p>
     <p class="author-role">Médico radiologista · CRM 11.393/CE · RQE 6562<br>Radiologia geral e musculoesquelética — Fortaleza/CE</p>
