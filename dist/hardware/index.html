@@ -102,6 +102,7 @@
 <li><a href="#armazenamento-onde-quase-todo-projeto-morre">Armazenamento: onde quase todo projeto morre</a></li>
 <li><a href="#raspberry-pi-5-o-que-comprar-junto">Raspberry Pi 5: o que comprar junto</a></li>
 <li><a href="#mini-pc-x86-quando-compensa">Mini-PC x86: quando compensa</a></li>
+<li><a href="#intel-ou-amd-a-diferenca-que-so-aparece-nas-cameras">Intel ou AMD? A diferença que só aparece nas câmeras</a></li>
 <li><a href="#o-detalhe-que-salva-a-rede-zigbee">O detalhe que salva a rede Zigbee</a></li>
 <li><a href="#energia-e-continuidade">Energia e continuidade</a></li>
 <li><a href="#roteiro-de-compra-sugerido">Roteiro de compra sugerido</a></li>
@@ -148,7 +149,7 @@ Quem escolhe hardware demais acaba com um servidor para cuidar; quem escolhe de 
 <td><strong>Roda Frigate/IA</strong></td>
 <td>Não</td>
 <td>Limitado</td>
-<td><strong>Sim</strong></td>
+<td><strong>Sim</strong> (veja Intel x AMD abaixo)</td>
 <td>Sim</td>
 </tr>
 <tr>
@@ -203,13 +204,124 @@ recorder:
 <h3 id="mini-pc-x86-quando-compensa">Mini-PC x86: quando compensa<a class="headerlink" href="#mini-pc-x86-quando-compensa" title="Permanent link">#</a></h3>
 <p>Um N100 com 16 GB de RAM e SSD de 512 GB roda, ao mesmo tempo: Home Assistant, Frigate com detecção por
 aceleração Intel (OpenVINO/Quick Sync), Zigbee2MQTT, Mosquitto, Scrypted, um servidor de mídia e ainda sobra.
-Duas formas de instalar:</p>
+Um Ryzen 5 ou Ryzen 7 entrega bem mais processamento pelo mesmo preço — com uma ressalva nas câmeras que
+está explicada na seção seguinte. Duas formas de instalar:</p>
 <ol>
 <li><strong>HAOS direto no disco</strong> — mais simples, o aparelho é "do Home Assistant".</li>
 <li><strong>Proxmox com o Home Assistant em VM</strong> — permite snapshots antes de cada atualização, outras VMs e
    containers. É a escolha de quem gosta de laboratório — e o caminho natural para quem já tem um
    <a href="/casaos-umbrel/">home server com CasaOS ou umbrelOS</a>.</li>
 </ol>
+<h3 id="intel-ou-amd-a-diferenca-que-so-aparece-nas-cameras">Intel ou AMD? A diferença que só aparece nas câmeras<a class="headerlink" href="#intel-ou-amd-a-diferenca-que-so-aparece-nas-cameras" title="Permanent link">#</a></h3>
+<p>Para o Home Assistant puro, tanto faz: qualquer processador x86 dos últimos dez anos sobra. A escolha só
+pesa quando entram <strong>câmeras com detecção de objetos</strong> e <strong>IA local</strong>, porque as duas plataformas resolvem
+isso de formas diferentes.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Intel (N100, N150, Core série H)</strong></th>
+<th><strong>AMD (Ryzen 5 / Ryzen 7)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Decodificar vídeo das câmeras</td>
+<td>Quick Sync — maduro e simples</td>
+<td>VAAPI na Radeon integrada — funciona bem</td>
+</tr>
+<tr>
+<td><strong>Detectar objetos no Frigate</strong></td>
+<td><strong>OpenVINO</strong> na iGPU ou na NPU: suporte oficial, um parâmetro e pronto</td>
+<td><strong>ROCm</strong>: oficial só para <strong>GPUs dedicadas</strong>; na iGPU "funciona na maioria dos casos", sem suporte formal</td>
+</tr>
+<tr>
+<td>Configuração extra</td>
+<td>Praticamente nenhuma</td>
+<td>Pode exigir a variável <code>HSA_OVERRIDE_GFX_VERSION</code></td>
+</tr>
+<tr>
+<td>Força bruta de CPU</td>
+<td>Modesta no N100</td>
+<td>Bem superior num Ryzen 7</td>
+</tr>
+<tr>
+<td>Consumo em repouso</td>
+<td>~7 W (N100)</td>
+<td>~10–20 W</td>
+</tr>
+</tbody>
+</table>
+<p>Traduzindo: o <strong>Intel é o caminho sem atrito</strong> para quem quer câmeras funcionando rápido. O <strong>AMD entrega
+muito mais processamento pelo mesmo dinheiro</strong>, ao custo de meia hora de configuração no Frigate — ou de um
+plano B.</p>
+<div class="admonition dica">
+<p class="admonition-title">O plano B do AMD para câmeras</p>
+<p>Duas ou três câmeras com detecção em 640×480 a 5 fps rodam em CPU num Ryzen 7 sem sofrimento. Passando
+disso, um módulo <strong>Hailo-8L</strong> (M.2) resolve de vez — a própria documentação do Frigate já desaconselha o
+Coral para instalações novas. Para descobrir a versão da sua iGPU antes de configurar o ROCm, rode
+<code>rocminfo</code> e procure a linha <code>gfx</code>.</p>
+</div>
+<h4 id="exemplo-um-ryzen-7-com-16-gb-e-1-tb">Exemplo: um Ryzen 7 com 16 GB e 1 TB<a class="headerlink" href="#exemplo-um-ryzen-7-com-16-gb-e-1-tb" title="Permanent link">#</a></h4>
+<p>É uma configuração comum e generosa. O erro clássico é instalar o HAOS direto no disco e usar 20% da
+máquina. Com <strong>Proxmox</strong>, ela vira quatro coisas ao mesmo tempo:</p>
+<table>
+<thead>
+<tr>
+<th>Máquina virtual</th>
+<th>vCPU</th>
+<th>RAM</th>
+<th>Disco</th>
+<th>Função</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Home Assistant OS</td>
+<td>2</td>
+<td>4 GB</td>
+<td>64 GB</td>
+<td>A casa, com Supervisor e apps completos</td>
+</tr>
+<tr>
+<td><a href="/cameras-ia/">Frigate</a> (VM ou LXC)</td>
+<td>4</td>
+<td>4–6 GB</td>
+<td>32 GB + volume de vídeo</td>
+<td>Câmeras e detecção</td>
+</tr>
+<tr>
+<td>Docker / <a href="/casaos-umbrel/">CasaOS</a></td>
+<td>2</td>
+<td>2–4 GB</td>
+<td>100 GB</td>
+<td>Mídia, fotos, Ollama, utilidades</td>
+</tr>
+<tr>
+<td>Proxmox (host)</td>
+<td>—</td>
+<td>~1,5 GB</td>
+<td>—</td>
+<td>Snapshots antes de cada atualização</td>
+</tr>
+</tbody>
+</table>
+<p>Dois avisos que valem mais que qualquer benchmark:</p>
+<ul>
+<li><strong>16 GB é o gargalo, não o processador.</strong> Somando as VMs acima não sobra espaço para um modelo local
+  (um modelo de 7–8B quantizado quer 5–6 GB só para ele). Quase todo mini-PC Ryzen tem <strong>dois slots
+  SO-DIMM</strong> — subir para 32 GB é o melhor upgrade por real gasto nessa máquina.</li>
+<li><strong>O NVMe não deve gravar vídeo.</strong> Gravação contínua é escrita 24 horas por dia, e é assim que SSD morre.
+  Sistema e VMs no NVMe; gravações do Frigate num <strong>HDD</strong> (baia interna ou USB 3). Só com o NVMe, limite a
+  retenção a poucos dias e grave apenas eventos.</li>
+</ul>
+<h4 id="ajustes-de-bios-de-qualquer-mini-pc-servidor">Ajustes de BIOS de qualquer mini-PC servidor<a class="headerlink" href="#ajustes-de-bios-de-qualquer-mini-pc-servidor" title="Permanent link">#</a></h4>
+<ul>
+<li><strong>Restore on AC Power Loss → Power On</strong> — sem isso, a casa não volta sozinha depois de uma queda de energia</li>
+<li>Desativar suspensão e estados de sono</li>
+<li>Reservar VRAM para a iGPU (<em>UMA Frame Buffer</em>), se for usar IA local</li>
+<li>Ativar virtualização (VT-x / AMD-V e IOMMU) se for usar Proxmox</li>
+</ul>
 <div class="admonition atencao">
 <p class="admonition-title">Mac mini e Raspberry Pi como servidor</p>
 <p>Um Mac mini M4 é excelente para Scrypted, transcodificação e IA local — mas o Home Assistant no macOS só
