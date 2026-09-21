@@ -35,7 +35,7 @@ SITE = {
     "name": "SmartHome-AI",
     "url": "https://smarthome-ai.com",
     "author": "Dr. Álvaro Menezes",
-    "og_image": "/static/img/logo-smarthome-ai.jpg",
+    "og_image": "/static/img/og-smarthome-ai.jpg",
 }
 
 # --------------------------------------------------------------------------
@@ -576,6 +576,99 @@ def footer_html(lang: str) -> str:
 # --------------------------------------------------------------------------
 # Montagem das páginas
 # --------------------------------------------------------------------------
+AUTOR_LD = {
+    "@type": "Person",
+    "name": "Dr. Álvaro Menezes",
+    "url": "https://alvaro-menezes.com",
+    "jobTitle": "Radiologista",
+    "sameAs": [u for _, u, _ in SOCIAL],
+}
+
+EDITOR_LD = {
+    "@type": "Organization",
+    "name": SITE["name"],
+    "url": SITE["url"],
+    "logo": {"@type": "ImageObject", "url": SITE["url"] + "/static/img/logo-smarthome-ai-marca.png",
+             "width": 360, "height": 360},
+}
+
+
+def jsonld(data) -> str:
+    return ('<script type="application/ld+json">'
+            + json.dumps(data, ensure_ascii=False, separators=(",", ":"))
+            + "</script>")
+
+
+def site_ld(lang: str) -> dict:
+    cfg = LANGS[lang]
+    return {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": SITE["name"],
+        "alternateName": f"{SITE['name']} — {cfg['tagline']}",
+        "url": SITE["url"] + "/" + cfg["prefix"],
+        "inLanguage": cfg["html_lang"],
+        "description": cfg["description"],
+        "publisher": EDITOR_LD,
+    }
+
+
+def breadcrumb_ld(lang: str, page) -> dict:
+    ui = LANGS[lang]["ui"]
+    home = SITE["url"] + "/" + LANGS[lang]["prefix"]
+    listing = home + ("artigos/" if lang == "pt" else "guides/")
+    return {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": ui["breadcrumb_home"], "item": home},
+            {"@type": "ListItem", "position": 2, "name": ui["listing_title"], "item": listing},
+            {"@type": "ListItem", "position": 3, "name": page.title, "item": SITE["url"] + page.url},
+        ],
+    }
+
+
+def article_ld(lang: str, page) -> dict:
+    data = {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": page.title[:110],
+        "description": page.description,
+        "inLanguage": LANGS[lang]["html_lang"],
+        "mainEntityOfPage": {"@type": "WebPage", "@id": SITE["url"] + page.url},
+        "author": AUTOR_LD,
+        "publisher": EDITOR_LD,
+        "image": SITE["url"] + SITE["og_image"],
+        "isAccessibleForFree": True,
+    }
+    if page.date:
+        data["datePublished"] = str(page.date)
+        data["dateModified"] = str(page.date)
+    if page.tags:
+        data["keywords"] = ", ".join(page.tags)
+    if page.category:
+        data["articleSection"] = page.category
+    return data
+
+
+# com baselevel=2 no Markdown, os "##" do texto viram <h3>
+FAQ_RE = re.compile(r'<h3 id="[^"]*">(.*?)</h3>(.*?)(?=<h3 |\Z)', re.S)
+
+
+def faq_ld(page) -> dict | None:
+    itens = []
+    for pergunta, resposta in FAQ_RE.findall(page.html):
+        q = strip_html(pergunta).replace("¶", "").rstrip(" #").strip()
+        a = strip_html(resposta).replace("¶", "").strip()
+        if not q or not a or "?" not in q:
+            continue
+        itens.append({"@type": "Question", "name": q,
+                      "acceptedAnswer": {"@type": "Answer", "text": a[:800]}})
+    if len(itens) < 2:
+        return None
+    return {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": itens}
+
+
 def write(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content, encoding="utf-8")
@@ -595,7 +688,7 @@ def hreflang_html(alts: dict) -> str:
 
 
 def base_context(lang: str, page_title: str, description: str, url_path: str,
-                 alts: dict, content: str, body_class: str = "") -> dict:
+                 alts: dict, content: str, body_class: str = "", extra_head: str = "") -> dict:
     cfg = LANGS[lang]
     ui = cfg["ui"]
     other = "en" if lang == "pt" else "pt"
@@ -628,7 +721,9 @@ def base_context(lang: str, page_title: str, description: str, url_path: str,
         "ui_search_none": ui["search_none"],
         "ui_search_suggest": ui["search_suggest"],
         "ui_to_top": ui["to_top"],
-        "extra_head": "",
+        "extra_head": jsonld(site_ld(lang)) + extra_head,
+        "tagline_meta": esc(cfg["tagline"]),
+        "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
     }
 
 
@@ -690,8 +785,16 @@ def build_articles(lang: str, pages: list[Page], alts_for, pool: list[Page] | No
             "crumbs": breadcrumbs_html(lang, page),
             "related": related_html(lang, page, [p for p in pool if p.section == "artigo"]),
         })
+        extra = jsonld(article_ld(lang, page)) + jsonld(breadcrumb_ld(lang, page))
+        if page.slug == "faq":
+            faq = faq_ld(page)
+            if faq:
+                extra += jsonld(faq)
+        if page.date:
+            extra += (f'<meta property="article:published_time" content="{page.date}">'
+                      f'<meta property="article:modified_time" content="{page.date}">')
         ctx = base_context(lang, page.title, page.description, page.url,
-                           alts_for(page.key, page.url), body, "article")
+                           alts_for(page.key, page.url), body, "article", extra)
         write(out_path(page.url), render(tpl_base, ctx))
         log(page.url)
 
@@ -790,17 +893,30 @@ def build_search_index(lang: str, own: list[Page], foreign: list[Page]) -> None:
     log("/" + LANGS[lang]["prefix"] + "search-index.json")
 
 
-def build_sitemap(all_urls: list[str]) -> None:
-    today = date.today().isoformat()
-    entries = "\n".join(
-        f"  <url><loc>{SITE['url']}{u}</loc><lastmod>{today}</lastmod>"
-        f"<changefreq>monthly</changefreq><priority>{'1.0' if u in ('/', '/en/') else '0.7'}</priority></url>"
-        for u in dict.fromkeys(all_urls)
-    )
+def build_sitemap(urls: list[tuple[str, str, dict]]) -> None:
+    hoje = date.today().isoformat()
+    blocos = []
+    vistos = set()
+    for loc, lastmod, alts in urls:
+        if loc in vistos:
+            continue
+        vistos.add(loc)
+        alt = "".join(
+            f'<xhtml:link rel="alternate" hreflang="{code}" href="{SITE["url"]}{href}"/>'
+            for code, href in sorted(alts.items())
+        )
+        blocos.append(
+            f"  <url><loc>{SITE['url']}{loc}</loc>"
+            f"<lastmod>{lastmod or hoje}</lastmod>"
+            f"<changefreq>monthly</changefreq>"
+            f"<priority>{'1.0' if loc in ('/', '/en/') else '0.7'}</priority>"
+            f"{alt}</url>"
+        )
     write(DIST / "sitemap.xml",
           '<?xml version="1.0" encoding="UTF-8"?>\n'
-          '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-          f"{entries}\n</urlset>\n")
+          '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
+          'xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
+          + "\n".join(blocos) + "\n</urlset>\n")
     write(DIST / "robots.txt",
           f"User-agent: *\nAllow: /\n\nSitemap: {SITE['url']}/sitemap.xml\n")
     log("sitemap.xml + robots.txt")
@@ -844,7 +960,7 @@ def main() -> None:
             found.setdefault(lang, "/" + LANGS[lang]["prefix"])
         return found
 
-    all_urls: list[str] = []
+    all_urls: list[tuple[str, str, dict]] = []
     for lang in ("pt", "en"):
         other = "en" if lang == "pt" else "pt"
         pool = pages[lang] + (pages[other] if lang == "en" else [])
@@ -853,9 +969,10 @@ def main() -> None:
         build_listing(lang, pages[lang], pages[other], alts_for)
         build_404(lang, alts_for)
         build_search_index(lang, pages[lang], pages[other])
-        all_urls.append("/" + LANGS[lang]["prefix"])
-        all_urls.append("/" + LANGS[lang]["prefix"] + ("artigos/" if lang == "pt" else "guides/"))
-        all_urls.extend(p.url for p in pages[lang])
+        all_urls.append(("/" + LANGS[lang]["prefix"], "", alts_for("home", "")))
+        all_urls.append(("/" + LANGS[lang]["prefix"] + ("artigos/" if lang == "pt" else "guides/"),
+                         "", alts_for("listing", "")))
+        all_urls.extend((p.url, str(p.date or ""), alts_for(p.key, p.url)) for p in pages[lang])
 
     build_sitemap(all_urls)
     copy_static()

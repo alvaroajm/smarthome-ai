@@ -6,6 +6,7 @@
   <title>{{title}}</title>
   <meta name="description" content="{{description}}">
   <meta name="author" content="{{author}}">
+  <meta name="robots" content="{{robots}}">
   <meta name="color-scheme" content="dark light">
   <meta name="theme-color" content="#080d0c">
   <link rel="canonical" href="{{canonical}}">
@@ -18,16 +19,19 @@
   <meta property="og:description" content="{{description}}">
   <meta property="og:url" content="{{canonical}}">
   <meta property="og:image" content="{{og_image}}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="SmartHome-AI — {{tagline_meta}}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{title}}">
   <meta name="twitter:description" content="{{description}}">
   <meta name="twitter:image" content="{{og_image}}">
+  <meta name="twitter:image:alt" content="SmartHome-AI — {{tagline_meta}}">
 
   <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/static/img/logo-smarthome-ai-marca.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preload" href="/static/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/static/fonts/inter-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="{{css_url}}">
   <script>
     (function () {
