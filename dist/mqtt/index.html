@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MQTT explicado para iniciantes · SmartHome-AI</title>
+  <meta name="description" content="O que é um broker, o que são tópicos e payloads, para que servem retain e QoS, e como instalar o Mosquitto no Home Assistant em dez minutos.">
+  <meta name="author" content="Dr. Álvaro Menezes">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0b1110">
+  <link rel="canonical" href="https://smarthome-ai.com/mqtt/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SmartHome-AI">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="MQTT explicado para iniciantes · SmartHome-AI">
+  <meta property="og:description" content="O que é um broker, o que são tópicos e payloads, para que servem retain e QoS, e como instalar o Mosquitto no Home Assistant em dez minutos.">
+  <meta property="og:url" content="https://smarthome-ai.com/mqtt/">
+  <meta property="og:image" content="https://smarthome-ai.com/static/img/logo-smarthome-ai.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MQTT explicado para iniciantes · SmartHome-AI">
+  <meta name="twitter:description" content="O que é um broker, o que são tópicos e payloads, para que servem retain e QoS, e como instalar o Mosquitto no Home Assistant em dez minutos.">
+  <meta name="twitter:image" content="https://smarthome-ai.com/static/img/logo-smarthome-ai.jpg">
+
+  <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/static/img/logo-smarthome-ai.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script>
+    // Evita "flash" de tema errado: aplica a preferência salva antes da pintura.
+    (function () {
+      try {
+        var t = localStorage.getItem('sha-theme');
+        if (t) document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+  
+</head>
+<body class="article">
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="SmartHome-AI — início">
+        <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+          <defs>
+            <linearGradient id="g-gold" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#F3D68B"/><stop offset="1" stop-color="#B8891F"/>
+            </linearGradient>
+          </defs>
+          <rect x="1.5" y="1.5" width="37" height="37" rx="11" fill="none" stroke="url(#g-gold)" stroke-width="1.6"/>
+          <path d="M9 21.5 20 12l11 9.5" fill="none" stroke="url(#g-gold)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12.5 20.5V29h15v-8.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>
+          <circle cx="20" cy="24.5" r="2.6" fill="none" stroke="url(#g-gold)" stroke-width="1.8"/>
+          <path d="M20 21.9v-2.2M20 27.1v1.9M17.4 24.5h-2M24.6 24.5h-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".6"/>
+        </svg>
+        <span class="brand-text">
+          <strong>SmartHome<span class="accent">-AI</span></strong>
+          <small>Inteligência para o seu lar</small>
+        </span>
+      </a>
+
+      <nav class="site-nav" id="menu" aria-label="Navegação principal">
+        <a href="/">Início</a>
+        <a href="/artigos/">Artigos</a>
+        <a href="/instalacao/">Comece aqui</a>
+        <a href="/comandos-haos/">Comandos</a>
+        <a href="/faq/">FAQ</a>
+        <a href="/sobre/">Sobre</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-btn" id="search-open" aria-label="Buscar no site" title="Buscar (tecla /)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </button>
+        <button class="icon-btn" id="theme-toggle" aria-label="Alternar tema claro/escuro" title="Alternar tema">
+          <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5Z"/></svg>
+          <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.6 5.6l1.4 1.4m10 10 1.4 1.4m0-12.8-1.4 1.4m-10 10-1.4 1.4"/></svg>
+        </button>
+        <button class="icon-btn menu-btn" id="menu-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <article class="page">
+    <header class="page-head">
+      <p class="eyebrow">Protocolos</p>
+      <h1>MQTT explicado para iniciantes</h1>
+      <p class="lead">O que é um broker, o que são tópicos e payloads, para que servem retain e QoS, e como instalar o Mosquitto no Home Assistant em dez minutos.</p>
+      <p class="byline">11 min de leitura</p>
+    </header>
+    <div class="article-grid">
+      <nav class="toc" aria-label="Sumário"><p class="toc-title">Neste guia</p><div class="toc">
+<ul>
+<li><a href="#a-ideia-central-sem-jargao">A ideia central, sem jargão</a></li>
+<li><a href="#topicos-o-endereco-da-mensagem">Tópicos: o endereço da mensagem</a></li>
+<li><a href="#retain-e-qos-os-dois-conceitos-que-confundem-todo-mundo">Retain e QoS — os dois conceitos que confundem todo mundo</a></li>
+<li><a href="#instalando-o-mosquitto-em-dez-minutos">Instalando o Mosquitto em dez minutos</a></li>
+<li><a href="#mqtt-discovery-por-que-os-dispositivos-aparecem-sozinhos">MQTT Discovery: por que os dispositivos aparecem sozinhos</a></li>
+<li><a href="#quem-fala-mqtt-na-sua-casa">Quem fala MQTT na sua casa</a></li>
+<li><a href="#ferramenta-indispensavel-o-mqtt-explorer">Ferramenta indispensável: o MQTT Explorer</a></li>
+<li><a href="#erros-comuns-de-quem-esta-comecando">Erros comuns de quem está começando</a></li>
+</ul>
+</div>
+</nav>
+      <div class="prose">
+        <p>MQTT é o "correio" da casa inteligente. É um protocolo simples, antigo e extremamente confiável, criado para
+aparelhos pequenos com pouca memória. Se você usa Zigbee2MQTT, Frigate, Tasmota ou quase qualquer projeto
+DIY, você já depende dele — mesmo sem saber.</p>
+<h3 id="a-ideia-central-sem-jargao">A ideia central, sem jargão<a class="headerlink" href="#a-ideia-central-sem-jargao" title="Permanent link">#</a></h3>
+<p>Imagine um <strong>quadro de avisos</strong> no corredor do prédio. Qualquer morador pode:</p>
+<ul>
+<li><strong>pendurar um bilhete</strong> num assunto específico ("Elevador — em manutenção")</li>
+<li><strong>acompanhar um assunto</strong> e ser avisado toda vez que um bilhete novo aparece ali</li>
+</ul>
+<p>Ninguém precisa saber quem é o outro. Quem pendura não conhece quem lê; quem lê não conhece quem pendurou.
+Só precisam concordar sobre <strong>o nome do assunto</strong>.</p>
+<p>No MQTT:</p>
+<table>
+<thead>
+<tr>
+<th>Quadro de avisos</th>
+<th>MQTT</th>
+<th>Exemplo na sua casa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>O quadro em si</td>
+<td><strong>Broker</strong></td>
+<td>Mosquitto, rodando no Home Assistant</td>
+</tr>
+<tr>
+<td>O assunto</td>
+<td><strong>Tópico</strong> (<em>topic</em>)</td>
+<td><code>zigbee2mqtt/sensor_varanda</code></td>
+</tr>
+<tr>
+<td>O bilhete</td>
+<td><strong>Payload</strong> (mensagem)</td>
+<td><code>{"temperature": 27.4, "battery": 88}</code></td>
+</tr>
+<tr>
+<td>Quem pendura</td>
+<td><strong>Publisher</strong></td>
+<td>O sensor, via Zigbee2MQTT</td>
+</tr>
+<tr>
+<td>Quem acompanha</td>
+<td><strong>Subscriber</strong></td>
+<td>O Home Assistant</td>
+</tr>
+</tbody>
+</table>
+<p>Esse desacoplamento é a mágica: você troca o Home Assistant de máquina, ou adiciona um segundo sistema
+ouvindo os mesmos sensores, e <strong>nada</strong> precisa ser reconfigurado do lado dos dispositivos.</p>
+<h3 id="topicos-o-endereco-da-mensagem">Tópicos: o endereço da mensagem<a class="headerlink" href="#topicos-o-endereco-da-mensagem" title="Permanent link">#</a></h3>
+<p>Tópicos são organizados com barras, como pastas, do geral para o específico:</p>
+<pre><code class="language-text">casa/sala/temperatura
+casa/sala/umidade
+casa/cozinha/temperatura
+zigbee2mqtt/porta_frente
+frigate/portao/person
+</code></pre>
+<p>Ao assinar, dois curingas ajudam:</p>
+<ul>
+<li><code>+</code> substitui <strong>um nível</strong>: <code>casa/+/temperatura</code> pega sala <strong>e</strong> cozinha</li>
+<li><code>#</code> substitui <strong>todos os níveis a partir dali</strong>: <code>casa/#</code> pega tudo da casa</li>
+</ul>
+<div class="admonition dica">
+<p class="admonition-title">Convenção que evita bagunça</p>
+<p>Use minúsculas, sem acentos e sem espaços, e vá do geral para o específico:
+<code>local/comodo/dispositivo/medida</code>. Você vai agradecer quando tiver 200 tópicos.</p>
+</div>
+<h3 id="retain-e-qos-os-dois-conceitos-que-confundem-todo-mundo">Retain e QoS — os dois conceitos que confundem todo mundo<a class="headerlink" href="#retain-e-qos-os-dois-conceitos-que-confundem-todo-mundo" title="Permanent link">#</a></h3>
+<h4 id="retain-mensagem-retida">Retain (mensagem retida)<a class="headerlink" href="#retain-mensagem-retida" title="Permanent link">#</a></h4>
+<p>Normalmente, quem chega depois <strong>não vê</strong> o que já foi publicado. Com a flag <code>retain</code>, o broker guarda a
+<strong>última</strong> mensagem de cada tópico e entrega imediatamente a quem assinar.</p>
+<p>É por isso que, ao reiniciar o Home Assistant, a temperatura do sensor aparece na hora, em vez de esperar
+meia hora pela próxima leitura. <strong>Estado</strong> (temperatura, ligado/desligado) pede <code>retain: true</code>;
+<strong>evento</strong> (um botão apertado) não deve ser retido — senão a casa "revive" o clique a cada reinício.</p>
+<h4 id="qos-qualidade-de-servico">QoS (qualidade de serviço)<a class="headerlink" href="#qos-qualidade-de-servico" title="Permanent link">#</a></h4>
+<p>Quanto empenho o broker coloca na entrega:</p>
+<table>
+<thead>
+<tr>
+<th>QoS</th>
+<th>Garantia</th>
+<th>Use para</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+<td>Envia e esquece; pode se perder</td>
+<td>Leituras frequentes (temperatura a cada minuto)</td>
+</tr>
+<tr>
+<td><strong>1</strong></td>
+<td>Entrega ao menos uma vez; pode duplicar</td>
+<td>O padrão sensato para quase tudo</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td>Entrega exatamente uma vez; mais lento</td>
+<td>Comandos críticos (abrir portão, trancar porta)</td>
+</tr>
+</tbody>
+</table>
+<p>Na dúvida: <strong>QoS 1</strong>.</p>
+<h4 id="lwt-o-testamento">LWT — o testamento<a class="headerlink" href="#lwt-o-testamento" title="Permanent link">#</a></h4>
+<p>O <em>Last Will and Testament</em> é uma mensagem que o dispositivo combina com o broker <strong>antecipadamente</strong>:
+"se eu cair sem avisar, publique <code>offline</code> neste tópico". É assim que o Home Assistant sabe mostrar um
+sensor como <em>indisponível</em> em vez de exibir para sempre o último valor — que pode ser de três dias atrás.</p>
+<h3 id="instalando-o-mosquitto-em-dez-minutos">Instalando o Mosquitto em dez minutos<a class="headerlink" href="#instalando-o-mosquitto-em-dez-minutos" title="Permanent link">#</a></h3>
+<p>O broker recomendado é o <strong>Mosquitto</strong>, disponível como app dentro do Home Assistant.</p>
+<p><strong>1. Crie um usuário só para o MQTT</strong>
+Em <em>Configurações → Pessoas → Usuários</em>, crie um usuário (por exemplo <code>mqtt_user</code>) com uma senha forte.
+Não use a sua conta de administrador.</p>
+<p><strong>2. Instale o app</strong>
+<em>Configurações → Apps → Loja de apps → Mosquitto broker → Instalar → Iniciar</em> (deixe "iniciar no boot" ligado).</p>
+<p><strong>3. Aceite a integração</strong>
+O Home Assistant detecta o broker sozinho e mostra "MQTT descoberto". Clique em configurar e confirme.</p>
+<p><strong>4. Teste</strong>
+Em <em>Configurações → Dispositivos e serviços → MQTT → Configurar</em>, existe uma área para publicar e ouvir.
+Assine <code>#</code> (tudo) e veja as mensagens aparecerem.</p>
+<p>Os dados de conexão que outros programas vão pedir:</p>
+<pre><code class="language-yaml">servidor: core-mosquitto      # de dentro do Home Assistant
+porta: 1883
+usuario: mqtt_user
+senha: (a que você criou)
+# de fora (ESP32, computador): use o IP do Home Assistant no lugar de core-mosquitto
+</code></pre>
+<div class="admonition atencao">
+<p class="admonition-title">Porta 1883 nunca vai para a internet</p>
+<p>MQTT sem TLS trafega em texto puro. Use apenas dentro da sua rede. Se precisar de acesso externo,
+faça por <a href="/rede-wifi/">VPN</a> — jamais abrindo a porta no roteador.</p>
+</div>
+<h3 id="mqtt-discovery-por-que-os-dispositivos-aparecem-sozinhos">MQTT Discovery: por que os dispositivos aparecem sozinhos<a class="headerlink" href="#mqtt-discovery-por-que-os-dispositivos-aparecem-sozinhos" title="Permanent link">#</a></h3>
+<p>Quando você pareia um sensor no Zigbee2MQTT e ele <strong>surge no Home Assistant já com nome, ícone e unidade</strong>,
+o responsável é o <em>discovery</em>: o programa publica, num tópico especial, um "cartão de visita" em JSON
+descrevendo o dispositivo. O Home Assistant lê e cria a entidade.</p>
+<p>Exemplo de um sensor caseiro se apresentando:</p>
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;Temperatura da estufa&quot;,
+  &quot;state_topic&quot;: &quot;casa/estufa/temperatura&quot;,
+  &quot;unit_of_measurement&quot;: &quot;°C&quot;,
+  &quot;device_class&quot;: &quot;temperature&quot;,
+  &quot;unique_id&quot;: &quot;estufa_temp_01&quot;,
+  &quot;device&quot;: { &quot;identifiers&quot;: [&quot;estufa_esp32&quot;], &quot;name&quot;: &quot;ESP32 da estufa&quot; }
+}
+</code></pre>
+<p>Publicado (com <code>retain</code>) no tópico de configuração correspondente, ele vira uma entidade sem você escrever
+uma linha de YAML.</p>
+<h3 id="quem-fala-mqtt-na-sua-casa">Quem fala MQTT na sua casa<a class="headerlink" href="#quem-fala-mqtt-na-sua-casa" title="Permanent link">#</a></h3>
+<ul>
+<li><strong><a href="/zigbee/">Zigbee2MQTT</a></strong> — publica tudo que a malha Zigbee reporta</li>
+<li><strong><a href="/esphome-esp32/">ESPHome</a></strong> — opcional (a API nativa é melhor), útil para falar com outros sistemas</li>
+<li><strong>Tasmota</strong> — firmware de dispositivos comerciais, MQTT de nascença</li>
+<li><strong><a href="/scrypted/">Frigate</a></strong> — publica eventos de câmera (<code>frigate/eventos</code>)</li>
+<li><strong>Node-RED, Grafana, scripts em Python</strong> — consomem e publicam com poucas linhas</li>
+<li><strong><a href="/casaos-umbrel/">CasaOS / umbrelOS</a></strong> — qualquer app do seu home server pode entrar na conversa</li>
+</ul>
+<h3 id="ferramenta-indispensavel-o-mqtt-explorer">Ferramenta indispensável: o MQTT Explorer<a class="headerlink" href="#ferramenta-indispensavel-o-mqtt-explorer" title="Permanent link">#</a></h3>
+<p>Instale o <strong>MQTT Explorer</strong> no seu computador, aponte para o IP do Home Assistant e veja <strong>a árvore inteira
+de tópicos em tempo real</strong>. Em cinco minutos ele explica o que uma hora de tutorial não explica — e é a
+primeira coisa a abrir quando algo "não chega".</p>
+<h3 id="erros-comuns-de-quem-esta-comecando">Erros comuns de quem está começando<a class="headerlink" href="#erros-comuns-de-quem-esta-comecando" title="Permanent link">#</a></h3>
+<ol>
+<li><strong>Tópico errado por um caractere.</strong> MQTT diferencia maiúsculas e minúsculas e não avisa quando ninguém
+   ouve — a mensagem simplesmente cai no vazio.</li>
+<li><strong>Esquecer o <code>retain</code> em estados.</strong> O painel fica vazio depois de cada reinício.</li>
+<li><strong>Usar <code>retain</code> em eventos.</strong> A casa "reencena" comandos antigos ao ligar.</li>
+<li><strong>Usar a conta de administrador</strong> como usuário MQTT.</li>
+<li><strong>Publicar texto onde o Home Assistant espera JSON</strong> (ou o contrário) — confira com o MQTT Explorer.</li>
+<li><strong>Achar que precisa de MQTT para tudo.</strong> Se o ESPHome se conecta pela API nativa e o Zigbee funciona no
+   ZHA, você talvez não precise de broker nenhum. Ele entra quando <strong>mais de um programa</strong> precisa dos
+   mesmos dados.</li>
+</ol>
+        <ul class="tags"><li>MQTT</li><li>Mosquitto</li><li>Zigbee2MQTT</li><li>ESPHome</li><li>Integração</li></ul>
+      </div>
+    </div>
+    <nav class="pager" aria-label="Navegação entre guias">
+      <a class="pager-prev" href="/matter-thread/"><span>← Anterior</span><strong>Matter e Thread explicados sem marketing</strong></a>
+      <a class="pager-next" href="/apple-homekit/"><span>Próximo →</span><strong>Apple HomeKit + Home Assistant: o melhor dos dois mundos</strong></a>
+    </nav>
+  </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <strong>SmartHome<span class="accent">-AI</span></strong>
+        <p>Inteligência para o seu lar — guias independentes de casa inteligente, automação local e código aberto.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Rodapé">
+        <div>
+          <h4>Plataformas</h4>
+          <a href="/home-assistant/">Home Assistant</a>
+          <a href="/esphome-esp32/">ESPHome &amp; ESP32</a>
+          <a href="/scrypted/">Scrypted &amp; câmeras</a>
+          <a href="/casaos-umbrel/">CasaOS &amp; umbrelOS</a>
+          <a href="/nabu-casa/">Nabu Casa</a>
+        </div>
+        <div>
+          <h4>Protocolos</h4>
+          <a href="/zigbee/">Zigbee2MQTT &amp; ZHA</a>
+          <a href="/zbt-dongles/">Dongles ZBT-1 &amp; ZBT-2</a>
+          <a href="/matter-thread/">Matter &amp; Thread</a>
+          <a href="/mqtt/">MQTT</a>
+          <a href="/apple-homekit/">Apple HomeKit</a>
+        </div>
+        <div>
+          <h4>IA &amp; agentes</h4>
+          <a href="/claude-mcp/">Claude &amp; MCP</a>
+          <a href="/cameras-ia/">Câmeras com IA</a>
+          <a href="/openclaw/">OpenClaw</a>
+        </div>
+        <div>
+          <h4>Site</h4>
+          <a href="/artigos/">Todos os guias</a>
+          <a href="/instalacao/">Comece aqui</a>
+          <a href="/comandos-haos/">Comandos do HA</a>
+          <a href="/faq/">Dúvidas frequentes</a>
+          <a href="/sobre/">Sobre</a>
+        </div>
+      </nav>
+    </div>
+    <div class="wrap footer-bottom">
+      <p>© 2026 SmartHome-AI · conteúdo por Dr. Álvaro Menezes</p>
+      <p>Feito com HTML, CSS, JavaScript e um gerador estático em Python.</p>
+    </div>
+  </footer>
+
+  <div class="search-modal" id="search-modal" hidden>
+    <div class="search-backdrop" data-close></div>
+    <div class="search-box" role="dialog" aria-modal="true" aria-label="Buscar no site">
+      <div class="search-field">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" id="search-input" placeholder="Buscar: Zigbee, ESPHome, Matter, Raspberry Pi…" autocomplete="off" spellcheck="false">
+        <kbd>Esc</kbd>
+      </div>
+      <ul class="search-results" id="search-results"></ul>
+    </div>
+  </div>
+
+  <script src="/static/js/main.js" defer></script>
+</body>
+</html>

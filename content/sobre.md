@@ -4,7 +4,7 @@ slug: sobre
 description: Um projeto independente sobre casa inteligente local, código aberto e automação que funciona no mundo real.
 category: Sobre
 icon: book
-order: 13
+order: 19
 section: pagina
 reading: 3 min de leitura
 date: 2026-09-21
@@ -30,6 +30,10 @@ Aqui o compromisso é outro: **explicar o porquê antes do como**, com exemplos 
 - [Home Assistant](/home-assistant/) — a plataforma
 - [ESPHome e ESP32](/esphome-esp32/) — dispositivos feitos por você
 - [Zigbee2MQTT e ZHA](/zigbee/) — a malha dos sensores
+- [ZBT-1 e ZBT-2](/zbt-dongles/) — os dongles oficiais
+- [MQTT](/mqtt/) — o correio da casa
+- [Nabu Casa](/nabu-casa/) — a assinatura oficial
+- [Claude e MCP](/claude-mcp/), [câmeras com IA](/cameras-ia/) e [OpenClaw](/openclaw/) — inteligência artificial em casa
 - [Matter e Thread](/matter-thread/) — o padrão que atravessa ecossistemas
 - [Apple HomeKit](/apple-homekit/) — integração com iPhone, Siri e Apple TV
 - [Scrypted, Frigate e câmeras](/scrypted/) — vídeo local

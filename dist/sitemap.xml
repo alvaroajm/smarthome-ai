@@ -7,9 +7,15 @@
   <url><loc>https://smarthome-ai.com/hardware/</loc><lastmod>2026-09-21</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://smarthome-ai.com/esphome-esp32/</loc><lastmod>2026-09-21</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://smarthome-ai.com/zigbee/</loc><lastmod>2026-09-21</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://smarthome-ai.com/zbt-dongles/</loc><lastmod>2026-09-21</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://smarthome-ai.com/matter-thread/</loc><lastmod>2026-09-21</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://smarthome-ai.com/mqtt/</loc><lastmod>2026-09-21</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://smarthome-ai.com/apple-homekit/</loc><lastmod>2026-09-21</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://smarthome-ai.com/nabu-casa/</loc><lastmod>2026-09-21</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://smarthome-ai.com/scrypted/</loc><lastmod>2026-09-21</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://smarthome-ai.com/cameras-ia/</loc><lastmod>2026-09-21</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://smarthome-ai.com/claude-mcp/</loc><lastmod>2026-09-21</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://smarthome-ai.com/openclaw/</loc><lastmod>2026-09-21</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://smarthome-ai.com/rede-wifi/</loc><lastmod>2026-09-21</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://smarthome-ai.com/casaos-umbrel/</loc><lastmod>2026-09-21</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://smarthome-ai.com/comandos-haos/</loc><lastmod>2026-09-21</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>

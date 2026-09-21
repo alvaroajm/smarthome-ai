@@ -12,7 +12,9 @@ targets = {"/"} | {"/" + p.parent.relative_to(DIST).as_posix() + "/" for p in ht
 for f in htmls:
     html = f.read_text(encoding="utf-8")
     rel = "/" + f.relative_to(DIST).as_posix()
-    for ph in re.findall(r"\{\{\s*\w+\s*\}\}", html):
+    # blocos de código podem conter templates Jinja legítimos ({{ variavel }}) — ignore-os
+    sem_codigo = re.sub(r"<pre.*?</pre>|<code.*?</code>", " ", html, flags=re.S)
+    for ph in re.findall(r"\{\{\s*\w+\s*\}\}", sem_codigo):
         problems.append(f"{rel}: placeholder não substituído {ph}")
     if "<title>" not in html:
         problems.append(f"{rel}: sem <title>")

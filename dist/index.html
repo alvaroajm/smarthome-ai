@@ -95,12 +95,12 @@
       <h1>Sua casa inteligente,<br><span class="grad">sem depender da nuvem</span></h1>
       <p class="lead">
         Guias diretos e testados sobre <strong>Home Assistant</strong>, <strong>ESPHome</strong> e <strong>ESP32</strong>,
-        <strong>Zigbee2MQTT</strong>, <strong>ZHA</strong>, <strong>Matter over Thread</strong>, <strong>Apple HomeKit</strong>,
-        <strong>Scrypted</strong>, Raspberry Pi e mini-PCs. Do primeiro sensor à automação que ninguém percebe que existe.
+        <strong>Zigbee2MQTT</strong>, <strong>Matter over Thread</strong>, <strong>MQTT</strong>, <strong>Apple HomeKit</strong>,
+        câmeras com <strong>IA</strong> e agentes via <strong>MCP</strong>. Do primeiro sensor à automação que ninguém percebe que existe.
       </p>
       <div class="cta-row">
         <a class="btn btn-primary" href="/instalacao/">Comece por aqui</a>
-        <a class="btn btn-ghost" href="/artigos/">Ver os 11 guias</a>
+        <a class="btn btn-ghost" href="/artigos/">Ver os 17 guias</a>
       </div>
       <dl class="hero-stats">
         <div><dt>Processamento</dt><dd>100% local</dd></div>
@@ -178,11 +178,25 @@
         <p>Como funciona a malha Zigbee, qual coordenador comprar, a diferença real entre Zigbee2MQTT e ZHA e como construir uma rede que não cai.</p>
         <span class="card-go">Ler o guia <span aria-hidden="true">→</span></span>
       </a>
+      <a class="card" href="/zbt-dongles/">
+        <span class="card-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="17" r="2"/><circle cx="19" cy="17" r="2"/><path d="M12 7v6m-1.6 1.2L6.6 16M13.6 14.2 17.4 16"/><circle cx="12" cy="14" r="2"/></svg></span>
+        <span class="card-tag">Hardware</span>
+        <h3>ZBT-1 e ZBT-2: os dongles oficiais do Home Assistant</h3>
+        <p>O que faz um dongle Zigbee/Thread, a diferença real entre o ZBT-1 e o ZBT-2, qual comprar e como instalar sem sofrer com quedas de sinal.</p>
+        <span class="card-go">Ler o guia <span aria-hidden="true">→</span></span>
+      </a>
       <a class="card" href="/matter-thread/">
         <span class="card-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21a9 9 0 1 0-9-9"/><path d="M12 17a5 5 0 1 0-5-5"/><circle cx="12" cy="12" r="1.5"/></svg></span>
         <span class="card-tag">Protocolos</span>
         <h3>Matter e Thread explicados sem marketing</h3>
         <p>O que Matter realmente resolve, a diferença entre Matter over Thread e over Wi-Fi, o que é um border router e como isso funciona com Home Assistant e Apple.</p>
+        <span class="card-go">Ler o guia <span aria-hidden="true">→</span></span>
+      </a>
+      <a class="card" href="/mqtt/">
+        <span class="card-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 4H4a1.5 1.5 0 0 0-1.5 1.5v9A1.5 1.5 0 0 0 4 16h4l4 4 4-4h4a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 20 4Z"/><path d="M7 8h10M7 11.5h6"/></svg></span>
+        <span class="card-tag">Protocolos</span>
+        <h3>MQTT explicado para iniciantes</h3>
+        <p>O que é um broker, o que são tópicos e payloads, para que servem retain e QoS, e como instalar o Mosquitto no Home Assistant em dez minutos.</p>
         <span class="card-go">Ler o guia <span aria-hidden="true">→</span></span>
       </a>
       <a class="card" href="/apple-homekit/">
@@ -192,11 +206,39 @@
         <p>Como expor tudo do Home Assistant no app Casa, usar Siri e atalhos sem abrir mão da automação local, e quando o caminho inverso faz mais sentido.</p>
         <span class="card-go">Ler o guia <span aria-hidden="true">→</span></span>
       </a>
+      <a class="card" href="/nabu-casa/">
+        <span class="card-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 19h10a4 4 0 0 0 .6-7.95 6 6 0 0 0-11.6-1.4A3.8 3.8 0 0 0 7.5 19Z"/><path d="M12 15.5V9.5m0 0-2.2 2.2M12 9.5l2.2 2.2"/></svg></span>
+        <span class="card-tag">Serviços</span>
+        <h3>Nabu Casa: quando vale pagar pelo Home Assistant Cloud</h3>
+        <p>O que a assinatura oficial inclui, quanto custa, como ela resolve acesso remoto, Alexa e Google, e quais são as alternativas gratuitas — com os prós e contras de cada uma.</p>
+        <span class="card-go">Ler o guia <span aria-hidden="true">→</span></span>
+      </a>
       <a class="card" href="/scrypted/">
         <span class="card-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5A2.5 2.5 0 0 1 5.5 6h2L9 4h6l1.5 2h2A2.5 2.5 0 0 1 21 8.5v9A2.5 2.5 0 0 1 18.5 20h-13A2.5 2.5 0 0 1 3 17.5Z"/><circle cx="12" cy="13" r="3.5"/></svg></span>
         <span class="card-tag">Câmeras & vídeo</span>
         <h3>Câmeras em casa: Scrypted, Frigate e HomeKit Secure Video</h3>
         <p>Como integrar câmeras de qualquer marca ao Home Assistant e ao app Casa, com detecção local de objetos e sem enviar vídeo para a nuvem.</p>
+        <span class="card-go">Ler o guia <span aria-hidden="true">→</span></span>
+      </a>
+      <a class="card" href="/cameras-ia/">
+        <span class="card-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="3"/></svg></span>
+        <span class="card-tag">Câmeras & vídeo</span>
+        <h3>Câmeras com IA: alertas que descrevem o que aconteceu</h3>
+        <p>Como sair do alerta genérico de movimento para uma notificação que diz "um entregador deixou uma caixa no portão" — com Frigate, LLM Vision e modelos locais ou na nuvem.</p>
+        <span class="card-go">Ler o guia <span aria-hidden="true">→</span></span>
+      </a>
+      <a class="card" href="/claude-mcp/">
+        <span class="card-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="8" width="16" height="11" rx="3"/><path d="M12 8V5M9.5 13h.01M14.5 13h.01M9.5 16h5"/><circle cx="12" cy="3.8" r="1.3"/></svg></span>
+        <span class="card-tag">IA & agentes</span>
+        <h3>Claude, MCP e Home Assistant: a casa que você conversa</h3>
+        <p>O que é MCP explicado sem jargão, como ligar o Claude Desktop e o Claude no terminal ao Home Assistant, quais servidores MCP valem a pena e como fazer isso com segurança.</p>
+        <span class="card-go">Ler o guia <span aria-hidden="true">→</span></span>
+      </a>
+      <a class="card" href="/openclaw/">
+        <span class="card-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="12" r="4"/><path d="M12 12h9m-3 0v3m-2.5-3v2"/></svg></span>
+        <span class="card-tag">IA & agentes</span>
+        <h3>OpenClaw na casa inteligente: o que é e como usar sem se machucar</h3>
+        <p>O agente autônomo de código aberto que virou febre, como ele se conecta ao Home Assistant e as precauções de segurança que ninguém deveria ignorar.</p>
         <span class="card-go">Ler o guia <span aria-hidden="true">→</span></span>
       </a>
       <a class="card" href="/rede-wifi/">
@@ -243,6 +285,33 @@
       </table>
     </div>
     <p class="table-note">Regra prática: se funciona com pilha, prefira Zigbee ou Thread. Se precisa de banda (vídeo, áudio), Wi-Fi.</p>
+  </section>
+
+  <section class="wrap section" aria-labelledby="ia">
+    <header class="section-head">
+      <h2 id="ia">Casa inteligente com IA de verdade</h2>
+      <p>Não é ter um assistente de voz: é conversar com a casa, receber alertas que descrevem o que aconteceu e delegar tarefas chatas — com limites bem definidos.</p>
+    </header>
+    <ol class="steps">
+      <li>
+        <span class="step-num">A</span>
+        <h3>Converse com a casa</h3>
+        <p>MCP liga o Claude (no Mac ou no terminal) ao Home Assistant: consultar estados, controlar e escrever automações.</p>
+        <a href="/claude-mcp/">Claude + MCP →</a>
+      </li>
+      <li>
+        <span class="step-num">B</span>
+        <h3>Câmeras que descrevem</h3>
+        <p>Do "movimento detectado" para "um entregador deixou uma caixa no portão", com Frigate e modelos locais ou na nuvem.</p>
+        <a href="/cameras-ia/">Câmeras com IA →</a>
+      </li>
+      <li>
+        <span class="step-num">C</span>
+        <h3>Agentes autônomos</h3>
+        <p>O que o OpenClaw faz, onde ele ajuda de verdade e as precauções de segurança que não dá para ignorar.</p>
+        <a href="/openclaw/">Entender os riscos →</a>
+      </li>
+    </ol>
   </section>
 
   <section class="wrap section" aria-labelledby="recentes">
@@ -302,12 +371,12 @@
         </a>
       </li>
       <li class="post">
-        <a href="/matter-thread/">
-          <span class="post-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21a9 9 0 1 0-9-9"/><path d="M12 17a5 5 0 1 0-5-5"/><circle cx="12" cy="12" r="1.5"/></svg></span>
+        <a href="/zbt-dongles/">
+          <span class="post-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="17" r="2"/><circle cx="19" cy="17" r="2"/><path d="M12 7v6m-1.6 1.2L6.6 16M13.6 14.2 17.4 16"/><circle cx="12" cy="14" r="2"/></svg></span>
           <span class="post-body">
-            <span class="post-title">Matter e Thread explicados sem marketing</span>
-            <span class="post-desc">O que Matter realmente resolve, a diferença entre Matter over Thread e over Wi-Fi, o que é um border router e como isso funciona com Home Assistant e Apple.</span>
-            <span class="post-meta">Protocolos · 10 min de leitura</span>
+            <span class="post-title">ZBT-1 e ZBT-2: os dongles oficiais do Home Assistant</span>
+            <span class="post-desc">O que faz um dongle Zigbee/Thread, a diferença real entre o ZBT-1 e o ZBT-2, qual comprar e como instalar sem sofrer com quedas de sinal.</span>
+            <span class="post-meta">Hardware · 9 min de leitura</span>
           </span>
         </a>
       </li>
@@ -346,12 +415,21 @@
           <a href="/esphome-esp32/">ESPHome &amp; ESP32</a>
           <a href="/scrypted/">Scrypted &amp; câmeras</a>
           <a href="/casaos-umbrel/">CasaOS &amp; umbrelOS</a>
+          <a href="/nabu-casa/">Nabu Casa</a>
         </div>
         <div>
           <h4>Protocolos</h4>
           <a href="/zigbee/">Zigbee2MQTT &amp; ZHA</a>
+          <a href="/zbt-dongles/">Dongles ZBT-1 &amp; ZBT-2</a>
           <a href="/matter-thread/">Matter &amp; Thread</a>
+          <a href="/mqtt/">MQTT</a>
           <a href="/apple-homekit/">Apple HomeKit</a>
+        </div>
+        <div>
+          <h4>IA &amp; agentes</h4>
+          <a href="/claude-mcp/">Claude &amp; MCP</a>
+          <a href="/cameras-ia/">Câmeras com IA</a>
+          <a href="/openclaw/">OpenClaw</a>
         </div>
         <div>
           <h4>Site</h4>

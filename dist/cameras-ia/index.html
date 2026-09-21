@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Câmeras com IA: alertas que descrevem o que aconteceu · SmartHome-AI</title>
+  <meta name="description" content="Como sair do alerta genérico de movimento para uma notificação que diz &quot;um entregador deixou uma caixa no portão&quot; — com Frigate, LLM Vision e modelos locais ou na nuvem.">
+  <meta name="author" content="Dr. Álvaro Menezes">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0b1110">
+  <link rel="canonical" href="https://smarthome-ai.com/cameras-ia/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SmartHome-AI">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="Câmeras com IA: alertas que descrevem o que aconteceu · SmartHome-AI">
+  <meta property="og:description" content="Como sair do alerta genérico de movimento para uma notificação que diz &quot;um entregador deixou uma caixa no portão&quot; — com Frigate, LLM Vision e modelos locais ou na nuvem.">
+  <meta property="og:url" content="https://smarthome-ai.com/cameras-ia/">
+  <meta property="og:image" content="https://smarthome-ai.com/static/img/logo-smarthome-ai.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Câmeras com IA: alertas que descrevem o que aconteceu · SmartHome-AI">
+  <meta name="twitter:description" content="Como sair do alerta genérico de movimento para uma notificação que diz &quot;um entregador deixou uma caixa no portão&quot; — com Frigate, LLM Vision e modelos locais ou na nuvem.">
+  <meta name="twitter:image" content="https://smarthome-ai.com/static/img/logo-smarthome-ai.jpg">
+
+  <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/static/img/logo-smarthome-ai.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script>
+    // Evita "flash" de tema errado: aplica a preferência salva antes da pintura.
+    (function () {
+      try {
+        var t = localStorage.getItem('sha-theme');
+        if (t) document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+  
+</head>
+<body class="article">
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="SmartHome-AI — início">
+        <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+          <defs>
+            <linearGradient id="g-gold" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#F3D68B"/><stop offset="1" stop-color="#B8891F"/>
+            </linearGradient>
+          </defs>
+          <rect x="1.5" y="1.5" width="37" height="37" rx="11" fill="none" stroke="url(#g-gold)" stroke-width="1.6"/>
+          <path d="M9 21.5 20 12l11 9.5" fill="none" stroke="url(#g-gold)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12.5 20.5V29h15v-8.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>
+          <circle cx="20" cy="24.5" r="2.6" fill="none" stroke="url(#g-gold)" stroke-width="1.8"/>
+          <path d="M20 21.9v-2.2M20 27.1v1.9M17.4 24.5h-2M24.6 24.5h-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".6"/>
+        </svg>
+        <span class="brand-text">
+          <strong>SmartHome<span class="accent">-AI</span></strong>
+          <small>Inteligência para o seu lar</small>
+        </span>
+      </a>
+
+      <nav class="site-nav" id="menu" aria-label="Navegação principal">
+        <a href="/">Início</a>
+        <a href="/artigos/">Artigos</a>
+        <a href="/instalacao/">Comece aqui</a>
+        <a href="/comandos-haos/">Comandos</a>
+        <a href="/faq/">FAQ</a>
+        <a href="/sobre/">Sobre</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-btn" id="search-open" aria-label="Buscar no site" title="Buscar (tecla /)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </button>
+        <button class="icon-btn" id="theme-toggle" aria-label="Alternar tema claro/escuro" title="Alternar tema">
+          <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5Z"/></svg>
+          <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.6 5.6l1.4 1.4m10 10 1.4 1.4m0-12.8-1.4 1.4m-10 10-1.4 1.4"/></svg>
+        </button>
+        <button class="icon-btn menu-btn" id="menu-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <article class="page">
+    <header class="page-head">
+      <p class="eyebrow">Câmeras & vídeo</p>
+      <h1>Câmeras com IA: alertas que descrevem o que aconteceu</h1>
+      <p class="lead">Como sair do alerta genérico de movimento para uma notificação que diz "um entregador deixou uma caixa no portão" — com Frigate, LLM Vision e modelos locais ou na nuvem.</p>
+      <p class="byline">10 min de leitura</p>
+    </header>
+    <div class="article-grid">
+      <nav class="toc" aria-label="Sumário"><p class="toc-title">Neste guia</p><div class="toc">
+<ul>
+<li><a href="#os-tres-niveis-de-inteligencia">Os três níveis de inteligência</a></li>
+<li><a href="#nivel-2-o-frigate-faz-o-trabalho-pesado">Nível 2: o Frigate faz o trabalho pesado</a></li>
+<li><a href="#nivel-3-llm-vision-a-casa-que-descreve-o-que-ve">Nível 3: LLM Vision, a casa que descreve o que vê</a></li>
+<li><a href="#local-ou-nuvem">Local ou nuvem?</a></li>
+<li><a href="#alem-da-notificacao-bonita">Além da notificação bonita</a></li>
+<li><a href="#privacidade-combine-antes-nao-depois">Privacidade: combine antes, não depois</a></li>
+<li><a href="#referencias">Referências</a></li>
+</ul>
+</div>
+</nav>
+      <div class="prose">
+        <p>Um alerta de câmera comum diz: <em>"movimento detectado"</em>. Um bom sistema diz: <em>"pessoa detectada no portão"</em>.
+E o estágio atual diz: <em>"um entregador de uniforme deixou uma caixa ao lado do portão e foi embora"</em> — com
+a foto junto.</p>
+<p>A diferença entre os três níveis é o que este guia explica.</p>
+<h3 id="os-tres-niveis-de-inteligencia">Os três níveis de inteligência<a class="headerlink" href="#os-tres-niveis-de-inteligencia" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Nível</th>
+<th>Tecnologia</th>
+<th>O que você recebe</th>
+<th>Custo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1. Movimento</strong></td>
+<td>Detecção de pixels da própria câmera</td>
+<td>"Movimento" (inclusive da árvore)</td>
+<td>Zero</td>
+</tr>
+<tr>
+<td><strong>2. Objetos</strong></td>
+<td><a href="/scrypted/">Frigate</a> com modelo de visão</td>
+<td>"Pessoa", "carro", "cachorro", na zona que você desenhou</td>
+<td>Zero (roda local)</td>
+</tr>
+<tr>
+<td><strong>3. Descrição</strong></td>
+<td>Modelo de linguagem com visão</td>
+<td>Uma frase explicando a cena</td>
+<td>Centavos por evento, ou zero se local</td>
+</tr>
+</tbody>
+</table>
+<p>O caminho recomendado é <strong>somar</strong>, não substituir: o Frigate filtra (só chama a IA quando há uma pessoa de
+verdade) e o modelo descreve. Sem essa filtragem, você vai mandar centenas de imagens por dia para um
+modelo e pagar por galhos balançando.</p>
+<h3 id="nivel-2-o-frigate-faz-o-trabalho-pesado">Nível 2: o Frigate faz o trabalho pesado<a class="headerlink" href="#nivel-2-o-frigate-faz-o-trabalho-pesado" title="Permanent link">#</a></h3>
+<p>O <a href="/scrypted/">guia de câmeras</a> cobre a instalação. O ponto importante aqui é que o Frigate publica cada
+evento no <a href="/mqtt/">MQTT</a> — <code>frigate/events</code> — com rótulo (<code>person</code>, <code>car</code>), câmera, zona e um link para a
+foto. Isso é o gatilho perfeito para o próximo nível.</p>
+<h3 id="nivel-3-llm-vision-a-casa-que-descreve-o-que-ve">Nível 3: LLM Vision, a casa que descreve o que vê<a class="headerlink" href="#nivel-3-llm-vision-a-casa-que-descreve-o-que-ve" title="Permanent link">#</a></h3>
+<p><strong>LLM Vision</strong> é uma integração da comunidade (instalada via HACS) que manda uma imagem — ou um trecho de
+vídeo — para um modelo com visão e devolve <strong>texto</strong>. Ela aceita vários provedores:</p>
+<ul>
+<li><strong>Local</strong>: Ollama com modelos de visão, rodando no seu mini-PC ou Mac mini — sem custo por uso e sem
+  imagem saindo de casa</li>
+<li><strong>Nuvem</strong>: Anthropic, OpenAI, Google — mais precisos, custo por imagem, e as imagens saem da sua rede</li>
+</ul>
+<p>Instalação resumida: HACS → adicione o repositório do <strong>LLM Vision</strong> → instale → <em>Configurações →
+Dispositivos e serviços → Adicionar integração → LLM Vision</em> → escolha o provedor e informe a chave (ou o
+endereço do Ollama).</p>
+<h4 id="a-automacao-completa">A automação completa<a class="headerlink" href="#a-automacao-completa" title="Permanent link">#</a></h4>
+<pre><code class="language-yaml">alias: Câmera - descrever pessoa detectada no portão
+description: Frigate detecta a pessoa, o modelo descreve a cena e o iPhone recebe tudo
+triggers:
+  - trigger: mqtt
+    topic: frigate/events
+conditions:
+  - condition: template
+    value_template: &gt;
+      {{ trigger.payload_json['type'] == 'new'
+         and trigger.payload_json['after']['label'] == 'person'
+         and trigger.payload_json['after']['camera'] == 'portao' }}
+actions:
+  - variables:
+      evento: &quot;{{ trigger.payload_json['after']['id'] }}&quot;
+  - action: llmvision.image_analyzer
+    data:
+      provider: !secret llmvision_provider
+      model: gpt-4o-mini
+      message: &gt;
+        Descreva em uma frase curta, em português, o que esta pessoa está fazendo.
+        Mencione se carrega pacotes, se é entregador e se há veículo.
+      image_file: /media/frigate/clips/portao-{{ evento }}.jpg
+      max_tokens: 80
+      temperature: 0.2
+    response_variable: resposta
+  - action: notify.mobile_app_iphone
+    data:
+      title: Movimento no portão
+      message: &quot;{{ resposta.response_text }}&quot;
+      data:
+        image: /api/frigate/notifications/{{ evento }}/snapshot.jpg
+        url: /lovelace/cameras
+mode: queued
+max: 5
+</code></pre>
+<p>O resultado no iPhone: a foto, uma frase descrevendo a cena e um toque para abrir o painel de câmeras.</p>
+<div class="admonition dica">
+<p class="admonition-title">Peça frases curtas e específicas</p>
+<p>Modelos são prolixos por padrão. Instruções como <em>"em uma frase"</em>, <em>"em português"</em> e
+<em>"não descreva o cenário, apenas a ação"</em> deixam a notificação legível na tela bloqueada. <code>temperature</code>
+baixa (0,1–0,3) produz descrições mais consistentes.</p>
+</div>
+<h3 id="local-ou-nuvem">Local ou nuvem?<a class="headerlink" href="#local-ou-nuvem" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Local (Ollama)</strong></th>
+<th><strong>Nuvem (API)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Custo por evento</td>
+<td>Zero</td>
+<td>Frações de centavo — somam com o volume</td>
+</tr>
+<tr>
+<td>Privacidade</td>
+<td>Imagem nunca sai de casa</td>
+<td>A imagem vai para um servidor externo</td>
+</tr>
+<tr>
+<td>Qualidade</td>
+<td>Boa, melhorando rápido</td>
+<td>Melhor em cenas complexas e em texto na imagem</td>
+</tr>
+<tr>
+<td>Velocidade</td>
+<td>Depende do seu hardware</td>
+<td>Alguns segundos</td>
+</tr>
+<tr>
+<td>Funciona sem internet</td>
+<td><strong>Sim</strong></td>
+<td>Não</td>
+</tr>
+<tr>
+<td>Hardware</td>
+<td>Mini-PC com GPU ou Mac com bastante RAM</td>
+<td>Qualquer coisa</td>
+</tr>
+</tbody>
+</table>
+<p>A escolha sensata: <strong>câmeras internas → sempre local</strong>; câmeras externas de entrada → nuvem, se você quiser
+o melhor texto e o volume for baixo.</p>
+<div class="admonition atencao">
+<p class="admonition-title">Controle o gasto antes do primeiro susto</p>
+<p>Sem filtro do Frigate, uma câmera de rua pode disparar centenas de eventos por dia. Defina zonas,
+exija o rótulo <code>person</code>, use <code>mode: queued</code> com <code>max</code> baixo e configure um <strong>teto de gastos</strong> no painel
+do provedor.</p>
+</div>
+<h3 id="alem-da-notificacao-bonita">Além da notificação bonita<a class="headerlink" href="#alem-da-notificacao-bonita" title="Permanent link">#</a></h3>
+<ul>
+<li><strong>Resumo diário</strong>: um script que junta os eventos do dia e pede "resuma em cinco linhas o que aconteceu
+  na frente de casa hoje".</li>
+<li><strong>Busca em linguagem natural</strong>: guardando as descrições num <code>input_text</code> ou num banco, você passa a
+  perguntar ao <a href="/claude-mcp/">Claude via MCP</a> <em>"teve entrega ontem de tarde?"</em>.</li>
+<li><strong>Automação condicionada</strong>: se a descrição mencionar "entregador", acender a luz da entrada e falar no
+  alto-falante <em>"deixe na portaria, por favor"</em>.</li>
+<li><strong>Alarme mais esperto</strong>: só notificar de madrugada se a descrição mencionar pessoa se aproximando —
+  gato no muro não acorda ninguém.</li>
+</ul>
+<h3 id="privacidade-combine-antes-nao-depois">Privacidade: combine antes, não depois<a class="headerlink" href="#privacidade-combine-antes-nao-depois" title="Permanent link">#</a></h3>
+<p>Câmera com IA descrevendo pessoas é um salto grande em relação a gravar vídeo. Duas medidas que evitam
+conflitos em casa:</p>
+<ol>
+<li><strong>Internas só com processamento local.</strong> É a diferença entre um experimento divertido e mandar a sala de
+   casa para um servidor de terceiros.</li>
+<li><strong>Automação de privacidade</strong>: desligar a análise quando há moradores em casa — o mesmo padrão sugerido
+   no <a href="/scrypted/">guia de câmeras</a>.</li>
+</ol>
+<h3 id="referencias">Referências<a class="headerlink" href="#referencias" title="Permanent link">#</a></h3>
+<ul>
+<li><a href="https://llmvision.org/">LLM Vision</a> e o <a href="https://github.com/valentinfrlch/ha-llmvision">repositório no GitHub</a></li>
+<li><a href="https://frigate.video/">Frigate</a> — detecção de objetos local</li>
+<li><a href="https://ollama.com/">Ollama</a> — modelos locais, inclusive com visão</li>
+</ul>
+        <ul class="tags"><li>Frigate</li><li>LLM Vision</li><li>IA</li><li>Câmeras</li><li>Notificações</li><li>Ollama</li></ul>
+      </div>
+    </div>
+    <nav class="pager" aria-label="Navegação entre guias">
+      <a class="pager-prev" href="/scrypted/"><span>← Anterior</span><strong>Câmeras em casa: Scrypted, Frigate e HomeKit Secure Video</strong></a>
+      <a class="pager-next" href="/claude-mcp/"><span>Próximo →</span><strong>Claude, MCP e Home Assistant: a casa que você conversa</strong></a>
+    </nav>
+  </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <strong>SmartHome<span class="accent">-AI</span></strong>
+        <p>Inteligência para o seu lar — guias independentes de casa inteligente, automação local e código aberto.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Rodapé">
+        <div>
+          <h4>Plataformas</h4>
+          <a href="/home-assistant/">Home Assistant</a>
+          <a href="/esphome-esp32/">ESPHome &amp; ESP32</a>
+          <a href="/scrypted/">Scrypted &amp; câmeras</a>
+          <a href="/casaos-umbrel/">CasaOS &amp; umbrelOS</a>
+          <a href="/nabu-casa/">Nabu Casa</a>
+        </div>
+        <div>
+          <h4>Protocolos</h4>
+          <a href="/zigbee/">Zigbee2MQTT &amp; ZHA</a>
+          <a href="/zbt-dongles/">Dongles ZBT-1 &amp; ZBT-2</a>
+          <a href="/matter-thread/">Matter &amp; Thread</a>
+          <a href="/mqtt/">MQTT</a>
+          <a href="/apple-homekit/">Apple HomeKit</a>
+        </div>
+        <div>
+          <h4>IA &amp; agentes</h4>
+          <a href="/claude-mcp/">Claude &amp; MCP</a>
+          <a href="/cameras-ia/">Câmeras com IA</a>
+          <a href="/openclaw/">OpenClaw</a>
+        </div>
+        <div>
+          <h4>Site</h4>
+          <a href="/artigos/">Todos os guias</a>
+          <a href="/instalacao/">Comece aqui</a>
+          <a href="/comandos-haos/">Comandos do HA</a>
+          <a href="/faq/">Dúvidas frequentes</a>
+          <a href="/sobre/">Sobre</a>
+        </div>
+      </nav>
+    </div>
+    <div class="wrap footer-bottom">
+      <p>© 2026 SmartHome-AI · conteúdo por Dr. Álvaro Menezes</p>
+      <p>Feito com HTML, CSS, JavaScript e um gerador estático em Python.</p>
+    </div>
+  </footer>
+
+  <div class="search-modal" id="search-modal" hidden>
+    <div class="search-backdrop" data-close></div>
+    <div class="search-box" role="dialog" aria-modal="true" aria-label="Buscar no site">
+      <div class="search-field">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" id="search-input" placeholder="Buscar: Zigbee, ESPHome, Matter, Raspberry Pi…" autocomplete="off" spellcheck="false">
+        <kbd>Esc</kbd>
+      </div>
+      <ul class="search-results" id="search-results"></ul>
+    </div>
+  </div>
+
+  <script src="/static/js/main.js" defer></script>
+</body>
+</html>

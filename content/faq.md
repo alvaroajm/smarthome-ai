@@ -4,7 +4,7 @@ slug: faq
 description: Respostas diretas às perguntas que mais aparecem — custo, internet, aluguel, marcas, privacidade, Alexa e por onde começar.
 category: FAQ
 icon: help
-order: 12
+order: 18
 section: pagina
 reading: 7 min de leitura
 date: 2026-09-21
@@ -84,6 +84,30 @@ SSD NVMe ou eMMC, sempre.
 3. Compre um coordenador Zigbee e **um** sensor de movimento
 4. Automatize **um** incômodo real (a luz do corredor à noite costuma ser o melhor primeiro caso)
 5. Só então planeje a casa inteira
+
+## Preciso mesmo de MQTT?
+
+Só quando **mais de um programa** precisa dos mesmos dados — Zigbee2MQTT, Frigate e Tasmota, por exemplo.
+Se você usa apenas ZHA e ESPHome (que tem API própria), pode viver sem broker. Entenda em
+[MQTT para iniciantes](/mqtt/).
+
+## Vale pagar a assinatura da Nabu Casa?
+
+Vale se você usa Alexa ou Google, quer acesso remoto sem configurar nada e não tem backup fora de casa.
+Se você já tem VPN e backup, é opcional — mas continua sendo a forma mais direta de financiar o projeto.
+A comparação completa, com preços e alternativas gratuitas, está em [Nabu Casa](/nabu-casa/).
+
+## Dá para usar inteligência artificial sem mandar minha casa para a nuvem?
+
+Dá. Modelos locais (Ollama num mini-PC ou Mac) atendem voz, descrição de imagens de câmera e conversas
+simples sem que nada saia da sua rede. Veja [Claude e MCP](/claude-mcp/) e
+[câmeras com IA](/cameras-ia/).
+
+## Posso deixar um agente de IA cuidando da casa?
+
+Pode, mas com limites: máquina separada, token restrito, sem acesso SSH, e nada de fechadura, portão ou
+alarme na lista de coisas que ele controla. Os motivos — e os incidentes já documentados — estão em
+[OpenClaw](/openclaw/).
 
 ## Minha automação funciona às vezes. O que faço?
 

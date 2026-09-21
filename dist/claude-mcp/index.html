@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Claude, MCP e Home Assistant: a casa que você conversa · SmartHome-AI</title>
+  <meta name="description" content="O que é MCP explicado sem jargão, como ligar o Claude Desktop e o Claude no terminal ao Home Assistant, quais servidores MCP valem a pena e como fazer isso com segurança.">
+  <meta name="author" content="Dr. Álvaro Menezes">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0b1110">
+  <link rel="canonical" href="https://smarthome-ai.com/claude-mcp/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SmartHome-AI">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="Claude, MCP e Home Assistant: a casa que você conversa · SmartHome-AI">
+  <meta property="og:description" content="O que é MCP explicado sem jargão, como ligar o Claude Desktop e o Claude no terminal ao Home Assistant, quais servidores MCP valem a pena e como fazer isso com segurança.">
+  <meta property="og:url" content="https://smarthome-ai.com/claude-mcp/">
+  <meta property="og:image" content="https://smarthome-ai.com/static/img/logo-smarthome-ai.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Claude, MCP e Home Assistant: a casa que você conversa · SmartHome-AI">
+  <meta name="twitter:description" content="O que é MCP explicado sem jargão, como ligar o Claude Desktop e o Claude no terminal ao Home Assistant, quais servidores MCP valem a pena e como fazer isso com segurança.">
+  <meta name="twitter:image" content="https://smarthome-ai.com/static/img/logo-smarthome-ai.jpg">
+
+  <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/static/img/logo-smarthome-ai.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script>
+    // Evita "flash" de tema errado: aplica a preferência salva antes da pintura.
+    (function () {
+      try {
+        var t = localStorage.getItem('sha-theme');
+        if (t) document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+  
+</head>
+<body class="article">
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="SmartHome-AI — início">
+        <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+          <defs>
+            <linearGradient id="g-gold" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#F3D68B"/><stop offset="1" stop-color="#B8891F"/>
+            </linearGradient>
+          </defs>
+          <rect x="1.5" y="1.5" width="37" height="37" rx="11" fill="none" stroke="url(#g-gold)" stroke-width="1.6"/>
+          <path d="M9 21.5 20 12l11 9.5" fill="none" stroke="url(#g-gold)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12.5 20.5V29h15v-8.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>
+          <circle cx="20" cy="24.5" r="2.6" fill="none" stroke="url(#g-gold)" stroke-width="1.8"/>
+          <path d="M20 21.9v-2.2M20 27.1v1.9M17.4 24.5h-2M24.6 24.5h-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".6"/>
+        </svg>
+        <span class="brand-text">
+          <strong>SmartHome<span class="accent">-AI</span></strong>
+          <small>Inteligência para o seu lar</small>
+        </span>
+      </a>
+
+      <nav class="site-nav" id="menu" aria-label="Navegação principal">
+        <a href="/">Início</a>
+        <a href="/artigos/">Artigos</a>
+        <a href="/instalacao/">Comece aqui</a>
+        <a href="/comandos-haos/">Comandos</a>
+        <a href="/faq/">FAQ</a>
+        <a href="/sobre/">Sobre</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-btn" id="search-open" aria-label="Buscar no site" title="Buscar (tecla /)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </button>
+        <button class="icon-btn" id="theme-toggle" aria-label="Alternar tema claro/escuro" title="Alternar tema">
+          <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5Z"/></svg>
+          <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.6 5.6l1.4 1.4m10 10 1.4 1.4m0-12.8-1.4 1.4m-10 10-1.4 1.4"/></svg>
+        </button>
+        <button class="icon-btn menu-btn" id="menu-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <article class="page">
+    <header class="page-head">
+      <p class="eyebrow">IA & agentes</p>
+      <h1>Claude, MCP e Home Assistant: a casa que você conversa</h1>
+      <p class="lead">O que é MCP explicado sem jargão, como ligar o Claude Desktop e o Claude no terminal ao Home Assistant, quais servidores MCP valem a pena e como fazer isso com segurança.</p>
+      <p class="byline">13 min de leitura</p>
+    </header>
+    <div class="article-grid">
+      <nav class="toc" aria-label="Sumário"><p class="toc-title">Neste guia</p><div class="toc">
+<ul>
+<li><a href="#o-que-e-mcp-em-uma-analogia">O que é MCP, em uma analogia</a></li>
+<li><a href="#passo-1-ligar-o-mcp-no-home-assistant">Passo 1: ligar o MCP no Home Assistant</a></li>
+<li><a href="#passo-2-claude-desktop-no-seu-mac">Passo 2: Claude Desktop (no seu Mac)</a></li>
+<li><a href="#passo-3-claude-no-terminal-o-ajudante-de-configuracao">Passo 3: Claude no terminal (o ajudante de configuração)</a></li>
+<li><a href="#quais-servidores-mcp-valem-a-pena">Quais servidores MCP valem a pena</a></li>
+<li><a href="#o-assist-do-home-assistant-com-um-modelo-por-tras">O Assist do Home Assistant com um modelo por trás</a></li>
+<li><a href="#seguranca-as-cinco-regras">Segurança: as cinco regras</a></li>
+</ul>
+</div>
+</nav>
+      <div class="prose">
+        <p>Existe uma diferença enorme entre "minha casa tem um assistente de voz" e "eu converso com a minha casa".
+A primeira entende comandos decorados. A segunda entende <strong>contexto</strong>: <em>"a varanda ficou com a luz acesa
+ontem à noite?"</em>, <em>"crie uma automação que feche as cortinas quando o sol bater na sala"</em>.</p>
+<p>O que tornou isso possível chama-se <strong>MCP</strong>.</p>
+<h3 id="o-que-e-mcp-em-uma-analogia">O que é MCP, em uma analogia<a class="headerlink" href="#o-que-e-mcp-em-uma-analogia" title="Permanent link">#</a></h3>
+<p>Antes do USB, cada aparelho tinha um conector diferente. O USB não deixou a impressora mais inteligente —
+só criou <strong>um jeito padrão</strong> de qualquer computador conversar com qualquer periférico.</p>
+<p>O <strong>MCP (Model Context Protocol)</strong> é o USB dos modelos de inteligência artificial. É um padrão aberto que
+define como um programa oferece <strong>ferramentas</strong> e <strong>dados</strong> para um modelo usar. Quem fala MCP de um lado
+conversa com quem fala MCP do outro, sem integração feita à mão.</p>
+<p>Na prática:</p>
+<ul>
+<li><strong>Servidor MCP</strong> — quem oferece. O Home Assistant oferece "ligar a luz da sala", "qual a temperatura do
+  quarto".</li>
+<li><strong>Cliente MCP</strong> — quem consome. Claude Desktop, Claude no terminal, ChatGPT, Cursor, Antigravity.</li>
+</ul>
+<div class="admonition nota">
+<p class="admonition-title">O modelo não vira dono da casa</p>
+<p>O servidor MCP decide <strong>o que</strong> fica exposto e se o cliente pode <strong>agir</strong> ou apenas <strong>ler</strong>. É você quem
+entrega as chaves, uma a uma.</p>
+</div>
+<h3 id="passo-1-ligar-o-mcp-no-home-assistant">Passo 1: ligar o MCP no Home Assistant<a class="headerlink" href="#passo-1-ligar-o-mcp-no-home-assistant" title="Permanent link">#</a></h3>
+<p>O Home Assistant tem uma integração oficial chamada <strong>Model Context Protocol Server</strong>.</p>
+<ol>
+<li>Vá em <em>Configurações → Dispositivos e serviços → Adicionar integração</em></li>
+<li>Escolha <strong>Model Context Protocol Server</strong></li>
+<li>Decida se os clientes poderão <strong>controlar</strong> a casa ou apenas consultá-la</li>
+</ol>
+<p>Dois detalhes que costumam travar iniciantes:</p>
+<ul>
+<li><strong>Só entra no MCP o que está exposto ao Assist.</strong> Em <em>Configurações → Assistentes de voz → Expor</em>,
+  escolha as entidades. Nada exposto = o modelo não vê nada.</li>
+<li><strong>A autenticação usa um token.</strong> No seu perfil (canto inferior esquerdo) → aba <em>Segurança</em> → <strong>Criar
+  token de longa duração</strong>. Copie e guarde: ele aparece <strong>uma única vez</strong>.</li>
+</ul>
+<p>O endereço do servidor é <code>http://&lt;ip-do-home-assistant&gt;:8123/api/mcp</code>.</p>
+<div class="admonition atencao">
+<p class="admonition-title">Um token de longa duração é uma chave mestra</p>
+<p>Ele vale para sempre e dá acesso à API do Home Assistant. Guarde num gerenciador de senhas, nunca num
+arquivo versionado no Git, e revogue na mesma tela se desconfiar de algo.</p>
+</div>
+<h3 id="passo-2-claude-desktop-no-seu-mac">Passo 2: Claude Desktop (no seu Mac)<a class="headerlink" href="#passo-2-claude-desktop-no-seu-mac" title="Permanent link">#</a></h3>
+<p>O Claude Desktop conversa com servidores MCP de duas formas:</p>
+<p><strong>a) Conector remoto</strong> — se o seu Home Assistant tem endereço público e HTTPS (por exemplo, o
+<code>https://….ui.nabu.casa</code> da <a href="/nabu-casa/">Nabu Casa</a>), basta adicioná-lo como conector e autenticar.</p>
+<p><strong>b) Ponte local</strong> — se a casa só existe na rede interna, um pequeno programa (<em>mcp-proxy</em>) faz a ponte
+entre o Claude Desktop e o endereço local. A configuração fica no arquivo de configuração do Claude
+Desktop, mais ou menos assim:</p>
+<pre><code class="language-json">{
+  &quot;mcpServers&quot;: {
+    &quot;home-assistant&quot;: {
+      &quot;command&quot;: &quot;mcp-proxy&quot;,
+      &quot;args&quot;: [&quot;http://192.168.1.50:8123/api/mcp&quot;],
+      &quot;env&quot;: { &quot;API_ACCESS_TOKEN&quot;: &quot;SEU_TOKEN_DE_LONGA_DURACAO&quot; }
+    }
+  }
+}
+</code></pre>
+<p>Reinicie o Claude Desktop e a casa aparece como ferramenta disponível. A partir daí:</p>
+<blockquote>
+<p><em>"Quais luzes estão acesas agora?"</em>
+<em>"A temperatura do quarto passou de 26 graus em algum momento desta madrugada?"</em>
+<em>"Desligue tudo da área de serviço."</em></p>
+</blockquote>
+<h3 id="passo-3-claude-no-terminal-o-ajudante-de-configuracao">Passo 3: Claude no terminal (o ajudante de configuração)<a class="headerlink" href="#passo-3-claude-no-terminal-o-ajudante-de-configuracao" title="Permanent link">#</a></h3>
+<p>O Claude Desktop é ótimo para <strong>conversar com a casa</strong>. O Claude no terminal é ótimo para <strong>trabalhar na
+casa</strong>: ele lê e escreve arquivos, roda comandos e entende projetos inteiros.</p>
+<p>Casos em que isso muda o jogo:</p>
+<ul>
+<li><strong>Escrever e corrigir YAML</strong> de automações complexas, com <code>ha core check</code> rodando logo depois</li>
+<li><strong>Criar configurações do <a href="/esphome-esp32/">ESPHome</a></strong> para um sensor novo, já com os pinos certos</li>
+<li><strong>Refatorar o <code>configuration.yaml</code></strong> que cresceu demais, separando em pacotes</li>
+<li><strong>Investigar logs</strong> e explicar o que aquele erro significa</li>
+<li><strong>Versionar tudo no Git</strong>, com mensagens de commit decentes</li>
+</ul>
+<p>Para ele enxergar os arquivos do Home Assistant, há três caminhos:</p>
+<table>
+<thead>
+<tr>
+<th>Caminho</th>
+<th>Como funciona</th>
+<th>Quando usar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Samba</strong></td>
+<td>O app <em>Samba share</em> monta <code>/config</code> como pasta de rede no Mac</td>
+<td>O mais simples no dia a dia</td>
+</tr>
+<tr>
+<td><strong>Git</strong></td>
+<td>Você versiona <code>/config</code> num repositório e trabalha na cópia local</td>
+<td>O mais seguro: histórico e volta atrás</td>
+</tr>
+<tr>
+<td><strong>SSH</strong></td>
+<td>Acesso direto ao <a href="/comandos-haos/">shell do HAOS</a></td>
+<td>Ajustes rápidos e diagnóstico</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition dica">
+<p class="admonition-title">A combinação que funciona</p>
+<p>Configuração no Git + Claude no terminal + <code>ha core check</code> antes de reiniciar. Você ganha histórico,
+revisão e a possibilidade de voltar atrás — três coisas que faltam a quem edita YAML pela interface.</p>
+</div>
+<h3 id="quais-servidores-mcp-valem-a-pena">Quais servidores MCP valem a pena<a class="headerlink" href="#quais-servidores-mcp-valem-a-pena" title="Permanent link">#</a></h3>
+<p>A lista cresce toda semana. Para quem cuida de uma casa inteligente, estes são os que realmente aparecem no
+uso diário:</p>
+<table>
+<thead>
+<tr>
+<th>Servidor MCP</th>
+<th>Para quê</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Home Assistant (oficial)</strong></td>
+<td>Ler estados e controlar a casa</td>
+</tr>
+<tr>
+<td><strong>Filesystem</strong></td>
+<td>Ler e escrever arquivos de configuração numa pasta específica</td>
+</tr>
+<tr>
+<td><strong>Git</strong></td>
+<td>Histórico, diferenças e commits da sua configuração</td>
+</tr>
+<tr>
+<td><strong>Fetch</strong></td>
+<td>Buscar uma página da web (documentação, tabela de referência)</td>
+</tr>
+<tr>
+<td><strong>Memory</strong></td>
+<td>Dar memória persistente ao assistente entre conversas</td>
+</tr>
+<tr>
+<td><strong>SQLite</strong></td>
+<td>Consultar bancos locais — inclusive o histórico do Home Assistant</td>
+</tr>
+<tr>
+<td><strong>Playwright / navegador</strong></td>
+<td>Automatizar páginas que não têm API</td>
+</tr>
+<tr>
+<td><strong>Cloudflare, GitHub e afins</strong></td>
+<td>Se você também publica sites, como este</td>
+</tr>
+</tbody>
+</table>
+<p>Os servidores de referência ficam em
+<a href="https://github.com/modelcontextprotocol/servers">github.com/modelcontextprotocol/servers</a>.</p>
+<div class="admonition atencao">
+<p class="admonition-title">Servidor MCP roda código no seu computador</p>
+<p>Instale apenas o que vier de fonte conhecida. Um servidor MCP malicioso tem o mesmo poder que qualquer
+programa que você executa — e ainda ganha a ajuda de um modelo para usá-lo. Dê a cada servidor <strong>a menor
+pasta e o menor escopo</strong> que resolvam o problema.</p>
+</div>
+<h3 id="o-assist-do-home-assistant-com-um-modelo-por-tras">O Assist do Home Assistant com um modelo por trás<a class="headerlink" href="#o-assist-do-home-assistant-com-um-modelo-por-tras" title="Permanent link">#</a></h3>
+<p>Não é obrigatório sair do Home Assistant para ter conversa natural. Em
+<em>Configurações → Assistentes de voz</em>, você pode definir um <strong>agente de conversação</strong> baseado em modelo de
+linguagem — do Claude, do Google, da OpenAI ou <strong>local</strong>, via <a href="/casaos-umbrel/">Ollama</a> rodando no seu
+mini-PC ou no Mac mini.</p>
+<p>O arranjo mais equilibrado:</p>
+<ul>
+<li><strong>Comandos simples</strong> (acender, apagar, trancar) → processados localmente, rápidos e sem custo</li>
+<li><strong>Pedidos complexos</strong> ("deixe a casa pronta para dormir") → vão para o modelo</li>
+<li><strong>Satélites de voz</strong> ESP32 espalhados pela casa (<a href="/esphome-esp32/">ESPHome</a>) como entrada de áudio</li>
+</ul>
+<p>Rodando o modelo localmente, nenhum áudio sai de casa — e o custo por pergunta é zero.</p>
+<h3 id="seguranca-as-cinco-regras">Segurança: as cinco regras<a class="headerlink" href="#seguranca-as-cinco-regras" title="Permanent link">#</a></h3>
+<ol>
+<li><strong>Exponha só o necessário.</strong> Comece com luzes e sensores; deixe fechaduras, portão e alarme de fora até
+   confiar no conjunto.</li>
+<li><strong>Um token por cliente</strong>, com nome claro ("claude-desktop-mac"). Assim você revoga um sem derrubar os outros.</li>
+<li><strong>Cuidado com injeção de prompt.</strong> Um modelo lê textos de muitas fontes; se uma delas contiver instruções
+   disfarçadas, ele pode tentar executá-las. Isso é mais um motivo para não expor o que é crítico.</li>
+<li><strong>Nada de tokens no Git.</strong> Use <code>secrets.yaml</code> e <code>.gitignore</code>.</li>
+<li><strong>Prefira ler antes de agir.</strong> Passe semanas em modo consulta; só depois libere o controle.</li>
+</ol>
+<p>Um passo adiante nessa estrada são os <strong>agentes autônomos</strong>, que não esperam sua pergunta — e trazem
+vantagens e riscos próprios. É o tema do guia sobre <a href="/openclaw/">OpenClaw</a>.</p>
+        <ul class="tags"><li>MCP</li><li>Claude</li><li>IA</li><li>Assist</li><li>Ollama</li><li>Automação</li></ul>
+      </div>
+    </div>
+    <nav class="pager" aria-label="Navegação entre guias">
+      <a class="pager-prev" href="/cameras-ia/"><span>← Anterior</span><strong>Câmeras com IA: alertas que descrevem o que aconteceu</strong></a>
+      <a class="pager-next" href="/openclaw/"><span>Próximo →</span><strong>OpenClaw na casa inteligente: o que é e como usar sem se machucar</strong></a>
+    </nav>
+  </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <strong>SmartHome<span class="accent">-AI</span></strong>
+        <p>Inteligência para o seu lar — guias independentes de casa inteligente, automação local e código aberto.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Rodapé">
+        <div>
+          <h4>Plataformas</h4>
+          <a href="/home-assistant/">Home Assistant</a>
+          <a href="/esphome-esp32/">ESPHome &amp; ESP32</a>
+          <a href="/scrypted/">Scrypted &amp; câmeras</a>
+          <a href="/casaos-umbrel/">CasaOS &amp; umbrelOS</a>
+          <a href="/nabu-casa/">Nabu Casa</a>
+        </div>
+        <div>
+          <h4>Protocolos</h4>
+          <a href="/zigbee/">Zigbee2MQTT &amp; ZHA</a>
+          <a href="/zbt-dongles/">Dongles ZBT-1 &amp; ZBT-2</a>
+          <a href="/matter-thread/">Matter &amp; Thread</a>
+          <a href="/mqtt/">MQTT</a>
+          <a href="/apple-homekit/">Apple HomeKit</a>
+        </div>
+        <div>
+          <h4>IA &amp; agentes</h4>
+          <a href="/claude-mcp/">Claude &amp; MCP</a>
+          <a href="/cameras-ia/">Câmeras com IA</a>
+          <a href="/openclaw/">OpenClaw</a>
+        </div>
+        <div>
+          <h4>Site</h4>
+          <a href="/artigos/">Todos os guias</a>
+          <a href="/instalacao/">Comece aqui</a>
+          <a href="/comandos-haos/">Comandos do HA</a>
+          <a href="/faq/">Dúvidas frequentes</a>
+          <a href="/sobre/">Sobre</a>
+        </div>
+      </nav>
+    </div>
+    <div class="wrap footer-bottom">
+      <p>© 2026 SmartHome-AI · conteúdo por Dr. Álvaro Menezes</p>
+      <p>Feito com HTML, CSS, JavaScript e um gerador estático em Python.</p>
+    </div>
+  </footer>
+
+  <div class="search-modal" id="search-modal" hidden>
+    <div class="search-backdrop" data-close></div>
+    <div class="search-box" role="dialog" aria-modal="true" aria-label="Buscar no site">
+      <div class="search-field">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" id="search-input" placeholder="Buscar: Zigbee, ESPHome, Matter, Raspberry Pi…" autocomplete="off" spellcheck="false">
+        <kbd>Esc</kbd>
+      </div>
+      <ul class="search-results" id="search-results"></ul>
+    </div>
+  </div>
+
+  <script src="/static/js/main.js" defer></script>
+</body>
+</html>

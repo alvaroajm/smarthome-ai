@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ZBT-1 e ZBT-2: os dongles oficiais do Home Assistant · SmartHome-AI</title>
+  <meta name="description" content="O que faz um dongle Zigbee/Thread, a diferença real entre o ZBT-1 e o ZBT-2, qual comprar e como instalar sem sofrer com quedas de sinal.">
+  <meta name="author" content="Dr. Álvaro Menezes">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0b1110">
+  <link rel="canonical" href="https://smarthome-ai.com/zbt-dongles/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SmartHome-AI">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="ZBT-1 e ZBT-2: os dongles oficiais do Home Assistant · SmartHome-AI">
+  <meta property="og:description" content="O que faz um dongle Zigbee/Thread, a diferença real entre o ZBT-1 e o ZBT-2, qual comprar e como instalar sem sofrer com quedas de sinal.">
+  <meta property="og:url" content="https://smarthome-ai.com/zbt-dongles/">
+  <meta property="og:image" content="https://smarthome-ai.com/static/img/logo-smarthome-ai.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ZBT-1 e ZBT-2: os dongles oficiais do Home Assistant · SmartHome-AI">
+  <meta name="twitter:description" content="O que faz um dongle Zigbee/Thread, a diferença real entre o ZBT-1 e o ZBT-2, qual comprar e como instalar sem sofrer com quedas de sinal.">
+  <meta name="twitter:image" content="https://smarthome-ai.com/static/img/logo-smarthome-ai.jpg">
+
+  <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/static/img/logo-smarthome-ai.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script>
+    // Evita "flash" de tema errado: aplica a preferência salva antes da pintura.
+    (function () {
+      try {
+        var t = localStorage.getItem('sha-theme');
+        if (t) document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+  
+</head>
+<body class="article">
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="SmartHome-AI — início">
+        <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+          <defs>
+            <linearGradient id="g-gold" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#F3D68B"/><stop offset="1" stop-color="#B8891F"/>
+            </linearGradient>
+          </defs>
+          <rect x="1.5" y="1.5" width="37" height="37" rx="11" fill="none" stroke="url(#g-gold)" stroke-width="1.6"/>
+          <path d="M9 21.5 20 12l11 9.5" fill="none" stroke="url(#g-gold)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12.5 20.5V29h15v-8.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>
+          <circle cx="20" cy="24.5" r="2.6" fill="none" stroke="url(#g-gold)" stroke-width="1.8"/>
+          <path d="M20 21.9v-2.2M20 27.1v1.9M17.4 24.5h-2M24.6 24.5h-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".6"/>
+        </svg>
+        <span class="brand-text">
+          <strong>SmartHome<span class="accent">-AI</span></strong>
+          <small>Inteligência para o seu lar</small>
+        </span>
+      </a>
+
+      <nav class="site-nav" id="menu" aria-label="Navegação principal">
+        <a href="/">Início</a>
+        <a href="/artigos/">Artigos</a>
+        <a href="/instalacao/">Comece aqui</a>
+        <a href="/comandos-haos/">Comandos</a>
+        <a href="/faq/">FAQ</a>
+        <a href="/sobre/">Sobre</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-btn" id="search-open" aria-label="Buscar no site" title="Buscar (tecla /)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </button>
+        <button class="icon-btn" id="theme-toggle" aria-label="Alternar tema claro/escuro" title="Alternar tema">
+          <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5Z"/></svg>
+          <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.6 5.6l1.4 1.4m10 10 1.4 1.4m0-12.8-1.4 1.4m-10 10-1.4 1.4"/></svg>
+        </button>
+        <button class="icon-btn menu-btn" id="menu-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <article class="page">
+    <header class="page-head">
+      <p class="eyebrow">Hardware</p>
+      <h1>ZBT-1 e ZBT-2: os dongles oficiais do Home Assistant</h1>
+      <p class="lead">O que faz um dongle Zigbee/Thread, a diferença real entre o ZBT-1 e o ZBT-2, qual comprar e como instalar sem sofrer com quedas de sinal.</p>
+      <p class="byline">9 min de leitura</p>
+    </header>
+    <div class="article-grid">
+      <nav class="toc" aria-label="Sumário"><p class="toc-title">Neste guia</p><div class="toc">
+<ul>
+<li><a href="#primeiro-o-que-esse-pen-drive-faz">Primeiro: o que esse pen drive faz</a></li>
+<li><a href="#zbt-1-x-zbt-2-a-comparacao">ZBT-1 x ZBT-2: a comparação</a></li>
+<li><a href="#instalacao-passo-a-passo-zbt-2">Instalação passo a passo (ZBT-2)</a></li>
+<li><a href="#migrando-de-um-dongle-antigo-para-o-novo">Migrando de um dongle antigo para o novo</a></li>
+<li><a href="#problemas-comuns">Problemas comuns</a></li>
+</ul>
+</div>
+</nav>
+      <div class="prose">
+        <p>Se você está começando, guarde esta frase: <strong>o Home Assistant não fala Zigbee sozinho</strong>. Ele precisa de um
+rádio — um pen drive que serve de "antena" para conversar com sensores, lâmpadas e fechaduras. Esse
+aparelhinho se chama <strong>coordenador</strong> (ou dongle), e os oficiais do projeto são o <strong>ZBT-1</strong> e o <strong>ZBT-2</strong>.</p>
+<h3 id="primeiro-o-que-esse-pen-drive-faz">Primeiro: o que esse pen drive faz<a class="headerlink" href="#primeiro-o-que-esse-pen-drive-faz" title="Permanent link">#</a></h3>
+<p>Imagine que seus sensores falam um idioma de rádio próprio, o Zigbee. Seu servidor (Raspberry Pi, mini-PC)
+só fala Wi-Fi e Ethernet. O dongle é o <strong>tradutor</strong>: ele fica plugado na USB, conversa em Zigbee com os
+dispositivos e entrega tudo ao Home Assistant.</p>
+<p>Os dongles oficiais fazem esse papel para <strong>dois idiomas diferentes</strong>:</p>
+<ul>
+<li><strong>Zigbee</strong> — a malha mais comum e barata de sensores (<a href="/zigbee/">guia completo</a>)</li>
+<li><strong>Thread</strong> — a rede usada pelos dispositivos <strong>Matter over Thread</strong> (<a href="/matter-thread/">guia completo</a>)</li>
+</ul>
+<div class="admonition atencao">
+<p class="admonition-title">Um idioma de cada vez</p>
+<p>O dongle roda <strong>ou</strong> Zigbee <strong>ou</strong> Thread — nunca os dois ao mesmo tempo. O modo "multiprotocolo"
+existiu como experimento e foi abandonado por instabilidade. Se você quer as duas redes, a resposta
+honesta é: <strong>dois dongles</strong>, ou um dongle Zigbee + um border router Thread (uma Apple TV ou um HomePod
+já servem).</p>
+</div>
+<h3 id="zbt-1-x-zbt-2-a-comparacao">ZBT-1 x ZBT-2: a comparação<a class="headerlink" href="#zbt-1-x-zbt-2-a-comparacao" title="Permanent link">#</a></h3>
+<p>O <strong>ZBT-1</strong> é o antigo <em>SkyConnect</em>, apenas renomeado. O <strong>ZBT-2</strong> é a geração seguinte, lançada no fim de 2025.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>ZBT-1</strong> (ex-SkyConnect)</th>
+<th><strong>ZBT-2</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chip de rádio</td>
+<td>Silicon Labs EFR32MG21</td>
+<td><strong>Silicon Labs MG24</strong> (mais sensível)</td>
+</tr>
+<tr>
+<td>Ponte USB</td>
+<td>Integrada</td>
+<td>ESP32-S3 (atualização mais simples e robusta)</td>
+</tr>
+<tr>
+<td>Antena</td>
+<td>Interna, minúscula</td>
+<td><strong>Externa, omnidirecional</strong> (~16 cm, 4,16 dBi)</td>
+</tr>
+<tr>
+<td>Velocidade serial</td>
+<td>115200</td>
+<td><strong>460800</strong> (4× mais rápida)</td>
+</tr>
+<tr>
+<td>Conector</td>
+<td>USB-A</td>
+<td><strong>USB-C</strong>, com cabo de 1,5 m incluído</td>
+</tr>
+<tr>
+<td>Zigbee 3.0</td>
+<td>Sim</td>
+<td>Sim</td>
+</tr>
+<tr>
+<td>Thread / Matter</td>
+<td>Sim</td>
+<td>Sim (melhor desempenho)</td>
+</tr>
+<tr>
+<td>Preço de lançamento</td>
+<td>—</td>
+<td>US$ 49 / 45 €</td>
+</tr>
+<tr>
+<td>Manutenção</td>
+<td>Precisa abrir com cuidado</td>
+<td>Abre sem cola nem clipes, com pinos expostos</td>
+</tr>
+</tbody>
+</table>
+<h4 id="qual-comprar">Qual comprar?<a class="headerlink" href="#qual-comprar" title="Permanent link">#</a></h4>
+<ul>
+<li><strong>Está começando agora?</strong> ZBT-2. A antena externa e o cabo incluso resolvem, de fábrica, o maior problema
+  de todo mundo — interferência e alcance.</li>
+<li><strong>Já tem um ZBT-1 funcionando bem?</strong> Não precisa trocar. Migre só se sofrer com sensores distantes caindo,
+  ou se a rede passou de umas 40 peças.</li>
+<li><strong>Quer Zigbee e Thread?</strong> Compre os dois: ZBT-2 para Zigbee (a rede maior) e o ZBT-1 antigo reaproveitado
+  como border router Thread.</li>
+</ul>
+<p>Alternativas populares e igualmente boas: <strong>Sonoff ZBDongle-P</strong> (chip TI, amplificado) e <strong>ZBDongle-E</strong>
+(Silicon Labs). Os oficiais têm a vantagem do assistente de instalação integrado e das atualizações de
+firmware com um clique dentro do Home Assistant.</p>
+<h3 id="instalacao-passo-a-passo-zbt-2">Instalação passo a passo (ZBT-2)<a class="headerlink" href="#instalacao-passo-a-passo-zbt-2" title="Permanent link">#</a></h3>
+<ol>
+<li><strong>Não plugue direto no servidor.</strong> Use o cabo de 1,5 m que vem na caixa — ele existe exatamente para
+   afastar o rádio do computador.</li>
+<li>Plugue o cabo numa porta <strong>USB 2.0</strong>, se houver. Portas USB 3.0 e SSDs NVMe emitem ruído justamente na
+   faixa de 2,4 GHz usada pelo Zigbee.</li>
+<li>Deixe a antena <strong>na vertical</strong>, longe de caixas metálicas, do roteador e da TV.</li>
+<li>No Home Assistant, vá em <em>Configurações → Dispositivos e serviços</em>. O dongle é detectado sozinho e o
+   assistente pergunta o que você quer: <strong>Zigbee</strong> ou <strong>Thread</strong>.</li>
+<li>Escolhendo Zigbee, decida entre <a href="/zigbee/">ZHA ou Zigbee2MQTT</a>. Escolhendo Thread, o assistente instala
+   o <strong>OpenThread Border Router</strong>.</li>
+<li>Confirme a atualização de firmware se ela for oferecida — é um clique e reduz problemas futuros.</li>
+</ol>
+<p>Para conferir que o sistema enxergou o aparelho, pelo <a href="/comandos-haos/">terminal</a>:</p>
+<pre><code class="language-bash">ls -l /dev/serial/by-id/
+# saída parecida com:
+# usb-Nabu_Casa_Home_Assistant_Connect_ZBT-2_...-if00-port0 -&gt; ../../ttyUSB0
+ha hardware info | grep -i zbt
+</code></pre>
+<div class="admonition dica">
+<p class="admonition-title">Use sempre o caminho by-id</p>
+<p>Configure o software com <code>/dev/serial/by-id/usb-Nabu_Casa_...</code> e <strong>nunca</strong> com <code>/dev/ttyUSB0</code>. O número
+do <code>ttyUSB</code> muda quando você reinicia ou pluga outro aparelho; o <code>by-id</code> é fixo para sempre.</p>
+</div>
+<h3 id="migrando-de-um-dongle-antigo-para-o-novo">Migrando de um dongle antigo para o novo<a class="headerlink" href="#migrando-de-um-dongle-antigo-para-o-novo" title="Permanent link">#</a></h3>
+<p>Trocar de coordenador <strong>não</strong> significa parear tudo de novo — desde que você faça um backup da rede Zigbee:</p>
+<ol>
+<li>No <strong>Zigbee2MQTT</strong> ou no <strong>ZHA</strong>, faça o backup do coordenador (ambos oferecem essa função; o Home
+   Assistant também traz um assistente de migração).</li>
+<li>Desligue o Home Assistant, troque o dongle, ligue de novo.</li>
+<li>Restaure o backup no novo coordenador: ele assume a mesma <strong>chave de rede</strong> e o mesmo <strong>PAN ID</strong>, e os
+   dispositivos voltam a se conectar sozinhos.</li>
+<li>Dê um tempo: sensores a pilha podem levar horas para acordar e reencontrar a rede. Não saia repareando
+   tudo no susto.</li>
+</ol>
+<div class="admonition atencao">
+<p class="admonition-title">O que não se migra</p>
+<p>Backup de coordenador serve para trocar de hardware, não para trocar de software. Sair do ZHA para o
+Zigbee2MQTT (ou o contrário) continua exigindo parear dispositivo por dispositivo.</p>
+</div>
+<h3 id="problemas-comuns">Problemas comuns<a class="headerlink" href="#problemas-comuns" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Sintoma</th>
+<th>Causa provável</th>
+<th>Solução</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sensores distantes caem</td>
+<td>Dongle colado no gabinete ou em USB 3.0</td>
+<td>Use o cabo de extensão, afaste e deixe a antena vertical</td>
+</tr>
+<tr>
+<td>Rede lenta ou instável</td>
+<td>Canal Zigbee sobreposto ao Wi-Fi</td>
+<td>Fixe o Wi-Fi em 1, 6 ou 11 e o Zigbee em 15, 20 ou 25</td>
+</tr>
+<tr>
+<td>Só funciona perto do servidor</td>
+<td>Falta de roteadores na malha</td>
+<td>Espalhe 3 a 5 tomadas inteligentes pela casa</td>
+</tr>
+<tr>
+<td>Dongle "sumiu" após reiniciar</td>
+<td>Uso de <code>/dev/ttyUSB0</code></td>
+<td>Troque pelo caminho <code>by-id</code></td>
+</tr>
+<tr>
+<td>Não aparece no Home Assistant</td>
+<td>Cabo USB só de energia</td>
+<td>Use o cabo original (dados + energia)</td>
+</tr>
+</tbody>
+</table>
+<p>Com o rádio bem posicionado, o resto é fácil: <a href="/zigbee/">Zigbee na prática</a> explica como montar a malha, e
+<a href="/matter-thread/">Matter e Thread</a> mostra onde o outro modo do dongle entra.</p>
+        <ul class="tags"><li>ZBT-1</li><li>ZBT-2</li><li>SkyConnect</li><li>Zigbee</li><li>Thread</li><li>Coordenador</li></ul>
+      </div>
+    </div>
+    <nav class="pager" aria-label="Navegação entre guias">
+      <a class="pager-prev" href="/zigbee/"><span>← Anterior</span><strong>Zigbee na prática: Zigbee2MQTT ou ZHA?</strong></a>
+      <a class="pager-next" href="/matter-thread/"><span>Próximo →</span><strong>Matter e Thread explicados sem marketing</strong></a>
+    </nav>
+  </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <strong>SmartHome<span class="accent">-AI</span></strong>
+        <p>Inteligência para o seu lar — guias independentes de casa inteligente, automação local e código aberto.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Rodapé">
+        <div>
+          <h4>Plataformas</h4>
+          <a href="/home-assistant/">Home Assistant</a>
+          <a href="/esphome-esp32/">ESPHome &amp; ESP32</a>
+          <a href="/scrypted/">Scrypted &amp; câmeras</a>
+          <a href="/casaos-umbrel/">CasaOS &amp; umbrelOS</a>
+          <a href="/nabu-casa/">Nabu Casa</a>
+        </div>
+        <div>
+          <h4>Protocolos</h4>
+          <a href="/zigbee/">Zigbee2MQTT &amp; ZHA</a>
+          <a href="/zbt-dongles/">Dongles ZBT-1 &amp; ZBT-2</a>
+          <a href="/matter-thread/">Matter &amp; Thread</a>
+          <a href="/mqtt/">MQTT</a>
+          <a href="/apple-homekit/">Apple HomeKit</a>
+        </div>
+        <div>
+          <h4>IA &amp; agentes</h4>
+          <a href="/claude-mcp/">Claude &amp; MCP</a>
+          <a href="/cameras-ia/">Câmeras com IA</a>
+          <a href="/openclaw/">OpenClaw</a>
+        </div>
+        <div>
+          <h4>Site</h4>
+          <a href="/artigos/">Todos os guias</a>
+          <a href="/instalacao/">Comece aqui</a>
+          <a href="/comandos-haos/">Comandos do HA</a>
+          <a href="/faq/">Dúvidas frequentes</a>
+          <a href="/sobre/">Sobre</a>
+        </div>
+      </nav>
+    </div>
+    <div class="wrap footer-bottom">
+      <p>© 2026 SmartHome-AI · conteúdo por Dr. Álvaro Menezes</p>
+      <p>Feito com HTML, CSS, JavaScript e um gerador estático em Python.</p>
+    </div>
+  </footer>
+
+  <div class="search-modal" id="search-modal" hidden>
+    <div class="search-backdrop" data-close></div>
+    <div class="search-box" role="dialog" aria-modal="true" aria-label="Buscar no site">
+      <div class="search-field">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" id="search-input" placeholder="Buscar: Zigbee, ESPHome, Matter, Raspberry Pi…" autocomplete="off" spellcheck="false">
+        <kbd>Esc</kbd>
+      </div>
+      <ul class="search-results" id="search-results"></ul>
+    </div>
+  </div>
+
+  <script src="/static/js/main.js" defer></script>
+</body>
+</html>
