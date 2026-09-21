@@ -4,7 +4,7 @@ slug: sobre
 description: Um projeto independente sobre casa inteligente local, código aberto e automação que funciona no mundo real.
 category: Sobre
 icon: book
-order: 11
+order: 13
 section: pagina
 reading: 3 min de leitura
 date: 2026-09-21
@@ -34,6 +34,8 @@ Aqui o compromisso é outro: **explicar o porquê antes do como**, com exemplos 
 - [Apple HomeKit](/apple-homekit/) — integração com iPhone, Siri e Apple TV
 - [Scrypted, Frigate e câmeras](/scrypted/) — vídeo local
 - [Hardware](/hardware/) e [rede](/rede-wifi/) — a base de tudo
+- [CasaOS e umbrelOS](/casaos-umbrel/) — os serviços da casa
+- [Comandos do HAOS](/comandos-haos/) — referência de linha de comando
 
 ## Como o site é feito
 

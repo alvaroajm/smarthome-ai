@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CasaOS e umbrelOS: o home server fácil ao lado do Home Assistant · SmartHome-AI</title>
+  <meta name="description" content="O que são esses sistemas de home server, como se comparam entre si e ao Home Assistant, e como fazer os dois conviverem na mesma casa sem conflito.">
+  <meta name="author" content="Dr. Álvaro Menezes">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0b1110">
+  <link rel="canonical" href="https://smarthome-ai.com/casaos-umbrel/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SmartHome-AI">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="CasaOS e umbrelOS: o home server fácil ao lado do Home Assistant · SmartHome-AI">
+  <meta property="og:description" content="O que são esses sistemas de home server, como se comparam entre si e ao Home Assistant, e como fazer os dois conviverem na mesma casa sem conflito.">
+  <meta property="og:url" content="https://smarthome-ai.com/casaos-umbrel/">
+  <meta property="og:image" content="https://smarthome-ai.com/static/img/logo-smarthome-ai.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CasaOS e umbrelOS: o home server fácil ao lado do Home Assistant · SmartHome-AI">
+  <meta name="twitter:description" content="O que são esses sistemas de home server, como se comparam entre si e ao Home Assistant, e como fazer os dois conviverem na mesma casa sem conflito.">
+  <meta name="twitter:image" content="https://smarthome-ai.com/static/img/logo-smarthome-ai.jpg">
+
+  <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/static/img/logo-smarthome-ai.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script>
+    // Evita "flash" de tema errado: aplica a preferência salva antes da pintura.
+    (function () {
+      try {
+        var t = localStorage.getItem('sha-theme');
+        if (t) document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+  
+</head>
+<body class="article">
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="SmartHome-AI — início">
+        <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+          <defs>
+            <linearGradient id="g-gold" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#F3D68B"/><stop offset="1" stop-color="#B8891F"/>
+            </linearGradient>
+          </defs>
+          <rect x="1.5" y="1.5" width="37" height="37" rx="11" fill="none" stroke="url(#g-gold)" stroke-width="1.6"/>
+          <path d="M9 21.5 20 12l11 9.5" fill="none" stroke="url(#g-gold)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12.5 20.5V29h15v-8.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>
+          <circle cx="20" cy="24.5" r="2.6" fill="none" stroke="url(#g-gold)" stroke-width="1.8"/>
+          <path d="M20 21.9v-2.2M20 27.1v1.9M17.4 24.5h-2M24.6 24.5h-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".6"/>
+        </svg>
+        <span class="brand-text">
+          <strong>SmartHome<span class="accent">-AI</span></strong>
+          <small>Inteligência para o seu lar</small>
+        </span>
+      </a>
+
+      <nav class="site-nav" id="menu" aria-label="Navegação principal">
+        <a href="/">Início</a>
+        <a href="/artigos/">Artigos</a>
+        <a href="/instalacao/">Comece aqui</a>
+        <a href="/comandos-haos/">Comandos</a>
+        <a href="/faq/">FAQ</a>
+        <a href="/sobre/">Sobre</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-btn" id="search-open" aria-label="Buscar no site" title="Buscar (tecla /)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </button>
+        <button class="icon-btn" id="theme-toggle" aria-label="Alternar tema claro/escuro" title="Alternar tema">
+          <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5Z"/></svg>
+          <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.6 5.6l1.4 1.4m10 10 1.4 1.4m0-12.8-1.4 1.4m-10 10-1.4 1.4"/></svg>
+        </button>
+        <button class="icon-btn menu-btn" id="menu-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <article class="page">
+    <header class="page-head">
+      <p class="eyebrow">Home server</p>
+      <h1>CasaOS e umbrelOS: o home server fácil ao lado do Home Assistant</h1>
+      <p class="lead">O que são esses sistemas de home server, como se comparam entre si e ao Home Assistant, e como fazer os dois conviverem na mesma casa sem conflito.</p>
+      <p class="byline">10 min de leitura</p>
+    </header>
+    <div class="article-grid">
+      <nav class="toc" aria-label="Sumário"><p class="toc-title">Neste guia</p><div class="toc">
+<ul>
+<li><a href="#o-que-essas-coisas-sao-afinal">O que essas coisas são, afinal</a></li>
+<li><a href="#casaos-na-pratica">CasaOS na prática</a></li>
+<li><a href="#umbrelos-na-pratica">umbrelOS na prática</a></li>
+<li><a href="#onde-o-home-assistant-entra">Onde o Home Assistant entra</a></li>
+<li><a href="#o-que-rodar-no-home-server-e-nao-no-home-assistant">O que rodar no home server (e não no Home Assistant)</a></li>
+<li><a href="#resumo">Resumo</a></li>
+</ul>
+</div>
+</nav>
+      <div class="prose">
+        <p>Home Assistant cuida da <strong>casa</strong>. CasaOS e umbrelOS cuidam dos <strong>serviços da casa</strong> — arquivos, fotos, mídia,
+backups, painéis, IA local. São camadas diferentes, e é muito comum (e recomendável) ter as duas.</p>
+<h3 id="o-que-essas-coisas-sao-afinal">O que essas coisas são, afinal<a class="headerlink" href="#o-que-essas-coisas-sao-afinal" title="Permanent link">#</a></h3>
+<p>Ambos são <strong>camadas amigáveis em cima do Docker</strong>: uma interface web com loja de aplicativos, em que
+instalar o Jellyfin, o Nextcloud ou o Immich vira um clique em vez de um <code>docker-compose.yml</code> escrito à mão.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>CasaOS</strong></th>
+<th><strong>umbrelOS</strong></th>
+<th><strong>ZimaOS</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>O que é</td>
+<td>Camada instalável sobre Debian/Ubuntu/Raspberry Pi OS</td>
+<td>Sistema completo para home server</td>
+<td>Sistema completo com foco em NAS, da mesma equipe do CasaOS</td>
+</tr>
+<tr>
+<td>Instalação</td>
+<td>Um comando sobre um Linux existente</td>
+<td>Imagem gravada no disco ou VM</td>
+<td>Imagem gravada no disco</td>
+</tr>
+<tr>
+<td>Loja de apps</td>
+<td>Curada + qualquer container Docker</td>
+<td>300+ apps com instalação em um clique</td>
+<td>Curada, orientada a armazenamento</td>
+</tr>
+<tr>
+<td>Armazenamento</td>
+<td>Simples (montagem de discos)</td>
+<td>Inclui redundância (RAID/FailSafe)</td>
+<td>Gestão de discos mais completa</td>
+</tr>
+<tr>
+<td>Licença/código</td>
+<td>Aberto (Apache 2.0)</td>
+<td>Aberto</td>
+<td>Aberto</td>
+</tr>
+<tr>
+<td>Melhor para</td>
+<td>Reaproveitar um PC antigo ou Raspberry Pi</td>
+<td>Quem quer "ligar e usar", com fotos e arquivos</td>
+<td>Quem quer NAS de verdade em hardware Zima</td>
+</tr>
+</tbody>
+</table>
+<p>Links oficiais: <a href="https://casaos.io/">CasaOS</a> · <a href="https://github.com/IceWhaleTech/CasaOS">CasaOS no GitHub</a> ·
+<a href="https://umbrel.com/umbrelos">umbrelOS</a> · <a href="https://apps.umbrel.com/">Umbrel App Store</a> ·
+<a href="https://github.com/getumbrel/umbrel">Umbrel no GitHub</a> · <a href="https://github.com/IceWhaleTech/ZimaOS">ZimaOS</a></p>
+<div class="admonition nota">
+<p class="admonition-title">Nenhum deles substitui o Home Assistant</p>
+<p>Os dois até oferecem o Home Assistant na loja de apps — mas nessa forma ele roda como <strong>container</strong>,
+sem Supervisor e, portanto, <strong>sem add-ons</strong> (Zigbee2MQTT, ESPHome Device Builder, Mosquitto, Terminal &amp;
+SSH). Serve para experimentar; para a casa de verdade, veja a comparação logo abaixo.</p>
+</div>
+<h3 id="casaos-na-pratica">CasaOS na prática<a class="headerlink" href="#casaos-na-pratica" title="Permanent link">#</a></h3>
+<p>Roda em amd64, arm64 e armv7 — de um Intel NUC ou mini-PC a um Raspberry Pi. Instala sobre um Linux que você
+já tenha (Debian 12, Ubuntu Server, Raspberry Pi OS são os oficialmente suportados):</p>
+<pre><code class="language-bash"># instalação (sobre um Debian/Ubuntu/Raspberry Pi OS já funcionando)
+wget -qO- https://get.casaos.io | sudo bash
+</code></pre>
+<p>Depois é só abrir <code>http://&lt;ip-do-servidor&gt;</code> no navegador. A interface traz monitor de CPU, memória e disco,
+gerenciador de arquivos visual e a loja de apps — e, como tudo é Docker por baixo, você pode importar
+qualquer <code>docker-compose</code> que encontrar.</p>
+<div class="admonition atencao">
+<p class="admonition-title">Rode o instalador com cuidado</p>
+<p><code>wget | sudo bash</code> executa um script remoto como root. Use em uma máquina dedicada ao laboratório,
+nunca no servidor que cuida da casa, e leia o script antes se quiser ser rigoroso.</p>
+</div>
+<p><strong>Bom para</strong>: reaproveitar aquele notebook velho ou um Raspberry Pi extra como servidor de mídia, backup e
+utilidades, sem virar administrador de Linux.</p>
+<h3 id="umbrelos-na-pratica">umbrelOS na prática<a class="headerlink" href="#umbrelos-na-pratica" title="Permanent link">#</a></h3>
+<p>É um sistema completo: você grava a imagem (Raspberry Pi, mini-PC/NUC ou máquina virtual), liga na rede e faz
+toda a configuração pelo navegador em <code>http://umbrel.local</code> — sem monitor nem teclado. Não precisa de Linux
+prévio nem de linha de comando.</p>
+<p>Destaques da linha atual: loja com mais de 300 apps, aplicativo de <strong>fotos</strong> com backup automático do rolo da
+câmera do iPhone, gerenciador de <strong>arquivos</strong> com busca, contas separadas para cada pessoa da casa,
+redundância de disco e integração com agentes de IA via <strong>MCP</strong>. A linha 2.x está em beta público, então
+confira o estado atual antes de migrar algo importante.</p>
+<p><strong>Bom para</strong>: quem quer sair do Google Fotos e do Dropbox com o mínimo de atrito, ou quem comprou um
+Umbrel Home / Umbrel Pro pronto.</p>
+<h3 id="onde-o-home-assistant-entra">Onde o Home Assistant entra<a class="headerlink" href="#onde-o-home-assistant-entra" title="Permanent link">#</a></h3>
+<p>Há três arranjos que funcionam bem — em ordem de recomendação:</p>
+<h4 id="1-duas-maquinas-o-mais-tranquilo">1. Duas máquinas (o mais tranquilo)<a class="headerlink" href="#1-duas-maquinas-o-mais-tranquilo" title="Permanent link">#</a></h4>
+<ul>
+<li><strong>Máquina A</strong>: Home Assistant OS (appliance, Raspberry Pi ou mini-PC) — só a casa, com Supervisor, add-ons
+  e backups automáticos.</li>
+<li><strong>Máquina B</strong>: CasaOS ou umbrelOS — mídia, fotos, arquivos, Frigate, IA local.</li>
+</ul>
+<p>Atualizar ou reiniciar uma não derruba a outra. É o arranjo que o
+<a href="/hardware/">guia de hardware</a> recomenda, e o motivo é simples: você não quer que um <code>docker pull</code> de um
+servidor de filmes deixe a casa sem luz automática.</p>
+<h4 id="2-um-mini-pc-com-virtualizacao">2. Um mini-PC com virtualização<a class="headerlink" href="#2-um-mini-pc-com-virtualizacao" title="Permanent link">#</a></h4>
+<p>Proxmox no metal, uma <strong>VM com Home Assistant OS</strong> (completo, com add-ons) e outra VM ou container com
+CasaOS/umbrelOS. Snapshot antes de cada atualização. É o caminho de quem gosta de laboratório.</p>
+<h4 id="3-tudo-no-mesmo-casaosumbrelos-com-ressalvas">3. Tudo no mesmo CasaOS/umbrelOS (com ressalvas)<a class="headerlink" href="#3-tudo-no-mesmo-casaosumbrelos-com-ressalvas" title="Permanent link">#</a></h4>
+<p>Instalar o Home Assistant pela loja de apps funciona, mas você fica com o <strong>Home Assistant Container</strong>:</p>
+<ul>
+<li>❌ sem add-ons → Zigbee2MQTT, Mosquitto, ESPHome e Terminal &amp; SSH viram containers que você instala e
+  mantém manualmente</li>
+<li>❌ sem backup integrado do Supervisor → o backup passa a ser problema seu</li>
+<li>⚠️ passar o dongle Zigbee para dentro do container exige mapear o dispositivo (<code>--device</code>) na mão</li>
+<li>✅ em compensação, tudo convive numa máquina só</li>
+</ul>
+<p>Se você escolher esse caminho, mapeie o coordenador pelo caminho estável:</p>
+<pre><code class="language-yaml"># trecho de docker-compose para o Home Assistant Container
+services:
+  homeassistant:
+    image: ghcr.io/home-assistant/home-assistant:stable
+    container_name: homeassistant
+    network_mode: host          # necessário para descoberta automática (mDNS)
+    privileged: true
+    restart: unless-stopped
+    volumes:
+      - /DATA/AppData/homeassistant:/config
+      - /etc/localtime:/etc/localtime:ro
+    devices:
+      - /dev/serial/by-id/usb-Itead_Sonoff_Zigbee_3.0_USB_Dongle_Plus-if00-port0:/dev/ttyUSB0
+</code></pre>
+<div class="admonition dica">
+<p class="admonition-title">Descoberta automática precisa de rede host</p>
+<p>Sem <code>network_mode: host</code>, o Home Assistant em container não enxerga dispositivos por mDNS/SSDP —
+Apple TV, Sonos, impressoras e boa parte das integrações "mágicas" simplesmente não aparecem.</p>
+</div>
+<h3 id="o-que-rodar-no-home-server-e-nao-no-home-assistant">O que rodar no home server (e não no Home Assistant)<a class="headerlink" href="#o-que-rodar-no-home-server-e-nao-no-home-assistant" title="Permanent link">#</a></h3>
+<p>Serviços que pesam ou que nada têm a ver com automação ficam melhor na outra máquina:</p>
+<ul>
+<li><strong>Frigate</strong> (detecção de objetos nas <a href="/scrypted/">câmeras</a>) e <strong>Scrypted</strong></li>
+<li><strong>Jellyfin / Plex</strong> — mídia</li>
+<li><strong>Immich</strong> — substituto do Google Fotos, com app para iPhone</li>
+<li><strong>Nextcloud</strong> ou <strong>Syncthing</strong> — arquivos e sincronização</li>
+<li><strong>Uptime Kuma</strong> — monitoramento (inclusive do próprio Home Assistant)</li>
+<li><strong>Vaultwarden</strong> — senhas</li>
+<li><strong>AdGuard Home</strong> ou <strong>Pi-hole</strong> — DNS e bloqueio de anúncios</li>
+<li><strong>Ollama / LM Studio</strong> — modelos de linguagem locais, úteis como agente de conversa do Assist</li>
+</ul>
+<p>Depois é só integrar: quase todos expõem uma API que o Home Assistant consome, e o MQTT costuma ser a
+ponte mais simples entre os dois mundos.</p>
+<h3 id="resumo">Resumo<a class="headerlink" href="#resumo" title="Permanent link">#</a></h3>
+<ul>
+<li>Quer <strong>automatizar a casa</strong>? Home Assistant OS, sempre.</li>
+<li>Quer <strong>serviços caseiros</strong> com pouco esforço? CasaOS (sobre um Linux que você já tem) ou umbrelOS
+  (sistema completo, mais "plug and play").</li>
+<li>Quer os dois? <strong>Separe as máquinas</strong> ou use virtualização. É a diferença entre um hobby e um
+  incidente doméstico numa noite de terça.</li>
+</ul>
+        <ul class="tags"><li>CasaOS</li><li>umbrelOS</li><li>ZimaOS</li><li>Docker</li><li>NAS</li><li>Self-hosting</li></ul>
+      </div>
+    </div>
+    <nav class="pager" aria-label="Navegação entre guias">
+      <a class="pager-prev" href="/rede-wifi/"><span>← Anterior</span><strong>Wi-Fi, VLANs e a rede que sustenta a casa</strong></a>
+      <a class="pager-next" href="/comandos-haos/"><span>Próximo →</span><strong>Comandos do Home Assistant OS e do shell Alpine</strong></a>
+    </nav>
+  </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <strong>SmartHome<span class="accent">-AI</span></strong>
+        <p>Inteligência para o seu lar — guias independentes de casa inteligente, automação local e código aberto.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Rodapé">
+        <div>
+          <h4>Plataformas</h4>
+          <a href="/home-assistant/">Home Assistant</a>
+          <a href="/esphome-esp32/">ESPHome &amp; ESP32</a>
+          <a href="/scrypted/">Scrypted &amp; câmeras</a>
+          <a href="/casaos-umbrel/">CasaOS &amp; umbrelOS</a>
+        </div>
+        <div>
+          <h4>Protocolos</h4>
+          <a href="/zigbee/">Zigbee2MQTT &amp; ZHA</a>
+          <a href="/matter-thread/">Matter &amp; Thread</a>
+          <a href="/apple-homekit/">Apple HomeKit</a>
+        </div>
+        <div>
+          <h4>Site</h4>
+          <a href="/artigos/">Todos os guias</a>
+          <a href="/instalacao/">Comece aqui</a>
+          <a href="/comandos-haos/">Comandos do HA</a>
+          <a href="/faq/">Dúvidas frequentes</a>
+          <a href="/sobre/">Sobre</a>
+        </div>
+      </nav>
+    </div>
+    <div class="wrap footer-bottom">
+      <p>© 2026 SmartHome-AI · conteúdo por Dr. Álvaro Menezes</p>
+      <p>Feito com HTML, CSS, JavaScript e um gerador estático em Python.</p>
+    </div>
+  </footer>
+
+  <div class="search-modal" id="search-modal" hidden>
+    <div class="search-backdrop" data-close></div>
+    <div class="search-box" role="dialog" aria-modal="true" aria-label="Buscar no site">
+      <div class="search-field">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" id="search-input" placeholder="Buscar: Zigbee, ESPHome, Matter, Raspberry Pi…" autocomplete="off" spellcheck="false">
+        <kbd>Esc</kbd>
+      </div>
+      <ul class="search-results" id="search-results"></ul>
+    </div>
+  </div>
+
+  <script src="/static/js/main.js" defer></script>
+</body>
+</html>

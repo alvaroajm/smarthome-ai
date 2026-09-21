@@ -68,7 +68,7 @@ Duas formas de instalar:
 1. **HAOS direto no disco** — mais simples, o aparelho é "do Home Assistant".
 2. **Proxmox com o Home Assistant em VM** — permite snapshots antes de cada atualização, outras VMs e
    containers. É a escolha de quem gosta de laboratório — e o caminho natural para quem já tem um
-   [NAS ou homelab](/rede-wifi/).
+   [home server com CasaOS ou umbrelOS](/casaos-umbrel/).
 
 !!! atencao "Mac mini e Raspberry Pi como servidor"
     Um Mac mini M4 é excelente para Scrypted, transcodificação e IA local — mas o Home Assistant no macOS só

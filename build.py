@@ -53,6 +53,7 @@ NAV = [
     ("Início", "/"),
     ("Artigos", "/artigos/"),
     ("Comece aqui", "/instalacao/"),
+    ("Comandos", "/comandos-haos/"),
     ("FAQ", "/faq/"),
     ("Sobre", "/sobre/"),
 ]
@@ -69,6 +70,7 @@ ICONS = {
     "rocket": '<path d="M5 15c-1 2-1 4-1 4s2 0 4-1"/><path d="M13.5 4.5C16 2 21 3 21 3s1 5-1.5 7.5L14 16l-6-6 5.5-5.5Z"/><circle cx="15.5" cy="8.5" r="1.5"/><path d="m8 10-4 1 1 4 4-1"/>',
     "help": '<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.3 2.4c-.6.2-.8.7-.8 1.3v.3"/><path d="M12 17h.01"/>',
     "wifi": '<path d="M5 12.5a10 10 0 0 1 14 0M8.5 16a5.5 5.5 0 0 1 7 0"/><path d="M12 19.5h.01"/>',
+    "terminal": '<rect x="3" y="4.5" width="18" height="15" rx="2.5"/><path d="m7.5 10 2.8 2.4-2.8 2.4M13.2 15h3.5"/>',
     "book": '<path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2Z"/><path d="M6 17h13"/>',
 }
 

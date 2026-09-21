@@ -131,3 +131,5 @@ assistente pode consultar estados e executar serviços de forma estruturada.
 - Escolha entre [Zigbee2MQTT e ZHA](/zigbee/)
 - Entenda [Matter e Thread](/matter-thread/) antes da próxima compra
 - Integre com o [ecossistema Apple](/apple-homekit/)
+- Tenha à mão os [comandos do HAOS e do shell Alpine](/comandos-haos/)
+- Separe os serviços da casa num [home server com CasaOS ou umbrelOS](/casaos-umbrel/)

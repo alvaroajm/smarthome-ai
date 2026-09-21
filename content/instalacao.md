@@ -125,5 +125,7 @@ os dois minutos, o contador reinicia em vez de apagar a luz na sua cara.
 - [x] Coordenador Zigbee numa extensão USB, longe do gabinete e das portas USB 3.0
 - [x] Nomes e áreas organizados
 
+Se precisar de linha de comando em algum momento, a [referência de comandos do HAOS](/comandos-haos/) cobre o CLI `ha` e o shell Alpine.
+
 Com isso pronto, siga para o [guia do Home Assistant](/home-assistant/) e entenda como a plataforma pensa —
 é o que transforma uma coleção de aparelhos numa casa que funciona.
