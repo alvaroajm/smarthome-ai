@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Instalar HAOS no Raspberry Pi 5 com SSD NVMe · SmartHome-AI</title>
+  <meta name="description" content="Peças, case, HAT, preparo do boot e gravação do HAOS no NVMe pelo Mac ou PC.">
+  <meta name="author" content="Dr. Álvaro Menezes">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#f8f8f1">
+  <link rel="canonical" href="https://smarthome-ai.com/instalar-raspberry-pi-5/">
+  <link rel="alternate" hreflang="pt" href="https://smarthome-ai.com/instalar-raspberry-pi-5/">
+  <link rel="alternate" hreflang="en" href="https://smarthome-ai.com/en/">
+  <link rel="alternate" hreflang="x-default" href="https://smarthome-ai.com/instalar-raspberry-pi-5/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SmartHome-AI">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="Instalar HAOS no Raspberry Pi 5 com SSD NVMe · SmartHome-AI">
+  <meta property="og:description" content="Peças, case, HAT, preparo do boot e gravação do HAOS no NVMe pelo Mac ou PC.">
+  <meta property="og:url" content="https://smarthome-ai.com/instalar-raspberry-pi-5/">
+  <meta property="og:image" content="https://smarthome-ai.com/static/img/og-smarthome-ai.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="SmartHome-AI — Inteligência para o seu lar">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Instalar HAOS no Raspberry Pi 5 com SSD NVMe · SmartHome-AI">
+  <meta name="twitter:description" content="Peças, case, HAT, preparo do boot e gravação do HAOS no NVMe pelo Mac ou PC.">
+  <meta name="twitter:image" content="https://smarthome-ai.com/static/img/og-smarthome-ai.jpg">
+  <meta name="twitter:image:alt" content="SmartHome-AI — Inteligência para o seu lar">
+
+  <link rel="icon" href="/static/img/favicon-sa.ico?v=42f648b8" sizes="16x16 32x32 48x48">
+  <link rel="icon" href="/static/img/favicon-sa-32.png?v=a641890e" type="image/png" sizes="32x32">
+  <link rel="icon" href="/static/img/favicon-sa-192.png?v=bd4f5944" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/static/img/apple-touch-icon-sa.png?v=1ca56a26" sizes="180x180">
+  <link rel="preload" href="/static/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/static/fonts/inter-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/static/fonts/newsreader-500.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="/static/css/style.css?v=763e8d98">
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('sha-theme');
+        if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"SmartHome-AI","alternateName":"SmartHome-AI — Inteligência para o seu lar","url":"https://smarthome-ai.com/","inLanguage":"pt-BR","description":"Casa inteligente para iniciantes: entenda as plataformas, instale o Home Assistant OS e conecte luzes e sensores com Zigbee, ZBT-2 e ZHA. Passo a passo pelas telas.","publisher":{"@type":"Organization","name":"SmartHome-AI","url":"https://smarthome-ai.com","logo":{"@type":"ImageObject","url":"https://smarthome-ai.com/static/img/logo-smarthome-ai-marca.png","width":360,"height":360}}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Instalar HAOS no Raspberry Pi 5 com SSD NVMe","description":"Peças, case, HAT, preparo do boot e gravação do HAOS no NVMe pelo Mac ou PC.","inLanguage":"pt-BR","mainEntityOfPage":{"@type":"WebPage","@id":"https://smarthome-ai.com/instalar-raspberry-pi-5/"},"author":{"@type":"Person","name":"Dr. Álvaro Menezes","url":"https://alvaro-menezes.com","jobTitle":"Radiologista","sameAs":["https://github.com/alvaroajm","https://www.instagram.com/alvaroajm/","https://facebook.com/alvaroajm","https://x.com/alvaromenezesMD","https://www.linkedin.com/in/dr-alvaro-menezes/"]},"publisher":{"@type":"Organization","name":"SmartHome-AI","url":"https://smarthome-ai.com","logo":{"@type":"ImageObject","url":"https://smarthome-ai.com/static/img/logo-smarthome-ai-marca.png","width":360,"height":360}},"image":"https://smarthome-ai.com/static/img/og-smarthome-ai.jpg","isAccessibleForFree":true,"datePublished":"2026-09-22","dateModified":"2026-09-22","keywords":"Home Assistant","articleSection":"Instalação guiada"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Início","item":"https://smarthome-ai.com/"},{"@type":"ListItem","position":2,"name":"Todos os guias","item":"https://smarthome-ai.com/artigos/"},{"@type":"ListItem","position":3,"name":"Instalar HAOS no Raspberry Pi 5 com SSD NVMe","item":"https://smarthome-ai.com/instalar-raspberry-pi-5/"}]}</script><meta property="article:published_time" content="2026-09-22"><meta property="article:modified_time" content="2026-09-22">
+</head>
+<body class="article"
+      data-lang="pt"
+      data-intl="pt-BR"
+      data-search-index="/search-index.json"
+      data-search-empty="Digite para buscar nos guias."
+      data-search-none="Nada encontrado. Tente “zigbee”, “ZHA” ou “matter”."
+      data-search-suggest="Guias populares">
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <div class="topbar">
+    <div class="wrap topbar-inner">
+      <p class="clock" id="clock" data-intl="pt-BR" aria-label="Data e hora em Fortaleza">&nbsp;</p>
+      <div class="topbar-actions">
+        <div class="lang-switch" role="group" aria-label="Idioma">
+          <span class="lang-current" aria-current="true">PT</span>
+          <span aria-hidden="true">·</span>
+          <a href="/en/" hreflang="en" lang="en">EN</a>
+        </div>
+        <button class="icon-btn" id="theme-toggle" aria-label="Alternar tema claro/escuro" title="Alternar tema claro/escuro">
+          <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5Z"/></svg>
+          <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.6 5.6l1.4 1.4m10 10 1.4 1.4m0-12.8-1.4 1.4m-10 10-1.4 1.4"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="SmartHome-AI">
+        <img class="brand-mark" src="/static/img/logo-smarthome-ai-marca.png" width="44" height="44" alt="" loading="eager">
+        <span class="brand-text">
+          <strong>SmartHome<span class="accent">-AI</span></strong>
+          <small>Inteligência para o seu lar</small>
+        </span>
+      </a>
+      <nav class="site-nav" id="menu" aria-label="Navegação principal">
+        <a href="/">Início</a>
+        <a href="/artigos/">Guias</a>
+        <a href="/#dispositivos">Dispositivos</a>
+        <a href="/#recursos">Links úteis</a>
+        <a href="/instalacao/">Comece aqui</a>
+        <a href="/sobre/">Sobre</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" id="search-open" aria-label="Buscar no site" title="Buscar no site (/)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </button>
+        <button class="icon-btn menu-btn" id="menu-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <article class="page">
+    <nav class="crumbs" aria-label="breadcrumb"><ol><li><a href="/">Início</a></li><li><a href="/artigos/">Todos os guias</a></li><li aria-current="page">Instalação guiada</li></ol></nav>
+    <header class="page-head">
+      <p class="eyebrow">Instalação guiada</p>
+      <h1>Instalar HAOS no Raspberry Pi 5 com SSD NVMe</h1>
+      <p class="lead">Peças, case, HAT, preparo do boot e gravação do HAOS no NVMe pelo Mac ou PC.</p>
+      <p class="byline">15 min de leitura</p>
+    </header>
+    <div class="article-grid">
+      <nav class="toc" aria-label="Neste guia"><p class="toc-title">Neste guia</p><div class="toc">
+<ul>
+<li><a href="#1-escolha-pecas-que-encaixam-entre-si">1. Escolha peças que encaixam entre si</a></li>
+<li><a href="#2-baixe-o-programa-no-seu-mac-ou-pc">2. Baixe o programa no seu Mac ou PC</a></li>
+<li><a href="#3-prepare-o-pi-para-iniciar-pelo-nvme">3. Prepare o Pi para iniciar pelo NVMe</a></li>
+<li><a href="#4-grave-o-haos-no-ssd-nvme">4. Grave o HAOS no SSD NVMe</a></li>
+<li><a href="#5-monte-placa-refrigeracao-hat-e-ssd">5. Monte placa, refrigeração, HAT e SSD</a></li>
+<li><a href="#6-ligue-a-rede-e-inicie-pelo-ssd">6. Ligue a rede e inicie pelo SSD</a></li>
+<li><a href="#7-abra-a-sua-casa-no-navegador">7. Abra a sua casa no navegador</a></li>
+<li><a href="#8-conecte-o-zbt-2-e-ative-o-zha">8. Conecte o ZBT-2 e ative o ZHA</a></li>
+<li><a href="#9-adicione-um-sensor-ou-uma-luz">9. Adicione um sensor ou uma luz</a></li>
+<li><a href="#10-faca-o-primeiro-backup-e-siga-em-frente">10. Faça o primeiro backup e siga em frente</a></li>
+</ul>
+</div>
+</nav>
+      <div class="prose">
+        <p>Vamos montar um <strong>Raspberry Pi 5 de 8 GB com SSD NVMe</strong> e instalar o Home Assistant OS diretamente no SSD. O Mac ou PC prepara a mídia; depois, o Pi funciona sozinho como central.</p>
+<p>O caminho abaixo usa <strong>M.2 HAT+ oficial</strong>, com detecção automática. A preparação de inicialização é feita pelo Raspberry Pi Imager, sem terminal. O cartão microSD será usado só nessa preparação, não como disco permanente.</p>
+<p><a href="/instalar-haos/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>← Escolher outro equipamento</a></p>
+<h2 id="1-escolha-pecas-que-encaixam-entre-si">1. Escolha peças que encaixam entre si<a class="headerlink" href="#1-escolha-pecas-que-encaixam-entre-si" title="Permanent link">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Peça</th>
+<th>O que escolher</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Placa</td>
+<td>Raspberry Pi 5, preferencialmente 8 GB para esta montagem.</td>
+</tr>
+<tr>
+<td>Fonte</td>
+<td>Fonte oficial USB-C de 27 W para o Pi 5, ou equivalente expressamente compatível. Carregador de celular pode não oferecer a alimentação necessária.</td>
+</tr>
+<tr>
+<td>SSD</td>
+<td><strong>M.2 NVMe</strong>, de 500/512 GB ou 1 TB; confirme o tamanho físico aceito pelo adaptador. M.2 SATA é outro tipo de SSD.</td>
+</tr>
+<tr>
+<td>Adaptador</td>
+<td>M.2 HAT+ é a placa que conecta o SSD ao pequeno conector PCIe do Pi 5. Não é um hub USB.</td>
+</tr>
+<tr>
+<td>Case e refrigeração</td>
+<td>Um conjunto compatível com o Pi 5, o HAT e o SSD escolhidos. Veja as opções abaixo.</td>
+</tr>
+<tr>
+<td>Para preparar no Mac/PC</td>
+<td>Leitor de microSD, cartão microSD de 32 GB e uma <strong>case USB para SSD NVMe</strong> compatível com seu SSD. Essa case USB é temporária e não é o gabinete do Pi.</td>
+</tr>
+<tr>
+<td>Para usar em casa</td>
+<td>Ethernet, ZBT-2 com cabo USB e um dispositivo Zigbee para testar.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Escolha uma montagem:</strong></p>
+<ul>
+<li><strong>M.2 HAT+ padrão:</strong> aceita SSDs <strong>2230 ou 2242</strong>. Pode ficar acima do <strong>Active Cooler</strong>, usando os espaçadores próprios. Escolha um gabinete com espaço para esse conjunto.</li>
+<li><strong>M.2 HAT+ Compact:</strong> aceita apenas <strong>2230</strong> e cabe no case oficial do Pi 5 com a ventoinha do próprio case. Não combine essa montagem com o Active Cooler por baixo.</li>
+<li><strong>Argon ONE V3 M.2 NVMe para Pi 5:</strong> é uma alternativa com gabinete e adaptador próprios. Na versão M.2 NVMe, não se compra outro HAT para empilhar por cima. Confira o <a class="ext" target="_blank" rel="noopener" href="https://argon40.com/blogs/argon-resources/argon-one-v3-case-and-m-2-nvme-pcie-case-manual">manual da versão exata</a>, o tamanho do SSD e as instruções de montagem.</li>
+</ul>
+<aside class="install-note"><strong>Sobre o Argon:</strong> o antigo ONE M.2 para Pi 4 não serve para o Pi 5. Cases com adaptador não HAT+ podem precisar de ajustes próprios de inicialização; ventoinha e botão também podem exigir suporte específico no HAOS. Para seguir este guia inteiramente pelas telas, use o HAT+ oficial ou um kit Argon já preparado e testado para HAOS pelo fornecedor. Não execute instaladores de Raspberry Pi OS dentro do HAOS.</aside>
+
+<h2 id="2-baixe-o-programa-no-seu-mac-ou-pc">2. Baixe o programa no seu Mac ou PC<a class="headerlink" href="#2-baixe-o-programa-no-seu-mac-ou-pc" title="Permanent link">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Download oficial</th>
+<th>Para que serve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a class="ext" target="_blank" rel="noopener" href="https://www.raspberrypi.com/software/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="raspberry-pi" src="/static/img/brands/raspberry-pi.png?v=bf86b30f" width="32" height="32" alt="" decoding="async"></span>Raspberry Pi Imager</a></td>
+<td>Preparar o cartão de inicialização e gravar HAOS no SSD. Escolha a versão de macOS ou Windows.</td>
+</tr>
+<tr>
+<td><a class="ext" target="_blank" rel="noopener" href="https://etcher.balena.io/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="balena-etcher" src="/static/img/brands/balena-etcher.png?v=52e3c1a0" width="32" height="32" alt="" decoding="async"></span>balenaEtcher</a></td>
+<td>Alternativa para gravar a imagem do HAOS no SSD; o preparo do boot continua pelo Imager.</td>
+</tr>
+<tr>
+<td><a class="ext" target="_blank" rel="noopener" href="https://github.com/home-assistant/operating-system/releases/download/18.3/haos_rpi5-64-18.3.img.xz"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="github" src="/static/img/brands/github.svg?v=c964ca8e" width="32" height="32" alt="" decoding="async"></span>Imagem HAOS para Pi 5 — 18.3</a></td>
+<td>Download manual, se usar Etcher. O nome precisa conter <strong>rpi5-64</strong>.</td>
+</tr>
+<tr>
+<td><a class="ext" target="_blank" rel="noopener" href="https://www.home-assistant.io/installation/raspberrypi/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Página oficial da instalação</a></td>
+<td>Consulte aqui a imagem estável mais recente. No Imager, use a opção disponível no catálogo.</td>
+</tr>
+<tr>
+<td><a class="ext" target="_blank" rel="noopener" href="https://www.raspberrypi.com/documentation/accessories/m2-hat-plus.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="raspberry-pi" src="/static/img/brands/raspberry-pi.png?v=bf86b30f" width="32" height="32" alt="" decoding="async"></span>Montagem do M.2 HAT+</a></td>
+<td>Fotos de cada encaixe, para a versão padrão ou Compact.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>No Mac:</strong> abra o arquivo baixado e siga o instalador; se houver uma janela com o ícone do aplicativo, arraste-o para <strong>Aplicativos</strong>. <strong>No Windows:</strong> abra o instalador oficial e conclua as telas. Não precisa instalar programas no Pi antes disso.</p>
+<p>A imagem 18.3 é a versão consultada em 22/09/2026. Se houver uma versão estável mais recente na documentação, prefira-a; evite versões de teste para começar.</p>
+<h2 id="3-prepare-o-pi-para-iniciar-pelo-nvme">3. Prepare o Pi para iniciar pelo NVMe<a class="headerlink" href="#3-prepare-o-pi-para-iniciar-pelo-nvme" title="Permanent link">#</a></h2>
+<p>O <strong>bootloader</strong> é o pequeno programa que decide de onde o Pi vai iniciar. Esta etapa atualiza e redefine essa configuração; é indicada para a central nova que estamos montando.</p>
+<ol>
+<li>No Mac/PC, coloque o microSD no leitor. Desconecte outros discos removíveis para facilitar a identificação.</li>
+<li>Abra o <strong>Raspberry Pi Imager</strong> e escolha <strong>Raspberry Pi 5</strong> em dispositivo.</li>
+<li>Em sistema operacional, abra <strong>Misc utility images → Bootloader (Pi 5 family) → NVMe/USB Boot</strong>. Os nomes podem aparecer traduzidos.</li>
+<li>Em armazenamento, selecione <strong>o microSD</strong>, conferindo capacidade e nome. Avance e grave. <strong>Isso apaga o cartão.</strong> Aguarde a verificação e ejete-o.</li>
+<li>Com o Pi sem energia, coloque o cartão. Ligue a fonte, aguarde pelo menos 10 segundos e espere o LED verde piscar rapidamente de forma contínua. Com monitor HDMI conectado, o sucesso também aparece como uma tela verde. Não interrompa a gravação.</li>
+<li>Depois da indicação de sucesso, desligue a alimentação e retire o cartão de preparação. Ele não deve ficar no Pi na inicialização normal.</li>
+</ol>
+<p>Se aparecer uma tela vermelha ou um padrão de erro, não continue como se a atualização tivesse terminado: confira o cartão, a fonte e o <a class="ext" target="_blank" rel="noopener" href="https://github.com/raspberrypi/rpi-eeprom/blob/master/imager/README-2712.txt"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="github" src="/static/img/brands/github.svg?v=c964ca8e" width="32" height="32" alt="" decoding="async"></span>procedimento oficial de recuperação</a>.</p>
+<h2 id="4-grave-o-haos-no-ssd-nvme">4. Grave o HAOS no SSD NVMe<a class="headerlink" href="#4-grave-o-haos-no-ssd-nvme" title="Permanent link">#</a></h2>
+<ol>
+<li>Com a case USB desconectada, encaixe o SSD NVMe nela conforme o manual. Conecte essa case ao Mac/PC.</li>
+<li>No Imager, escolha <strong>Raspberry Pi 5</strong>. Em sistema operacional, abra <strong>Other specific-purpose OS → Home automation → Home Assistant</strong> e selecione <strong>Home Assistant OS para Raspberry Pi 5</strong>.</li>
+<li>Em armazenamento, selecione <strong>o SSD externo</strong>, identificando o modelo e a capacidade. Não escolha o disco do computador nem o microSD da etapa anterior.</li>
+<li>Se o assistente oferecer personalizações de Wi-Fi, usuário ou SSH, pule-as para HAOS. Essas opções de Raspberry Pi OS não são necessárias aqui.</li>
+<li>Confirme a gravação. <strong>Todo o conteúdo do SSD escolhido será apagado.</strong> Aguarde gravação e verificação completas; depois, ejete a unidade.</li>
+<li>Se o Mac ou Windows pedir para formatar/inicializar o SSD gravado, <strong>cancele</strong>: as partições do HAOS não são um disco comum para arquivos.</li>
+</ol>
+<figure class="ha-screen"><a href="/static/img/ha-guide/imager.png" target="_blank" rel="noopener" aria-label="Ampliar tela: Selecione Home Assistant OS para Pi 5; na etapa de armazenamento, o destino deste guia é o SSD NVMe conectado por USB."><img src="/static/img/ha-guide/imager.png" alt="Selecione Home Assistant OS para Pi 5; na etapa de armazenamento, o destino deste guia é o SSD NVMe conectado por USB." width="860" height="538" loading="lazy" decoding="async"></a><figcaption>Selecione Home Assistant OS para Pi 5; na etapa de armazenamento, o destino deste guia é o SSD NVMe conectado por USB. <a class="ext" href="https://www.home-assistant.io/installation/raspberrypi/" target="_blank" rel="noopener"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Tela oficial · Home Assistant</a> <span>Em inglês; os nomes podem variar por versão. Toque para ampliar.</span><a href="/static/img/ha-guide/README.md">Créditos das imagens</a></figcaption></figure>
+
+<details><summary>Prefiro usar o balenaEtcher para gravar o SSD</summary><p>Baixe a imagem <strong>haos_rpi5-64-…img.xz</strong> no link acima. No Etcher, escolha <strong>Flash from file</strong>, selecione o arquivo, use <strong>Select target</strong> para marcar o SSD externo e confira novamente sua capacidade. Clique em <strong>Flash!</strong>, autorize a gravação e espere a validação. Ejete o SSD. Não use a imagem de Pi 4 ou de mini-PC x86-64. O Etcher aceita imagens comprimidas em XZ; se sua versão não as abrir, extraia para .img antes.</p></details>
+
+<h2 id="5-monte-placa-refrigeracao-hat-e-ssd">5. Monte placa, refrigeração, HAT e SSD<a class="headerlink" href="#5-monte-placa-refrigeracao-hat-e-ssd" title="Permanent link">#</a></h2>
+<p>Retire o SSD da case USB <strong>com tudo desconectado da energia</strong>. Monte sobre uma superfície limpa, segurando as placas pelas bordas.</p>
+<ol>
+<li>Instale a refrigeração da montagem escolhida. No HAT+ padrão, coloque o Active Cooler antes do HAT. No Compact, siga o arranjo do case oficial.</li>
+<li>Coloque os espaçadores, para que as placas não encostem uma na outra. No HAT+ padrão, alinhe o extensor GPIO com todos os pinos antes de pressionar.</li>
+<li>Abra com cuidado a trava do conector <strong>PCIe</strong> do Pi 5. Insira o cabo flat reto e trave novamente. Siga a orientação de contatos ilustrada no manual da sua versão; não force as travas.</li>
+<li>Fixe o HAT e conecte a outra ponta do cabo flat. Nenhum cabo deve ficar preso sob o SSD ou a tampa.</li>
+<li>Encaixe o SSD levemente inclinado no M.2. Abaixe-o e prenda a ponta com o parafuso próprio, sem apertar demais.</li>
+<li>Confira ventoinha, folgas e cabos. Feche apenas um gabinete compatível com a altura do conjunto.</li>
+</ol>
+<div class="install-photo-pair"><figure class="install-figure"><a href="/static/img/install/pi-ribbon.png" target="_blank" rel="noopener" aria-label="Ampliar: HAT+ padrão: espaçadores e cabo flat no conector PCIe."><img src="/static/img/install/pi-ribbon.png" width="2084" height="2084" alt="HAT+ padrão: espaçadores e cabo flat no conector PCIe." loading="lazy" decoding="async"></a><figcaption>HAT+ padrão: espaçadores e cabo flat no conector PCIe. <a class="ext" href="https://www.raspberrypi.com/documentation/accessories/m2-hat-plus.html" target="_blank" rel="noopener"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="raspberry-pi" src="/static/img/brands/raspberry-pi.png?v=bf86b30f" width="32" height="32" alt="" decoding="async"></span>Fonte oficial</a> · Toque para ampliar.</figcaption></figure><figure class="install-figure"><a href="/static/img/install/pi-ssd.png" target="_blank" rel="noopener" aria-label="Ampliar: HAT+ padrão: encaixe inclinado do SSD antes de prendê-lo."><img src="/static/img/install/pi-ssd.png" width="2084" height="2084" alt="HAT+ padrão: encaixe inclinado do SSD antes de prendê-lo." loading="lazy" decoding="async"></a><figcaption>HAT+ padrão: encaixe inclinado do SSD antes de prendê-lo. <a class="ext" href="https://www.raspberrypi.com/documentation/accessories/m2-hat-plus.html" target="_blank" rel="noopener"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="raspberry-pi" src="/static/img/brands/raspberry-pi.png?v=bf86b30f" width="32" height="32" alt="" decoding="async"></span>Fonte oficial</a> · Toque para ampliar.</figcaption></figure></div>
+
+<p>As ilustrações acima são do <strong>HAT+ padrão</strong>. Para o Compact e para o Argon, use as imagens do manual correspondente; a posição dos encaixes muda.</p>
+<h2 id="6-ligue-a-rede-e-inicie-pelo-ssd">6. Ligue a rede e inicie pelo SSD<a class="headerlink" href="#6-ligue-a-rede-e-inicie-pelo-ssd" title="Permanent link">#</a></h2>
+<p>Conecte Ethernet entre o Pi e o roteador/switch. Confira se o cartão de preparação foi removido e ligue a fonte. O Pi deverá iniciar pelo NVMe e preparar o HAOS. Não é necessário deixar a case USB conectada nem manter o Mac/PC ligado depois da configuração.</p>
+<p><strong>Não iniciou?</strong> Confira a fonte de 27 W, o cabo flat, o encaixe do SSD e se foi gravada a imagem <strong>rpi5-64</strong>. O monitor micro-HDMI pode mostrar o diagnóstico. Um adaptador não HAT+ pode exigir ajustes adicionais do fabricante; a simples seleção NVMe/USB Boot não garante seu funcionamento. Não ative PCIe Gen 3 para este começo.</p>
+<details><summary>Quero começar com microSD e adicionar o SSD depois</summary><p>No Imager, grave HAOS para Pi 5 em um microSD A2 de pelo menos 32 GB e inicie por ele. Depois de fazer um backup, você pode usar <strong>Configurações → Sistema → Armazenamento → Mover disco de dados</strong>, se o SSD for detectado e tiver capacidade maior que a mídia atual. Isso apaga o SSD e transfere os dados; o cartão continua necessário para iniciar. É diferente do caminho principal deste guia, que grava o sistema inteiro no NVMe. Veja a <a class="ext" target="_blank" rel="noopener" href="https://www.home-assistant.io/common-tasks/os/#using-external-data-disk"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>orientação oficial</a>.</p></details>
+
+<h2 id="7-abra-a-sua-casa-no-navegador">7. Abra a sua casa no navegador<a class="headerlink" href="#7-abra-a-sua-casa-no-navegador" title="Permanent link">#</a></h2>
+<p>No <strong>outro computador</strong>, conectado à mesma rede da central, abra <a class="ext" target="_blank" rel="noopener" href="http://homeassistant.local:8123">http://homeassistant.local:8123</a>. Esse computador pode usar Wi-Fi; a central fica ligada ao roteador por Ethernet.</p>
+<ol>
+<li>Aguarde a tela de preparação terminar. O primeiro início baixa componentes e pode demorar, conforme a internet. Mantenha a central ligada.</li>
+<li>Se aparecer <strong>Criar minha casa inteligente / Create my smart home</strong>, siga por essa opção. Quem já tem um backup pode escolher restaurá-lo.</li>
+<li>Crie o <strong>usuário administrador e uma senha exclusiva</strong>. É uma conta da sua central, diferente da conta opcional da Nabu Casa.</li>
+<li>Confira localização, fuso horário e unidades. Autorize compartilhamentos opcionais apenas se desejar.</li>
+<li>Conclua até chegar ao painel. Dispositivos encontrados automaticamente podem ser configurados depois.</li>
+</ol>
+<figure class="ha-screen"><a href="/static/img/ha-guide/onboarding.png" target="_blank" rel="noopener" aria-label="Ampliar tela: Crie a conta pelo navegador. O computador apenas mostra a interface; o HAOS roda na central."><img src="/static/img/ha-guide/onboarding.png" alt="Crie a conta pelo navegador. O computador apenas mostra a interface; o HAOS roda na central." width="614" height="575" loading="lazy" decoding="async"></a><figcaption>Crie a conta pelo navegador. O computador apenas mostra a interface; o HAOS roda na central. <a class="ext" href="https://www.home-assistant.io/getting-started/onboarding/" target="_blank" rel="noopener"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Tela oficial · Home Assistant</a> <span>Em inglês; os nomes podem variar por versão. Toque para ampliar.</span><a href="/static/img/ha-guide/README.md">Créditos das imagens</a></figcaption></figure>
+
+<p><strong>O endereço não abriu?</strong> Digite-o na barra de endereços, incluindo <code>http://</code> e <code>:8123</code>. Confira cabos, energia e se o computador está na mesma rede, fora da rede de convidados. No app do roteador, procure o IP atribuído ao Home Assistant e abra <code>http://IP-DA-CENTRAL:8123</code>, substituindo pelo número real. Algumas instalações recentes usam a porta padrão: experimente também <a class="ext" target="_blank" rel="noopener" href="http://homeassistant.local">http://homeassistant.local</a>. Não abra portas no roteador para este acesso dentro de casa.</p>
+<h2 id="8-conecte-o-zbt-2-e-ative-o-zha">8. Conecte o ZBT-2 e ative o ZHA<a class="headerlink" href="#8-conecte-o-zbt-2-e-ative-o-zha" title="Permanent link">#</a></h2>
+<p>O <strong>ZBT-2</strong> é o rádio USB do Zigbee. <strong>ZHA</strong> é a integração que já vem no Home Assistant para cuidar dessa rede. Não precisa instalar MQTT ou outro App.</p>
+<ol>
+<li>Com o Home Assistant funcionando, conecte o ZBT-2 a uma porta USB da <strong>central</strong>, usando seu cabo. Não o conecte ao computador usado apenas para abrir o navegador.</li>
+<li>Deixe o rádio afastado de metal, roteador Wi-Fi e dispositivos USB 3.0, com espaço ao redor da antena.</li>
+<li>Abra <strong>Configurações → Dispositivos e serviços</strong>. No dispositivo descoberto <strong>Home Assistant Connect ZBT-2</strong>, escolha <strong>Adicionar / Configurar</strong>.</li>
+<li>Selecione <strong>Usar como adaptador Zigbee</strong> e a <strong>instalação recomendada</strong>. Aguarde as etapas de firmware indicadas na tela, sem desconectar o cabo. O assistente cria a integração ZHA.</li>
+<li>Se não houver descoberta, use <strong>Adicionar integração</strong> e procure <strong>Home Assistant Connect ZBT-2</strong>. Confira se aparece no hardware da central; siga o <a class="ext" target="_blank" rel="noopener" href="https://support.nabucasa.com/hc/en-us/articles/29400591254301">assistente oficial</a> para sua versão.</li>
+</ol>
+<figure class="ha-screen"><a href="/static/img/ha-guide/zbt-zigbee.png" target="_blank" rel="noopener" aria-label="Ampliar tela: Escolha Zigbee no assistente do ZBT-2; o ZHA será configurado pela interface."><img src="/static/img/ha-guide/zbt-zigbee.png" alt="Escolha Zigbee no assistente do ZBT-2; o ZHA será configurado pela interface." width="564" height="317" loading="lazy" decoding="async"></a><figcaption>Escolha Zigbee no assistente do ZBT-2; o ZHA será configurado pela interface. <a class="ext" href="https://support.nabucasa.com/hc/en-us/articles/29400591254301" target="_blank" rel="noopener">Tela oficial · Nabu Casa</a> <span>Em inglês; os nomes podem variar por versão. Toque para ampliar.</span><a href="/static/img/ha-guide/README.md">Créditos das imagens</a></figcaption></figure>
+
+<p>O ZBT-2 usa <strong>Zigbee ou Thread, um por vez</strong>. Aqui, escolha Zigbee.</p>
+<h2 id="9-adicione-um-sensor-ou-uma-luz">9. Adicione um sensor ou uma luz<a class="headerlink" href="#9-adicione-um-sensor-ou-uma-luz" title="Permanent link">#</a></h2>
+<ol>
+<li>Em <strong>Configurações → Dispositivos e serviços → Zigbee Home Automation</strong>, abra <strong>Adicionar dispositivo</strong>.</li>
+<li>Perto do ZBT-2, coloque seu sensor ou sua lâmpada em pareamento conforme o manual. O tempo de pressionar o botão varia por modelo; aparelhos ligados a outra central podem precisar de redefinição.</li>
+<li>Espere a descoberta e a configuração terminarem. Dê um nome, como <strong>Sensor da porta</strong>, e escolha o cômodo.</li>
+<li>Abra o dispositivo e faça um teste: abra a porta ou ligue a luz pela tela. Confira se o estado muda.</li>
+</ol>
+<figure class="ha-screen"><a href="/static/img/ha-guide/zha-add.png" target="_blank" rel="noopener" aria-label="Ampliar tela: Use Adicionar dispositivo no ZHA para encontrar o primeiro aparelho Zigbee."><img src="/static/img/ha-guide/zha-add.png" alt="Use Adicionar dispositivo no ZHA para encontrar o primeiro aparelho Zigbee." width="684" height="288" loading="lazy" decoding="async"></a><figcaption>Use Adicionar dispositivo no ZHA para encontrar o primeiro aparelho Zigbee. <a class="ext" href="https://support.nabucasa.com/hc/en-us/articles/29400591254301" target="_blank" rel="noopener">Tela oficial · Nabu Casa</a> <span>Em inglês; os nomes podem variar por versão. Toque para ampliar.</span><a href="/static/img/ha-guide/README.md">Créditos das imagens</a></figcaption></figure>
+
+<h2 id="10-faca-o-primeiro-backup-e-siga-em-frente">10. Faça o primeiro backup e siga em frente<a class="headerlink" href="#10-faca-o-primeiro-backup-e-siga-em-frente" title="Permanent link">#</a></h2>
+<p>Em <strong>Configurações → Sistema → Backups</strong>, configure backups automáticos. Guarde uma cópia fora da central e o <strong>kit de emergência / chave de criptografia</strong> indicado na interface; você precisa dele para restaurar backups criptografados. A cópia pode ficar no computador, em armazenamento de rede ou no serviço de nuvem escolhido.</p>
+<p>Confira as atualizações em <strong>Configurações</strong> e faça um backup antes de aplicá-las. Para desligar ou mexer no hardware, use <strong>Configurações → Sistema → menu de energia → Desligar sistema</strong>, aguarde o encerramento e só então retire a fonte.</p>
+<p><strong>Seu ponto de chegada:</strong> painel acessível, ZHA configurado e o primeiro dispositivo respondendo. Agora, <a href="/primeira-automacao/">crie uma automação simples pelas telas</a>.</p>
+<p>Referências desta parte: <a class="ext" target="_blank" rel="noopener" href="https://www.home-assistant.io/getting-started/onboarding/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>primeiro acesso</a>, <a class="ext" target="_blank" rel="noopener" href="https://support.nabucasa.com/hc/en-us/articles/29400591254301">ZBT-2 e ZHA</a>, <a class="ext" target="_blank" rel="noopener" href="https://www.home-assistant.io/common-tasks/general/#backups"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>backups</a>. <a href="/static/img/install/README.md">Créditos das novas ilustrações</a>.</p>
+<p>Referências da montagem: <a class="ext" target="_blank" rel="noopener" href="https://www.home-assistant.io/installation/raspberrypi/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Raspberry Pi / HAOS</a>, <a class="ext" target="_blank" rel="noopener" href="https://www.raspberrypi.com/documentation/accessories/m2-hat-plus.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="raspberry-pi" src="/static/img/brands/raspberry-pi.png?v=bf86b30f" width="32" height="32" alt="" decoding="async"></span>M.2 HAT+ e Compact</a>, <a class="ext" target="_blank" rel="noopener" href="https://downloads.raspberrypi.com/os_list_imagingutility_v4.json">catálogo oficial do Imager</a>, <a class="ext" target="_blank" rel="noopener" href="https://github.com/raspberrypi/rpi-eeprom/blob/master/imager/README-2712.txt"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="github" src="/static/img/brands/github.svg?v=c964ca8e" width="32" height="32" alt="" decoding="async"></span>bootloader do Pi 5</a> e <a class="ext" target="_blank" rel="noopener" href="https://argon40.com/blogs/argon-resources/argon-one-v3-case-and-m-2-nvme-pcie-case-manual">Argon ONE V3</a>.</p>
+        <ul class="tags"><li>Home Assistant</li></ul>
+      </div>
+    </div>
+
+    <nav class="pager">
+      <a class="pager-prev" href="/instalar-haos/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span><span>← Anterior</span><strong>Home Assistant OS: escolha sua instalação</strong></a>
+      <a class="pager-next" href="/instalar-mini-pc/"><span>Próximo →</span><strong>Instalar HAOS no mini-PC x86-64, passo a passo</strong></a>
+    </nav>
+  </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <section class="wrap eco">
+      <h2 class="eco-title">Ecossistema</h2>
+      <div class="eco-grid">
+        <a class="eco-tile" href="/">
+          <span class="eco-logo"><img src="/static/img/logo-smarthome-ai-marca.png" alt="SmartHome-AI" width="56" height="56" loading="lazy"></span>
+          <span class="eco-text"><strong>SmartHome-AI</strong><small>Casa inteligente, automação local e código aberto</small></span>
+        </a>
+        <a class="eco-tile" href="https://alvaro-menezes.com" target="_blank" rel="noopener">
+          <span class="eco-logo"><img src="/static/img/author-seal.jpg" alt="Dr. Álvaro Menezes" width="56" height="56" loading="lazy"></span>
+          <span class="eco-text"><strong>Dr. Álvaro Menezes</strong><small>Radiologia geral e musculoesquelética · Fortaleza/CE</small></span>
+        </a>
+        <a class="eco-tile" href="https://radapps.app" target="_blank" rel="noopener">
+          <span class="eco-logo"><img src="/static/img/radapps-brand.jpg" alt="RadApps" width="56" height="56" loading="lazy"></span>
+          <span class="eco-text"><strong>RadApps</strong><small>Aplicativos para radiologistas · iOS e Android</small></span>
+        </a>
+      </div>
+    </section>
+
+    <section class="wrap contact-card" id="contato">
+      <div class="contact-person">
+        <img class="contact-photo" src="/static/img/author-original.jpg" width="96" height="96" alt="Dr. Álvaro Menezes" loading="lazy">
+        <div>
+          <p class="contact-name">Dr. Álvaro Menezes</p>
+          <p class="contact-cred">CRM 11.393/CE · RQE 6562</p>
+          <p class="contact-cred">Guias independentes de casa inteligente, automação local e código aberto.</p>
+          <div class="contact-social"><a class="social" href="https://github.com/alvaroajm" target="_blank" rel="noopener me" aria-label="GitHub" title="GitHub"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="github" src="/static/img/brands/github.svg?v=c964ca8e" width="32" height="32" alt="" decoding="async"></span></a><a class="social" href="https://www.instagram.com/alvaroajm/" target="_blank" rel="noopener me" aria-label="Instagram" title="Instagram"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg></a><a class="social" href="https://facebook.com/alvaroajm" target="_blank" rel="noopener me" aria-label="Facebook" title="Facebook"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg></a><a class="social" href="https://x.com/alvaromenezesMD" target="_blank" rel="noopener me" aria-label="X" title="X"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"/></svg></a><a class="social" href="https://www.linkedin.com/in/dr-alvaro-menezes/" target="_blank" rel="noopener me" aria-label="LinkedIn" title="LinkedIn"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></div>
+        </div>
+      </div>
+      <div class="contact-actions">
+        <h4>Contato</h4>
+        <a class="contact-line" href="mailto:admin@alvaro-menezes.com"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6 8.5-6"/></svg><span>admin@alvaro-menezes.com</span></a>
+        <a class="contact-line" href="https://alvaro-menezes.com/" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3 10h18M7 14.5h4"/></svg><span>Cartão de contato</span></a>
+      </div>
+      <div class="contact-places">
+        <h4>Locais de atendimento</h4>
+        <ul><li><strong>Instituto Doutor José Frota</strong><span>Rua Barão do Rio Branco, 1816 · Centro, Fortaleza/CE</span></li><li><strong>Hospital Universitário Walter Cantídio</strong><span>Rua Pastor Samuel Munguba, 1290 · Rodolfo Teófilo, Fortaleza/CE</span></li><li><strong>Clínica Boghos Boyadjian</strong><span>Av. Rui Barbosa, 1975 · Aldeota, Fortaleza/CE</span></li></ul>
+      </div>
+    </section>
+
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <strong>SmartHome<span class="accent">-AI</span></strong>
+        <p>Inteligência para o seu lar — Guias independentes de casa inteligente, automação local e código aberto.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Site">
+        <div><h4>Primeiros passos</h4><a href="/casa-inteligente/">O que é casa inteligente?</a><a href="/home-assistant/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Home Assistant</a><a href="/instalar-haos/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Instalar o HAOS</a></div><div><h4>Conectar e automatizar</h4><a href="/zigbee/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Entender Zigbee</a><a href="/zbt-dongles/">ZBT-2 com ZHA</a><a href="/primeira-automacao/">Primeira automação</a></div><div><h4>Depois do básico</h4><a href="/apps-integracoes/">Integrações e Apps</a><a href="/aprofundamento/">Aprofundamento</a></div><div><h4>Site</h4><a href="/artigos/">Todos os guias</a><a href="/faq/">Dúvidas frequentes</a><a href="/sobre/">Sobre</a></div>
+      </nav>
+    </div>
+    <div class="wrap footer-bottom">
+      <p>© 2026 SmartHome-AI · conteúdo por Dr. Álvaro Menezes</p>
+      <p>Feito com HTML, CSS, JavaScript e um gerador estático em Python.</p>
+    </div>
+  </footer>
+
+  <button class="to-top" id="to-top" type="button" aria-label="Voltar ao topo" title="Voltar ao topo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 14 6-6 6 6"/></svg>
+  </button>
+
+  <div class="search-modal" id="search-modal" hidden>
+    <div class="search-backdrop" data-close></div>
+    <div class="search-box" role="dialog" aria-modal="true" aria-label="Buscar no site">
+      <div class="search-field">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" id="search-input" aria-label="Buscar no site" placeholder="Buscar: luz, Zigbee, instalação…" autocomplete="off" spellcheck="false">
+        <button class="search-close icon-btn" type="button" data-close aria-label="Fechar busca">×</button>
+      </div>
+      <ul class="search-results" id="search-results"></ul>
+    </div>
+  </div>
+
+  <script src="/static/js/main.js?v=ccbaf7fa" defer></script>
+</body>
+</html>

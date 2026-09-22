@@ -1,0 +1,86 @@
+[
+  {
+    "file": "green-ethernet.webp",
+    "source": "https://raw.githubusercontent.com/NabuCasa/support/main/static/img/green/green_connect_ethernet.webp",
+    "width": 350,
+    "height": 198,
+    "sha256": "57e7b820a15cba35464b906afb228606f051a3542d29cda7cfb341430de6932a"
+  },
+  {
+    "file": "green-power.webp",
+    "source": "https://raw.githubusercontent.com/NabuCasa/support/main/static/img/green/green_connect_power.webp",
+    "width": 350,
+    "height": 198,
+    "sha256": "943d311ee0e5b8fd76d29686c20b6163f381c8c4ec9561cd815f8546bd39d58a"
+  },
+  {
+    "file": "green-zbt.png",
+    "source": "https://raw.githubusercontent.com/NabuCasa/support/main/static/img/connect-zbt-2/zbt-2-connect-to-ha-green.png",
+    "width": 800,
+    "height": 533,
+    "sha256": "34d79fc079c1bbe513ec29465b48286a0b7c2dff271be026b5ceb73200f90ca4"
+  },
+  {
+    "file": "uefi.jpg",
+    "source": "https://www.home-assistant.io/images/installation/intel-nuc-uefi-boot.jpg",
+    "width": 1280,
+    "height": 720,
+    "sha256": "c352f40c0026a758cf12e6c8d9c63cf23b053dd6dcc56a3315c3836f4c0988f7"
+  },
+  {
+    "file": "secure-boot.jpg",
+    "source": "https://www.home-assistant.io/images/installation/intel-nuc-disable-secure-boot.jpg",
+    "width": 1280,
+    "height": 720,
+    "sha256": "804167e416249935b05564777b312c77e3b95519393665ab9a9563a18d3329a2"
+  },
+  {
+    "file": "disks-restore.png",
+    "source": "https://www.home-assistant.io/images/installation/ubuntu_restore_disk_image.png",
+    "width": 952,
+    "height": 652,
+    "sha256": "c67e7d853f694e221cd421a4cc39c01e498ae4b7fc42501bd6cd23059b00d64b"
+  },
+  {
+    "file": "disks-image.png",
+    "source": "https://www.home-assistant.io/images/installation/select_haos.png",
+    "width": 919,
+    "height": 537,
+    "sha256": "c85cb0c746f0ef7b4574bb4e06b1a0c1415f9e82eb68e589862c72c0b4f504fe"
+  },
+  {
+    "file": "disks-progress.png",
+    "source": "https://www.home-assistant.io/images/installation/haos_restoring.png",
+    "width": 952,
+    "height": 652,
+    "sha256": "c397c0dbc6a95d2e369aa940b467cd222d5007fa07763314628d5ddffc6c1a00"
+  },
+  {
+    "file": "etcher-file.png",
+    "source": "https://www.home-assistant.io/images/installation/etcher1_file.png",
+    "width": 802,
+    "height": 519,
+    "sha256": "60ba1a45da8ad98156d357c2b303e31a74c4ab3fdc35328818999a402aeb2583"
+  },
+  {
+    "file": "etcher-target.png",
+    "source": "https://www.home-assistant.io/images/installation/etcher4.png",
+    "width": 802,
+    "height": 519,
+    "sha256": "da67031e0217af5279b1b62145b76ce1ae1837ce7da1216b2f6975181cc5734d"
+  },
+  {
+    "file": "pi-ribbon.png",
+    "source": "https://www.raspberrypi.com/documentation/accessories/images/m2-hat-plus-installation-02.png",
+    "width": 2084,
+    "height": 2084,
+    "sha256": "2fdce1a0ad4be60414e831276a3e33376b6fca6c693043928bacc8e1997f58e0"
+  },
+  {
+    "file": "pi-ssd.png",
+    "source": "https://www.raspberrypi.com/documentation/accessories/images/m2-hat-plus-installation-05.png",
+    "width": 2084,
+    "height": 2084,
+    "sha256": "9f535f9d5ae3e01cb10948bb0e0abac2305d4d15b0fc3a29c7609911819ab7a9"
+  }
+]
