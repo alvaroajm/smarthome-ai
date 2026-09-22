@@ -1,0 +1,44 @@
+[
+  {
+    "file": "esp32.webp",
+    "source": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/_images/esp32-devkitc-v4-functional-overview.png",
+    "width": 900,
+    "height": 389
+  },
+  {
+    "file": "atom-s3.webp",
+    "source": "https://m5stack.oss-cn-shenzhen.aliyuncs.com/resource/docs/products/core/AtomS3/4.webp",
+    "width": 800,
+    "height": 800
+  },
+  {
+    "file": "voice-pe.webp",
+    "source": "https://www.home-assistant.io/images/voice-pe/carousel/1.webp",
+    "width": 360,
+    "height": 360
+  },
+  {
+    "file": "frigate-live.webp",
+    "source": "https://frigate.video/images/live.webp",
+    "width": 1400,
+    "height": 786
+  },
+  {
+    "file": "frigate-review.webp",
+    "source": "https://frigate.video/images/review.webp",
+    "width": 1400,
+    "height": 1236
+  },
+  {
+    "file": "esphome-builder.webp",
+    "source": "https://esphome.io/_astro/device-builder-light.DQc1iH1L_Z2ixGWS.webp",
+    "width": 1000,
+    "height": 667
+  },
+  {
+    "file": "reolink.webp",
+    "source": "https://home-cdn.reolink.us/wp-content/assets/tespecs/rlc-810a-1.png",
+    "width": 800,
+    "height": 444
+  }
+]

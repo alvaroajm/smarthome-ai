@@ -7,91 +7,53 @@ category: Serviços
 icon: cloud
 order: 111
 featured: true
-reading: 8 min de leitura
-date: 2026-09-21
+reading: 5 min de leitura
+date: 2026-09-22
 tags: [Nabu Casa, Home Assistant Cloud, Acesso remoto, Alexa, Google, Backup]
 ---
 
-O Home Assistant é gratuito e sempre será. A **Nabu Casa** é a empresa criada pelos próprios fundadores do
-projeto, e o **Home Assistant Cloud** é a assinatura que financia o desenvolvimento — do Home Assistant, do
-ESPHome e do Z-Wave JS. Ela não desbloqueia recursos escondidos: resolve, com dois cliques, três problemas
-que dão trabalho de resolver sozinho.
+O **Home Assistant Cloud** é a assinatura opcional da Nabu Casa para quem quer acesso remoto e voz com menos configuração. As automações locais do Home Assistant continuam gratuitas.
 
-## O que a assinatura entrega
+## O que você ganha
 
-| Recurso | O que resolve |
+| Recurso | No dia a dia |
 |---|---|
-| **Acesso remoto** | Abrir a sua casa de qualquer lugar, criptografado, **sem abrir portas no roteador** |
-| **Alexa e Google Assistant** | Conectar os dois assistentes sem servidor intermediário, certificados nem AWS Lambda |
-| **Voz e texto para fala** | Vozes naturais para o *Assist* e para notificações faladas |
-| **Backup na nuvem** | Cópia automática fora de casa, criptografada, com restauração ao trocar de hardware |
-| **Webhooks** | Endereços públicos para receber eventos de outros serviços |
-| **WebRTC melhorado** | Vídeo de câmeras mais fluido fora de casa |
+| Acesso remoto | Abra seu painel fora de casa por uma conexão criptografada, sem abrir portas no roteador. |
+| Alexa e Google Assistant | Disponibilize controles e cenas para seu Echo ou Google Nest. |
+| Voz para o Assist | Use processamento de fala na nuvem sem precisar executá-lo todo na sua central. |
+| Backup na nuvem | Mantenha uma cópia criptografada fora de casa para ajudar na recuperação. |
+| Apoio ao desenvolvimento | Ajude a financiar o trabalho da Open Home Foundation, incluindo Home Assistant e ESPHome. |
 
-Tudo trafega criptografado e a Nabu Casa declara não ter acesso ao conteúdo.
+A Nabu Casa é uma parceira comercial da **Open Home Foundation**. Home Assistant e ESPHome são projetos da fundação; a assinatura apoia esse ecossistema aberto.
 
-## Quanto custa (setembro de 2026)
+## Como começar pelas telas
 
-| Região | Mensal | Anual |
-|---|---|---|
-| Estados Unidos / internacional | US$ 6,50 | US$ 65 |
-| União Europeia | € 7,50 (com IVA) | € 75 |
-| Reino Unido | £ 6,50 (com IVA) | £ 65 |
-| Canadá | CAD 8,70 | CAD 87 |
+1. Abra **Configurações → Home Assistant Cloud**.
+2. Crie sua conta e confira as condições do teste gratuito.
+3. Ative **Acesso remoto**. O serviço fornece um endereço seguro para sua central.
+4. Nas opções de **Alexa** ou **Google Assistant**, siga a vinculação de conta e escolha os dispositivos que deseja disponibilizar.
+5. Em **Configurações → Sistema → Backups**, configure a rotina e o armazenamento em Home Assistant Cloud. Guarde a chave de recuperação em lugar seguro.
 
-Há **31 dias de teste** sem cobrança, e a assinatura é cancelável a qualquer momento. Confira sempre os
-valores atuais em [nabucasa.com/pricing](https://www.nabucasa.com/pricing/) — preços mudam.
+O Companion App para iOS e Android pode usar essa conexão fora de casa. Confira no aplicativo se o servidor está configurado e teste pelo 4G/5G, fora do Wi-Fi doméstico.
 
-!!! nota "Para quem está no Brasil"
-    A cobrança segue a tabela internacional em dólar, no cartão de crédito, com IOF e a conversão do dia.
-    Vale comparar com o custo (e o tempo) de manter uma VPN por conta própria.
+## “Alexa, ative o cinema”
 
-## Como ativar
+Você pode compartilhar a cena de cinema e controles como luzes, climatização e cortinas, quando suportados. Dê nomes fáceis de falar: “luz da sala”, “cortina do quarto”. Não é necessário expor todos os sensores e controles técnicos.
 
-1. *Configurações → Home Assistant Cloud*
-2. Crie a conta e inicie o período de teste
-3. Ligue **Acesso remoto** — você recebe um endereço `https://….ui.nabu.casa` pronto para usar
-4. Ligue **Alexa** e/ou **Google Assistant** e escolha, uma a uma, quais entidades quer expor
-5. Ative o **backup na nuvem** e defina a frequência
+Alexa e Google continuam usando os serviços de nuvem de seus fabricantes. O Cloud faz a ponte; ele não transforma esses assistentes em sistemas totalmente locais.
 
-Pronto: o app do Home Assistant no iPhone passa a funcionar dentro e fora de casa sem nenhuma configuração
-adicional.
+## Privacidade: o que é local e o que usa nuvem
 
-!!! dica "Exponha pouco aos assistentes de voz"
-    Mandar 300 entidades para a Alexa é receita para confusão ("Alexa, ligue a luz" e ela liga a errada).
-    Exponha luzes, tomadas, cenas e climatização — e renomeie para nomes curtos e falados.
+A conexão remota é criptografada entre o cliente e sua instância; a Nabu Casa informa que não consegue ler o conteúdo desse túnel. Isso não significa que todo serviço de voz ou integração deixe de processar dados: cada recurso tem seu funcionamento e sua política.
 
-## As alternativas gratuitas (e o que elas custam em trabalho)
+Você mantém suas automações e dispositivos locais na central. Se a internet cair, eles podem continuar funcionando; acesso remoto, voz em nuvem e outras integrações online ficam dependentes da conexão.
 
-| Opção | Custo | Dificuldade | Observações |
-|---|---|---|---|
-| **Nabu Casa** | ~US$ 6,50/mês | Nenhuma | Acesso remoto + Alexa/Google + backup + TTS, e financia o projeto |
-| **Tailscale** | Grátis (uso pessoal) | Baixa | VPN ponto a ponto; ótima no iPhone e no Mac. **Não** resolve Alexa/Google |
-| **WireGuard no roteador** | Grátis | Média | Exige IP público ou DDNS e configuração em cada aparelho |
-| **Cloudflare Tunnel** | Grátis | Média/alta | Expõe sem abrir porta, mas exige atenção redobrada com autenticação |
-| **Abrir a porta 8123** | Grátis | Baixa | **Não faça isso.** É a forma mais comum de ter a casa invadida |
+## Assinatura e alternativas
 
-!!! atencao "A comparação honesta"
-    O Tailscale resolve o acesso remoto tão bem quanto a Nabu Casa — e de graça. O que ele **não** faz é
-    integrar Alexa e Google, gerar vozes naturais nem guardar backups fora de casa. Se você não usa
-    assistentes de voz comerciais e já tem backup externo, a VPN é suficiente. Se usa, a assinatura sai mais
-    barata que o seu tempo.
+O serviço oferece **31 dias de teste**, seguido de assinatura mensal ou anual. Consulte [preços e condições atuais](https://www.nabucasa.com/pricing/) antes de contratar.
 
-## Vale a pena?
+Uma **VPN** é uma alternativa para acesso remoto, se você preferir configurá-la. Ela não oferece, por si só, a mesma conexão simplificada com Alexa e Google nem os demais serviços do Cloud.
 
-**Sim, quase certamente, se você:**
+Para um iniciante que quer controlar a casa pelo celular e pela voz, o principal ganho da Nabu Casa é a praticidade. Você escolhe quando isso faz sentido para sua casa.
 
-- usa Alexa ou Google e quer que funcionem sem gambiarra
-- quer acessar a casa pelo celular sem pensar em rede
-- não tem hoje um backup automático fora do servidor
-- gosta do projeto e quer que ele continue existindo — esta é a forma direta de financiá-lo
-
-**Talvez não, se você:**
-
-- vive no ecossistema Apple e usa [HomeKit](/apple-homekit/) como interface
-- já tem VPN funcionando e um NAS recebendo os backups
-- acessa a casa quase sempre de dentro da rede local
-
-Seja qual for a escolha, **backup fora do servidor não é opcional**. Se você dispensar a nuvem, configure
-hoje mesmo uma cópia para um NAS, um computador ou um serviço de armazenamento — o
-[guia de instalação](/instalacao/) mostra como.
+Fontes: [Home Assistant Cloud](https://www.nabucasa.com/), [acesso remoto](https://www.nabucasa.com/config/remote/), [Alexa](https://www.nabucasa.com/config/amazon_alexa/), [Google Assistant](https://www.nabucasa.com/config/google_assistant/) e [backups](https://www.home-assistant.io/common-tasks/general/#backups).

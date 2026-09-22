@@ -7,166 +7,60 @@ category: DIY & firmware
 icon: chip
 order: 105
 featured: true
-reading: 12 min de leitura
-date: 2026-09-21
+reading: 5 min de leitura
+date: 2026-09-22
 tags: [ESPHome, ESP32, DIY, YAML, Sensores]
 ---
 
-O ESPHome é o atalho mais elegante da casa inteligente: você descreve o dispositivo em **YAML**, ele compila
-um firmware sob medida, grava no microcontrolador e o aparelho aparece sozinho no Home Assistant — com
-atualização por Wi-Fi para sempre.
+Um sensor que cabe exatamente onde você precisa. Um botão que ativa sua cena favorita. Uma telinha com a temperatura do quarto. **ESP32 + ESPHome** permite criar esses pequenos projetos e conectá-los ao Home Assistant.
 
-## Por que isso muda o jogo
+**IoT** significa objetos conectados trocando informações. **DIY** é fazer você mesmo. Aqui, sua placa conversa com a central pela rede local; não precisa de um aplicativo de fabricante para cada projeto.
 
-- **Sem nuvem e sem app**: o ESP32 conversa direto com o Home Assistant pela API nativa (criptografada).
-- **Sem programação**: nada de Arduino IDE, bibliotecas e conflitos de versão.
-- **Atualização OTA**: subiu uma mudança no YAML, o dispositivo se atualiza pelo ar.
-- **Custo**: um sensor comercial de presença custa o equivalente a três ESP32 com sensores.
+## Duas formas de começar
 
-## Qual placa escolher
+<figure class="feature-figure feature-product"><a href="/static/img/ha-features/esp32.webp" target="_blank" rel="noopener" aria-label="Ampliar: ESP32-DevKitC: placa de uso geral para conectar sensores e outros componentes."><img src="/static/img/ha-features/esp32.webp" width="900" height="389" alt="ESP32-DevKitC: placa de uso geral para conectar sensores e outros componentes." loading="lazy" decoding="async"></a><figcaption>ESP32-DevKitC: placa de uso geral para conectar sensores e outros componentes. · <a class="ext" href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html" target="_blank" rel="noopener">Imagem oficial</a></figcaption></figure>
 
-| Placa | Boa para | Observação |
-|---|---|---|
-| **ESP32 (clássico)** | Uso geral, Bluetooth | Melhor custo-benefício; muitos exemplos |
-| **ESP32-S3** | Voz, câmera, telas | Mais RAM e PSRAM |
-| **ESP32-C6** | Futuro: **Thread/Matter** e Wi-Fi 6 | Suporte em amadurecimento |
-| **ESP8266** | Projetos mínimos | Sem Bluetooth; evite em projetos novos |
-| **M5Stack ATOM / ATOM Echo** | Protótipo pronto em caixinha | Ótimo para satélites de voz |
+As placas ESP32 de desenvolvimento oferecem conexões para sensores, botões e telas. Existem muitas variantes: confira o chip, a pinagem, a memória e os componentes antes de seguir uma receita.
 
-!!! dica "Compre com USB-C e antena externa quando possível"
-    Placas com conector de antena resolvem casos de Wi-Fi fraco em áreas externas e garagens.
+<figure class="feature-figure feature-product"><a href="/static/img/ha-features/atom-s3.webp" target="_blank" rel="noopener" aria-label="Ampliar: M5Stack ATOM-S3: ESP32-S3 com tela, botão e conectores em uma caixinha."><img src="/static/img/ha-features/atom-s3.webp" width="800" height="800" alt="M5Stack ATOM-S3: ESP32-S3 com tela, botão e conectores em uma caixinha." loading="lazy" decoding="async"></a><figcaption>M5Stack ATOM-S3: ESP32-S3 com tela, botão e conectores em uma caixinha. · <a class="ext" href="https://docs.m5stack.com/en/core/AtomS3" target="_blank" rel="noopener">Imagem oficial</a></figcaption></figure>
 
-## O primeiro dispositivo, do zero
+O **ATOM-S3** inclui uma pequena tela e um botão, úteis para controles e informações. A configuração da tela e de seus componentes é específica. Ele não deve ser confundido com **ATOM Echo**, que possui hardware de áudio e tem um tutorial oficial para usar o Assist.
 
-Instale o add-on **ESPHome Device Builder** no Home Assistant (*Configurações → Add-ons*). Crie um novo
-dispositivo, conecte a placa por USB e grave a primeira vez pelo navegador — depois disso, só OTA.
+## ESPHome Device Builder: o painel dos seus projetos
 
-Um sensor de temperatura e umidade completo cabe em 30 linhas:
+O **ESPHome** é um projeto de código aberto da Open Home Foundation, apoiado pela Nabu Casa. O **Device Builder** pode ser instalado como App no HAOS e organiza seus dispositivos pelo navegador.
 
-```yaml
-esphome:
-  name: sensor-varanda
-  friendly_name: Sensor da Varanda
+<figure class="feature-figure"><a href="/static/img/ha-features/esphome-builder.webp" target="_blank" rel="noopener" aria-label="Ampliar: Tela oficial do ESPHome Device Builder, com dispositivos e seu estado de conexão."><img src="/static/img/ha-features/esphome-builder.webp" width="1000" height="667" alt="Tela oficial do ESPHome Device Builder, com dispositivos e seu estado de conexão." loading="lazy" decoding="async"></a><figcaption>Tela oficial do ESPHome Device Builder, com dispositivos e seu estado de conexão. · <a class="ext" href="https://esphome.io/install/getting-started/" target="_blank" rel="noopener">Imagem oficial</a></figcaption></figure>
 
-esp32:
-  board: esp32dev
-  framework:
-    type: esp-idf
+1. Em **Configurações → Apps**, abra a loja e instale **ESPHome Device Builder**.
+2. Inicie o App e abra a interface web.
+3. Escolha **Create device / Criar dispositivo** e siga o assistente de nova configuração.
+4. Confirme o tipo de placa e a rede Wi-Fi.
+5. Use **Install / Instalar** e siga a opção de gravação por USB. Pelo navegador, use Chrome ou Edge no computador, com acesso seguro e suporte a Web Serial.
+6. Adicione o dispositivo descoberto em **Configurações → Dispositivos e serviços → ESPHome**.
 
-logger:
-api:
-  encryption:
-    key: !secret api_key_varanda
-ota:
-  - platform: esphome
-    password: !secret ota_password
+Após a primeira instalação e com a rede funcionando, muitas atualizações podem ser enviadas por Wi-Fi. O caminho exato depende da placa e da configuração.
 
-wifi:
-  ssid: !secret wifi_ssid
-  password: !secret wifi_password
-  # Cria um ponto de acesso de resgate se o Wi-Fi sumir
-  ap:
-    ssid: "Varanda Fallback"
+## Preciso saber programar?
 
-sensor:
-  - platform: dht
-    pin: GPIO4
-    model: DHT22
-    temperature:
-      name: "Temperatura da varanda"
-      filters:
-        - median:
-            window_size: 5
-    humidity:
-      name: "Umidade da varanda"
-    update_interval: 60s
+Você não precisa começar escrevendo C++. O ESPHome usa **YAML**, um arquivo que descreve os componentes e o que eles devem fazer. O assistente monta a base; projetos prontos reduzem bastante o trabalho. Sensores e telas personalizados ainda podem exigir edição desse arquivo.
 
-  - platform: wifi_signal
-    name: "Sinal Wi-Fi"
-    update_interval: 120s
-```
+Uma **IA pode ser uma boa tutora**: explicar cada parte, adaptar um exemplo e ajudar a interpretar erros. Um pedido útil é:
 
-Salve, clique em *Install → Wirelessly* e o dispositivo aparece no Home Assistant com as entidades prontas.
+> “Tenho esta placa ESP32 e este sensor. Use a documentação atual do ESPHome, explique as conexões e proponha uma configuração mínima. Não invente pinos; indique o que preciso confirmar.”
 
-## Projetos que valem o fim de semana
+Informe o modelo exato e não inclua senhas reais no pedido. Compare a resposta com a documentação, use **Validate / Validar** e teste um componente por vez. Uma configuração que compila ainda precisa corresponder à ligação física.
 
-### 1. Sensor de presença real (mmWave)
-Sensores PIR só detectam movimento — você fica parado lendo e a luz apaga. Um sensor de radar de onda
-milimétrica (LD2410, LD2450) detecta **presença**, inclusive de quem está imóvel:
+## Voz com ESP32
 
-```yaml
-uart:
-  tx_pin: GPIO17
-  rx_pin: GPIO16
-  baud_rate: 256000
-  parity: NONE
-  stop_bits: 1
+Com microfone, alto-falante e configuração compatíveis, um dispositivo ESP32 pode servir como ponto de voz para o **Assist**. O [tutorial oficial do ATOM Echo](https://www.home-assistant.io/voice_control/thirteen-usd-voice-remote/) oferece instalação pelo navegador.
 
-ld2410:
+A placa captura e reproduz áudio; o reconhecimento e a resposta podem usar processamento local no sistema ou serviços de nuvem, conforme a configuração. Não é necessário começar por voz: um botão de cena costuma ser um projeto mais simples.
 
-binary_sensor:
-  - platform: ld2410
-    has_target:
-      name: "Presença"
-    has_moving_target:
-      name: "Movimento"
+## Seu primeiro projeto
 
-number:
-  - platform: ld2410
-    timeout:
-      name: "Tempo até considerar vazio"
-```
+Comece com um **sensor de temperatura ou botão alimentado por USB**, em baixa tensão. Depois que ele aparecer no Home Assistant, crie a automação pelo editor visual. Projetos ligados à rede elétrica exigem componentes adequados e instalação por profissional qualificado.
 
-### 2. Interruptor de parede que mantém a tecla física
-Um módulo relé atrás do interruptor preserva o uso normal da casa e adiciona controle remoto:
+[Voltar ao Home Assistant](/home-assistant/).
 
-```yaml
-switch:
-  - platform: gpio
-    pin: GPIO12
-    id: rele_corredor
-    name: "Luz do corredor"
-    restore_mode: RESTORE_DEFAULT_OFF
-
-binary_sensor:
-  - platform: gpio
-    pin:
-      number: GPIO14
-      mode: INPUT_PULLUP
-      inverted: true
-    id: tecla
-    on_press:
-      - switch.toggle: rele_corredor
-```
-
-!!! atencao "Rede elétrica exige respeito"
-    Trabalhar com 127/220 V dentro de caixas de parede é sério: desligue o disjuntor, confira com um
-    detector de tensão e, em caso de dúvida, chame um eletricista. Módulos certificados (Sonoff, Shelly)
-    já vêm com isolamento adequado e também rodam ESPHome.
-
-### 3. Rastreador de presença por Bluetooth
-Um ESP32 por cômodo com `esp32_ble_tracker` transforma a casa num sistema de localização por aproximação,
-útil para saber em qual ambiente alguém está sem instalar câmeras.
-
-### 4. Satélite de voz
-Com um M5Stack ATOM Echo e 15 linhas de YAML você tem um ponto de voz do *Assist* na cozinha —
-processamento local, sem enviar áudio para fora.
-
-## Boas práticas que evitam dor de cabeça
-
-- **Use `secrets.yaml`** para Wi-Fi, chaves de API e senhas OTA; nunca versione esse arquivo no Git.
-- **Nomes com padrão**: `sala-presenca`, `varanda-clima`. O nome vira o hostname e o prefixo das entidades.
-- **`update_interval` honesto**: um sensor de temperatura a cada 10 segundos só enche o banco de dados.
-- **Filtros no dispositivo** (`median`, `sliding_window_moving_average`, `delta`) evitam ruído e escrita inútil.
-- **`api: reboot_timeout`** define o que acontece se o Home Assistant cair — avalie antes de deixar o padrão.
-- **Guarde os YAMLs num repositório Git**; são a documentação real da sua casa.
-
-## ESPHome x Tasmota x firmware de fábrica
-
-- **ESPHome**: integração mais profunda com o Home Assistant, configuração declarativa. **Padrão recomendado.**
-- **Tasmota**: excelente para flashar dispositivos comerciais prontos e falar MQTT com qualquer sistema.
-- **Firmware de fábrica**: funciona, mas costuma exigir nuvem e app próprio. Quando o aparelho é baseado em
-  ESP, vale trocar — muitos aceitam gravação pelo ar com ferramentas da comunidade.
-
-Próximo passo natural: escolher o rádio dos sensores comprados prontos em
-[Zigbee2MQTT ou ZHA](/zigbee/) e entender onde entra o [Matter over Thread](/matter-thread/).
+Fontes: [iniciar no ESPHome](https://esphome.io/install/getting-started/), [instalar ESPHome](https://esphome.io/install/), [ESP32-DevKitC](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html), [ATOM-S3](https://docs.m5stack.com/en/core/AtomS3) e [Nabu Casa e Open Home Foundation](https://www.nabucasa.com/).
