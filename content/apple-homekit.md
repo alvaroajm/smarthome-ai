@@ -1,10 +1,11 @@
 ---
+level: avancado
 title: Home Assistant no app Casa
 slug: apple-homekit
 description: Leve dispositivos compatíveis ao iPhone e à Siri.
 category: Ecossistemas
 icon: apple
-order: 10
+order: 110
 featured: true
 reading: 8 min de leitura
 date: 2026-09-21

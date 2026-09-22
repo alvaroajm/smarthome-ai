@@ -11,6 +11,7 @@ de templates/, copia static/ e escreve o site pronto em dist/.
 """
 from __future__ import annotations
 
+from beginner_content import beginner_home
 from visual_content import home_visual_context
 from brand_icons import decorate_project_links, icons_for_link, project_icons
 
@@ -124,7 +125,7 @@ ICONS = {
 }
 
 MD_EXTENSIONS = ["extra", "toc", "sane_lists", "admonition", "attr_list"]
-MD_CONFIG = {"toc": {"permalink": "#", "toc_depth": "2-3", "baselevel": 2}}
+MD_CONFIG = {"toc": {"permalink": "#", "toc_depth": "2-3", "baselevel": 1}}
 
 # --------------------------------------------------------------------------
 # Idiomas
@@ -140,9 +141,8 @@ LANGS = {
         "home_tpl": "home.pt.html",
         "tagline": "Inteligência para o seu lar",
         "description": (
-            "Guias práticos e independentes de casa inteligente: Home Assistant, ESPHome, "
-            "ESP32, Zigbee2MQTT, ZHA, Matter over Thread, Apple HomeKit, Scrypted, "
-            "Raspberry Pi e mini-PCs."
+            "Casa inteligente para iniciantes: entenda as plataformas, instale o Home Assistant OS "
+            "e conecte luzes e sensores com Zigbee, ZBT-2 e ZHA. Passo a passo pelas telas."
         ),
         "nav": [
             ("Início", ""),
@@ -156,9 +156,9 @@ LANGS = {
             "skip": "Pular para o conteúdo",
             "close": "Fechar busca",
             "search": "Buscar no site",
-            "search_ph": "Buscar: Zigbee, ESPHome, Matter, Raspberry Pi…",
+            "search_ph": "Buscar: luz, Zigbee, instalação…",
             "search_empty": "Digite para buscar nos guias.",
-            "search_none": "Nada encontrado. Tente “zigbee”, “esp32” ou “matter”.",
+            "search_none": "Nada encontrado. Tente “zigbee”, “ZHA” ou “matter”.",
             "theme": "Alternar tema claro/escuro",
             "menu": "Abrir menu",
             "nav_label": "Navegação principal",
@@ -167,7 +167,7 @@ LANGS = {
             "next": "Próximo →",
             "listing_eyebrow": "Biblioteca",
             "listing_title": "Todos os guias",
-            "listing_lead": "{n} guias sobre plataformas, protocolos e hardware de casa inteligente — do primeiro sensor até a automação que ninguém percebe que existe.",
+            "listing_lead": "Siga a trilha básica. Os demais assuntos ficam no aprofundamento, ao final.",
             "all_guides": "Ver todos os guias →",
             "pt_badge": "em português",
             "e404_eyebrow": "Erro 404",
@@ -175,9 +175,9 @@ LANGS = {
             "e404_lead": "A página que você procurou não foi encontrada. Que tal voltar ao início ou consultar a lista de guias?",
             "e404_home": "Voltar ao início",
             "e404_list": "Ver todos os guias",
-            "f_platforms": "Plataformas",
-            "f_protocols": "Protocolos",
-            "f_ai": "IA & agentes",
+            "f_platforms": "Primeiros passos",
+            "f_protocols": "Conectar e automatizar",
+            "f_ai": "Depois do básico",
             "f_site": "Site",
             "f_ecosystem": "Ecossistema",
             "f_contact": "Contato",
@@ -205,9 +205,8 @@ LANGS = {
         "home_tpl": "home.en.html",
         "tagline": "Intelligence for your home",
         "description": (
-            "Independent, practical smart home guides: Home Assistant, ESPHome, ESP32, "
-            "Zigbee2MQTT, ZHA, Matter over Thread, Apple HomeKit, Scrypted, Raspberry Pi "
-            "and mini PCs."
+            "Smart homes for beginners: compare platforms, set up Home Assistant OS "
+            "and connect lights and sensors with Zigbee, ZBT-2 and ZHA. Visual steps, no code."
         ),
         "nav": [
             ("Home", ""),
@@ -222,9 +221,9 @@ LANGS = {
             "skip": "Skip to content",
             "close": "Close search",
             "search": "Search the site",
-            "search_ph": "Search: Zigbee, ESPHome, Matter, Raspberry Pi…",
+            "search_ph": "Search: light, Zigbee, installation…",
             "search_empty": "Type to search the guides.",
-            "search_none": "Nothing found. Try “zigbee”, “esp32” or “matter”.",
+            "search_none": "Nothing found. Try “zigbee”, “ZHA” or “matter”.",
             "theme": "Toggle light/dark theme",
             "menu": "Open menu",
             "nav_label": "Main navigation",
@@ -233,7 +232,7 @@ LANGS = {
             "next": "Next →",
             "listing_eyebrow": "Library",
             "listing_title": "All guides",
-            "listing_lead": "{n} guides on smart home platforms, protocols and hardware — from the first sensor to the automation nobody notices.",
+            "listing_lead": "Follow the beginner path. Additional topics are in further learning, at the end.",
             "all_guides": "See all guides →",
             "pt_badge": "in Portuguese",
             "e404_eyebrow": "Error 404",
@@ -241,9 +240,9 @@ LANGS = {
             "e404_lead": "The page you asked for was not found. Head back home or browse the guides.",
             "e404_home": "Back home",
             "e404_list": "See all guides",
-            "f_platforms": "Platforms",
-            "f_protocols": "Protocols",
-            "f_ai": "AI & agents",
+            "f_platforms": "First steps",
+            "f_protocols": "Connect and automate",
+            "f_ai": "After the basics",
             "f_site": "Site",
             "f_ecosystem": "Ecosystem",
             "f_contact": "Contact",
@@ -265,28 +264,16 @@ LANGS = {
 
 FOOTER_LINKS = {
     "pt": {
-        "f_platforms": [("Home Assistant", "/home-assistant/"), ("ESPHome & ESP32", "/esphome-esp32/"),
-                        ("Scrypted & câmeras", "/scrypted/"), ("CasaOS & umbrelOS", "/casaos-umbrel/"),
-                        ("Nabu Casa", "/nabu-casa/")],
-        "f_protocols": [("Zigbee2MQTT & ZHA", "/zigbee/"), ("Dongles ZBT-1 & ZBT-2", "/zbt-dongles/"),
-                        ("Matter & Thread", "/matter-thread/"), ("MQTT", "/mqtt/"),
-                        ("Apple HomeKit", "/apple-homekit/")],
-        "f_ai": [("Claude & MCP", "/claude-mcp/"), ("Câmeras com IA", "/cameras-ia/"), ("OpenClaw", "/openclaw/")],
-        "f_site": [("Todos os guias", "/artigos/"), ("Comece aqui", "/instalacao/"),
-                   ("Instalar o HAOS", "/instalar-haos/"),
-                   ("Comandos do HA", "/comandos-haos/"), ("Dúvidas frequentes", "/faq/"), ("Sobre", "/sobre/")],
+        "f_platforms": [("O que é casa inteligente?", "/casa-inteligente/"), ("Home Assistant", "/home-assistant/"), ("Instalar o HAOS", "/instalar-haos/")],
+        "f_protocols": [("Entender Zigbee", "/zigbee/"), ("ZBT-2 com ZHA", "/zbt-dongles/"), ("Primeira automação", "/primeira-automacao/")],
+        "f_ai": [("Integrações e Apps", "/apps-integracoes/"), ("Aprofundamento", "/aprofundamento/")],
+        "f_site": [("Todos os guias", "/artigos/"), ("Dúvidas frequentes", "/faq/"), ("Sobre", "/sobre/")],
     },
     "en": {
-        "f_platforms": [("Home Assistant", "/home-assistant/"), ("ESPHome & ESP32", "/esphome-esp32/"),
-                        ("Scrypted & cameras", "/scrypted/"), ("CasaOS & umbrelOS", "/casaos-umbrel/"),
-                        ("Nabu Casa", "/nabu-casa/")],
-        "f_protocols": [("Zigbee2MQTT & ZHA", "/zigbee/"), ("ZBT-1 & ZBT-2 dongles", "/zbt-dongles/"),
-                        ("Matter & Thread", "/matter-thread/"), ("MQTT", "/mqtt/"),
-                        ("Apple HomeKit", "/apple-homekit/")],
-        "f_ai": [("Claude & MCP", "/claude-mcp/"), ("AI cameras", "/cameras-ia/"), ("OpenClaw", "/openclaw/")],
-        "f_site": [("All guides", "/en/guides/"), ("Start here", "/en/start/"),
-                   ("Install HAOS", "/instalar-haos/"),
-                   ("FAQ", "/en/faq/"), ("About", "/en/about/")],
+        "f_platforms": [("Start here", "/en/start/"), ("Home Assistant (PT)", "/home-assistant/"), ("Install HAOS (PT)", "/instalar-haos/")],
+        "f_protocols": [("Zigbee (PT)", "/zigbee/"), ("ZBT-2 with ZHA (PT)", "/zbt-dongles/"), ("First automation (PT)", "/primeira-automacao/")],
+        "f_ai": [("Integrations and Apps (PT)", "/apps-integracoes/"), ("Further learning (PT)", "/aprofundamento/")],
+        "f_site": [("All guides", "/en/guides/"), ("FAQ", "/en/faq/"), ("About", "/en/about/")],
     },
 }
 
@@ -394,6 +381,7 @@ class Page:
         self.icon = self.meta.get("icon", "book")
         self.section = self.meta.get("section", "artigo")
         self.featured = bool(self.meta.get("featured", False))
+        self.level = self.meta.get("level", "avancado")
         self.order = int(self.meta.get("order", 99))
         self.date = self.meta.get("date", "")
         self.tags = self.meta.get("tags", []) or []
@@ -755,7 +743,10 @@ def breadcrumbs_html(lang: str, page: Page) -> str:
 
 
 def related_html(lang: str, page: Page, pool: list[Page]) -> str:
+    if page.level == "basico":
+        return ""
     ui = LANGS[lang]["ui"]
+    pool = [p for p in pool if p.level == page.level]
     same = [p for p in pool if p is not page and p.category == page.category]
     rest = [p for p in pool if p is not page and p not in same]
     picked = (same + rest)[:3]
@@ -774,6 +765,7 @@ def build_articles(lang: str, pages: list[Page], alts_for, pool: list[Page] | No
     pool = pool or artigos
 
     for page in pages:
+        artigos = [p for p in pages if p.section == "artigo" and p.level == page.level]
         idx = artigos.index(page) if page in artigos else -1
         prev_html = next_html = ""
         if idx > 0:
@@ -828,6 +820,7 @@ def build_home(lang: str, own: list[Page], foreign: list[Page], alts_for) -> Non
 
     body = render(tpl, {
         **home_visual_context(lang),
+        "beginner_path": beginner_home(lang),
         "cards": "\n      ".join(card_html(p, ui, is_foreign) for p in featured if p.slug in {"instalacao", "home-assistant", "hardware", "zigbee", "matter-thread", "apple-homekit"}),
         "recentes": "\n      ".join(list_item_html(p, ui, is_foreign) for p in guides[:6]),
         "total_guias": len(guides),
@@ -850,9 +843,13 @@ def build_listing(lang: str, own: list[Page], foreign: list[Page], alts_for) -> 
     foreign_articles = [p for p in foreign if p.section == "artigo"] if lang == "en" else []
     total = len(own_articles) + len(foreign_articles)
 
-    items = "\n      ".join(list_item_html(p, ui) for p in own_articles)
-    if foreign_articles:
-        items += "\n      " + "\n      ".join(list_item_html(p, ui, True) for p in foreign_articles)
+    all_articles = own_articles + foreign_articles
+    basics = [p for p in all_articles if p.level == "basico"]
+    advanced = [p for p in all_articles if p.level != "basico"]
+    items = "\n".join(list_item_html(p, ui, p.lang != lang) for p in basics)
+    advanced_items = "\n".join(list_item_html(p, ui, p.lang != lang) for p in advanced)
+    basics_title = "Comece por aqui, nesta ordem" if lang == "pt" else "Start here, in this order"
+    advanced_title = "Aprofundamento — para depois" if lang == "pt" else "Further learning — for later"
 
     note = ""
     if lang == "en":
@@ -867,9 +864,11 @@ def build_listing(lang: str, own: list[Page], foreign: list[Page], alts_for) -> 
       <p class="lead">{ui['listing_lead'].format(n=total)}</p>
       {note}
     </header>
+    <h2>{basics_title}</h2>
     <ul class="post-list">
       {items}
     </ul>
+    <details class="library-advanced"><summary>{advanced_title}</summary><ul class="post-list">{advanced_items}</ul></details>
   </article>"""
     ctx = base_context(lang, ui["listing_title"], ui["listing_lead"].format(n=total), url,
                        alts_for("listing", url), body, "listing")

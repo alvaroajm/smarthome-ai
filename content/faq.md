@@ -6,111 +6,52 @@ category: FAQ
 icon: help
 order: 19
 section: pagina
-reading: 7 min de leitura
-date: 2026-09-21
+reading: 3 min de leitura
+date: 2026-09-22
 tags: [FAQ, Dúvidas, Iniciantes]
+level: basico
 ---
 
 ## Preciso saber programar?
 
-Não. Boa parte das automações é construída por interface gráfica, e os blueprints da comunidade cobrem os
-casos mais comuns. Saber ler YAML ajuda quando você quiser algo mais fino — e é uma linguagem de configuração,
-não de programação: em uma tarde você entende o essencial.
+Não para acompanhar esta trilha. A instalação, o pareamento no ZHA e a primeira automação usam botões e menus.
 
-## Quanto custa começar?
+## Do que preciso para começar?
 
-Um começo honesto tem três itens: o servidor (appliance, Raspberry Pi com SSD ou mini-PC), um coordenador
-Zigbee e três a cinco sensores. A partir daí, cada dispositivo é uma decisão isolada. O erro caro é comprar
-kits grandes antes de entender o que a casa precisa — praticamente todo mundo que faz isso tem uma gaveta
-de aparelhos não usados.
+Uma central com HAOS, como o Green ou um Raspberry Pi compatível, um ZBT-2 e uma luz ou um sensor Zigbee compatível com ZHA. Se já tiver aparelhos, confira o suporte antes de comprar.
+
+## Home Assistant e HAOS são a mesma coisa?
+
+Home Assistant é o programa que controla a casa. Home Assistant OS (HAOS) é o sistema que o executa e facilita atualizações, backups e instalação de Apps.
 
 ## Funciona sem internet?
 
-Com Home Assistant rodando local, sim: automações, sensores, painéis na rede interna e acionamentos
-continuam funcionando com a internet fora do ar. O que para são serviços externos — previsão do tempo,
-notificações no celular fora de casa, assistentes em nuvem e dispositivos que dependem do servidor do fabricante.
+Dispositivos e integrações locais podem continuar funcionando. A central e a rede precisam estar ligadas. Serviços de nuvem e acesso de fora da casa dependem de conexão.
 
-## Moro de aluguel. Dá para automatizar?
+## Posso continuar usando Alexa ou Google Home?
 
-Dá, e bem. Evite tudo que exija obra:
+Sim. As plataformas podem coexistir. A conexão com o Home Assistant é uma etapa adicional; primeiro, faça a luz funcionar pelo painel.
 
-- **Lâmpadas e tomadas inteligentes** em vez de módulos dentro da parede
-- **Sensores a pilha** colados com fita dupla-face
-- **Botões e controles Zigbee** avulsos, que substituem interruptores sem trocar nada
-- **Controle de ar-condicionado por infravermelho** (um emissor IR cobre vários aparelhos)
+## ZHA precisa de MQTT ou HACS?
 
-Na mudança, tudo sai com você em uma caixa.
+Não. ZHA é uma integração nativa do Home Assistant. Basta um coordenador compatível, como o ZBT-2, para formar a rede Zigbee.
 
-## Qual marca devo comprar?
+## ZBT-2 usa Zigbee e Thread ao mesmo tempo?
 
-A pergunta melhor é: **"esse aparelho funciona localmente?"**. Prefira, nesta ordem: Zigbee, Matter over
-Thread, dispositivos com ESPHome/Tasmota, e Wi-Fi com integração local. Evite produtos que só funcionem pelo
-app do fabricante com conta obrigatória na nuvem — são os primeiros a virar lixo eletrônico quando a
-empresa muda de estratégia.
+Não. Ele usa um protocolo por vez. Neste guia, escolha Zigbee e a instalação recomendada com ZHA.
 
-## E a Alexa e o Google? Preciso abandonar?
+## Posso instalar o HAOS em cartão microSD?
 
-Não. Eles continuam ótimos como **interface de voz**. A diferença é que passam a comandar o Home Assistant,
-que é quem realmente decide. Assim, se o serviço sair do ar ou você mudar de assistente, suas automações
-permanecem intactas.
+Sim. A instalação oficial para Raspberry Pi inclui microSD A2 de pelo menos 32 GB. Use cartão e fonte adequados e mantenha backups fora da central.
 
-## Zigbee ou Wi-Fi para sensores?
+## Matter garante todas as funções?
 
-Zigbee, quase sempre. Sensores Wi-Fi consomem muito mais energia (raramente funcionam a pilha por anos),
-ocupam endereços na sua rede e sobrecarregam o roteador. Detalhes em [Zigbee na prática](/zigbee/).
+Não. Confira se a categoria e os recursos do modelo são aceitos na plataforma escolhida. Matter sobre Thread também precisa de um roteador de borda Thread.
 
-## Matter resolve todos os problemas de compatibilidade?
+## Minha primeira automação não funcionou. E agora?
 
-Resolve muitos, mas não é mágica: a especificação cobre categorias de dispositivos progressivamente, e
-recursos avançados de um fabricante nem sempre cabem no padrão. Matter garante o básico funcionando em todo
-lugar — que já é enorme. Veja [Matter e Thread](/matter-thread/).
+Veja se a luz responde pelo painel. Depois, abra o menu da automação e use Executar ações. Esse teste não avalia o gatilho nem as condições; consulte os rastros para entender uma execução real.
 
-## Meus dados estão seguros?
+[Seguir a trilha para iniciantes](/instalacao/).
 
-Com processamento local, os dados ficam na sua casa. As regras práticas: ative a autenticação em duas
-etapas, **nunca** exponha o Home Assistant diretamente na internet (use VPN ou Nabu Casa), mantenha backups
-criptografados fora do servidor e coloque câmeras numa rede sem acesso à internet.
-
-## Cartão SD realmente não serve?
-
-Não para uso permanente. O banco de dados do Home Assistant escreve continuamente e cartões de consumo
-falham por desgaste, em geral entre 6 e 18 meses — e a falha costuma ser silenciosa até o dia em que nada liga.
-SSD NVMe ou eMMC, sempre.
-
-## Por onde começo hoje, se tenho pouco tempo?
-
-1. Instale o [Home Assistant](/instalacao/) num hardware simples
-2. Integre o que **já existe** na sua rede (TV, aspirador, impressora, receptor)
-3. Compre um coordenador Zigbee e **um** sensor de movimento
-4. Automatize **um** incômodo real (a luz do corredor à noite costuma ser o melhor primeiro caso)
-5. Só então planeje a casa inteira
-
-## Preciso mesmo de MQTT?
-
-Só quando **mais de um programa** precisa dos mesmos dados — Zigbee2MQTT, Frigate e Tasmota, por exemplo.
-Se você usa apenas ZHA e ESPHome (que tem API própria), pode viver sem broker. Entenda em
-[MQTT para iniciantes](/mqtt/).
-
-## Vale pagar a assinatura da Nabu Casa?
-
-Vale se você usa Alexa ou Google, quer acesso remoto sem configurar nada e não tem backup fora de casa.
-Se você já tem VPN e backup, é opcional — mas continua sendo a forma mais direta de financiar o projeto.
-A comparação completa, com preços e alternativas gratuitas, está em [Nabu Casa](/nabu-casa/).
-
-## Dá para usar inteligência artificial sem mandar minha casa para a nuvem?
-
-Dá. Modelos locais (Ollama num mini-PC ou Mac) atendem voz, descrição de imagens de câmera e conversas
-simples sem que nada saia da sua rede. Veja [Claude e MCP](/claude-mcp/) e
-[câmeras com IA](/cameras-ia/).
-
-## Posso deixar um agente de IA cuidando da casa?
-
-Pode, mas com limites: máquina separada, token restrito, sem acesso SSH, e nada de fechadura, portão ou
-alarme na lista de coisas que ele controla. Os motivos — e os incidentes já documentados — estão em
-[OpenClaw](/openclaw/).
-
-## Minha automação funciona às vezes. O que faço?
-
-Abra o **rastro (trace)** da automação no Home Assistant: ele mostra passo a passo onde a execução parou e
-qual condição falhou. Em 90% dos casos o culpado é uma condição de tempo/estado mal escrita, um
-`mode` inadequado (`single` engolindo disparos) ou uma entidade que ficou `unavailable`.
+Referências oficiais: [HAOS](https://www.home-assistant.io/installation/raspberrypi/), [ZHA](https://www.home-assistant.io/integrations/zha/), [ZBT-2](https://www.home-assistant.io/connect/zbt-2/), [Matter](https://www.home-assistant.io/integrations/matter/) e [automações](https://www.home-assistant.io/docs/automation/troubleshooting/).

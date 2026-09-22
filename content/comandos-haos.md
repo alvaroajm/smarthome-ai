@@ -1,10 +1,11 @@
 ---
+level: avancado
 title: Comandos do Home Assistant OS
 slug: comandos-haos
 description: Consulte comandos de manutenção e diagnóstico.
 category: Referência
 icon: terminal
-order: 18
+order: 118
 featured: true
 reading: 11 min de leitura
 date: 2026-09-21

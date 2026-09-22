@@ -62,9 +62,9 @@ rodar `python3 build.py` e ter o site pronto.
     <p class="author-name">Dr. Álvaro Menezes</p>
     <p class="author-role">Médico radiologista · CRM 11.393/CE · RQE 6562<br>Radiologia geral e musculoesquelética — Fortaleza/CE</p>
     <p class="author-links">
-      <a href="https://alvaro-menezes.com" target="_blank" rel="noopener">alvaro-menezes.com</a> ·
-      <a href="https://radapps.app" target="_blank" rel="noopener">radapps.app</a> ·
-      <a href="https://github.com/alvaroajm" target="_blank" rel="noopener">GitHub</a>
+      <a class="ext" href="https://alvaro-menezes.com" target="_blank" rel="noopener">alvaro-menezes.com</a> ·
+      <a class="ext" href="https://radapps.app" target="_blank" rel="noopener">radapps.app</a> ·
+      <a class="ext" href="https://github.com/alvaroajm" target="_blank" rel="noopener">GitHub</a>
     </p>
   </div>
 </div>

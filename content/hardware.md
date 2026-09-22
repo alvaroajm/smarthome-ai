@@ -1,10 +1,11 @@
 ---
+level: avancado
 title: Escolha sua central
 slug: hardware
 description: Compare Home Assistant Green, Raspberry Pi e mini-PC.
 category: Hardware
 icon: server
-order: 4
+order: 104
 featured: true
 reading: 9 min de leitura
 date: 2026-09-21

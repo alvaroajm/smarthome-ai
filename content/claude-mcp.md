@@ -1,10 +1,11 @@
 ---
+level: avancado
 title: Converse com sua casa
 slug: claude-mcp
 description: Entenda como Claude e MCP se conectam ao Home Assistant.
 category: IA & agentes
 icon: bot
-order: 14
+order: 114
 featured: true
 reading: 13 min de leitura
 date: 2026-09-21

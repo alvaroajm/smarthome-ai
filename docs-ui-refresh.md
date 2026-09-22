@@ -2,11 +2,13 @@
 
 ## Avaliação e mudanças
 
-A página inicial exibia 18 guias, 12 dispositivos e 20 links simultaneamente. Isso dificultava identificar por onde começar. Agora a trilha de três passos vem antes da demonstração, seis guias são destacados e os dispositivos começam por seis exemplos. A biblioteca completa permanece disponível. Diretório e galerias abrem sob demanda.
+A página inicial apresentava muitos dispositivos e assuntos técnicos antes de explicar a casa inteligente. A nova sequência começa pelo conceito, compara seis plataformas e destaca o Home Assistant. Depois apresenta HAOS, Zigbee, Thread, Matter, ZBT-2 + ZHA e uma automação pelo editor visual.
 
-Títulos e descrições dos 18 guias foram encurtados. Os textos de Comece aqui (PT/EN) e O que é Home Assistant foram reescritos para iniciantes, com a instalação e os conceitos conferidos na documentação oficial. Os demais tutoriais técnicos mantêm seu conteúdo detalhado.
+A biblioteca e os botões Anterior/Próximo acompanham a mesma trilha. Integrações, Apps, HACS e câmeras entram depois da primeira automação. Alternativas de instalação, Proxmox, Zigbee2MQTT, servidores e IA ficam no aprofundamento. Conteúdos adicionais da home usam elementos details nativos; não foi acrescentado JavaScript.
 
-A identidade verde/dourada, a planta interativa, as marcas e as páginas existentes foram preservadas. Ajustados espaçamento, tamanho dos alvos de toque e largura de leitura.
+Guias básicos e FAQ foram reescritos com frases curtas, instruções gráficas e fontes oficiais. Corrigidas generalizações sobre microSD, funcionamento sem internet e compatibilidade Matter. A home, o roteiro e o FAQ em inglês também acompanham a mudança; os tutoriais detalhados continuam identificados como português.
+
+A identidade verde/dourada, o favicon baseado na imagem enviada, a planta interativa e as páginas existentes foram preservados. A demonstração e os dispositivos abrem sob demanda. Ajustados espaçamento, alvos de toque, hierarquia de títulos e largura de leitura.
 
 ## Imagens
 
@@ -18,11 +20,18 @@ Ferramenta: geração de imagens integrada do Codex. Exportação para WebP/PNG/
 
 ## Validação
 
-- Gerador Python e verificador de 29 páginas: links internos e templates válidos.
-- Sintaxe JavaScript validada.
-- Navegador integrado: larguras de 390 e 1440 pixels sem overflow horizontal; inspeção visual da home e guia introdutório.
-- Busca por Zigbee, menu móvel, filtro de sensores, expansão dos 12 dispositivos, tema escuro e cena Boa noite exercitados.
-- Chrome e Edge não foram executados separadamente; ícones usam os formatos PNG e ICO compatíveis com ambos.
+- Build Python e verificador de 34 páginas HTML aprovados.
+- Auditoria de imagens locais, IDs duplicados e links com âncoras aprovada.
+- Sintaxe do JavaScript existente válida; nenhum bloco de código na trilha básica.
+- Navegador integrado: desktop de 1440 px, celular de 390 px e menu em 320 px, sem overflow nas telas verificadas.
+- Busca pelo novo guia de primeira automação, menu móvel, temas e separação da biblioteca conferidos.
+- Chrome e Edge não foram executados separadamente; favicon usa PNG e ICO compatíveis com ambos.
+
+## Telas oficiais
+
+Dez imagens da documentação pública do Home Assistant e Nabu Casa ilustram painel, primeiro acesso, Imager, integração ZHA, assistente ZBT-2, automações, integrações e Apps. Cada imagem tem legenda, link para ampliar e fonte. Não contêm dados da instalação particular do autor. Créditos, URLs e licença da documentação Home Assistant estão em `static/img/ha-guide/`.
+
+A captura do Imager usa um quadro estático da animação oficial, reduzindo o arquivo de cerca de 3 MB para 200 KB e evitando movimento contínuo. As telas estão em inglês, com instruções em português e aviso de variação entre versões.
 
 ## Referências dos guias revisados
 

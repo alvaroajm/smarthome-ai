@@ -1,10 +1,11 @@
 ---
+level: avancado
 title: Prepare a rede da casa
 slug: rede-wifi
 description: Organize o Wi-Fi e entenda quando separar os dispositivos.
 category: Rede
 icon: wifi
-order: 16
+order: 116
 featured: true
 reading: 9 min de leitura
 date: 2026-09-21

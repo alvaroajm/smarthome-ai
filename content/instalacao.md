@@ -1,70 +1,39 @@
 ---
-title: Comece sua casa inteligente
+title: Comece aqui: sua primeira casa inteligente
 slug: instalacao
-description: Da escolha da central à primeira luz automatizada.
-category: Começando
-icon: rocket
-order: 1
+description: A trilha do básico até uma luz automatizada, sem programar.
+category: Passo a passo
+icon: book
+order: 0
 featured: true
-reading: 4 min de leitura
-date: 2026-09-21
-tags: [Home Assistant, Instalação, Raspberry Pi, Backup]
+level: basico
+reading: 2 min de leitura
+date: 2026-09-22
+tags: [Home Assistant]
 ---
 
-Uma casa inteligente pode começar com **uma luz e um sensor**. Siga estes passos para montar a base.
+Comece pequeno: **uma central, um adaptador Zigbee e uma luz compatível** já permitem aprender. Um sensor pode entrar depois.
 
-<img class="guide-image" src="/static/img/home-comfort.webp" alt="Ilustração de uma sala com luz, sensor e caixa de som inteligente" width="1536" height="1024" loading="lazy">
+## Siga nesta ordem
 
-## 1. Escolha a central
+1. [Entenda o que é uma casa inteligente e conheça as plataformas](/casa-inteligente/).
+2. [Conheça o Home Assistant e sua tela de controle](/home-assistant/).
+3. [Prepare o Home Assistant OS e faça o primeiro acesso](/instalar-haos/).
+4. [Entenda o Zigbee e como ele conecta luzes e sensores](/zigbee/).
+5. [Veja a diferença entre Thread e Matter](/matter-thread/).
+6. [Conecte o ZBT-2, configure o ZHA e adicione sua luz](/zbt-dongles/).
+7. [Crie a primeira automação pelo editor visual](/primeira-automacao/).
 
-É o aparelho que fica ligado para coordenar a casa.
+## O que você vai usar?
 
-| Opção | O que esperar |
-|---|---|
-| **Home Assistant Green** | Vem com o sistema instalado. |
-| **Raspberry Pi** | Você monta e instala o sistema. |
-| **Mini-PC** | Exige instalação e permite projetos maiores. |
+- **Home Assistant OS:** o sistema que executa a central.
+- **ZBT-2:** o adaptador USB para a comunicação Zigbee.
+- **ZHA:** a integração incluída no Home Assistant para essa rede.
 
-Confira os requisitos do aparelho no [guia de hardware](/hardware/). Para começar, o **Home Assistant OS** é o caminho recomendado pela documentação oficial.
+Não precisa instalar programas extras para usar ZHA. Siga as telas, dê nomes simples aos aparelhos e teste antes de acrescentar outro dispositivo.
 
-## 2. Ligue e configure
+## Quando a primeira luz funcionar
 
-No Green, conecte a energia e o cabo de rede. No Raspberry Pi ou mini-PC, siga primeiro o [passo a passo de instalação](/instalar-haos/).
+Faça um backup em **Configurações → Sistema → Backups**. Guarde uma cópia fora da central e a chave de recuperação em local seguro.
 
-Depois, abra no navegador:
-
-```text
-http://homeassistant.local:8123
-```
-
-Crie sua conta e confira a localização e o fuso horário. Se o endereço não abrir, procure o IP do aparelho no roteador.
-
-## 3. Adicione um aparelho
-
-Abra **Configurações → Dispositivos e serviços**. Veja o que foi descoberto e configure um dispositivo compatível que você já possui.
-
-Antes de comprar algo novo, confira a [integração do modelo](https://www.home-assistant.io/integrations/). Dispositivos Zigbee precisam de um adaptador ou central compatível; Matter sobre Thread também exige suporte à rede Thread.
-
-## 4. Crie uma automação simples
-
-Use o editor em **Configurações → Automações e cenas**. Um exemplo para o corredor:
-
-- **Quando:** o sensor detectar movimento.
-- **Se:** estiver de noite.
-- **Então:** acender a luz.
-
-Salve e teste. Depois, acrescente o desligamento quando não houver movimento. Você pode fazer isso pela interface, sem programar.
-
-## 5. Proteja antes de expandir
-
-Ative os backups em **Configurações → Sistema → Backups** e mantenha uma cópia fora da central. Dê nomes claros aos aparelhos e organize-os por cômodo.
-
-Para controlar a casa de fora, consulte [Home Assistant Cloud](/nabu-casa/). Evite expor diretamente a porta 8123 à internet.
-
-**Próximo passo:** [entenda os termos do Home Assistant](/home-assistant/).
-
-## Fontes e detalhes
-
-- [Instalação oficial](https://www.home-assistant.io/installation/)
-- [Primeiras automações](https://www.home-assistant.io/getting-started/automation/)
-- [Tutorial completo de instalação](/instalar-haos/)
+Depois, explore [integrações, Apps, HACS e câmeras](/apps-integracoes/), conforme surgir uma necessidade. As [instalações alternativas e os assuntos avançados](/aprofundamento/) ficam para o final.

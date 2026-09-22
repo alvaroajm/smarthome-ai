@@ -1,10 +1,11 @@
 ---
+level: avancado
 title: MQTT sem complicação
 slug: mqtt
 description: Entenda como os dispositivos trocam mensagens.
 category: Protocolos
 icon: message
-order: 9
+order: 109
 featured: true
 reading: 11 min de leitura
 date: 2026-09-21

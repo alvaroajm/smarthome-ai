@@ -1,10 +1,11 @@
 ---
+level: avancado
 title: Sensores com ESPHome e ESP32
 slug: esphome-esp32
 description: Conheça os componentes e monte seu primeiro projeto.
 category: DIY & firmware
 icon: chip
-order: 5
+order: 105
 featured: true
 reading: 12 min de leitura
 date: 2026-09-21

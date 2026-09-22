@@ -1,0 +1,12 @@
+{
+  "dashboard.png": "https://raw.githubusercontent.com/home-assistant/home-assistant.io/current/source/images/dashboards/sections_view.png",
+  "onboarding.png": "https://raw.githubusercontent.com/home-assistant/home-assistant.io/current/source/images/getting-started/onboarding_username.png",
+  "automation.png": "https://raw.githubusercontent.com/home-assistant/home-assistant.io/current/source/images/getting-started/new-automation.png",
+  "action.png": "https://raw.githubusercontent.com/home-assistant/home-assistant.io/current/source/images/getting-started/action.png",
+  "integrations.png": "https://raw.githubusercontent.com/home-assistant/home-assistant.io/current/source/images/getting-started/integrations_page_discovered.png",
+  "apps.png": "https://raw.githubusercontent.com/home-assistant/home-assistant.io/current/source/images/getting-started/app-store.png",
+  "zbt-discovery.png": "https://raw.githubusercontent.com/NabuCasa/support/refs/heads/main/static/img/connect-zbt-2/connect-zbt-2-add.png",
+  "zbt-zigbee.png": "https://raw.githubusercontent.com/NabuCasa/support/refs/heads/main/static/img/connect-zbt-2/connect-zbt-2-pick-firmware.png",
+  "zha-add.png": "https://raw.githubusercontent.com/NabuCasa/support/refs/heads/main/static/img/connect-zbt-2/zbt-2-zha-add-device.png",
+  "imager.png": "https://raw.githubusercontent.com/home-assistant/home-assistant.io/current/source/images/installation/rpi-ha-2.webp"
+}

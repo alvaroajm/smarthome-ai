@@ -1,10 +1,11 @@
 ---
+level: avancado
 title: Conecte suas câmeras
 slug: scrypted
 description: Conheça Scrypted, Frigate e as opções do app Casa.
 category: Câmeras & vídeo
 icon: camera
-order: 12
+order: 112
 featured: true
 reading: 9 min de leitura
 date: 2026-09-21

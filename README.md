@@ -146,3 +146,9 @@ arquivos originais e fontes em `static/img/brands/`. Nomes acessíveis e destino
 Newsreader e Inter são servidas localmente. O tema claro é o padrão; uma preferência anterior
 é mantida. Busca com foco contido no diálogo, fechamento por botão/Esc e navegação por teclado.
 Todas as cartas e links estão no HTML, inclusive sem JavaScript.
+
+## Trilha para iniciantes
+
+A home bilíngue usa `beginner_content.py`. Os guias Markdown com `level: basico` aparecem primeiro na biblioteca e têm navegação sequencial própria. Guias com `level: avancado` ficam no aprofundamento. O roteiro começa em `/instalacao/` e concentra a instalação em HAOS, com ZBT-2 e ZHA para Zigbee.
+
+As telas oficiais estão em `static/img/ha-guide/`, com fontes e créditos próprios. Não aplique a licença do código do site automaticamente a essas imagens.

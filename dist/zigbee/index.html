@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Zigbee: conecte luzes e sensores · SmartHome-AI</title>
-  <meta name="description" content="Entenda a rede, o adaptador e as opções ZHA e Zigbee2MQTT.">
+  <title>Zigbee: o básico para luzes e sensores · SmartHome-AI</title>
+  <meta name="description" content="Nossa primeira rede: local, de baixo consumo e gerenciada pelo ZHA.">
   <meta name="author" content="Dr. Álvaro Menezes">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <meta name="color-scheme" content="dark light">
@@ -17,16 +17,16 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="SmartHome-AI">
   <meta property="og:locale" content="pt_BR">
-  <meta property="og:title" content="Zigbee: conecte luzes e sensores · SmartHome-AI">
-  <meta property="og:description" content="Entenda a rede, o adaptador e as opções ZHA e Zigbee2MQTT.">
+  <meta property="og:title" content="Zigbee: o básico para luzes e sensores · SmartHome-AI">
+  <meta property="og:description" content="Nossa primeira rede: local, de baixo consumo e gerenciada pelo ZHA.">
   <meta property="og:url" content="https://smarthome-ai.com/zigbee/">
   <meta property="og:image" content="https://smarthome-ai.com/static/img/og-smarthome-ai.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="SmartHome-AI — Inteligência para o seu lar">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Zigbee: conecte luzes e sensores · SmartHome-AI">
-  <meta name="twitter:description" content="Entenda a rede, o adaptador e as opções ZHA e Zigbee2MQTT.">
+  <meta name="twitter:title" content="Zigbee: o básico para luzes e sensores · SmartHome-AI">
+  <meta name="twitter:description" content="Nossa primeira rede: local, de baixo consumo e gerenciada pelo ZHA.">
   <meta name="twitter:image" content="https://smarthome-ai.com/static/img/og-smarthome-ai.jpg">
   <meta name="twitter:image:alt" content="SmartHome-AI — Inteligência para o seu lar">
 
@@ -37,7 +37,7 @@
   <link rel="preload" href="/static/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/static/fonts/inter-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/static/fonts/newsreader-500.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="/static/css/style.css?v=2bec9830">
+  <link rel="stylesheet" href="/static/css/style.css?v=907c1540">
   <script>
     (function () {
       try {
@@ -46,14 +46,14 @@
       } catch (e) {}
     })();
   </script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"SmartHome-AI","alternateName":"SmartHome-AI — Inteligência para o seu lar","url":"https://smarthome-ai.com/","inLanguage":"pt-BR","description":"Guias práticos e independentes de casa inteligente: Home Assistant, ESPHome, ESP32, Zigbee2MQTT, ZHA, Matter over Thread, Apple HomeKit, Scrypted, Raspberry Pi e mini-PCs.","publisher":{"@type":"Organization","name":"SmartHome-AI","url":"https://smarthome-ai.com","logo":{"@type":"ImageObject","url":"https://smarthome-ai.com/static/img/logo-smarthome-ai-marca.png","width":360,"height":360}}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Zigbee: conecte luzes e sensores","description":"Entenda a rede, o adaptador e as opções ZHA e Zigbee2MQTT.","inLanguage":"pt-BR","mainEntityOfPage":{"@type":"WebPage","@id":"https://smarthome-ai.com/zigbee/"},"author":{"@type":"Person","name":"Dr. Álvaro Menezes","url":"https://alvaro-menezes.com","jobTitle":"Radiologista","sameAs":["https://github.com/alvaroajm","https://www.instagram.com/alvaroajm/","https://facebook.com/alvaroajm","https://x.com/alvaromenezesMD","https://www.linkedin.com/in/dr-alvaro-menezes/"]},"publisher":{"@type":"Organization","name":"SmartHome-AI","url":"https://smarthome-ai.com","logo":{"@type":"ImageObject","url":"https://smarthome-ai.com/static/img/logo-smarthome-ai-marca.png","width":360,"height":360}},"image":"https://smarthome-ai.com/static/img/og-smarthome-ai.jpg","isAccessibleForFree":true,"datePublished":"2026-09-21","dateModified":"2026-09-21","keywords":"Zigbee, Zigbee2MQTT, ZHA, MQTT, Sensores","articleSection":"Protocolos"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Início","item":"https://smarthome-ai.com/"},{"@type":"ListItem","position":2,"name":"Todos os guias","item":"https://smarthome-ai.com/artigos/"},{"@type":"ListItem","position":3,"name":"Zigbee: conecte luzes e sensores","item":"https://smarthome-ai.com/zigbee/"}]}</script><meta property="article:published_time" content="2026-09-21"><meta property="article:modified_time" content="2026-09-21">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"SmartHome-AI","alternateName":"SmartHome-AI — Inteligência para o seu lar","url":"https://smarthome-ai.com/","inLanguage":"pt-BR","description":"Casa inteligente para iniciantes: entenda as plataformas, instale o Home Assistant OS e conecte luzes e sensores com Zigbee, ZBT-2 e ZHA. Passo a passo pelas telas.","publisher":{"@type":"Organization","name":"SmartHome-AI","url":"https://smarthome-ai.com","logo":{"@type":"ImageObject","url":"https://smarthome-ai.com/static/img/logo-smarthome-ai-marca.png","width":360,"height":360}}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Zigbee: o básico para luzes e sensores","description":"Nossa primeira rede: local, de baixo consumo e gerenciada pelo ZHA.","inLanguage":"pt-BR","mainEntityOfPage":{"@type":"WebPage","@id":"https://smarthome-ai.com/zigbee/"},"author":{"@type":"Person","name":"Dr. Álvaro Menezes","url":"https://alvaro-menezes.com","jobTitle":"Radiologista","sameAs":["https://github.com/alvaroajm","https://www.instagram.com/alvaroajm/","https://facebook.com/alvaroajm","https://x.com/alvaromenezesMD","https://www.linkedin.com/in/dr-alvaro-menezes/"]},"publisher":{"@type":"Organization","name":"SmartHome-AI","url":"https://smarthome-ai.com","logo":{"@type":"ImageObject","url":"https://smarthome-ai.com/static/img/logo-smarthome-ai-marca.png","width":360,"height":360}},"image":"https://smarthome-ai.com/static/img/og-smarthome-ai.jpg","isAccessibleForFree":true,"datePublished":"2026-09-22","dateModified":"2026-09-22","keywords":"Home Assistant","articleSection":"Passo a passo"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Início","item":"https://smarthome-ai.com/"},{"@type":"ListItem","position":2,"name":"Todos os guias","item":"https://smarthome-ai.com/artigos/"},{"@type":"ListItem","position":3,"name":"Zigbee: o básico para luzes e sensores","item":"https://smarthome-ai.com/zigbee/"}]}</script><meta property="article:published_time" content="2026-09-22"><meta property="article:modified_time" content="2026-09-22">
 </head>
 <body class="article"
       data-lang="pt"
       data-intl="pt-BR"
       data-search-index="/search-index.json"
       data-search-empty="Digite para buscar nos guias."
-      data-search-none="Nada encontrado. Tente “zigbee”, “esp32” ou “matter”."
+      data-search-none="Nada encontrado. Tente “zigbee”, “ZHA” ou “matter”."
       data-search-suggest="Guias populares">
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
   <div class="progress" id="progress" aria-hidden="true"></div>
@@ -105,218 +105,73 @@
 
   <main id="conteudo">
     <article class="page">
-    <nav class="crumbs" aria-label="breadcrumb"><ol><li><a href="/">Início</a></li><li><a href="/artigos/">Todos os guias</a></li><li aria-current="page">Protocolos</li></ol></nav>
+    <nav class="crumbs" aria-label="breadcrumb"><ol><li><a href="/">Início</a></li><li><a href="/artigos/">Todos os guias</a></li><li aria-current="page">Passo a passo</li></ol></nav>
     <header class="page-head">
-      <p class="eyebrow">Protocolos</p>
-      <h1>Zigbee: conecte luzes e sensores</h1>
-      <p class="lead">Entenda a rede, o adaptador e as opções ZHA e Zigbee2MQTT.</p>
-      <p class="byline">10 min de leitura</p>
+      <p class="eyebrow">Passo a passo</p>
+      <h1>Zigbee: o básico para luzes e sensores</h1>
+      <p class="lead">Nossa primeira rede: local, de baixo consumo e gerenciada pelo ZHA.</p>
+      <p class="byline">4 min de leitura</p>
     </header>
     <div class="article-grid">
       <nav class="toc" aria-label="Neste guia"><p class="toc-title">Neste guia</p><div class="toc">
 <ul>
-<li><a href="#como-a-malha-funciona">Como a malha funciona</a></li>
-<li><a href="#escolhendo-o-coordenador">Escolhendo o coordenador</a></li>
-<li><a href="#zigbee2mqtt-x-zha-a-decisao">Zigbee2MQTT x ZHA: a decisão</a></li>
-<li><a href="#montando-com-zigbee2mqtt">Montando com Zigbee2MQTT</a></li>
-<li><a href="#canais-zigbee-e-wi-fi-brigam-pelo-mesmo-espaco">Canais: Zigbee e Wi-Fi brigam pelo mesmo espaço</a></li>
-<li><a href="#diagnostico-quando-um-sensor-some">Diagnóstico: quando um sensor "some"</a></li>
-<li><a href="#zigbee-ainda-faz-sentido-com-o-matter-chegando">Zigbee ainda faz sentido com o Matter chegando?</a></li>
+<li><a href="#por-que-vamos-comecar-por-ele">Por que vamos começar por ele?</a></li>
+<li><a href="#tres-pecas-da-rede">Três peças da rede</a></li>
+<li><a href="#quais-sao-as-limitacoes">Quais são as limitações?</a></li>
+<li><a href="#e-o-thread">E o Thread?</a></li>
 </ul>
 </div>
 </nav>
       <div class="prose">
-        <p>Zigbee é o cavalo de batalha da casa inteligente: barato, de baixíssimo consumo, com malha própria e
-independente do seu Wi-Fi. A maioria dos sensores que você vai comprar nos próximos anos fala Zigbee.</p>
-<h3 id="como-a-malha-funciona">Como a malha funciona<a class="headerlink" href="#como-a-malha-funciona" title="Permanent link">#</a></h3>
-<p>Existem três papéis na rede:</p>
+        <p><strong>Zigbee</strong> é uma conexão sem fio usada por sensores, lâmpadas, tomadas e botões. Os aparelhos conversam em uma rede própria; não entram individualmente no seu Wi-Fi.</p>
+<h2 id="por-que-vamos-comecar-por-ele">Por que vamos começar por ele?<a class="headerlink" href="#por-que-vamos-comecar-por-ele" title="Permanent link">#</a></h2>
 <ul>
-<li><strong>Coordenador</strong> — o dongle USB ligado ao seu servidor. Só existe um; é quem forma a rede.</li>
-<li><strong>Roteadores</strong> — dispositivos ligados na tomada (lâmpadas, tomadas inteligentes, módulos de relé).
-  Cada um repete o sinal e amplia o alcance.</li>
-<li><strong>Dispositivos finais</strong> — sensores a pilha. Dormem quase o tempo todo e <strong>não repetem</strong> sinal.</li>
+<li><strong>Baixo consumo:</strong> combina com sensores pequenos, alimentados por pilha.</li>
+<li><strong>Muitas opções:</strong> há dispositivos de várias categorias e fabricantes.</li>
+<li><strong>Controle local:</strong> com ZHA, a comunicação com a central acontece dentro de casa.</li>
+<li><strong>Rede que pode crescer:</strong> aparelhos compatíveis ligados à energia podem repetir o sinal.</li>
 </ul>
-<div class="admonition nota">
-<p class="admonition-title">A regra que resolve quase tudo</p>
-<p>Uma rede só de sensores a pilha é uma rede frágil. Coloque de <strong>três a cinco roteadores bem distribuídos</strong>
-(uma tomada inteligente por ambiente, por exemplo) e o alcance e a estabilidade mudam de patamar.</p>
-</div>
-<h3 id="escolhendo-o-coordenador">Escolhendo o coordenador<a class="headerlink" href="#escolhendo-o-coordenador" title="Permanent link">#</a></h3>
+<p>Essas vantagens tornam Zigbee uma boa escolha para nossa primeira luz e nossos primeiros sensores. Preço, qualidade e funções variam por modelo.</p>
+<h2 id="tres-pecas-da-rede">Três peças da rede<a class="headerlink" href="#tres-pecas-da-rede" title="Permanent link">#</a></h2>
 <table>
 <thead>
 <tr>
-<th>Coordenador</th>
-<th>Chip</th>
-<th>Comentário</th>
+<th>Peça</th>
+<th>Para que serve</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Home Assistant Connect ZBT-1 / SkyConnect</strong></td>
-<td>Silicon Labs EFR32</td>
-<td>Suporta Zigbee e, com outro firmware, Thread</td>
+<td><strong>Coordenador, como o ZBT-2</strong></td>
+<td>Cria a rede e a conecta ao Home Assistant.</td>
 </tr>
 <tr>
-<td><strong>Sonoff ZBDongle-P</strong></td>
-<td>TI CC2652P</td>
-<td>Amplificado, ótimo alcance, muito popular</td>
+<td><strong>Repetidor Zigbee</strong></td>
+<td>Encaminha mensagens para aumentar a cobertura; muitas tomadas fazem isso.</td>
 </tr>
 <tr>
-<td><strong>Sonoff ZBDongle-E</strong></td>
-<td>Silicon Labs EFR32</td>
-<td>Também serve de roteador Thread com firmware alternativo</td>
-</tr>
-<tr>
-<td><strong>ConBee III</strong></td>
-<td>—</td>
-<td>Boa reputação, muito usado com deCONZ</td>
+<td><strong>Sensor a pilha</strong></td>
+<td>Envia suas leituras e geralmente não repete o sinal.</td>
 </tr>
 </tbody>
 </table>
-<p>Todos funcionam. O que realmente determina o resultado é <strong>onde</strong> você pluga: sempre numa
-<strong>extensão USB 2.0</strong>, longe de SSDs NVMe, portas USB 3.0 e do gabinete metálico.</p>
-<h3 id="zigbee2mqtt-x-zha-a-decisao">Zigbee2MQTT x ZHA: a decisão<a class="headerlink" href="#zigbee2mqtt-x-zha-a-decisao" title="Permanent link">#</a></h3>
-<table>
-<thead>
-<tr>
-<th></th>
-<th><strong>Zigbee2MQTT (Z2M)</strong></th>
-<th><strong>ZHA</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Instalação</td>
-<td>Add-on + broker MQTT</td>
-<td>Integração nativa, dois cliques</td>
-</tr>
-<tr>
-<td>Compatibilidade</td>
-<td><strong>Maior</strong> — milhares de modelos, inclusive obscuros</td>
-<td>Boa, cresce a cada versão</td>
-</tr>
-<tr>
-<td>Controle fino</td>
-<td>Excelente (interface web, OTA, mapa da rede, converters personalizados)</td>
-<td>Bom, mais enxuto</td>
-</tr>
-<tr>
-<td>Independência</td>
-<td>Funciona sem o Home Assistant; publica em MQTT</td>
-<td>Acoplado ao Home Assistant</td>
-</tr>
-<tr>
-<td>Complexidade</td>
-<td>Mais peças para manter</td>
-<td>Menos peças</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Escolha ZHA</strong> se você quer o caminho mais curto e usa dispositivos comuns.
-<strong>Escolha Zigbee2MQTT</strong> se você gosta de controle, compra dispositivos variados (inclusive Tuya sem marca)
-ou quer que a rede Zigbee sobreviva a uma reinstalação do Home Assistant. É a escolha da maioria dos usuários avançados.</p>
-<div class="admonition atencao">
-<p class="admonition-title">Migrar depois dá trabalho</p>
-<p>Trocar de Z2M para ZHA (ou o contrário) exige reparear <strong>todos</strong> os dispositivos, um a um, subindo em
-escadas para chegar nas lâmpadas. Decida agora, sem pressa.</p>
-</div>
-<h3 id="montando-com-zigbee2mqtt">Montando com Zigbee2MQTT<a class="headerlink" href="#montando-com-zigbee2mqtt" title="Permanent link">#</a></h3>
-<ol>
-<li>Instale o add-on <strong>Mosquitto broker</strong> e crie um usuário MQTT do Home Assistant.</li>
-<li>Instale o add-on <strong>Zigbee2MQTT</strong>.</li>
-<li>Descubra a porta do dongle em <em>Configurações → Sistema → Hardware</em> (algo como
-   <code>/dev/serial/by-id/usb-...</code>). <strong>Use sempre o caminho <code>by-id</code></strong>, que não muda ao reiniciar.</li>
-<li>Ajuste a configuração:</li>
-</ol>
-<pre><code class="language-yaml">mqtt:
-  server: mqtt://core-mosquitto:1883
-  user: !secret mqtt_user
-  password: !secret mqtt_password
-serial:
-  port: /dev/serial/by-id/usb-Itead_Sonoff_Zigbee_3.0_USB_Dongle_Plus-if00-port0
-  adapter: zstack
-advanced:
-  channel: 20           # evite sobrepor o Wi-Fi
-  network_key: GENERATE
-  transmit_power: 20
-  log_level: warning
-frontend:
-  port: 8099
-homeassistant:
-  enabled: true
-</code></pre>
-<ol start="5">
-<li>Abra a interface web, clique em <strong>Permit join</strong>, aproxime o dispositivo e pareie. Desative o
-   "permit join" quando terminar.</li>
-</ol>
-<h3 id="canais-zigbee-e-wi-fi-brigam-pelo-mesmo-espaco">Canais: Zigbee e Wi-Fi brigam pelo mesmo espaço<a class="headerlink" href="#canais-zigbee-e-wi-fi-brigam-pelo-mesmo-espaco" title="Permanent link">#</a></h3>
-<p>Ambos usam 2,4 GHz. Combinação que funciona bem:</p>
-<table>
-<thead>
-<tr>
-<th>Wi-Fi (2,4 GHz)</th>
-<th>Zigbee sugerido</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Canal 1</td>
-<td>15, 20 ou 25</td>
-</tr>
-<tr>
-<td>Canal 6</td>
-<td>15, 20 ou 25</td>
-</tr>
-<tr>
-<td>Canal 11</td>
-<td>15 ou 20</td>
-</tr>
-</tbody>
-</table>
-<p>Fixe o canal do Wi-Fi no roteador (nada de "automático") e escolha o canal Zigbee de acordo.
-Mudar o canal Zigbee depois exige repareamento na maioria dos casos — acerte no início.</p>
-<h3 id="diagnostico-quando-um-sensor-some">Diagnóstico: quando um sensor "some"<a class="headerlink" href="#diagnostico-quando-um-sensor-some" title="Permanent link">#</a></h3>
-<ol>
-<li><strong>Veja o mapa da rede</strong> (Z2M tem um; o ZHA também). Procure dispositivos ligados direto ao coordenador
-   quando deveriam usar um roteador próximo.</li>
-<li><strong>LQI baixo (&lt; 50)</strong> significa sinal ruim: aproxime um roteador.</li>
-<li><strong>Lâmpadas de algumas marcas são roteadores ruins</strong> e descartam rotas. Tomadas inteligentes costumam ser
-   muito melhores repetidoras.</li>
-<li><strong>Pilhas CR2032 genéricas</strong> causam quedas fantasma no frio. Use marcas conhecidas.</li>
-<li><strong>Repareie o dispositivo no lugar definitivo</strong>, não na mesa ao lado do servidor.</li>
-</ol>
-<h3 id="zigbee-ainda-faz-sentido-com-o-matter-chegando">Zigbee ainda faz sentido com o Matter chegando?<a class="headerlink" href="#zigbee-ainda-faz-sentido-com-o-matter-chegando" title="Permanent link">#</a></h3>
-<p>Faz, e por muito tempo. Zigbee tem catálogo enorme, preços baixos e uma década de maturidade. Matter over
-Thread é o futuro para dispositivos novos e multiplataforma, mas as duas redes convivem sem conflito —
-inclusive no mesmo servidor, com dongles diferentes.</p>
-<p>Continue em <a href="/matter-thread/">Matter e Thread</a> para entender onde cada um se encaixa.</p>
-        <ul class="tags"><li>Zigbee</li><li>Zigbee2MQTT</li><li>ZHA</li><li>MQTT</li><li>Sensores</li></ul>
+<p>Uma lâmpada que repete sinal deixa de ajudar quando o interruptor corta sua energia. A rede deve ser planejada para os aparelhos que permanecem ligados.</p>
+<h2 id="quais-sao-as-limitacoes">Quais são as limitações?<a class="headerlink" href="#quais-sao-as-limitacoes" title="Permanent link">#</a></h2>
+<p>É necessário um coordenador. Paredes, metal e outros equipamentos de 2,4 GHz podem interferir. Nem toda função de todo fabricante aparece no ZHA: confira o modelo antes da compra.</p>
+<p>Um dispositivo Zigbee pertence a uma rede por vez. Se já estava em outra central, normalmente precisa ser colocado em modo de redefinição/pareamento conforme o manual.</p>
+<h2 id="e-o-thread">E o Thread?<a class="headerlink" href="#e-o-thread" title="Permanent link">#</a></h2>
+<p>Thread também é uma rede de baixo consumo e pode formar uma malha. É usada por muitos produtos Matter, mas precisa de um <strong>roteador de borda Thread</strong> para se ligar à rede doméstica.</p>
+<p>É útil para dispositivos compatíveis entre ecossistemas. A desvantagem, para quem começa, é mais um requisito para conferir. Zigbee e Thread são redes diferentes; um sensor Zigbee não entra em Thread.</p>
+<p>Primeiro, <a href="/matter-thread/">entenda o que é Matter</a>. Depois, <a href="/zbt-dongles/">configure ZBT-2 + ZHA pelas telas</a>.</p>
+<p>Existe a alternativa <strong>Zigbee2MQTT</strong>, tratada no <a href="/aprofundamento/#zigbee2mqtt">aprofundamento</a>. Ela não é necessária nesta trilha.</p>
+<p>Fontes: <a class="ext" target="_blank" rel="noopener" href="https://www.home-assistant.io/integrations/zha/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>ZHA</a>, <a class="ext" target="_blank" rel="noopener" href="https://www.home-assistant.io/connect/zbt-2/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>ZBT-2</a> e <a class="ext" target="_blank" rel="noopener" href="https://www.home-assistant.io/integrations/thread/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Thread</a>.</p>
+        <ul class="tags"><li>Home Assistant</li></ul>
       </div>
     </div>
-    <section class="related"><h2>Continue por aqui</h2><div class="cards"><a class="card" href="/matter-thread/">
-        <span class="card-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21a9 9 0 1 0-9-9"/><path d="M12 17a5 5 0 1 0-5-5"/><circle cx="12" cy="12" r="1.5"/></svg></span>
-        <span class="card-tag">Protocolos</span>
-        <h3>Entenda Matter e Thread</h3>
-        <p>Descubra como conectar dispositivos de marcas diferentes.</p>
-        <span class="card-go">Ler o guia <span aria-hidden="true">→</span></span>
-      </a>
-      <a class="card" href="/mqtt/">
-        <span class="card-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 4H4a1.5 1.5 0 0 0-1.5 1.5v9A1.5 1.5 0 0 0 4 16h4l4 4 4-4h4a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 20 4Z"/><path d="M7 8h10M7 11.5h6"/></svg></span>
-        <span class="card-tag">Protocolos</span>
-        <h3>MQTT sem complicação</h3>
-        <p>Entenda como os dispositivos trocam mensagens.</p>
-        <span class="card-go">Ler o guia <span aria-hidden="true">→</span></span>
-      </a>
-      <a class="card" href="/instalacao/">
-        <span class="card-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 15c-1 2-1 4-1 4s2 0 4-1"/><path d="M13.5 4.5C16 2 21 3 21 3s1 5-1.5 7.5L14 16l-6-6 5.5-5.5Z"/><circle cx="15.5" cy="8.5" r="1.5"/><path d="m8 10-4 1 1 4 4-1"/></svg></span>
-        <span class="card-tag">Começando</span>
-        <h3>Comece sua casa inteligente</h3>
-        <p>Da escolha da central à primeira luz automatizada.</p>
-        <span class="card-go">Ler o guia <span aria-hidden="true">→</span></span>
-      </a></div></section>
+
     <nav class="pager">
-      <a class="pager-prev" href="/esphome-esp32/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span><span>← Anterior</span><strong>Sensores com ESPHome e ESP32</strong></a>
-      <a class="pager-next" href="/zbt-dongles/"><span>Próximo →</span><strong>Adaptadores ZBT-1 e ZBT-2</strong></a>
+      <a class="pager-prev" href="/instalar-haos/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span><span>← Anterior</span><strong>Home Assistant OS: instalar pelas telas</strong></a>
+      <a class="pager-next" href="/matter-thread/"><span>Próximo →</span><strong>Thread e Matter, sem confusão</strong></a>
     </nav>
   </article>
 
@@ -368,7 +223,7 @@ inclusive no mesmo servidor, com dongles diferentes.</p>
         <p>Inteligência para o seu lar — Guias independentes de casa inteligente, automação local e código aberto.</p>
       </div>
       <nav class="footer-nav" aria-label="Site">
-        <div><h4>Plataformas</h4><a href="/home-assistant/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Home Assistant</a><a href="/esphome-esp32/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>ESPHome &amp; ESP32</a><a href="/scrypted/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="scrypted" src="/static/img/brands/scrypted.png?v=2c0e2d75" width="32" height="32" alt="" decoding="async"></span>Scrypted &amp; câmeras</a><a href="/casaos-umbrel/"><span class="project-icons project-icons-pair" aria-hidden="true"><img class="project-logo" data-project="casaos" src="/static/img/brands/casaos.png?v=24e1de28" width="32" height="32" alt="" decoding="async"><img class="project-logo" data-project="umbrel" src="/static/img/brands/umbrel.png?v=f30dfaec" width="32" height="32" alt="" decoding="async"></span>CasaOS &amp; umbrelOS</a><a href="/nabu-casa/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="nabu-casa" src="/static/img/brands/nabu-casa.svg?v=fd7f86f9" width="32" height="32" alt="" decoding="async"></span>Nabu Casa</a></div><div><h4>Protocolos</h4><a href="/zigbee/"><span class="project-icons project-icons-pair" aria-hidden="true"><img class="project-logo" data-project="zigbee2mqtt" src="/static/img/brands/zigbee2mqtt.png?v=ebb91261" width="32" height="32" alt="" decoding="async"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Zigbee2MQTT &amp; ZHA</a><a href="/zbt-dongles/">Dongles ZBT-1 &amp; ZBT-2</a><a href="/matter-thread/">Matter &amp; Thread</a><a href="/mqtt/">MQTT</a><a href="/apple-homekit/">Apple HomeKit</a></div><div><h4>IA & agentes</h4><a href="/claude-mcp/">Claude &amp; MCP</a><a href="/cameras-ia/">Câmeras com IA</a><a href="/openclaw/">OpenClaw</a></div><div><h4>Site</h4><a href="/artigos/">Todos os guias</a><a href="/instalacao/">Comece aqui</a><a href="/instalar-haos/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Instalar o HAOS</a><a href="/comandos-haos/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Comandos do HA</a><a href="/faq/">Dúvidas frequentes</a><a href="/sobre/">Sobre</a></div>
+        <div><h4>Primeiros passos</h4><a href="/casa-inteligente/">O que é casa inteligente?</a><a href="/home-assistant/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Home Assistant</a><a href="/instalar-haos/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Instalar o HAOS</a></div><div><h4>Conectar e automatizar</h4><a href="/zigbee/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Entender Zigbee</a><a href="/zbt-dongles/">ZBT-2 com ZHA</a><a href="/primeira-automacao/">Primeira automação</a></div><div><h4>Depois do básico</h4><a href="/apps-integracoes/">Integrações e Apps</a><a href="/aprofundamento/">Aprofundamento</a></div><div><h4>Site</h4><a href="/artigos/">Todos os guias</a><a href="/faq/">Dúvidas frequentes</a><a href="/sobre/">Sobre</a></div>
       </nav>
     </div>
     <div class="wrap footer-bottom">
@@ -386,7 +241,7 @@ inclusive no mesmo servidor, com dongles diferentes.</p>
     <div class="search-box" role="dialog" aria-modal="true" aria-label="Buscar no site">
       <div class="search-field">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input type="search" id="search-input" aria-label="Buscar no site" placeholder="Buscar: Zigbee, ESPHome, Matter, Raspberry Pi…" autocomplete="off" spellcheck="false">
+        <input type="search" id="search-input" aria-label="Buscar no site" placeholder="Buscar: luz, Zigbee, instalação…" autocomplete="off" spellcheck="false">
         <button class="search-close icon-btn" type="button" data-close aria-label="Fechar busca">×</button>
       </div>
       <ul class="search-results" id="search-results"></ul>

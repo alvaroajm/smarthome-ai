@@ -37,7 +37,7 @@
   <link rel="preload" href="/static/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/static/fonts/inter-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/static/fonts/newsreader-500.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="/static/css/style.css?v=2bec9830">
+  <link rel="stylesheet" href="/static/css/style.css?v=907c1540">
   <script>
     (function () {
       try {
@@ -46,14 +46,14 @@
       } catch (e) {}
     })();
   </script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"SmartHome-AI","alternateName":"SmartHome-AI — Inteligência para o seu lar","url":"https://smarthome-ai.com/","inLanguage":"pt-BR","description":"Guias práticos e independentes de casa inteligente: Home Assistant, ESPHome, ESP32, Zigbee2MQTT, ZHA, Matter over Thread, Apple HomeKit, Scrypted, Raspberry Pi e mini-PCs.","publisher":{"@type":"Organization","name":"SmartHome-AI","url":"https://smarthome-ai.com","logo":{"@type":"ImageObject","url":"https://smarthome-ai.com/static/img/logo-smarthome-ai-marca.png","width":360,"height":360}}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Dúvidas frequentes sobre casa inteligente","description":"Respostas diretas às perguntas que mais aparecem — custo, internet, aluguel, marcas, privacidade, Alexa e por onde começar.","inLanguage":"pt-BR","mainEntityOfPage":{"@type":"WebPage","@id":"https://smarthome-ai.com/faq/"},"author":{"@type":"Person","name":"Dr. Álvaro Menezes","url":"https://alvaro-menezes.com","jobTitle":"Radiologista","sameAs":["https://github.com/alvaroajm","https://www.instagram.com/alvaroajm/","https://facebook.com/alvaroajm","https://x.com/alvaromenezesMD","https://www.linkedin.com/in/dr-alvaro-menezes/"]},"publisher":{"@type":"Organization","name":"SmartHome-AI","url":"https://smarthome-ai.com","logo":{"@type":"ImageObject","url":"https://smarthome-ai.com/static/img/logo-smarthome-ai-marca.png","width":360,"height":360}},"image":"https://smarthome-ai.com/static/img/og-smarthome-ai.jpg","isAccessibleForFree":true,"datePublished":"2026-09-21","dateModified":"2026-09-21","keywords":"FAQ, Dúvidas, Iniciantes","articleSection":"FAQ"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Início","item":"https://smarthome-ai.com/"},{"@type":"ListItem","position":2,"name":"Todos os guias","item":"https://smarthome-ai.com/artigos/"},{"@type":"ListItem","position":3,"name":"Dúvidas frequentes sobre casa inteligente","item":"https://smarthome-ai.com/faq/"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Preciso saber programar?","acceptedAnswer":{"@type":"Answer","text":"Não. Boa parte das automações é construída por interface gráfica, e os blueprints da comunidade cobrem os casos mais comuns. Saber ler YAML ajuda quando você quiser algo mais fino — e é uma linguagem de configuração, não de programação: em uma tarde você entende o essencial."}},{"@type":"Question","name":"Quanto custa começar?","acceptedAnswer":{"@type":"Answer","text":"Um começo honesto tem três itens: o servidor (appliance, Raspberry Pi com SSD ou mini-PC), um coordenador Zigbee e três a cinco sensores. A partir daí, cada dispositivo é uma decisão isolada. O erro caro é comprar kits grandes antes de entender o que a casa precisa — praticamente todo mundo que faz isso tem uma gaveta de aparelhos não usados."}},{"@type":"Question","name":"Funciona sem internet?","acceptedAnswer":{"@type":"Answer","text":"Com Home Assistant rodando local, sim: automações, sensores, painéis na rede interna e acionamentos continuam funcionando com a internet fora do ar. O que para são serviços externos — previsão do tempo, notificações no celular fora de casa, assistentes em nuvem e dispositivos que dependem do servidor do fabricante."}},{"@type":"Question","name":"Moro de aluguel. Dá para automatizar?","acceptedAnswer":{"@type":"Answer","text":"Dá, e bem. Evite tudo que exija obra: Lâmpadas e tomadas inteligentes em vez de módulos dentro da parede Sensores a pilha colados com fita dupla-face Botões e controles Zigbee avulsos, que substituem interruptores sem trocar nada Controle de ar-condicionado por infravermelho (um emissor IR cobre vários aparelhos) Na mudança, tudo sai com você em uma caixa."}},{"@type":"Question","name":"Qual marca devo comprar?","acceptedAnswer":{"@type":"Answer","text":"A pergunta melhor é: \"esse aparelho funciona localmente?\" . Prefira, nesta ordem: Zigbee, Matter over Thread, dispositivos com ESPHome/Tasmota, e Wi-Fi com integração local. Evite produtos que só funcionem pelo app do fabricante com conta obrigatória na nuvem — são os primeiros a virar lixo eletrônico quando a empresa muda de estratégia."}},{"@type":"Question","name":"E a Alexa e o Google? Preciso abandonar?","acceptedAnswer":{"@type":"Answer","text":"Não. Eles continuam ótimos como interface de voz . A diferença é que passam a comandar o Home Assistant, que é quem realmente decide. Assim, se o serviço sair do ar ou você mudar de assistente, suas automações permanecem intactas."}},{"@type":"Question","name":"Zigbee ou Wi-Fi para sensores?","acceptedAnswer":{"@type":"Answer","text":"Zigbee, quase sempre. Sensores Wi-Fi consomem muito mais energia (raramente funcionam a pilha por anos), ocupam endereços na sua rede e sobrecarregam o roteador. Detalhes em Zigbee na prática ."}},{"@type":"Question","name":"Matter resolve todos os problemas de compatibilidade?","acceptedAnswer":{"@type":"Answer","text":"Resolve muitos, mas não é mágica: a especificação cobre categorias de dispositivos progressivamente, e recursos avançados de um fabricante nem sempre cabem no padrão. Matter garante o básico funcionando em todo lugar — que já é enorme. Veja Matter e Thread ."}},{"@type":"Question","name":"Meus dados estão seguros?","acceptedAnswer":{"@type":"Answer","text":"Com processamento local, os dados ficam na sua casa. As regras práticas: ative a autenticação em duas etapas, nunca exponha o Home Assistant diretamente na internet (use VPN ou Nabu Casa), mantenha backups criptografados fora do servidor e coloque câmeras numa rede sem acesso à internet."}},{"@type":"Question","name":"Cartão SD realmente não serve?","acceptedAnswer":{"@type":"Answer","text":"Não para uso permanente. O banco de dados do Home Assistant escreve continuamente e cartões de consumo falham por desgaste, em geral entre 6 e 18 meses — e a falha costuma ser silenciosa até o dia em que nada liga. SSD NVMe ou eMMC, sempre."}},{"@type":"Question","name":"Por onde começo hoje, se tenho pouco tempo?","acceptedAnswer":{"@type":"Answer","text":"Instale o Home Assistant num hardware simples Integre o que já existe na sua rede (TV, aspirador, impressora, receptor) Compre um coordenador Zigbee e um sensor de movimento Automatize um incômodo real (a luz do corredor à noite costuma ser o melhor primeiro caso) Só então planeje a casa inteira"}},{"@type":"Question","name":"Preciso mesmo de MQTT?","acceptedAnswer":{"@type":"Answer","text":"Só quando mais de um programa precisa dos mesmos dados — Zigbee2MQTT, Frigate e Tasmota, por exemplo. Se você usa apenas ZHA e ESPHome (que tem API própria), pode viver sem broker. Entenda em MQTT para iniciantes ."}},{"@type":"Question","name":"Vale pagar a assinatura da Nabu Casa?","acceptedAnswer":{"@type":"Answer","text":"Vale se você usa Alexa ou Google, quer acesso remoto sem configurar nada e não tem backup fora de casa. Se você já tem VPN e backup, é opcional — mas continua sendo a forma mais direta de financiar o projeto. A comparação completa, com preços e alternativas gratuitas, está em Nabu Casa ."}},{"@type":"Question","name":"Dá para usar inteligência artificial sem mandar minha casa para a nuvem?","acceptedAnswer":{"@type":"Answer","text":"Dá. Modelos locais (Ollama num mini-PC ou Mac) atendem voz, descrição de imagens de câmera e conversas simples sem que nada saia da sua rede. Veja Claude e MCP e câmeras com IA ."}},{"@type":"Question","name":"Posso deixar um agente de IA cuidando da casa?","acceptedAnswer":{"@type":"Answer","text":"Pode, mas com limites: máquina separada, token restrito, sem acesso SSH, e nada de fechadura, portão ou alarme na lista de coisas que ele controla. Os motivos — e os incidentes já documentados — estão em OpenClaw ."}},{"@type":"Question","name":"Minha automação funciona às vezes. O que faço?","acceptedAnswer":{"@type":"Answer","text":"Abra o rastro (trace) da automação no Home Assistant: ele mostra passo a passo onde a execução parou e qual condição falhou. Em 90% dos casos o culpado é uma condição de tempo/estado mal escrita, um mode inadequado ( single engolindo disparos) ou uma entidade que ficou unavailable ."}}]}</script><meta property="article:published_time" content="2026-09-21"><meta property="article:modified_time" content="2026-09-21">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"SmartHome-AI","alternateName":"SmartHome-AI — Inteligência para o seu lar","url":"https://smarthome-ai.com/","inLanguage":"pt-BR","description":"Casa inteligente para iniciantes: entenda as plataformas, instale o Home Assistant OS e conecte luzes e sensores com Zigbee, ZBT-2 e ZHA. Passo a passo pelas telas.","publisher":{"@type":"Organization","name":"SmartHome-AI","url":"https://smarthome-ai.com","logo":{"@type":"ImageObject","url":"https://smarthome-ai.com/static/img/logo-smarthome-ai-marca.png","width":360,"height":360}}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Dúvidas frequentes sobre casa inteligente","description":"Respostas diretas às perguntas que mais aparecem — custo, internet, aluguel, marcas, privacidade, Alexa e por onde começar.","inLanguage":"pt-BR","mainEntityOfPage":{"@type":"WebPage","@id":"https://smarthome-ai.com/faq/"},"author":{"@type":"Person","name":"Dr. Álvaro Menezes","url":"https://alvaro-menezes.com","jobTitle":"Radiologista","sameAs":["https://github.com/alvaroajm","https://www.instagram.com/alvaroajm/","https://facebook.com/alvaroajm","https://x.com/alvaromenezesMD","https://www.linkedin.com/in/dr-alvaro-menezes/"]},"publisher":{"@type":"Organization","name":"SmartHome-AI","url":"https://smarthome-ai.com","logo":{"@type":"ImageObject","url":"https://smarthome-ai.com/static/img/logo-smarthome-ai-marca.png","width":360,"height":360}},"image":"https://smarthome-ai.com/static/img/og-smarthome-ai.jpg","isAccessibleForFree":true,"datePublished":"2026-09-22","dateModified":"2026-09-22","keywords":"FAQ, Dúvidas, Iniciantes","articleSection":"FAQ"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Início","item":"https://smarthome-ai.com/"},{"@type":"ListItem","position":2,"name":"Todos os guias","item":"https://smarthome-ai.com/artigos/"},{"@type":"ListItem","position":3,"name":"Dúvidas frequentes sobre casa inteligente","item":"https://smarthome-ai.com/faq/"}]}</script><meta property="article:published_time" content="2026-09-22"><meta property="article:modified_time" content="2026-09-22">
 </head>
 <body class="article"
       data-lang="pt"
       data-intl="pt-BR"
       data-search-index="/search-index.json"
       data-search-empty="Digite para buscar nos guias."
-      data-search-none="Nada encontrado. Tente “zigbee”, “esp32” ou “matter”."
+      data-search-none="Nada encontrado. Tente “zigbee”, “ZHA” ou “matter”."
       data-search-suggest="Guias populares">
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
   <div class="progress" id="progress" aria-hidden="true"></div>
@@ -110,129 +110,51 @@
       <p class="eyebrow">FAQ</p>
       <h1>Dúvidas frequentes sobre casa inteligente</h1>
       <p class="lead">Respostas diretas às perguntas que mais aparecem — custo, internet, aluguel, marcas, privacidade, Alexa e por onde começar.</p>
-      <p class="byline">7 min de leitura</p>
+      <p class="byline">3 min de leitura</p>
     </header>
     <div class="article-grid">
       <nav class="toc" aria-label="Neste guia"><p class="toc-title">Neste guia</p><div class="toc">
 <ul>
 <li><a href="#preciso-saber-programar">Preciso saber programar?</a></li>
-<li><a href="#quanto-custa-comecar">Quanto custa começar?</a></li>
+<li><a href="#do-que-preciso-para-comecar">Do que preciso para começar?</a></li>
+<li><a href="#home-assistant-e-haos-sao-a-mesma-coisa">Home Assistant e HAOS são a mesma coisa?</a></li>
 <li><a href="#funciona-sem-internet">Funciona sem internet?</a></li>
-<li><a href="#moro-de-aluguel-da-para-automatizar">Moro de aluguel. Dá para automatizar?</a></li>
-<li><a href="#qual-marca-devo-comprar">Qual marca devo comprar?</a></li>
-<li><a href="#e-a-alexa-e-o-google-preciso-abandonar">E a Alexa e o Google? Preciso abandonar?</a></li>
-<li><a href="#zigbee-ou-wi-fi-para-sensores">Zigbee ou Wi-Fi para sensores?</a></li>
-<li><a href="#matter-resolve-todos-os-problemas-de-compatibilidade">Matter resolve todos os problemas de compatibilidade?</a></li>
-<li><a href="#meus-dados-estao-seguros">Meus dados estão seguros?</a></li>
-<li><a href="#cartao-sd-realmente-nao-serve">Cartão SD realmente não serve?</a></li>
-<li><a href="#por-onde-comeco-hoje-se-tenho-pouco-tempo">Por onde começo hoje, se tenho pouco tempo?</a></li>
-<li><a href="#preciso-mesmo-de-mqtt">Preciso mesmo de MQTT?</a></li>
-<li><a href="#vale-pagar-a-assinatura-da-nabu-casa">Vale pagar a assinatura da Nabu Casa?</a></li>
-<li><a href="#da-para-usar-inteligencia-artificial-sem-mandar-minha-casa-para-a-nuvem">Dá para usar inteligência artificial sem mandar minha casa para a nuvem?</a></li>
-<li><a href="#posso-deixar-um-agente-de-ia-cuidando-da-casa">Posso deixar um agente de IA cuidando da casa?</a></li>
-<li><a href="#minha-automacao-funciona-as-vezes-o-que-faco">Minha automação funciona às vezes. O que faço?</a></li>
+<li><a href="#posso-continuar-usando-alexa-ou-google-home">Posso continuar usando Alexa ou Google Home?</a></li>
+<li><a href="#zha-precisa-de-mqtt-ou-hacs">ZHA precisa de MQTT ou HACS?</a></li>
+<li><a href="#zbt-2-usa-zigbee-e-thread-ao-mesmo-tempo">ZBT-2 usa Zigbee e Thread ao mesmo tempo?</a></li>
+<li><a href="#posso-instalar-o-haos-em-cartao-microsd">Posso instalar o HAOS em cartão microSD?</a></li>
+<li><a href="#matter-garante-todas-as-funcoes">Matter garante todas as funções?</a></li>
+<li><a href="#minha-primeira-automacao-nao-funcionou-e-agora">Minha primeira automação não funcionou. E agora?</a></li>
 </ul>
 </div>
 </nav>
       <div class="prose">
-        <h3 id="preciso-saber-programar">Preciso saber programar?<a class="headerlink" href="#preciso-saber-programar" title="Permanent link">#</a></h3>
-<p>Não. Boa parte das automações é construída por interface gráfica, e os blueprints da comunidade cobrem os
-casos mais comuns. Saber ler YAML ajuda quando você quiser algo mais fino — e é uma linguagem de configuração,
-não de programação: em uma tarde você entende o essencial.</p>
-<h3 id="quanto-custa-comecar">Quanto custa começar?<a class="headerlink" href="#quanto-custa-comecar" title="Permanent link">#</a></h3>
-<p>Um começo honesto tem três itens: o servidor (appliance, Raspberry Pi com SSD ou mini-PC), um coordenador
-Zigbee e três a cinco sensores. A partir daí, cada dispositivo é uma decisão isolada. O erro caro é comprar
-kits grandes antes de entender o que a casa precisa — praticamente todo mundo que faz isso tem uma gaveta
-de aparelhos não usados.</p>
-<h3 id="funciona-sem-internet">Funciona sem internet?<a class="headerlink" href="#funciona-sem-internet" title="Permanent link">#</a></h3>
-<p>Com Home Assistant rodando local, sim: automações, sensores, painéis na rede interna e acionamentos
-continuam funcionando com a internet fora do ar. O que para são serviços externos — previsão do tempo,
-notificações no celular fora de casa, assistentes em nuvem e dispositivos que dependem do servidor do fabricante.</p>
-<h3 id="moro-de-aluguel-da-para-automatizar">Moro de aluguel. Dá para automatizar?<a class="headerlink" href="#moro-de-aluguel-da-para-automatizar" title="Permanent link">#</a></h3>
-<p>Dá, e bem. Evite tudo que exija obra:</p>
-<ul>
-<li><strong>Lâmpadas e tomadas inteligentes</strong> em vez de módulos dentro da parede</li>
-<li><strong>Sensores a pilha</strong> colados com fita dupla-face</li>
-<li><strong>Botões e controles Zigbee</strong> avulsos, que substituem interruptores sem trocar nada</li>
-<li><strong>Controle de ar-condicionado por infravermelho</strong> (um emissor IR cobre vários aparelhos)</li>
-</ul>
-<p>Na mudança, tudo sai com você em uma caixa.</p>
-<h3 id="qual-marca-devo-comprar">Qual marca devo comprar?<a class="headerlink" href="#qual-marca-devo-comprar" title="Permanent link">#</a></h3>
-<p>A pergunta melhor é: <strong>"esse aparelho funciona localmente?"</strong>. Prefira, nesta ordem: Zigbee, Matter over
-Thread, dispositivos com ESPHome/Tasmota, e Wi-Fi com integração local. Evite produtos que só funcionem pelo
-app do fabricante com conta obrigatória na nuvem — são os primeiros a virar lixo eletrônico quando a
-empresa muda de estratégia.</p>
-<h3 id="e-a-alexa-e-o-google-preciso-abandonar">E a Alexa e o Google? Preciso abandonar?<a class="headerlink" href="#e-a-alexa-e-o-google-preciso-abandonar" title="Permanent link">#</a></h3>
-<p>Não. Eles continuam ótimos como <strong>interface de voz</strong>. A diferença é que passam a comandar o Home Assistant,
-que é quem realmente decide. Assim, se o serviço sair do ar ou você mudar de assistente, suas automações
-permanecem intactas.</p>
-<h3 id="zigbee-ou-wi-fi-para-sensores">Zigbee ou Wi-Fi para sensores?<a class="headerlink" href="#zigbee-ou-wi-fi-para-sensores" title="Permanent link">#</a></h3>
-<p>Zigbee, quase sempre. Sensores Wi-Fi consomem muito mais energia (raramente funcionam a pilha por anos),
-ocupam endereços na sua rede e sobrecarregam o roteador. Detalhes em <a href="/zigbee/"><span class="project-icons project-icons-pair" aria-hidden="true"><img class="project-logo" data-project="zigbee2mqtt" src="/static/img/brands/zigbee2mqtt.png?v=ebb91261" width="32" height="32" alt="" decoding="async"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Zigbee na prática</a>.</p>
-<h3 id="matter-resolve-todos-os-problemas-de-compatibilidade">Matter resolve todos os problemas de compatibilidade?<a class="headerlink" href="#matter-resolve-todos-os-problemas-de-compatibilidade" title="Permanent link">#</a></h3>
-<p>Resolve muitos, mas não é mágica: a especificação cobre categorias de dispositivos progressivamente, e
-recursos avançados de um fabricante nem sempre cabem no padrão. Matter garante o básico funcionando em todo
-lugar — que já é enorme. Veja <a href="/matter-thread/">Matter e Thread</a>.</p>
-<h3 id="meus-dados-estao-seguros">Meus dados estão seguros?<a class="headerlink" href="#meus-dados-estao-seguros" title="Permanent link">#</a></h3>
-<p>Com processamento local, os dados ficam na sua casa. As regras práticas: ative a autenticação em duas
-etapas, <strong>nunca</strong> exponha o Home Assistant diretamente na internet (use VPN ou Nabu Casa), mantenha backups
-criptografados fora do servidor e coloque câmeras numa rede sem acesso à internet.</p>
-<h3 id="cartao-sd-realmente-nao-serve">Cartão SD realmente não serve?<a class="headerlink" href="#cartao-sd-realmente-nao-serve" title="Permanent link">#</a></h3>
-<p>Não para uso permanente. O banco de dados do Home Assistant escreve continuamente e cartões de consumo
-falham por desgaste, em geral entre 6 e 18 meses — e a falha costuma ser silenciosa até o dia em que nada liga.
-SSD NVMe ou eMMC, sempre.</p>
-<h3 id="por-onde-comeco-hoje-se-tenho-pouco-tempo">Por onde começo hoje, se tenho pouco tempo?<a class="headerlink" href="#por-onde-comeco-hoje-se-tenho-pouco-tempo" title="Permanent link">#</a></h3>
-<ol>
-<li>Instale o <a href="/instalacao/">Home Assistant</a> num hardware simples</li>
-<li>Integre o que <strong>já existe</strong> na sua rede (TV, aspirador, impressora, receptor)</li>
-<li>Compre um coordenador Zigbee e <strong>um</strong> sensor de movimento</li>
-<li>Automatize <strong>um</strong> incômodo real (a luz do corredor à noite costuma ser o melhor primeiro caso)</li>
-<li>Só então planeje a casa inteira</li>
-</ol>
-<h3 id="preciso-mesmo-de-mqtt">Preciso mesmo de MQTT?<a class="headerlink" href="#preciso-mesmo-de-mqtt" title="Permanent link">#</a></h3>
-<p>Só quando <strong>mais de um programa</strong> precisa dos mesmos dados — Zigbee2MQTT, Frigate e Tasmota, por exemplo.
-Se você usa apenas ZHA e ESPHome (que tem API própria), pode viver sem broker. Entenda em
-<a href="/mqtt/">MQTT para iniciantes</a>.</p>
-<h3 id="vale-pagar-a-assinatura-da-nabu-casa">Vale pagar a assinatura da Nabu Casa?<a class="headerlink" href="#vale-pagar-a-assinatura-da-nabu-casa" title="Permanent link">#</a></h3>
-<p>Vale se você usa Alexa ou Google, quer acesso remoto sem configurar nada e não tem backup fora de casa.
-Se você já tem VPN e backup, é opcional — mas continua sendo a forma mais direta de financiar o projeto.
-A comparação completa, com preços e alternativas gratuitas, está em <a href="/nabu-casa/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="nabu-casa" src="/static/img/brands/nabu-casa.svg?v=fd7f86f9" width="32" height="32" alt="" decoding="async"></span>Nabu Casa</a>.</p>
-<h3 id="da-para-usar-inteligencia-artificial-sem-mandar-minha-casa-para-a-nuvem">Dá para usar inteligência artificial sem mandar minha casa para a nuvem?<a class="headerlink" href="#da-para-usar-inteligencia-artificial-sem-mandar-minha-casa-para-a-nuvem" title="Permanent link">#</a></h3>
-<p>Dá. Modelos locais (Ollama num mini-PC ou Mac) atendem voz, descrição de imagens de câmera e conversas
-simples sem que nada saia da sua rede. Veja <a href="/claude-mcp/">Claude e MCP</a> e
-<a href="/cameras-ia/">câmeras com IA</a>.</p>
-<h3 id="posso-deixar-um-agente-de-ia-cuidando-da-casa">Posso deixar um agente de IA cuidando da casa?<a class="headerlink" href="#posso-deixar-um-agente-de-ia-cuidando-da-casa" title="Permanent link">#</a></h3>
-<p>Pode, mas com limites: máquina separada, token restrito, sem acesso SSH, e nada de fechadura, portão ou
-alarme na lista de coisas que ele controla. Os motivos — e os incidentes já documentados — estão em
-<a href="/openclaw/">OpenClaw</a>.</p>
-<h3 id="minha-automacao-funciona-as-vezes-o-que-faco">Minha automação funciona às vezes. O que faço?<a class="headerlink" href="#minha-automacao-funciona-as-vezes-o-que-faco" title="Permanent link">#</a></h3>
-<p>Abra o <strong>rastro (trace)</strong> da automação no Home Assistant: ele mostra passo a passo onde a execução parou e
-qual condição falhou. Em 90% dos casos o culpado é uma condição de tempo/estado mal escrita, um
-<code>mode</code> inadequado (<code>single</code> engolindo disparos) ou uma entidade que ficou <code>unavailable</code>.</p>
+        <h2 id="preciso-saber-programar">Preciso saber programar?<a class="headerlink" href="#preciso-saber-programar" title="Permanent link">#</a></h2>
+<p>Não para acompanhar esta trilha. A instalação, o pareamento no ZHA e a primeira automação usam botões e menus.</p>
+<h2 id="do-que-preciso-para-comecar">Do que preciso para começar?<a class="headerlink" href="#do-que-preciso-para-comecar" title="Permanent link">#</a></h2>
+<p>Uma central com HAOS, como o Green ou um Raspberry Pi compatível, um ZBT-2 e uma luz ou um sensor Zigbee compatível com ZHA. Se já tiver aparelhos, confira o suporte antes de comprar.</p>
+<h2 id="home-assistant-e-haos-sao-a-mesma-coisa">Home Assistant e HAOS são a mesma coisa?<a class="headerlink" href="#home-assistant-e-haos-sao-a-mesma-coisa" title="Permanent link">#</a></h2>
+<p>Home Assistant é o programa que controla a casa. Home Assistant OS (HAOS) é o sistema que o executa e facilita atualizações, backups e instalação de Apps.</p>
+<h2 id="funciona-sem-internet">Funciona sem internet?<a class="headerlink" href="#funciona-sem-internet" title="Permanent link">#</a></h2>
+<p>Dispositivos e integrações locais podem continuar funcionando. A central e a rede precisam estar ligadas. Serviços de nuvem e acesso de fora da casa dependem de conexão.</p>
+<h2 id="posso-continuar-usando-alexa-ou-google-home">Posso continuar usando Alexa ou Google Home?<a class="headerlink" href="#posso-continuar-usando-alexa-ou-google-home" title="Permanent link">#</a></h2>
+<p>Sim. As plataformas podem coexistir. A conexão com o Home Assistant é uma etapa adicional; primeiro, faça a luz funcionar pelo painel.</p>
+<h2 id="zha-precisa-de-mqtt-ou-hacs">ZHA precisa de MQTT ou HACS?<a class="headerlink" href="#zha-precisa-de-mqtt-ou-hacs" title="Permanent link">#</a></h2>
+<p>Não. ZHA é uma integração nativa do Home Assistant. Basta um coordenador compatível, como o ZBT-2, para formar a rede Zigbee.</p>
+<h2 id="zbt-2-usa-zigbee-e-thread-ao-mesmo-tempo">ZBT-2 usa Zigbee e Thread ao mesmo tempo?<a class="headerlink" href="#zbt-2-usa-zigbee-e-thread-ao-mesmo-tempo" title="Permanent link">#</a></h2>
+<p>Não. Ele usa um protocolo por vez. Neste guia, escolha Zigbee e a instalação recomendada com ZHA.</p>
+<h2 id="posso-instalar-o-haos-em-cartao-microsd">Posso instalar o HAOS em cartão microSD?<a class="headerlink" href="#posso-instalar-o-haos-em-cartao-microsd" title="Permanent link">#</a></h2>
+<p>Sim. A instalação oficial para Raspberry Pi inclui microSD A2 de pelo menos 32 GB. Use cartão e fonte adequados e mantenha backups fora da central.</p>
+<h2 id="matter-garante-todas-as-funcoes">Matter garante todas as funções?<a class="headerlink" href="#matter-garante-todas-as-funcoes" title="Permanent link">#</a></h2>
+<p>Não. Confira se a categoria e os recursos do modelo são aceitos na plataforma escolhida. Matter sobre Thread também precisa de um roteador de borda Thread.</p>
+<h2 id="minha-primeira-automacao-nao-funcionou-e-agora">Minha primeira automação não funcionou. E agora?<a class="headerlink" href="#minha-primeira-automacao-nao-funcionou-e-agora" title="Permanent link">#</a></h2>
+<p>Veja se a luz responde pelo painel. Depois, abra o menu da automação e use Executar ações. Esse teste não avalia o gatilho nem as condições; consulte os rastros para entender uma execução real.</p>
+<p><a href="/instalacao/">Seguir a trilha para iniciantes</a>.</p>
+<p>Referências oficiais: <a class="ext" target="_blank" rel="noopener" href="https://www.home-assistant.io/installation/raspberrypi/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>HAOS</a>, <a class="ext" target="_blank" rel="noopener" href="https://www.home-assistant.io/integrations/zha/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>ZHA</a>, <a class="ext" target="_blank" rel="noopener" href="https://www.home-assistant.io/connect/zbt-2/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>ZBT-2</a>, <a class="ext" target="_blank" rel="noopener" href="https://www.home-assistant.io/integrations/matter/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Matter</a> e <a class="ext" target="_blank" rel="noopener" href="https://www.home-assistant.io/docs/automation/troubleshooting/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>automações</a>.</p>
         <ul class="tags"><li>FAQ</li><li>Dúvidas</li><li>Iniciantes</li></ul>
       </div>
     </div>
-    <section class="related"><h2>Continue por aqui</h2><div class="cards"><a class="card" href="/instalacao/">
-        <span class="card-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 15c-1 2-1 4-1 4s2 0 4-1"/><path d="M13.5 4.5C16 2 21 3 21 3s1 5-1.5 7.5L14 16l-6-6 5.5-5.5Z"/><circle cx="15.5" cy="8.5" r="1.5"/><path d="m8 10-4 1 1 4 4-1"/></svg></span>
-        <span class="card-tag">Começando</span>
-        <h3>Comece sua casa inteligente</h3>
-        <p>Da escolha da central à primeira luz automatizada.</p>
-        <span class="card-go">Ler o guia <span aria-hidden="true">→</span></span>
-      </a>
-      <a class="card" href="/instalar-haos/">
-        <span class="card-icon"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span></span>
-        <span class="card-tag">Começando</span>
-        <h3>Instale o Home Assistant OS</h3>
-        <p>Siga a instalação no Raspberry Pi ou no mini-PC.</p>
-        <span class="card-go">Ler o guia <span aria-hidden="true">→</span></span>
-      </a>
-      <a class="card" href="/home-assistant/">
-        <span class="card-icon"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span></span>
-        <span class="card-tag">Plataforma</span>
-        <h3>O que é Home Assistant?</h3>
-        <p>Entenda a central que conecta e automatiza sua casa.</p>
-        <span class="card-go">Ler o guia <span aria-hidden="true">→</span></span>
-      </a></div></section>
+
     <nav class="pager">
       
       
@@ -287,7 +209,7 @@ qual condição falhou. Em 90% dos casos o culpado é uma condição de tempo/es
         <p>Inteligência para o seu lar — Guias independentes de casa inteligente, automação local e código aberto.</p>
       </div>
       <nav class="footer-nav" aria-label="Site">
-        <div><h4>Plataformas</h4><a href="/home-assistant/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Home Assistant</a><a href="/esphome-esp32/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>ESPHome &amp; ESP32</a><a href="/scrypted/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="scrypted" src="/static/img/brands/scrypted.png?v=2c0e2d75" width="32" height="32" alt="" decoding="async"></span>Scrypted &amp; câmeras</a><a href="/casaos-umbrel/"><span class="project-icons project-icons-pair" aria-hidden="true"><img class="project-logo" data-project="casaos" src="/static/img/brands/casaos.png?v=24e1de28" width="32" height="32" alt="" decoding="async"><img class="project-logo" data-project="umbrel" src="/static/img/brands/umbrel.png?v=f30dfaec" width="32" height="32" alt="" decoding="async"></span>CasaOS &amp; umbrelOS</a><a href="/nabu-casa/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="nabu-casa" src="/static/img/brands/nabu-casa.svg?v=fd7f86f9" width="32" height="32" alt="" decoding="async"></span>Nabu Casa</a></div><div><h4>Protocolos</h4><a href="/zigbee/"><span class="project-icons project-icons-pair" aria-hidden="true"><img class="project-logo" data-project="zigbee2mqtt" src="/static/img/brands/zigbee2mqtt.png?v=ebb91261" width="32" height="32" alt="" decoding="async"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Zigbee2MQTT &amp; ZHA</a><a href="/zbt-dongles/">Dongles ZBT-1 &amp; ZBT-2</a><a href="/matter-thread/">Matter &amp; Thread</a><a href="/mqtt/">MQTT</a><a href="/apple-homekit/">Apple HomeKit</a></div><div><h4>IA & agentes</h4><a href="/claude-mcp/">Claude &amp; MCP</a><a href="/cameras-ia/">Câmeras com IA</a><a href="/openclaw/">OpenClaw</a></div><div><h4>Site</h4><a href="/artigos/">Todos os guias</a><a href="/instalacao/">Comece aqui</a><a href="/instalar-haos/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Instalar o HAOS</a><a href="/comandos-haos/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Comandos do HA</a><a href="/faq/">Dúvidas frequentes</a><a href="/sobre/">Sobre</a></div>
+        <div><h4>Primeiros passos</h4><a href="/casa-inteligente/">O que é casa inteligente?</a><a href="/home-assistant/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Home Assistant</a><a href="/instalar-haos/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Instalar o HAOS</a></div><div><h4>Conectar e automatizar</h4><a href="/zigbee/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Entender Zigbee</a><a href="/zbt-dongles/">ZBT-2 com ZHA</a><a href="/primeira-automacao/">Primeira automação</a></div><div><h4>Depois do básico</h4><a href="/apps-integracoes/">Integrações e Apps</a><a href="/aprofundamento/">Aprofundamento</a></div><div><h4>Site</h4><a href="/artigos/">Todos os guias</a><a href="/faq/">Dúvidas frequentes</a><a href="/sobre/">Sobre</a></div>
       </nav>
     </div>
     <div class="wrap footer-bottom">
@@ -305,7 +227,7 @@ qual condição falhou. Em 90% dos casos o culpado é uma condição de tempo/es
     <div class="search-box" role="dialog" aria-modal="true" aria-label="Buscar no site">
       <div class="search-field">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input type="search" id="search-input" aria-label="Buscar no site" placeholder="Buscar: Zigbee, ESPHome, Matter, Raspberry Pi…" autocomplete="off" spellcheck="false">
+        <input type="search" id="search-input" aria-label="Buscar no site" placeholder="Buscar: luz, Zigbee, instalação…" autocomplete="off" spellcheck="false">
         <button class="search-close icon-btn" type="button" data-close aria-label="Fechar busca">×</button>
       </div>
       <ul class="search-results" id="search-results"></ul>

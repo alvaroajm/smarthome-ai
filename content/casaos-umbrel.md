@@ -1,10 +1,11 @@
 ---
+level: avancado
 title: Seu servidor com CasaOS ou umbrelOS
 slug: casaos-umbrel
 description: Conheça as opções para guardar arquivos e rodar aplicativos.
 category: Home server
 icon: server
-order: 17
+order: 117
 featured: true
 reading: 10 min de leitura
 date: 2026-09-21

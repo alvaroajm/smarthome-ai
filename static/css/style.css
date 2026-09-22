@@ -959,3 +959,35 @@ img.project-logo{display:inline-block;width:1.25em;height:1.25em;max-width:none;
 @media(max-width:480px){.device-grid{grid-template-columns:1fr}.device-art img{max-height:190px}.device-copy>p{font-size:.96rem}.device-copy h3{font-size:1.2rem}}
 /* The Markdown-generated TOC sits inside the article navigation. */
 .toc .toc{position:static;border:0;background:transparent;padding:0;box-shadow:none;max-height:none}
+
+/* Progressive beginner lessons: real screenshots, readable cards, optional depth. */
+.lesson-tint{background:var(--bg-soft);border-block:1px solid var(--border-soft)}
+.lesson-examples,.platform-choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.4rem}
+.lesson-examples article{padding:1.5rem;border-top:2px solid var(--accent);background:var(--surface);border-radius:0 0 12px 12px}
+.lesson-examples h3,.lesson-split h3{font-family:var(--display);font-size:1.6rem;font-weight:500;margin:.2rem 0 .9rem}
+.lesson-examples p,.lesson-split p,.lesson-note,.platform-choice p,.platform-choice dd,.next-lessons p{line-height:1.75;color:var(--text-soft)}
+.lesson-note{font-size:.94rem;max-width:80ch;margin:2rem 0 0;padding-left:1.1rem;border-left:3px solid var(--accent)}
+.platform-choice{min-width:0;padding:1.6rem;border:1px solid var(--border);border-radius:14px;background:var(--surface)}
+.platform-choice h3{font-family:var(--display);font-size:1.65rem;font-weight:500;line-height:1.25;margin:.4rem 0 1rem}
+.platform-choice p,.platform-choice dd{font-size:.94rem}.platform-choice .eyebrow{font-size:.7rem;margin:0}
+.platform-choice dl{margin:1.2rem 0 .4rem}.platform-choice dt{font-size:.78rem;font-weight:600;margin-top:1rem;color:var(--text)}
+.platform-choice dd{margin:.3rem 0 0}.platform-choice>a{font-size:.8rem;min-height:44px;display:inline-flex;align-items:center}
+.platform-featured{border:2px solid var(--accent);box-shadow:0 8px 28px #25482e0b}
+.lesson-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:clamp(2rem,4vw,4rem);align-items:center}
+.lesson-split>*{min-width:0}.lesson-divider{margin-block:2rem;border-top:1px solid var(--border)}
+.ha-screen{margin:1.6rem 0;min-width:0}.ha-screen>a{display:block;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:#fff;transition:box-shadow .2s}
+.ha-screen>a:hover{box-shadow:0 5px 24px #0002}.ha-screen img{display:block;width:100%;height:auto;margin:0!important;border:0!important;border-radius:0!important;box-shadow:none!important}
+.ha-screen figcaption{font-size:.78rem;line-height:1.65;color:var(--text-soft);margin-top:.8rem}.ha-screen figcaption span{display:block;font-size:.73rem}.ha-screen figcaption a{text-decoration:underline;text-underline-offset:3px}
+.lesson-steps{padding-left:1.5rem;line-height:1.85}.lesson-steps li{padding-left:.5rem;margin-block:1rem}.lesson-steps li::marker{color:var(--link);font-weight:600}
+.next-lessons{display:grid;gap:.8rem;max-width:850px;margin-bottom:1.7rem}
+.next-lessons details,.library-advanced,.optional-demo>details{border:1px solid var(--border);border-radius:12px;padding:1.2rem 1.5rem;background:var(--surface)}
+.next-lessons summary,.library-advanced summary,.optional-demo summary,.optional-devices>summary{cursor:pointer;min-height:44px;align-content:center;line-height:1.6;font-weight:600}
+.next-lessons p{margin:.7rem 0 .4rem;max-width:70ch}.library-advanced p{line-height:1.8;color:var(--text-soft)}
+.learning-checkpoint{text-align:center}.learning-checkpoint h2{font-family:var(--display);font-size:clamp(2rem,4vw,3rem);font-weight:500;line-height:1.2}.learning-checkpoint p{margin-bottom:1.5rem}
+.optional-demo{padding-top:0;padding-bottom:2rem}.optional-demo .wrap{width:100%;padding-inline:0}.optional-devices{padding-bottom:3rem}.optional-devices>summary{padding-block:1rem;border-bottom:1px solid var(--border)}
+.prose .platform-choices{grid-template-columns:1fr 1fr}.prose .platform-choice h3{margin:.4rem 0 1rem}.prose .platform-choice p{margin:1rem 0}.prose .platform-choice .eyebrow{margin:0}
+.prose .platform-choice dl{margin:0}.prose .platform-choice dd{margin-left:0}.prose .ha-screen{margin-block:2rem}
+.library-advanced{margin-top:2rem}.library-advanced[open]>summary{margin-bottom:1.2rem}
+@media(max-width:1000px){.platform-choices{grid-template-columns:repeat(2,minmax(0,1fr))}.lesson-split{gap:2rem}}
+@media(max-width:760px){.lesson-split{grid-template-columns:1fr;gap:.7rem}.lesson-examples{grid-template-columns:1fr;gap:1rem}.lesson-split .ha-screen{margin-block:1rem}.platform-choice{padding:1.3rem}.next-lessons details,.library-advanced,.optional-demo>details{padding:.9rem 1rem}.optional-demo .section{padding-block:1.8rem}.section-head>p{max-width:58ch}}
+@media(max-width:540px){.platform-choices,.prose .platform-choices{grid-template-columns:1fr}.platform-choice h3{font-size:1.55rem}.ha-screen figcaption{font-size:.78rem}.lesson-note{font-size:.9rem}}

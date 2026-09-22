@@ -1,10 +1,11 @@
 ---
+level: avancado
 title: Conheça o OpenClaw
 slug: openclaw
 description: Entenda o agente de IA e os cuidados ao dar acesso à casa.
 category: IA & agentes
 icon: key
-order: 15
+order: 115
 featured: true
 reading: 10 min de leitura
 date: 2026-09-21

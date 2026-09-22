@@ -46,7 +46,8 @@ GUIDES = {
     "/nabu-casa/": ("nabu-casa",),
     "/casaos-umbrel/": ("casaos", "umbrel"),
     "/scrypted/": ("scrypted",),
-    "/zigbee/": ("zigbee2mqtt", "home-assistant"),
+    "/zigbee/": ("home-assistant",),
+    "/zigbee2mqtt/": ("zigbee2mqtt",),
     "/instalar-haos/": ("home-assistant",),
     "/comandos-haos/": ("home-assistant",),
 }

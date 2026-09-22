@@ -5,57 +5,37 @@ key: instalacao
 description: From choosing your hub to your first automated light.
 category: Getting started
 icon: rocket
-order: 1
+order: 0
 featured: true
 reading: 4 min read
-date: 2026-09-21
+date: 2026-09-22
 tags: [Home Assistant, Installation, Raspberry Pi, Backup]
+level: basico
 ---
 
-Start with **one light and one sensor**. Build a small setup, test it, then expand.
+Start small: **Home Assistant OS → ZBT-2 with ZHA → one light → one visual automation**. You do not need to program.
 
-<img class="guide-image" src="/static/img/home-comfort.webp" alt="Illustration of a living room with smart lighting and a sensor" width="1536" height="1024" loading="lazy">
+## Follow this path
 
-## 1. Choose your hub
+The [homepage](/en/#casa-inteligente) introduces each topic in English. The illustrated guides below are in Portuguese.
 
-Your hub stays on to coordinate the home. Home Assistant Green comes with the system installed. A Raspberry Pi or mini PC needs setup first.
+1. [What is a smart home?](/casa-inteligente/) — compare Home Assistant, Alexa, Google Home, Apple Home, SmartThings and Tuya.
+2. [Meet Home Assistant](/home-assistant/) — understand what the hub does.
+3. [Install Home Assistant OS](/instalar-haos/) — Green comes ready; Raspberry Pi uses a graphical installer.
+4. [Understand Zigbee and Thread](/zigbee/) — start with local Zigbee lights and sensors.
+5. [A brief introduction to Matter](/matter-thread/) — what it connects and what it needs.
+6. [Connect ZBT-2 and set up ZHA](/zbt-dongles/) — choose Zigbee and the recommended installation.
+7. [Create your first automation](/primeira-automacao/) — switch on a light at sunset, using menus.
+8. [Add integrations and Apps gradually](/apps-integracoes/) — HACS and cameras can wait until you need them.
 
-The official documentation recommends **Home Assistant OS** for most users. Follow the [installation instructions for your hardware](https://www.home-assistant.io/installation/).
+## Keep it manageable
 
-## 2. Connect and set up
+Name devices and rooms clearly. Set up backups under **Settings → System → Backups**, and keep a copy outside the hub.
 
-Connect power and Ethernet. Once the system is ready, open:
+With supported local devices and integrations, automations can keep working without internet. The hub and local network still need power; cloud-based services need internet.
 
-```text
-http://homeassistant.local:8123
-```
+## Later, if you need more
 
-Create your account and check your location and time zone. If the address does not work, find the hub’s IP address in your router.
+[Further learning](/aprofundamento/) covers alternative installations, Zigbee2MQTT and other advanced topics. None of these is required for your first ZHA light.
 
-## 3. Add a device
-
-Open **Settings → Devices & services**. Start with a supported device you already own. Check the [integration for its model](https://www.home-assistant.io/integrations/) before buying more hardware.
-
-Zigbee needs a compatible adapter or hub. Matter over Thread also needs support for the Thread network.
-
-## 4. Make a simple automation
-
-Use **Settings → Automations & scenes**:
-
-- **When:** motion is detected.
-- **If:** it is night.
-- **Then:** turn on the hallway light.
-
-Save and test it. You can later add an action to turn the light off when motion stops. Basic automations do not require code.
-
-## 5. Back up your setup
-
-Set up backups under **Settings → System → Backups**. Keep a copy outside the hub, name devices clearly and organize them by room.
-
-For remote control, consider Home Assistant Cloud or a properly configured VPN. Avoid exposing port 8123 directly to the internet. Offline operation depends on the devices and integrations you choose.
-
-## Keep learning
-
-- [Official beginner automation guide](https://www.home-assistant.io/getting-started/automation/)
-- [Home Assistant terminology](https://www.home-assistant.io/getting-started/concepts-terminology/)
-- [Full guide library (Portuguese)](/en/guides/)
+Reference: [official Home Assistant installation guide](https://www.home-assistant.io/installation/).

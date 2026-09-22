@@ -1,119 +1,52 @@
 ---
-title: Zigbee: conecte luzes e sensores
+title: Zigbee: o básico para luzes e sensores
 slug: zigbee
-description: Entenda a rede, o adaptador e as opções ZHA e Zigbee2MQTT.
-category: Protocolos
-icon: mesh
-order: 6
+description: Nossa primeira rede: local, de baixo consumo e gerenciada pelo ZHA.
+category: Passo a passo
+icon: book
+order: 4
 featured: true
-reading: 10 min de leitura
-date: 2026-09-21
-tags: [Zigbee, Zigbee2MQTT, ZHA, MQTT, Sensores]
+level: basico
+reading: 4 min de leitura
+date: 2026-09-22
+tags: [Home Assistant]
 ---
 
-Zigbee é o cavalo de batalha da casa inteligente: barato, de baixíssimo consumo, com malha própria e
-independente do seu Wi-Fi. A maioria dos sensores que você vai comprar nos próximos anos fala Zigbee.
+**Zigbee** é uma conexão sem fio usada por sensores, lâmpadas, tomadas e botões. Os aparelhos conversam em uma rede própria; não entram individualmente no seu Wi-Fi.
 
-## Como a malha funciona
+## Por que vamos começar por ele?
 
-Existem três papéis na rede:
+- **Baixo consumo:** combina com sensores pequenos, alimentados por pilha.
+- **Muitas opções:** há dispositivos de várias categorias e fabricantes.
+- **Controle local:** com ZHA, a comunicação com a central acontece dentro de casa.
+- **Rede que pode crescer:** aparelhos compatíveis ligados à energia podem repetir o sinal.
 
-- **Coordenador** — o dongle USB ligado ao seu servidor. Só existe um; é quem forma a rede.
-- **Roteadores** — dispositivos ligados na tomada (lâmpadas, tomadas inteligentes, módulos de relé).
-  Cada um repete o sinal e amplia o alcance.
-- **Dispositivos finais** — sensores a pilha. Dormem quase o tempo todo e **não repetem** sinal.
+Essas vantagens tornam Zigbee uma boa escolha para nossa primeira luz e nossos primeiros sensores. Preço, qualidade e funções variam por modelo.
 
-!!! nota "A regra que resolve quase tudo"
-    Uma rede só de sensores a pilha é uma rede frágil. Coloque de **três a cinco roteadores bem distribuídos**
-    (uma tomada inteligente por ambiente, por exemplo) e o alcance e a estabilidade mudam de patamar.
+## Três peças da rede
 
-## Escolhendo o coordenador
-
-| Coordenador | Chip | Comentário |
-|---|---|---|
-| **Home Assistant Connect ZBT-1 / SkyConnect** | Silicon Labs EFR32 | Suporta Zigbee e, com outro firmware, Thread |
-| **Sonoff ZBDongle-P** | TI CC2652P | Amplificado, ótimo alcance, muito popular |
-| **Sonoff ZBDongle-E** | Silicon Labs EFR32 | Também serve de roteador Thread com firmware alternativo |
-| **ConBee III** | — | Boa reputação, muito usado com deCONZ |
-
-Todos funcionam. O que realmente determina o resultado é **onde** você pluga: sempre numa
-**extensão USB 2.0**, longe de SSDs NVMe, portas USB 3.0 e do gabinete metálico.
-
-## Zigbee2MQTT x ZHA: a decisão
-
-| | **Zigbee2MQTT (Z2M)** | **ZHA** |
-|---|---|---|
-| Instalação | Add-on + broker MQTT | Integração nativa, dois cliques |
-| Compatibilidade | **Maior** — milhares de modelos, inclusive obscuros | Boa, cresce a cada versão |
-| Controle fino | Excelente (interface web, OTA, mapa da rede, converters personalizados) | Bom, mais enxuto |
-| Independência | Funciona sem o Home Assistant; publica em MQTT | Acoplado ao Home Assistant |
-| Complexidade | Mais peças para manter | Menos peças |
-
-**Escolha ZHA** se você quer o caminho mais curto e usa dispositivos comuns.
-**Escolha Zigbee2MQTT** se você gosta de controle, compra dispositivos variados (inclusive Tuya sem marca)
-ou quer que a rede Zigbee sobreviva a uma reinstalação do Home Assistant. É a escolha da maioria dos usuários avançados.
-
-!!! atencao "Migrar depois dá trabalho"
-    Trocar de Z2M para ZHA (ou o contrário) exige reparear **todos** os dispositivos, um a um, subindo em
-    escadas para chegar nas lâmpadas. Decida agora, sem pressa.
-
-## Montando com Zigbee2MQTT
-
-1. Instale o add-on **Mosquitto broker** e crie um usuário MQTT do Home Assistant.
-2. Instale o add-on **Zigbee2MQTT**.
-3. Descubra a porta do dongle em *Configurações → Sistema → Hardware* (algo como
-   `/dev/serial/by-id/usb-...`). **Use sempre o caminho `by-id`**, que não muda ao reiniciar.
-4. Ajuste a configuração:
-
-```yaml
-mqtt:
-  server: mqtt://core-mosquitto:1883
-  user: !secret mqtt_user
-  password: !secret mqtt_password
-serial:
-  port: /dev/serial/by-id/usb-Itead_Sonoff_Zigbee_3.0_USB_Dongle_Plus-if00-port0
-  adapter: zstack
-advanced:
-  channel: 20           # evite sobrepor o Wi-Fi
-  network_key: GENERATE
-  transmit_power: 20
-  log_level: warning
-frontend:
-  port: 8099
-homeassistant:
-  enabled: true
-```
-
-5. Abra a interface web, clique em **Permit join**, aproxime o dispositivo e pareie. Desative o
-   "permit join" quando terminar.
-
-## Canais: Zigbee e Wi-Fi brigam pelo mesmo espaço
-
-Ambos usam 2,4 GHz. Combinação que funciona bem:
-
-| Wi-Fi (2,4 GHz) | Zigbee sugerido |
+| Peça | Para que serve |
 |---|---|
-| Canal 1 | 15, 20 ou 25 |
-| Canal 6 | 15, 20 ou 25 |
-| Canal 11 | 15 ou 20 |
+| **Coordenador, como o ZBT-2** | Cria a rede e a conecta ao Home Assistant. |
+| **Repetidor Zigbee** | Encaminha mensagens para aumentar a cobertura; muitas tomadas fazem isso. |
+| **Sensor a pilha** | Envia suas leituras e geralmente não repete o sinal. |
 
-Fixe o canal do Wi-Fi no roteador (nada de "automático") e escolha o canal Zigbee de acordo.
-Mudar o canal Zigbee depois exige repareamento na maioria dos casos — acerte no início.
+Uma lâmpada que repete sinal deixa de ajudar quando o interruptor corta sua energia. A rede deve ser planejada para os aparelhos que permanecem ligados.
 
-## Diagnóstico: quando um sensor "some"
+## Quais são as limitações?
 
-1. **Veja o mapa da rede** (Z2M tem um; o ZHA também). Procure dispositivos ligados direto ao coordenador
-   quando deveriam usar um roteador próximo.
-2. **LQI baixo (< 50)** significa sinal ruim: aproxime um roteador.
-3. **Lâmpadas de algumas marcas são roteadores ruins** e descartam rotas. Tomadas inteligentes costumam ser
-   muito melhores repetidoras.
-4. **Pilhas CR2032 genéricas** causam quedas fantasma no frio. Use marcas conhecidas.
-5. **Repareie o dispositivo no lugar definitivo**, não na mesa ao lado do servidor.
+É necessário um coordenador. Paredes, metal e outros equipamentos de 2,4 GHz podem interferir. Nem toda função de todo fabricante aparece no ZHA: confira o modelo antes da compra.
 
-## Zigbee ainda faz sentido com o Matter chegando?
+Um dispositivo Zigbee pertence a uma rede por vez. Se já estava em outra central, normalmente precisa ser colocado em modo de redefinição/pareamento conforme o manual.
 
-Faz, e por muito tempo. Zigbee tem catálogo enorme, preços baixos e uma década de maturidade. Matter over
-Thread é o futuro para dispositivos novos e multiplataforma, mas as duas redes convivem sem conflito —
-inclusive no mesmo servidor, com dongles diferentes.
+## E o Thread?
 
-Continue em [Matter e Thread](/matter-thread/) para entender onde cada um se encaixa.
+Thread também é uma rede de baixo consumo e pode formar uma malha. É usada por muitos produtos Matter, mas precisa de um **roteador de borda Thread** para se ligar à rede doméstica.
+
+É útil para dispositivos compatíveis entre ecossistemas. A desvantagem, para quem começa, é mais um requisito para conferir. Zigbee e Thread são redes diferentes; um sensor Zigbee não entra em Thread.
+
+Primeiro, [entenda o que é Matter](/matter-thread/). Depois, [configure ZBT-2 + ZHA pelas telas](/zbt-dongles/).
+
+Existe a alternativa **Zigbee2MQTT**, tratada no [aprofundamento](/aprofundamento/#zigbee2mqtt). Ela não é necessária nesta trilha.
+
+Fontes: [ZHA](https://www.home-assistant.io/integrations/zha/), [ZBT-2](https://www.home-assistant.io/connect/zbt-2/) e [Thread](https://www.home-assistant.io/integrations/thread/).

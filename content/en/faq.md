@@ -7,80 +7,52 @@ category: FAQ
 icon: help
 order: 2
 section: pagina
-reading: 7 min read
-date: 2026-09-21
+reading: 3 min read
+date: 2026-09-22
 tags: [FAQ, Beginners]
+level: basico
 ---
 
-## Do I need to know how to code?
+## Do I need to code?
 
-No. Most automations are built through a graphical editor, and community blueprints cover the common cases.
-Reading YAML helps when you want something finer — and it is a configuration language, not a programming
-language: an afternoon is enough to grasp the essentials.
+Not for this learning path. Installation, ZHA pairing and the first automation use buttons and menus.
 
-## How much does it cost to start?
+## What do I need to start?
 
-An honest start has three items: the server (appliance, Raspberry Pi with an SSD, or a mini PC), a Zigbee
-coordinator, and three to five sensors. After that, every device is a separate decision. The expensive
-mistake is buying large kits before understanding what your home needs — almost everyone who does that ends
-up with a drawer full of unused gadgets.
+A hub running HAOS, such as Green or a supported Raspberry Pi, a ZBT-2 and one ZHA-compatible Zigbee light or sensor. Check devices you already own before buying.
+
+## Are Home Assistant and HAOS the same thing?
+
+Home Assistant is the program that controls your home. Home Assistant OS (HAOS) runs it and simplifies updates, backups and Apps.
 
 ## Does it work without internet?
 
-With Home Assistant running locally, yes: automations, sensors, local dashboards and switches keep working
-while the internet is down. What stops are external services — weather forecasts, push notifications away
-from home, cloud assistants, and devices that depend on a vendor's server.
+Local devices and integrations can keep working. The hub and local network need power. Cloud services and remote access need a connection.
 
-## I rent. Can I still automate?
+## Can I keep Alexa or Google Home?
 
-Absolutely. Avoid anything that requires construction work:
+Yes. Platforms can coexist. Connecting them to Home Assistant is an extra step; first, get your light working from the dashboard.
 
-- **Smart bulbs and plugs** instead of modules inside the wall
-- **Battery sensors** attached with double-sided tape
-- **Standalone Zigbee buttons** that replace switches without rewiring anything
-- **Infrared control for air conditioning** (one IR blaster covers several units)
+## Does ZHA need MQTT or HACS?
 
-When you move, everything leaves with you in a single box.
+No. ZHA is a built-in integration. It needs a supported coordinator, such as ZBT-2, to form the Zigbee network.
 
-## Which brand should I buy?
+## Does ZBT-2 run Zigbee and Thread at the same time?
 
-The better question is: **"does this device work locally?"**. Prefer, in this order: Zigbee, Matter over
-Thread, devices running ESPHome or Tasmota, and Wi-Fi devices with a local integration. Avoid products that
-only work through the vendor's app with a mandatory cloud account — they are the first to become e-waste
-when the company changes strategy.
+No. It uses one protocol at a time. For this guide, choose Zigbee and the recommended installation with ZHA.
 
-## Do I have to drop Alexa and Google?
+## Can I install HAOS on microSD?
 
-No. They remain excellent as a **voice interface**. The difference is that they now command Home Assistant,
-which is what actually decides. If the service goes down or you switch assistants, your automations survive.
+Yes. The official Raspberry Pi installation includes an A2 microSD card of at least 32 GB. Use suitable storage and power, and keep backups outside the hub.
 
-## Zigbee or Wi-Fi for sensors?
+## Does Matter guarantee every feature?
 
-Zigbee, almost always. Wi-Fi sensors use far more power (they rarely last years on a battery), take up
-addresses on your network and overload the router. Details in [Zigbee in practice](/zigbee/).
+No. Check whether the chosen platform supports the device category and its features. Matter over Thread also needs a Thread border router.
 
-## Does Matter solve every compatibility problem?
+## My first automation failed. What next?
 
-It solves many, but it is not magic: the specification covers device categories progressively, and a
-vendor's advanced features do not always fit the standard. Matter guarantees the basics working everywhere —
-which is already a lot. See [Matter and Thread](/matter-thread/).
+Check whether the light responds from the dashboard. Then open the automation menu and use Run actions. This skips triggers and conditions; use traces to inspect an actual run.
 
-## Is my data safe?
+[Follow the beginner path](/en/start/).
 
-With local processing, your data stays in your house. The practical rules: enable two-factor authentication,
-**never** expose Home Assistant directly to the internet (use a VPN or Nabu Casa), keep encrypted backups
-off the server, and put cameras on a network without internet access.
-
-## Is an SD card really that bad?
-
-Yes, for permanent use. The Home Assistant database writes continuously and consumer cards fail from wear,
-usually between 6 and 18 months — and the failure tends to be silent until the day nothing boots. NVMe SSD
-or eMMC, always.
-
-## Where do I start today if I am short on time?
-
-1. Install [Home Assistant](/en/start/) on simple hardware
-2. Integrate what you **already** have on the network (TV, vacuum, printer, receiver)
-3. Buy a Zigbee coordinator and **one** motion sensor
-4. Automate **one** real annoyance (the hallway light at night is usually the best first case)
-5. Only then plan the whole house
+Official references: [HAOS](https://www.home-assistant.io/installation/raspberrypi/), [ZHA](https://www.home-assistant.io/integrations/zha/), [ZBT-2](https://www.home-assistant.io/connect/zbt-2/), [Matter](https://www.home-assistant.io/integrations/matter/) e [automações](https://www.home-assistant.io/docs/automation/troubleshooting/).

@@ -37,7 +37,7 @@
   <link rel="preload" href="/static/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/static/fonts/inter-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/static/fonts/newsreader-500.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="/static/css/style.css?v=2bec9830">
+  <link rel="stylesheet" href="/static/css/style.css?v=907c1540">
   <script>
     (function () {
       try {
@@ -46,14 +46,14 @@
       } catch (e) {}
     })();
   </script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"SmartHome-AI","alternateName":"SmartHome-AI — Inteligência para o seu lar","url":"https://smarthome-ai.com/","inLanguage":"pt-BR","description":"Guias práticos e independentes de casa inteligente: Home Assistant, ESPHome, ESP32, Zigbee2MQTT, ZHA, Matter over Thread, Apple HomeKit, Scrypted, Raspberry Pi e mini-PCs.","publisher":{"@type":"Organization","name":"SmartHome-AI","url":"https://smarthome-ai.com","logo":{"@type":"ImageObject","url":"https://smarthome-ai.com/static/img/logo-smarthome-ai-marca.png","width":360,"height":360}}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Comandos do Home Assistant OS","description":"Consulte comandos de manutenção e diagnóstico.","inLanguage":"pt-BR","mainEntityOfPage":{"@type":"WebPage","@id":"https://smarthome-ai.com/comandos-haos/"},"author":{"@type":"Person","name":"Dr. Álvaro Menezes","url":"https://alvaro-menezes.com","jobTitle":"Radiologista","sameAs":["https://github.com/alvaroajm","https://www.instagram.com/alvaroajm/","https://facebook.com/alvaroajm","https://x.com/alvaromenezesMD","https://www.linkedin.com/in/dr-alvaro-menezes/"]},"publisher":{"@type":"Organization","name":"SmartHome-AI","url":"https://smarthome-ai.com","logo":{"@type":"ImageObject","url":"https://smarthome-ai.com/static/img/logo-smarthome-ai-marca.png","width":360,"height":360}},"image":"https://smarthome-ai.com/static/img/og-smarthome-ai.jpg","isAccessibleForFree":true,"datePublished":"2026-09-21","dateModified":"2026-09-21","keywords":"Home Assistant, CLI, Alpine, Linux, SSH, Diagnóstico","articleSection":"Referência"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Início","item":"https://smarthome-ai.com/"},{"@type":"ListItem","position":2,"name":"Todos os guias","item":"https://smarthome-ai.com/artigos/"},{"@type":"ListItem","position":3,"name":"Comandos do Home Assistant OS","item":"https://smarthome-ai.com/comandos-haos/"}]}</script><meta property="article:published_time" content="2026-09-21"><meta property="article:modified_time" content="2026-09-21">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"SmartHome-AI","alternateName":"SmartHome-AI — Inteligência para o seu lar","url":"https://smarthome-ai.com/","inLanguage":"pt-BR","description":"Casa inteligente para iniciantes: entenda as plataformas, instale o Home Assistant OS e conecte luzes e sensores com Zigbee, ZBT-2 e ZHA. Passo a passo pelas telas.","publisher":{"@type":"Organization","name":"SmartHome-AI","url":"https://smarthome-ai.com","logo":{"@type":"ImageObject","url":"https://smarthome-ai.com/static/img/logo-smarthome-ai-marca.png","width":360,"height":360}}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Comandos do Home Assistant OS","description":"Consulte comandos de manutenção e diagnóstico.","inLanguage":"pt-BR","mainEntityOfPage":{"@type":"WebPage","@id":"https://smarthome-ai.com/comandos-haos/"},"author":{"@type":"Person","name":"Dr. Álvaro Menezes","url":"https://alvaro-menezes.com","jobTitle":"Radiologista","sameAs":["https://github.com/alvaroajm","https://www.instagram.com/alvaroajm/","https://facebook.com/alvaroajm","https://x.com/alvaromenezesMD","https://www.linkedin.com/in/dr-alvaro-menezes/"]},"publisher":{"@type":"Organization","name":"SmartHome-AI","url":"https://smarthome-ai.com","logo":{"@type":"ImageObject","url":"https://smarthome-ai.com/static/img/logo-smarthome-ai-marca.png","width":360,"height":360}},"image":"https://smarthome-ai.com/static/img/og-smarthome-ai.jpg","isAccessibleForFree":true,"datePublished":"2026-09-21","dateModified":"2026-09-21","keywords":"Home Assistant, CLI, Alpine, Linux, SSH, Diagnóstico","articleSection":"Referência"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Início","item":"https://smarthome-ai.com/"},{"@type":"ListItem","position":2,"name":"Todos os guias","item":"https://smarthome-ai.com/artigos/"},{"@type":"ListItem","position":3,"name":"Comandos do Home Assistant OS","item":"https://smarthome-ai.com/comandos-haos/"}]}</script><meta property="article:published_time" content="2026-09-21"><meta property="article:modified_time" content="2026-09-21">
 </head>
 <body class="article"
       data-lang="pt"
       data-intl="pt-BR"
       data-search-index="/search-index.json"
       data-search-empty="Digite para buscar nos guias."
-      data-search-none="Nada encontrado. Tente “zigbee”, “esp32” ou “matter”."
+      data-search-none="Nada encontrado. Tente “zigbee”, “ZHA” ou “matter”."
       data-search-suggest="Guias populares">
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
   <div class="progress" id="progress" aria-hidden="true"></div>
@@ -116,8 +116,23 @@
       <nav class="toc" aria-label="Neste guia"><p class="toc-title">Neste guia</p><div class="toc">
 <ul>
 <li><a href="#os-tres-lugares-onde-voce-digita-comandos">Os três lugares onde você digita comandos</a></li>
-<li><a href="#o-cli-ha-o-que-voce-mais-vai-usar">O CLI ha — o que você mais vai usar</a></li>
-<li><a href="#no-terminal-alpine-app-terminal-ssh">No terminal Alpine (app Terminal &amp; SSH)</a></li>
+<li><a href="#o-cli-ha-o-que-voce-mais-vai-usar">O CLI ha — o que você mais vai usar</a><ul>
+<li><a href="#core-o-home-assistant-em-si">Core (o Home Assistant em si)</a></li>
+<li><a href="#supervisor">Supervisor</a></li>
+<li><a href="#host-e-sistema-operacional">Host e sistema operacional</a></li>
+<li><a href="#apps-os-antigos-add-ons">Apps (os antigos add-ons)</a></li>
+<li><a href="#backups">Backups</a></li>
+<li><a href="#rede">Rede</a></li>
+<li><a href="#diagnostico-e-outros">Diagnóstico e outros</a></li>
+</ul>
+</li>
+<li><a href="#no-terminal-alpine-app-terminal-ssh">No terminal Alpine (app Terminal &amp; SSH)</a><ul>
+<li><a href="#arquivos-e-pastas-que-importam">Arquivos e pastas que importam</a></li>
+<li><a href="#edicao-e-verificacao-de-yaml">Edição e verificação de YAML</a></li>
+<li><a href="#banco-de-dados-quando-o-disco-comeca-a-encher">Banco de dados (quando o disco começa a encher)</a></li>
+<li><a href="#rede-e-dispositivos-usb">Rede e dispositivos USB</a></li>
+</ul>
+</li>
 <li><a href="#acesso-ao-docker-modo-de-protecao-desligado">Acesso ao Docker (modo de proteção desligado)</a></li>
 <li><a href="#sequencias-que-resolvem-problemas-reais">Sequências que resolvem problemas reais</a></li>
 <li><a href="#referencias-oficiais">Referências oficiais</a></li>
@@ -127,7 +142,7 @@
       <div class="prose">
         <p>O Home Assistant OS tem <strong>três shells diferentes</strong>, e confundi-los é a origem de metade da frustração com
 linha de comando. Antes da lista de comandos, vale entender onde você está pisando.</p>
-<h3 id="os-tres-lugares-onde-voce-digita-comandos">Os três lugares onde você digita comandos<a class="headerlink" href="#os-tres-lugares-onde-voce-digita-comandos" title="Permanent link">#</a></h3>
+<h2 id="os-tres-lugares-onde-voce-digita-comandos">Os três lugares onde você digita comandos<a class="headerlink" href="#os-tres-lugares-onde-voce-digita-comandos" title="Permanent link">#</a></h2>
 <table>
 <thead>
 <tr>
@@ -164,12 +179,12 @@ ou atualiza</strong>. Nada instalado por <code>apk</code> é permanente.</p>
 <p>No console do host, o prompt já é o CLI: digite <code>login</code> para cair num shell raiz do host (ambiente mínimo,
 para emergências). Nos demais lugares, os comandos começam com <code>ha</code>.</p>
 <hr />
-<h3 id="o-cli-ha-o-que-voce-mais-vai-usar">O CLI <code>ha</code> — o que você mais vai usar<a class="headerlink" href="#o-cli-ha-o-que-voce-mais-vai-usar" title="Permanent link">#</a></h3>
+<h2 id="o-cli-ha-o-que-voce-mais-vai-usar">O CLI <code>ha</code> — o que você mais vai usar<a class="headerlink" href="#o-cli-ha-o-que-voce-mais-vai-usar" title="Permanent link">#</a></h2>
 <pre><code class="language-bash">ha help                      # lista tudo
 ha info                      # visão geral: versões de core, supervisor, OS e canal
 ha --help &lt;comando&gt;          # ajuda de um subcomando
 </code></pre>
-<h4 id="core-o-home-assistant-em-si">Core (o Home Assistant em si)<a class="headerlink" href="#core-o-home-assistant-em-si" title="Permanent link">#</a></h4>
+<h3 id="core-o-home-assistant-em-si">Core (o Home Assistant em si)<a class="headerlink" href="#core-o-home-assistant-em-si" title="Permanent link">#</a></h3>
 <pre><code class="language-bash">ha core check                # valida a configuração ANTES de reiniciar — use sempre
 ha core restart              # reinicia o Home Assistant
 ha core restart --safe-mode  # reinicia sem integrações/temas personalizados (modo de resgate)
@@ -188,14 +203,14 @@ ha core stats                # CPU e memória do container
 <p><code>ha core check</code> e depois <code>ha core restart</code>. Reiniciar com um YAML inválido deixa o Home Assistant
 sem subir, e aí o diagnóstico fica bem menos confortável.</p>
 </div>
-<h4 id="supervisor">Supervisor<a class="headerlink" href="#supervisor" title="Permanent link">#</a></h4>
+<h3 id="supervisor">Supervisor<a class="headerlink" href="#supervisor" title="Permanent link">#</a></h3>
 <pre><code class="language-bash">ha supervisor info           # versão, canal, arquitetura, diagnósticos
 ha supervisor logs           # registros do Supervisor (útil quando um app não inicia)
 ha supervisor reload         # recarrega o estado
 ha supervisor update         # atualiza o Supervisor
 ha supervisor repair         # tenta reparar a instalação (containers/imagens)
 </code></pre>
-<h4 id="host-e-sistema-operacional">Host e sistema operacional<a class="headerlink" href="#host-e-sistema-operacional" title="Permanent link">#</a></h4>
+<h3 id="host-e-sistema-operacional">Host e sistema operacional<a class="headerlink" href="#host-e-sistema-operacional" title="Permanent link">#</a></h3>
 <pre><code class="language-bash">ha host reboot               # reinicia a máquina
 ha host shutdown             # desliga
 ha host info                 # nome, sistema operacional, kernel, disco
@@ -212,7 +227,7 @@ ha hardware audio            # dispositivos de áudio
 <p>É o comando que tira sua instalação do cartão SD e a coloca num SSD. Faça um <strong>backup completo e
 baixado para outra máquina</strong> antes — a operação reescreve o destino inteiro.</p>
 </div>
-<h4 id="apps-os-antigos-add-ons">Apps (os antigos add-ons)<a class="headerlink" href="#apps-os-antigos-add-ons" title="Permanent link">#</a></h4>
+<h3 id="apps-os-antigos-add-ons">Apps (os antigos add-ons)<a class="headerlink" href="#apps-os-antigos-add-ons" title="Permanent link">#</a></h3>
 <p>Os add-ons passaram a se chamar <strong>apps</strong> na interface; o CLI aceita as duas formas.</p>
 <pre><code class="language-bash">ha apps                      # lista os apps instalados  (ha addons também funciona)
 ha apps info core_mosquitto  # detalhes, estado, opções e versão
@@ -226,7 +241,7 @@ ha apps rebuild core_zigbee2mqtt
 </code></pre>
 <p>Slugs úteis: <code>core_mosquitto</code>, <code>core_ssh</code>, <code>core_configurator</code>, <code>a0d7b954_zigbee2mqtt</code>,
 <code>5c53de3b_esphome</code> — confirme os seus com <code>ha apps --raw-json | grep slug</code>.</p>
-<h4 id="backups">Backups<a class="headerlink" href="#backups" title="Permanent link">#</a></h4>
+<h3 id="backups">Backups<a class="headerlink" href="#backups" title="Permanent link">#</a></h3>
 <pre><code class="language-bash">ha backups                                  # lista os backups
 ha backups new --name &quot;antes-da-atualizacao&quot;
 ha backups new --name &quot;so-config&quot; --folders config --addons core_mosquitto
@@ -237,7 +252,7 @@ ha backups remove &lt;slug&gt;
 </code></pre>
 <p>O <code>&lt;slug&gt;</code> é o código de 8 caracteres que aparece na listagem. Backup criado pela linha de comando
 aparece normalmente em <em>Configurações → Sistema → Backups</em>.</p>
-<h4 id="rede">Rede<a class="headerlink" href="#rede" title="Permanent link">#</a></h4>
+<h3 id="rede">Rede<a class="headerlink" href="#rede" title="Permanent link">#</a></h3>
 <pre><code class="language-bash">ha network info                    # interfaces, IP, gateway, DNS
 ha network update eth0 --ipv4-method auto
 ha network update eth0 --ipv4-method static \
@@ -248,7 +263,7 @@ ha network vlan eth0 10            # cria uma VLAN na interface
 ha dns info                        # servidor DNS interno do Supervisor
 ha dns options --servers dns://1.1.1.1
 </code></pre>
-<h4 id="diagnostico-e-outros">Diagnóstico e outros<a class="headerlink" href="#diagnostico-e-outros" title="Permanent link">#</a></h4>
+<h3 id="diagnostico-e-outros">Diagnóstico e outros<a class="headerlink" href="#diagnostico-e-outros" title="Permanent link">#</a></h3>
 <pre><code class="language-bash">ha resolution info           # problemas detectados e sugestões do Supervisor
 ha resolution healthcheck    # roda a verificação de saúde
 ha jobs info                 # tarefas em andamento
@@ -262,7 +277,7 @@ scripts:</p>
 <pre><code class="language-bash">ha core info --raw-json | jq '.data.version'
 </code></pre>
 <hr />
-<h3 id="no-terminal-alpine-app-terminal-ssh">No terminal Alpine (app Terminal &amp; SSH)<a class="headerlink" href="#no-terminal-alpine-app-terminal-ssh" title="Permanent link">#</a></h3>
+<h2 id="no-terminal-alpine-app-terminal-ssh">No terminal Alpine (app Terminal &amp; SSH)<a class="headerlink" href="#no-terminal-alpine-app-terminal-ssh" title="Permanent link">#</a></h2>
 <p>É um Alpine normal, com <strong>BusyBox</strong> no lugar de várias ferramentas GNU. O gerenciador de pacotes é o <code>apk</code>:</p>
 <pre><code class="language-bash">apk update                       # atualiza o índice de pacotes
 apk add --no-cache sqlite        # instala (some ao reiniciar o app!)
@@ -276,7 +291,7 @@ apk info -L sqlite               # lista os arquivos de um pacote
 precisa de uma ferramenta sempre disponível, coloque o <code>apk add</code> no campo <em>init commands</em> do app
 Terminal &amp; SSH, ou use um app próprio.</p>
 </div>
-<h4 id="arquivos-e-pastas-que-importam">Arquivos e pastas que importam<a class="headerlink" href="#arquivos-e-pastas-que-importam" title="Permanent link">#</a></h4>
+<h3 id="arquivos-e-pastas-que-importam">Arquivos e pastas que importam<a class="headerlink" href="#arquivos-e-pastas-que-importam" title="Permanent link">#</a></h3>
 <pre><code class="language-bash">ls -la /config                   # sua configuração (configuration.yaml, automations.yaml...)
 ls -la /config/.storage          # registros de entidades/dispositivos — NÃO edite com o HA rodando
 ls -lh /config/home-assistant_v2.db     # tamanho do banco de dados
@@ -285,19 +300,19 @@ du -sh /config/* | sort -h | tail -15   # o que está ocupando espaço
 df -h                            # espaço livre por partição
 free -m                          # memória
 </code></pre>
-<h4 id="edicao-e-verificacao-de-yaml">Edição e verificação de YAML<a class="headerlink" href="#edicao-e-verificacao-de-yaml" title="Permanent link">#</a></h4>
+<h3 id="edicao-e-verificacao-de-yaml">Edição e verificação de YAML<a class="headerlink" href="#edicao-e-verificacao-de-yaml" title="Permanent link">#</a></h3>
 <pre><code class="language-bash">nano /config/configuration.yaml     # ou: vi
 ha core check                        # valida antes de reiniciar
 grep -rn &quot;sensor.temperatura&quot; /config --include=*.yaml
 </code></pre>
-<h4 id="banco-de-dados-quando-o-disco-comeca-a-encher">Banco de dados (quando o disco começa a encher)<a class="headerlink" href="#banco-de-dados-quando-o-disco-comeca-a-encher" title="Permanent link">#</a></h4>
+<h3 id="banco-de-dados-quando-o-disco-comeca-a-encher">Banco de dados (quando o disco começa a encher)<a class="headerlink" href="#banco-de-dados-quando-o-disco-comeca-a-encher" title="Permanent link">#</a></h3>
 <pre><code class="language-bash">apk add --no-cache sqlite
 sqlite3 /config/home-assistant_v2.db \
   &quot;SELECT COUNT(*) AS registros, metadata_id FROM states GROUP BY metadata_id ORDER BY registros DESC LIMIT 15;&quot;
 </code></pre>
 <p>Pare o Home Assistant (<code>ha core stop</code>) antes de qualquer escrita no banco, e prefira resolver pelo
 <code>recorder:</code> no <code>configuration.yaml</code> — excluir entidades barulhentas vale mais que qualquer faxina manual.</p>
-<h4 id="rede-e-dispositivos-usb">Rede e dispositivos USB<a class="headerlink" href="#rede-e-dispositivos-usb" title="Permanent link">#</a></h4>
+<h3 id="rede-e-dispositivos-usb">Rede e dispositivos USB<a class="headerlink" href="#rede-e-dispositivos-usb" title="Permanent link">#</a></h3>
 <pre><code class="language-bash">ip a                                 # endereços IP do container
 ping -c 3 1.1.1.1
 nslookup homeassistant.local
@@ -307,7 +322,7 @@ lsusb                                # exige: apk add --no-cache usbutils
 dmesg | tail -30                     # o dongle foi reconhecido?
 </code></pre>
 <hr />
-<h3 id="acesso-ao-docker-modo-de-protecao-desligado">Acesso ao Docker (modo de proteção desligado)<a class="headerlink" href="#acesso-ao-docker-modo-de-protecao-desligado" title="Permanent link">#</a></h3>
+<h2 id="acesso-ao-docker-modo-de-protecao-desligado">Acesso ao Docker (modo de proteção desligado)<a class="headerlink" href="#acesso-ao-docker-modo-de-protecao-desligado" title="Permanent link">#</a></h2>
 <p>Por padrão, o app Terminal &amp; SSH roda <strong>isolado</strong>. Desligando a opção <em>Protection mode</em> na página do app,
 o terminal ganha acesso ao Docker do host:</p>
 <pre><code class="language-bash">docker ps                                  # todos os containers do sistema
@@ -326,7 +341,7 @@ pip list | grep -i zigbee
 sistema. Ligue para o que precisa, faça o que veio fazer e <strong>volte a ativar</strong> a proteção.</p>
 </div>
 <hr />
-<h3 id="sequencias-que-resolvem-problemas-reais">Sequências que resolvem problemas reais<a class="headerlink" href="#sequencias-que-resolvem-problemas-reais" title="Permanent link">#</a></h3>
+<h2 id="sequencias-que-resolvem-problemas-reais">Sequências que resolvem problemas reais<a class="headerlink" href="#sequencias-que-resolvem-problemas-reais" title="Permanent link">#</a></h2>
 <p><strong>A configuração quebrou e o Home Assistant não sobe</strong></p>
 <pre><code class="language-bash">ha core logs | tail -50        # veja o erro exato
 ha core check                  # onde está o YAML inválido
@@ -353,7 +368,7 @@ du -sh /config/* /share/* /backup/* 2&gt;/dev/null | sort -h | tail -20
 docker system df                # se a proteção estiver desligada
 </code></pre>
 <hr />
-<h3 id="referencias-oficiais">Referências oficiais<a class="headerlink" href="#referencias-oficiais" title="Permanent link">#</a></h3>
+<h2 id="referencias-oficiais">Referências oficiais<a class="headerlink" href="#referencias-oficiais" title="Permanent link">#</a></h2>
 <ul>
 <li><a class="ext" target="_blank" rel="noopener" href="https://www.home-assistant.io/common-tasks/os/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Tarefas comuns no Home Assistant OS</a></li>
 <li><a class="ext" target="_blank" rel="noopener" href="https://github.com/home-assistant/cli"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="github" src="/static/img/brands/github.svg?v=c964ca8e" width="32" height="32" alt="" decoding="async"></span>Home Assistant CLI (código-fonte)</a></li>
@@ -365,25 +380,25 @@ não funcionar como descrito aqui, <code>ha help</code> e <code>ha &lt;comando&g
         <ul class="tags"><li>Home Assistant</li><li>CLI</li><li>Alpine</li><li>Linux</li><li>SSH</li><li>Diagnóstico</li></ul>
       </div>
     </div>
-    <section class="related"><h2>Continue por aqui</h2><div class="cards"><a class="card" href="/instalacao/">
-        <span class="card-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 15c-1 2-1 4-1 4s2 0 4-1"/><path d="M13.5 4.5C16 2 21 3 21 3s1 5-1.5 7.5L14 16l-6-6 5.5-5.5Z"/><circle cx="15.5" cy="8.5" r="1.5"/><path d="m8 10-4 1 1 4 4-1"/></svg></span>
-        <span class="card-tag">Começando</span>
-        <h3>Comece sua casa inteligente</h3>
-        <p>Da escolha da central à primeira luz automatizada.</p>
+<section class="related"><h2>Continue por aqui</h2><div class="cards"><a class="card" href="/aprofundamento/">
+        <span class="card-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2Z"/><path d="M6 17h13"/></svg></span>
+        <span class="card-tag">Aprofundamento</span>
+        <h3>Aprofundamento: para depois do básico</h3>
+        <p>Instalações alternativas, Zigbee2MQTT, câmeras e projetos avançados.</p>
         <span class="card-go">Ler o guia <span aria-hidden="true">→</span></span>
       </a>
-      <a class="card" href="/instalar-haos/">
-        <span class="card-icon"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span></span>
-        <span class="card-tag">Começando</span>
-        <h3>Instale o Home Assistant OS</h3>
-        <p>Siga a instalação no Raspberry Pi ou no mini-PC.</p>
+      <a class="card" href="/zigbee2mqtt/">
+        <span class="card-icon"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="zigbee2mqtt" src="/static/img/brands/zigbee2mqtt.png?v=ebb91261" width="32" height="32" alt="" decoding="async"></span></span>
+        <span class="card-tag">Aprofundamento</span>
+        <h3>Zigbee2MQTT: uma alternativa para depois</h3>
+        <p>Entenda quando avaliar o Z2M e o que muda em relação ao ZHA.</p>
         <span class="card-go">Ler o guia <span aria-hidden="true">→</span></span>
       </a>
-      <a class="card" href="/home-assistant/">
-        <span class="card-icon"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span></span>
-        <span class="card-tag">Plataforma</span>
-        <h3>O que é Home Assistant?</h3>
-        <p>Entenda a central que conecta e automatiza sua casa.</p>
+      <a class="card" href="/hardware/">
+        <span class="card-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/></svg></span>
+        <span class="card-tag">Hardware</span>
+        <h3>Escolha sua central</h3>
+        <p>Compare Home Assistant Green, Raspberry Pi e mini-PC.</p>
         <span class="card-go">Ler o guia <span aria-hidden="true">→</span></span>
       </a></div></section>
     <nav class="pager">
@@ -440,7 +455,7 @@ não funcionar como descrito aqui, <code>ha help</code> e <code>ha &lt;comando&g
         <p>Inteligência para o seu lar — Guias independentes de casa inteligente, automação local e código aberto.</p>
       </div>
       <nav class="footer-nav" aria-label="Site">
-        <div><h4>Plataformas</h4><a href="/home-assistant/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Home Assistant</a><a href="/esphome-esp32/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>ESPHome &amp; ESP32</a><a href="/scrypted/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="scrypted" src="/static/img/brands/scrypted.png?v=2c0e2d75" width="32" height="32" alt="" decoding="async"></span>Scrypted &amp; câmeras</a><a href="/casaos-umbrel/"><span class="project-icons project-icons-pair" aria-hidden="true"><img class="project-logo" data-project="casaos" src="/static/img/brands/casaos.png?v=24e1de28" width="32" height="32" alt="" decoding="async"><img class="project-logo" data-project="umbrel" src="/static/img/brands/umbrel.png?v=f30dfaec" width="32" height="32" alt="" decoding="async"></span>CasaOS &amp; umbrelOS</a><a href="/nabu-casa/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="nabu-casa" src="/static/img/brands/nabu-casa.svg?v=fd7f86f9" width="32" height="32" alt="" decoding="async"></span>Nabu Casa</a></div><div><h4>Protocolos</h4><a href="/zigbee/"><span class="project-icons project-icons-pair" aria-hidden="true"><img class="project-logo" data-project="zigbee2mqtt" src="/static/img/brands/zigbee2mqtt.png?v=ebb91261" width="32" height="32" alt="" decoding="async"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Zigbee2MQTT &amp; ZHA</a><a href="/zbt-dongles/">Dongles ZBT-1 &amp; ZBT-2</a><a href="/matter-thread/">Matter &amp; Thread</a><a href="/mqtt/">MQTT</a><a href="/apple-homekit/">Apple HomeKit</a></div><div><h4>IA & agentes</h4><a href="/claude-mcp/">Claude &amp; MCP</a><a href="/cameras-ia/">Câmeras com IA</a><a href="/openclaw/">OpenClaw</a></div><div><h4>Site</h4><a href="/artigos/">Todos os guias</a><a href="/instalacao/">Comece aqui</a><a href="/instalar-haos/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Instalar o HAOS</a><a href="/comandos-haos/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Comandos do HA</a><a href="/faq/">Dúvidas frequentes</a><a href="/sobre/">Sobre</a></div>
+        <div><h4>Primeiros passos</h4><a href="/casa-inteligente/">O que é casa inteligente?</a><a href="/home-assistant/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Home Assistant</a><a href="/instalar-haos/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Instalar o HAOS</a></div><div><h4>Conectar e automatizar</h4><a href="/zigbee/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Entender Zigbee</a><a href="/zbt-dongles/">ZBT-2 com ZHA</a><a href="/primeira-automacao/">Primeira automação</a></div><div><h4>Depois do básico</h4><a href="/apps-integracoes/">Integrações e Apps</a><a href="/aprofundamento/">Aprofundamento</a></div><div><h4>Site</h4><a href="/artigos/">Todos os guias</a><a href="/faq/">Dúvidas frequentes</a><a href="/sobre/">Sobre</a></div>
       </nav>
     </div>
     <div class="wrap footer-bottom">
@@ -458,7 +473,7 @@ não funcionar como descrito aqui, <code>ha help</code> e <code>ha &lt;comando&g
     <div class="search-box" role="dialog" aria-modal="true" aria-label="Buscar no site">
       <div class="search-field">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input type="search" id="search-input" aria-label="Buscar no site" placeholder="Buscar: Zigbee, ESPHome, Matter, Raspberry Pi…" autocomplete="off" spellcheck="false">
+        <input type="search" id="search-input" aria-label="Buscar no site" placeholder="Buscar: luz, Zigbee, instalação…" autocomplete="off" spellcheck="false">
         <button class="search-close icon-btn" type="button" data-close aria-label="Fechar busca">×</button>
       </div>
       <ul class="search-results" id="search-results"></ul>

@@ -1,10 +1,11 @@
 ---
+level: avancado
 title: Conheça o Home Assistant Cloud
 slug: nabu-casa
 description: Entenda o acesso remoto e as conexões com assistentes de voz.
 category: Serviços
 icon: cloud
-order: 11
+order: 111
 featured: true
 reading: 8 min de leitura
 date: 2026-09-21

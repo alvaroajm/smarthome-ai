@@ -1,10 +1,11 @@
 ---
+level: avancado
 title: Câmeras com inteligência artificial
 slug: cameras-ia
 description: Entenda os alertas e as opções de análise de imagens.
 category: Câmeras & vídeo
 icon: eye
-order: 13
+order: 113
 featured: true
 reading: 10 min de leitura
 date: 2026-09-21
