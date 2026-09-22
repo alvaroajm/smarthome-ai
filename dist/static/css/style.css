@@ -976,8 +976,8 @@ img.project-logo{display:inline-block;width:1.25em;height:1.25em;max-width:none;
 .lesson-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:clamp(2rem,4vw,4rem);align-items:center}
 .lesson-split>*{min-width:0}.lesson-divider{margin-block:2rem;border-top:1px solid var(--border)}
 .ha-screen{margin:1.6rem 0;min-width:0}.ha-screen>a{display:block;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:#fff;transition:box-shadow .2s}
-.ha-screen>a:hover{box-shadow:0 5px 24px #0002}.ha-screen img{display:block;width:100%;height:auto;margin:0!important;border:0!important;border-radius:0!important;box-shadow:none!important}
-.ha-screen figcaption{font-size:.78rem;line-height:1.65;color:var(--text-soft);margin-top:.8rem}.ha-screen figcaption span{display:block;font-size:.73rem}.ha-screen figcaption a{text-decoration:underline;text-underline-offset:3px}
+.ha-screen>a:hover{box-shadow:0 5px 24px #0002}.ha-screen>a>img{display:block;width:100%;height:auto;margin:0!important;border:0!important;border-radius:0!important;box-shadow:none!important}
+.ha-screen figcaption{font-size:.78rem;line-height:1.65;color:var(--text-soft);margin-top:.8rem}.ha-screen figcaption>span{display:block;font-size:.73rem}.ha-screen figcaption a{text-decoration:underline;text-underline-offset:3px}
 .lesson-steps{padding-left:1.5rem;line-height:1.85}.lesson-steps li{padding-left:.5rem;margin-block:1rem}.lesson-steps li::marker{color:var(--link);font-weight:600}
 .next-lessons{display:grid;gap:.8rem;max-width:850px;margin-bottom:1.7rem}
 .next-lessons details,.library-advanced,.optional-demo>details{border:1px solid var(--border);border-radius:12px;padding:1.2rem 1.5rem;background:var(--surface)}
