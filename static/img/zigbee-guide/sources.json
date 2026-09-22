@@ -1,0 +1,32 @@
+[
+  {
+    "file": "zbt-2.webp",
+    "source": "https://www.home-assistant.io/images/connect/zbt-2/lifestyle3.webp",
+    "page": "https://www.home-assistant.io/connect/zbt-2/",
+    "sha256": "05e5551caa942091feeb535dcdddbf380c59a0b5a8edb67c468f0a285a6be5e1"
+  },
+  {
+    "file": "contact.avif",
+    "source": "https://sonoff.tech/cdn/shop/files/SNZB-04P_3ecebce5-6f5f-4657-9d34-dc292e699965.avif?v=1778565755&width=2048",
+    "page": "https://sonoff.tech/products/sonoff-zigbee-door-window-sensor-snzb-04p",
+    "sha256": "cbbd1eafd21c94071bb3766e79467982bf6c0d4a337dc41534ee3e3693669fb6"
+  },
+  {
+    "file": "motion.avif",
+    "source": "https://sonoff.tech/cdn/shop/files/SNZB-03P_Zigbee.avif?v=1778493943&width=2048",
+    "page": "https://sonoff.tech/products/sonoff-zigbee-motion-sensor-snzb-03p",
+    "sha256": "b1f8ef316880054312774e97c14d0bdfcb52bb92ddbd57e6d913ff4670e92a83"
+  },
+  {
+    "file": "button.png",
+    "source": "https://sonoff.tech/cdn/shop/files/SNZB-01P_Zigbee.png?v=1751008428&width=2048",
+    "page": "https://sonoff.tech/products/sonoff-zigbee-wireless-switch-snzb-01p",
+    "sha256": "c36ea30be8f35bc1767e76be82823178009ffd9c2c92a4bcbcd9327d0266e8c3"
+  },
+  {
+    "file": "switch.avif",
+    "source": "https://sonoff.tech/cdn/shop/files/ZBMINIR2_Main_ba021255-08b3-4170-9b64-622fd22a561a.avif?v=1772594747&width=2048",
+    "page": "https://sonoff.tech/en-us/products/sonoff-zbmini-extreme-zigbee-smart-switch-zbminir2",
+    "sha256": "f6c4c9525b6875d3a30013822b2ee529c6ea136209cdc8770c093ebe9fffaa86"
+  }
+]

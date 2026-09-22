@@ -42,11 +42,29 @@ def photo(file,caption,source,lang='pt',product=False):
  r=ASSETS[file];p='/static/img/ha-features/'+file
  return f'''<figure class="feature-figure{' feature-product' if product else ''}"><a href="{p}" target="_blank" rel="noopener" aria-label="{'Enlarge' if lang=='en' else 'Ampliar'}: {escape(caption,quote=True)}"><img src="{p}" width="{r['width']}" height="{r['height']}" alt="{escape(caption,quote=True)}" loading="lazy" decoding="async"></a><figcaption>{caption} · {ext(source,'Official image' if lang=='en' else 'Imagem oficial')}</figcaption></figure>'''
 
+BRAND_CARDS = [
+ ('lg',537,'TVs e eletrodomésticos conectados.','Connected TVs and appliances.'),
+ ('samsung',1150,'TVs e aparelhos do ecossistema SmartThings.','TVs and SmartThings appliances.'),
+ ('tuya',512,'A plataforma por trás de muitos produtos Smart Life.','The platform behind many Smart Life products.'),
+ ('aqara',881,'Sensores, botões, cortinas e outros acessórios.','Sensors, buttons, curtains and accessories.'),
+ ('sony',1465,'TVs Bravia para completar a cena de cinema.','Bravia TVs for your movie-night scene.'),
+ ('eve',666,'Sensores, tomadas e acessórios para a casa.','Sensors, plugs and home accessories.'),
+ ('tapo',646,'Tomadas, iluminação e câmeras conectadas.','Connected plugs, lighting and cameras.'),
+ ('reolink',1166,'Câmeras e gravadores de vídeo em rede.','Network cameras and video recorders.'),
+ ('intelbras',1248,'Câmeras de segurança; verifique ONVIF ou RTSP.','Security cameras; check ONVIF or RTSP support.'),
+ ('hue',653,'Lâmpadas, fitas e luminárias para criar ambientes.','Bulbs, strips and lamps that set the mood.'),
+ ('epson',957,'Projetores compatíveis para o seu cinema em casa.','Supported projectors for your home theater.'),
+]
+
 def brand_details(lang='pt'):
- en=lang=='en'
- chips=''.join(f'<a href="https://www.home-assistant.io/integrations/{slug}/" target="_blank" rel="noopener">{name}</a>' for name,slug,pt,eng in BRANDS)
+ en=lang=='en';t=lambda pt,eng:eng if en else pt
+ cards=[]
+ for (name,slug,pt,eng),(logo,width,brief,brief_en) in zip(BRANDS,BRAND_CARDS):
+  cards.append(f'<a href="https://www.home-assistant.io/integrations/{slug}/" target="_blank" rel="noopener"><span class="manufacturer-logo" aria-hidden="true"><img src="/static/img/manufacturers/{logo}.png" width="{width}" height="256" alt="" loading="lazy" decoding="async"></span><strong>{name}</strong><span class="manufacturer-description">{brief_en if en else brief}</span><span class="manufacturer-cta">{t("Ver integração","View integration")} ↗</span></a>')
  rows=''.join(f'<li><strong>{name}</strong><span>{eng if en else pt}</span></li>' for name,slug,pt,eng in BRANDS)
- return f'''<div class="ha-brand-list" aria-label="{'Integration examples' if en else 'Exemplos de integrações'}">{chips}</div><details class="feature-details"><summary>{'What can I connect from each brand?' if en else 'O que posso conectar de cada marca?'}</summary><ul class="ha-brand-notes">{rows}</ul><p>{'Check the exact model, firmware and supported features before buying. One integration can support several brands; a brand can use several integrations.' if en else 'Antes de comprar, confira modelo, firmware e funções disponíveis. Uma integração pode atender várias marcas; uma marca pode usar várias integrações.'}</p></details>'''
+ return f'''<div class="ha-brand-list" aria-label="{t('Exemplos de integrações','Integration examples')}">{''.join(cards)}</div>
+<aside class="hue-explainer"><h4>{t('Philips Hue: a luz também cria o ambiente.','Philips Hue: lighting sets the mood.')}</h4><p>{t('Hue é uma linha de iluminação inteligente: lâmpadas, fitas de LED e luminárias. Conforme o modelo, você ajusta brilho, branco quente ou frio e cores. Uma cena combina esses ajustes — como uma luz suave para jantar ou tons coloridos para o cinema.','Hue is a range of smart lighting: bulbs, LED strips and lamps. Depending on the model, adjust brightness, warm-to-cool white and colors. A scene combines those settings — gentle dinner lighting or colorful tones for movie night.')}</p><p>{t('A Hue Bridge é a central da marca. O Home Assistant conversa localmente com ela para controlar luzes e cenas. Outra opção é parear lâmpadas Zigbee compatíveis diretamente com ZHA + ZBT-2; nesse caso, os recursos disponíveis podem mudar.','Hue Bridge is the brand’s hub. Home Assistant connects to it locally to control lights and scenes. Alternatively, pair supported Zigbee bulbs directly with ZHA + ZBT-2; the available features can differ.')}</p>{ext('https://www.philips-hue.com/en-us/explore-hue',t('Conhecer a Philips Hue','Explore Philips Hue'))}</aside>
+<details class="feature-details"><summary>{t('Como conectar cada marca?','How do I connect each brand?')}</summary><ul class="ha-brand-notes">{rows}</ul><p>{t('Antes de comprar, confira modelo, firmware e funções disponíveis. Uma integração pode atender várias marcas; uma marca pode usar várias integrações.','Check the exact model, firmware and supported features before buying. One integration can support several brands; a brand can use several integrations.')}</p></details><p class="feature-small"><a href="/static/img/manufacturers/README.md">{t('Créditos dos logotipos','Logo credits')}</a> · {t('Marcas de seus respectivos titulares. Exemplos, sem vínculo oficial.','Trademarks belong to their owners. Examples, without official affiliation.')}</p>'''
 
 def home_showcase(lang='pt'):
  en=lang=='en';t=lambda pt,eng:eng if en else pt

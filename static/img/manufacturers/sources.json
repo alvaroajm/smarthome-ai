@@ -1,0 +1,68 @@
+[
+  {
+    "file": "lg.png",
+    "source": "https://raw.githubusercontent.com/home-assistant/brands/28d8345c79e482d6c20d02befcadb0fcc57aea73/core_brands/lg/logo.png",
+    "catalog": "https://github.com/home-assistant/brands/tree/28d8345c79e482d6c20d02befcadb0fcc57aea73/core_brands/lg",
+    "sha256": "a993be7296e7ee8ab3f69c486f4e6b378a3d935ceb6b13edd05e29824be2deab"
+  },
+  {
+    "file": "samsung.png",
+    "source": "https://raw.githubusercontent.com/home-assistant/brands/28d8345c79e482d6c20d02befcadb0fcc57aea73/core_brands/samsung/logo.png",
+    "catalog": "https://github.com/home-assistant/brands/tree/28d8345c79e482d6c20d02befcadb0fcc57aea73/core_brands/samsung",
+    "sha256": "ba7e0a3c3ed99549761301fdf8ccf3c3065e8cb06402b9e48f6544b81949cb63"
+  },
+  {
+    "file": "tuya.png",
+    "source": "https://raw.githubusercontent.com/home-assistant/brands/28d8345c79e482d6c20d02befcadb0fcc57aea73/core_integrations/tuya/logo.png",
+    "catalog": "https://github.com/home-assistant/brands/tree/28d8345c79e482d6c20d02befcadb0fcc57aea73/core_integrations/tuya",
+    "sha256": "ca14ee09f2c8264e9f66d24a171ed9605cbcaf9b439254f056eefb3714a1eeae"
+  },
+  {
+    "file": "aqara.png",
+    "source": "https://raw.githubusercontent.com/home-assistant/brands/28d8345c79e482d6c20d02befcadb0fcc57aea73/core_brands/aqara/logo.png",
+    "catalog": "https://github.com/home-assistant/brands/tree/28d8345c79e482d6c20d02befcadb0fcc57aea73/core_brands/aqara",
+    "sha256": "346ac76f0f2b5826e507cd9f3544f07fac0a392183ceeaba9bddd4920c0c3949"
+  },
+  {
+    "file": "sony.png",
+    "source": "https://raw.githubusercontent.com/home-assistant/brands/28d8345c79e482d6c20d02befcadb0fcc57aea73/core_brands/sony/logo.png",
+    "catalog": "https://github.com/home-assistant/brands/tree/28d8345c79e482d6c20d02befcadb0fcc57aea73/core_brands/sony",
+    "sha256": "71933eb2b7e920307d5671cae732a29bd185301d1230ce543d0eb07f17d6a50e"
+  },
+  {
+    "file": "eve.png",
+    "source": "https://raw.githubusercontent.com/home-assistant/brands/28d8345c79e482d6c20d02befcadb0fcc57aea73/core_brands/eve/logo.png",
+    "catalog": "https://github.com/home-assistant/brands/tree/28d8345c79e482d6c20d02befcadb0fcc57aea73/core_brands/eve",
+    "sha256": "f439f5cae229ec1019f06b8ec890c7d78d1160ec0d0e91297b8ffbcb50ccb125"
+  },
+  {
+    "file": "tapo.png",
+    "source": "https://raw.githubusercontent.com/home-assistant/brands/28d8345c79e482d6c20d02befcadb0fcc57aea73/core_integrations/tplink_tapo/logo.png",
+    "catalog": "https://github.com/home-assistant/brands/tree/28d8345c79e482d6c20d02befcadb0fcc57aea73/core_integrations/tplink_tapo",
+    "sha256": "86f959c686a49af49721c631612abf82a6611a9bb87b620870095cd51011af22"
+  },
+  {
+    "file": "reolink.png",
+    "source": "https://raw.githubusercontent.com/home-assistant/brands/28d8345c79e482d6c20d02befcadb0fcc57aea73/core_integrations/reolink/logo.png",
+    "catalog": "https://github.com/home-assistant/brands/tree/28d8345c79e482d6c20d02befcadb0fcc57aea73/core_integrations/reolink",
+    "sha256": "028c1aaf4458ea892cd5f7f70c437fa03601010e9bcffe91d9363fc33abe4263"
+  },
+  {
+    "file": "intelbras.png",
+    "source": "https://raw.githubusercontent.com/home-assistant/brands/28d8345c79e482d6c20d02befcadb0fcc57aea73/custom_integrations/intelbras_twibi_router/logo.png",
+    "catalog": "https://github.com/home-assistant/brands/tree/28d8345c79e482d6c20d02befcadb0fcc57aea73/custom_integrations/intelbras_twibi_router",
+    "sha256": "9d8554b13307529de0a4cb2a4782098fc9f9165438874b3d595a93f35c4365ae"
+  },
+  {
+    "file": "hue.png",
+    "source": "https://raw.githubusercontent.com/home-assistant/brands/28d8345c79e482d6c20d02befcadb0fcc57aea73/core_integrations/hue/logo.png",
+    "catalog": "https://github.com/home-assistant/brands/tree/28d8345c79e482d6c20d02befcadb0fcc57aea73/core_integrations/hue",
+    "sha256": "755d0c39a0558410412f352a8ac6151bbc49c4f85d93a6aa1bf0c2cec04204af"
+  },
+  {
+    "file": "epson.png",
+    "source": "https://raw.githubusercontent.com/home-assistant/brands/28d8345c79e482d6c20d02befcadb0fcc57aea73/core_integrations/epson/logo.png",
+    "catalog": "https://github.com/home-assistant/brands/tree/28d8345c79e482d6c20d02befcadb0fcc57aea73/core_integrations/epson",
+    "sha256": "28710c4ef969140ba68463a1e624b97e3a2c9308a501bbbd766e5a54f2545d81"
+  }
+]

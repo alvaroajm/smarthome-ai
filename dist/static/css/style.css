@@ -1031,3 +1031,47 @@ img.project-logo{display:inline-block;width:1.25em;height:1.25em;max-width:none;
 @media(max-width:900px){.feature-pair{gap:1.7rem}.ha-scenarios{gap:1rem}.ha-scenarios article{padding:1.3rem}.ha-control-grid{gap:.7rem}.ha-control-grid article{padding:1rem}}
 @media(max-width:680px){.feature-block{padding-block:2.2rem}.feature-pair,.ha-scenarios,.ha-control-grid,.ha-access-grid,.ha-brand-notes,.ha-nvr-pair{grid-template-columns:1fr}.ha-access-grid article{padding:1.5rem}.ha-apple{padding:1.5rem}.ha-diy-photos{grid-template-columns:1fr;gap:1.5rem}.ha-diy-photos .feature-product>a>img{height:auto;max-height:360px}.feature-product>a>img{height:270px}.ha-control-grid{gap:1rem}.ha-control-grid article{padding:.7rem 1rem}.ha-brand-list{gap:.5rem}.ha-brand-list>a{font-size:.87rem;padding:.5rem .75rem}.ha-showcase{margin-top:2rem}}
 .ha-feature-nav{display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;margin-bottom:1.5rem}.ha-feature-nav a{display:inline-flex;align-items:center;min-height:44px;font-size:.9rem;border-bottom:1px solid var(--border)}.ha-light-photo{max-width:800px;margin:0 auto 2.5rem}.ha-showcase h3[id]{scroll-margin-top:120px}
+
+/* Discovery stays open; original manufacturer artwork stays on a white plate. */
+.ha-brand-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
+.ha-brand-list>a{display:flex;flex-direction:column;align-items:flex-start;gap:.7rem;padding:1.3rem;font-weight:400;text-decoration:none;transition:border-color .2s}
+.ha-brand-list>a:hover{border-color:var(--accent)}
+.manufacturer-logo{display:flex;align-items:center;justify-content:center;width:100%;height:80px;background:#fff;border-radius:8px;margin-bottom:.3rem;padding:15px}
+.manufacturer-logo>img{display:block;width:auto;height:auto;max-width:100%;max-height:50px;object-fit:contain;margin:0;border:0;border-radius:0;filter:none}
+.manufacturer-description{font-size:.9rem;line-height:1.65;color:var(--text-soft)}
+.manufacturer-cta{font-size:.76rem;color:var(--link);margin-top:auto;padding-top:.3rem}
+.hue-explainer{border-left:3px solid var(--accent);background:var(--bg-soft);padding:1.5rem 1.7rem;margin:2rem 0;border-radius:0 12px 12px 0}
+.hue-explainer p{font-size:.95rem;line-height:1.8}.hue-explainer>a{font-size:.85rem;display:inline-flex;align-items:center;min-height:44px}
+/* Zigbee: photos, then coordinator > repeaters > end devices. */
+.zigbee-story{margin-bottom:2.5rem}.zigbee-intro{max-width:80ch}.zigbee-story p{color:var(--text-soft);line-height:1.8}
+.zigbee-story h3{font-family:var(--display);font-weight:500;font-size:clamp(1.5rem,3vw,2rem);line-height:1.25;margin:0 0 1rem}
+.zigbee-coordinator{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:center;margin:2.5rem 0 3rem}
+.zigbee-coordinator figure{margin:0;min-width:0}.zigbee-coordinator figure>img{display:block;width:100%;height:auto;border-radius:14px}
+.zigbee-coordinator figcaption{font-size:.77rem;padding-top:.7rem}.zigbee-coordinator p{margin:0 0 1rem}
+.zigbee-products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.2rem;margin:1.5rem 0}
+.zigbee-product{margin:0;border:1px solid var(--border);background:var(--surface);border-radius:12px;overflow:hidden;min-width:0}
+.zigbee-product>img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:contain;background:#fff;margin:0;border-radius:0}
+.zigbee-product figcaption{padding:1.2rem}.zigbee-product h4{font-size:1rem;line-height:1.4;margin:.7rem 0}.zigbee-product p{font-size:.9rem;line-height:1.6;margin:0 0 1rem}
+.zigbee-product small{display:block;font-size:.72rem;color:var(--text-dim)}.zigbee-product a{display:inline-flex;align-items:center;min-height:44px;font-size:.73rem;line-height:1.5;margin-top:.2rem}
+.zigbee-role{font-size:.65rem;line-height:1.6;color:var(--link);display:block}
+.zigbee-mesh{margin:2.5rem 0 1.5rem;padding:2rem;background:var(--bg-soft);border:1px solid var(--border);border-radius:18px}
+.zigbee-mesh>figcaption{margin-bottom:2rem}.zigbee-mesh>figcaption p{max-width:65ch}
+.mesh-hub{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:1rem;max-width:700px;margin:auto}
+.mesh-node{position:relative;display:flex;flex-direction:column;gap:.45rem;text-align:center;padding:1.2rem .8rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;min-width:0}
+.mesh-node strong{font-size:1rem;line-height:1.4}.mesh-node span{font-size:.8rem;line-height:1.5;color:var(--text-soft)}.mesh-node .mesh-kind{font-size:.67rem;color:var(--link)}
+.mesh-coordinator{border:2px solid var(--accent)}.mesh-usb{font-size:.75rem;color:var(--text-dim);white-space:nowrap}
+.mesh-radio-link{position:relative;text-align:center;padding:1rem 0 2rem;font-size:.75rem;line-height:1.5;color:var(--link)}
+.mesh-radio-link:after{content:'';position:absolute;bottom:0;left:50%;height:22px;border-left:2px solid var(--accent)}
+.mesh-branches{--mesh-gap:3rem;position:relative;display:grid;grid-template-columns:1fr 1fr;gap:var(--mesh-gap);max-width:700px;margin:0 auto}
+.mesh-branches:before{content:'';position:absolute;top:0;left:calc((100% - var(--mesh-gap))/4);right:calc((100% - var(--mesh-gap))/4);border-top:2px solid var(--accent)}
+.mesh-branches:after{content:'↔';position:absolute;top:4rem;left:50%;transform:translateX(-50%);color:var(--accent);font-size:1.5rem}
+.mesh-branch{position:relative;padding-top:22px;display:grid;grid-template-rows:1fr auto 1fr}.mesh-branch:before{content:'';position:absolute;top:0;left:50%;height:22px;border-left:2px solid var(--accent)}
+.mesh-router{border-color:var(--accent);min-height:118px}.mesh-stem{text-align:center;font-size:1.5rem;color:var(--text-dim);padding:.6rem}.mesh-end{border-style:dashed;min-height:118px}
+.mesh-caption{max-width:76ch;margin:1.5rem auto 0;font-size:.83rem;line-height:1.75}
+.zigbee-roles{display:grid;grid-template-columns:1fr 1fr;gap:2rem}.zigbee-roles h4{font-size:1rem;margin:.5rem 0}.zigbee-roles p{font-size:.94rem}
+.prose .zigbee-product,.prose .zigbee-coordinator figure{margin:0}.prose .zigbee-products{grid-template-columns:repeat(2,minmax(0,1fr))}.prose .zigbee-story h3{margin-top:0}.prose .zigbee-product img{margin:0}
+@media(max-width:900px){.zigbee-products{grid-template-columns:repeat(2,minmax(0,1fr))}.zigbee-coordinator{gap:1.5rem}}
+@media(max-width:680px){.ha-brand-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem}.ha-brand-list>a{padding:.9rem;gap:.55rem}.manufacturer-logo{height:64px;padding:12px}.manufacturer-logo>img{max-height:40px}.manufacturer-description{font-size:.8rem}.manufacturer-cta{font-size:.7rem}.hue-explainer{padding:1.3rem}.zigbee-coordinator{grid-template-columns:1fr;gap:1.3rem;margin-block:2rem}.zigbee-products{gap:.8rem}.zigbee-product figcaption{padding:.9rem}.zigbee-product h4{font-size:.92rem}.zigbee-product p{font-size:.82rem}.zigbee-role{font-size:.6rem}.zigbee-mesh{padding:1.2rem .8rem}.mesh-hub{gap:.5rem;grid-template-columns:1fr}.mesh-usb{justify-self:center}.mesh-branches{--mesh-gap:1.4rem}.mesh-node{padding:1rem .5rem}.mesh-node strong{font-size:.82rem}.mesh-node span{font-size:.73rem}.mesh-node .mesh-kind{font-size:.63rem}.mesh-branches:after{font-size:1.2rem}.mesh-router{min-height:128px}.mesh-end{min-height:128px}.zigbee-roles{grid-template-columns:1fr;gap:.4rem}}
+@media(prefers-reduced-motion:reduce){.ha-brand-list>a{transition:none}}
+
+[aria-labelledby="casa-inteligente"]{padding-bottom:3rem}.connected-home{padding-block:3rem}.device-section{padding-top:3rem}

@@ -818,9 +818,11 @@ def build_home(lang: str, own: list[Page], foreign: list[Page], alts_for) -> Non
     featured = [p for p in (foreign if lang == "en" else own) if p.featured]
     is_foreign = lang == "en"
 
+    visual = home_visual_context(lang)
+    discovery = render(read_template(f"discovery.{lang}.html"), visual)
     body = render(tpl, {
-        **home_visual_context(lang),
-        "beginner_path": beginner_home(lang),
+        **visual,
+        "beginner_path": beginner_home(lang, discovery),
         "cards": "\n      ".join(card_html(p, ui, is_foreign) for p in featured if p.slug in {"instalacao", "home-assistant", "hardware", "zigbee", "matter-thread", "apple-homekit"}),
         "recentes": "\n      ".join(list_item_html(p, ui, is_foreign) for p in guides[:6]),
         "total_guias": len(guides),

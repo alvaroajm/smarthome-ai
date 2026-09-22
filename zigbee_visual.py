@@ -1,0 +1,39 @@
+"""Beginner-friendly Zigbee photos and an accessible, responsive network diagram."""
+from html import escape
+import json
+from pathlib import Path
+
+ASSETS = {r['file'].split('.')[0]: r for r in json.loads((Path(__file__).parent/'static/img/zigbee-guide/sources.json').read_text())}
+
+def photo(key,alt):
+ r=ASSETS[key];w,h=(675,450) if key=='zbt-2' else (1600,1600)
+ return f'<img src="/static/img/zigbee-guide/{r["file"]}" width="{w}" height="{h}" alt="{escape(alt,quote=True)}" loading="lazy" decoding="async">'
+
+def source(key,lang):
+ return f'<a class="ext" href="{ASSETS[key]["page"]}" target="_blank" rel="noopener">{"Official photo and product" if lang=="en" else "Foto e produto oficiais"} ↗</a>'
+
+def zigbee_visual(lang='pt'):
+ en=lang=='en';t=lambda pt,eng:eng if en else pt
+ out=[f'''<div class="zigbee-story"><div class="zigbee-intro"><p>{t('Pense em uma conversa por rádio: o sensor avisa “a porta abriu” e o Home Assistant pode mandar acender uma luz. Zigbee é o padrão usado nessa conversa. Gasta pouca energia e é ótimo para mensagens pequenas — não para transmitir vídeo.','Think of a radio conversation: a sensor says “the door opened” and Home Assistant can switch on a light. Zigbee is the standard behind that conversation. It uses little energy and suits small messages — not video.')}</p><p>{t('O Wi-Fi continua servindo ao celular e a outros aparelhos. Os dispositivos Zigbee usam uma rede separada, que pode funcionar sem internet.','Wi-Fi still connects your phone and other devices. Zigbee devices use a separate network that can work without internet.')}</p></div>
+<div class="zigbee-coordinator"><figure>{photo('zbt-2',t('Home Assistant Connect ZBT-2, com base e antena vertical, sobre uma mesa.','Home Assistant Connect ZBT-2 with its base and upright antenna on a table.'))}<figcaption>{source('zbt-2',lang)}</figcaption></figure><div><p class="eyebrow">{t('A ponte para o Home Assistant','The link to Home Assistant')}</p><h3>{t('Este é o ZBT-2.','Meet ZBT-2.')}</h3><p>{t('É o rádio Zigbee conectado por USB à sua central com HAOS. Como coordenador, ele cria a rede. O ZHA, já incluído no Home Assistant, cuida dos dispositivos pelas telas.','It is the Zigbee radio connected by USB to your HAOS hub. As coordinator, it creates the network. ZHA, built into Home Assistant, manages devices through its interface.')}</p><p>{t('Você precisa de um coordenador para a rede inteira, não de um para cada sensor. Green, Raspberry Pi e mini-PC podem usar o ZBT-2.','You need one coordinator for the network, not one per sensor. Green, Raspberry Pi and mini PCs can use ZBT-2.')}</p></div></div>
+<h3>{t('Pequenos aparelhos, tarefas bem práticas.','Small devices, useful everyday jobs.')}</h3><div class="zigbee-products">''']
+ products=[
+ ('contact','SONOFF SNZB-04P',t('Sensor de porta e janela','Door and window sensor'),t('Avisa quando abriu ou fechou.','Reports when it opens or closes.'),t('Pilha · dispositivo final','Battery · end device')),
+ ('motion','SONOFF SNZB-03P',t('Sensor de movimento','Motion sensor'),t('Percebe movimento para acender a luz.','Detects motion to trigger a light.'),t('Pilha · dispositivo final','Battery · end device')),
+ ('button','SONOFF SNZB-01P',t('Botão / interruptor sem fio','Wireless button / switch'),t('Um toque pode chamar uma cena.','A tap can activate a scene.'),t('Pilha · dispositivo final','Battery · end device')),
+ ('switch','SONOFF ZBMINIR2',t('Módulo para interruptor','In-wall switch module'),t('Controla a luz e também repete o sinal.','Controls a light and relays the signal.'),t('Energia contínua · router','Continuous power · router')),
+ ]
+ for key,model,title,desc,role in products:
+  out.append(f'<figure class="zigbee-product">{photo(key,model+" — "+title)}<figcaption><span class="zigbee-role">{role}</span><h4>{title}</h4><p>{desc}</p><small>{model}</small>{source(key,lang)}</figcaption></figure>')
+ out.append(f'''</div><p class="feature-small">{t('São exemplos: confira as funções do modelo no ZHA. O ZBMINIR2 requer neutro e instalação por eletricista; os sensores e o botão funcionam a pilha.','These are examples: check each model’s ZHA features. ZBMINIR2 needs a neutral wire and professional electrical installation; the sensors and button use batteries.')}</p>
+<figure class="zigbee-mesh"><figcaption><p class="eyebrow">{t('Uma rede simples, dentro de casa','A simple network at home')}</p><h3>{t('Quem conversa com quem?','Who talks to whom?')}</h3><p>{t('Aparelhos que repetem o sinal ajudam a mensagem a chegar mais longe. Isso forma uma rede em malha.','Devices that relay signals help messages travel farther. This creates a mesh network.')}</p></figcaption>
+<div class="mesh-hub"><div class="mesh-node mesh-server"><strong>Home Assistant OS</strong><span>{t('ZHA gerencia a rede','ZHA manages the network')}</span></div><span class="mesh-usb">↔ USB ↔</span><div class="mesh-node mesh-coordinator"><strong>ZBT-2</strong><span>{t('Coordenador · cria a rede','Coordinator · creates the network')}</span></div></div>
+<div class="mesh-radio-link"><span>{t('Zigbee · comunicação sem fio','Zigbee · wireless communication')}</span></div>
+<div class="mesh-branches">
+<div class="mesh-branch"><div class="mesh-node mesh-router"><span class="mesh-kind">Router / {t('repetidor','relay')}</span><strong>{t('Tomada Zigbee¹','Zigbee plug¹')}</strong><span>{t('Repassa mensagens','Relays messages')}</span></div><div class="mesh-stem" aria-hidden="true">↕</div><div class="mesh-node mesh-end"><span class="mesh-kind">End device / {t('dispositivo final','endpoint')}</span><strong>{t('Sensor de porta','Door sensor')}</strong><span>{t('Envia “abriu / fechou”','Reports “open / closed”')}</span></div></div>
+<div class="mesh-branch"><div class="mesh-node mesh-router"><span class="mesh-kind">Router / {t('repetidor','relay')}</span><strong>{t('Interruptor ZBMINIR2','ZBMINIR2 switch')}</strong><span>{t('Controla e repassa mensagens','Controls and relays messages')}</span></div><div class="mesh-stem" aria-hidden="true">↕</div><div class="mesh-node mesh-end"><span class="mesh-kind">End device / {t('dispositivo final','endpoint')}</span><strong>{t('Sensor de movimento','Motion sensor')}</strong><span>{t('Envia “há movimento”','Reports “motion detected”')}</span></div></div>
+</div>
+<p class="mesh-caption">{t('Os routers também podem trocar mensagens entre si. Um sensor pode se conectar diretamente ao coordenador ou a um router; o desenho mostra apenas um exemplo de caminhos.','Routers can also exchange messages with one another. A sensor can connect directly to the coordinator or to a router; this diagram shows example paths.')}</p></figure>
+<div class="zigbee-roles"><article><h4>{t('Router: ajuda os vizinhos','Router: helps its neighbors')}</h4><p>{t('Encaminha mensagens de outros dispositivos. Precisa permanecer energizado; aqui, “router” não é o roteador do Wi-Fi.¹ Nem todo aparelho ligado à tomada repete sinal: confira o modelo.','Forwards messages from other devices. It must stay powered; here, “router” is not your Wi-Fi router.¹ Not every mains-powered device relays signals: check the model.')}</p></article><article><h4>{t('End device: cuida da sua tarefa','End device: does its own job')}</h4><p>{t('Envia e recebe suas próprias informações, sem repassar mensagens dos vizinhos. Sensores e botões a pilha costumam ser dispositivos finais: economizam energia para durar mais.','Sends and receives its own information without forwarding neighbors’ messages. Battery sensors and buttons are usually end devices: they save energy for longer battery life.')}</p></article></div>
+<p class="feature-small">{t('Referências','References')}: <a class="ext" href="https://www.home-assistant.io/integrations/zha/" target="_blank" rel="noopener">ZHA / Home Assistant</a> · <a href="/static/img/zigbee-guide/README.md">{t('Créditos das fotos','Photo credits')}</a></p></div>''')
+ return '\n'.join(out)
