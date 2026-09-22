@@ -991,3 +991,21 @@ img.project-logo{display:inline-block;width:1.25em;height:1.25em;max-width:none;
 @media(max-width:1000px){.platform-choices{grid-template-columns:repeat(2,minmax(0,1fr))}.lesson-split{gap:2rem}}
 @media(max-width:760px){.lesson-split{grid-template-columns:1fr;gap:.7rem}.lesson-examples{grid-template-columns:1fr;gap:1rem}.lesson-split .ha-screen{margin-block:1rem}.platform-choice{padding:1.3rem}.next-lessons details,.library-advanced,.optional-demo>details{padding:.9rem 1rem}.optional-demo .section{padding-block:1.8rem}.section-head>p{max-width:58ch}}
 @media(max-width:540px){.platform-choices,.prose .platform-choices{grid-template-columns:1fr}.platform-choice h3{font-size:1.55rem}.ha-screen figcaption{font-size:.78rem}.lesson-note{font-size:.9rem}}
+
+/* Hardware choices keep photos, trade-offs and the budget together. */
+.hardware-intro{font-size:1.05rem;color:var(--text);max-width:65ch;margin:0 0 2rem;line-height:1.75}
+.ha-hardware-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.5rem}
+.ha-hardware-card{min-width:0;display:flex;flex-direction:column;border:1px solid var(--border);border-radius:16px;background:var(--surface);overflow:hidden}
+.ha-hardware-card figure{margin:0}.hardware-photo{height:210px;background:#f3f5f2;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.hardware-photo img{width:100%;height:100%;object-fit:contain;padding:1rem}.hardware-green .hardware-photo img{object-fit:cover;padding:0}.hardware-n150 .hardware-photo img{transform:scale(1.35)}.hardware-ryzen5 .hardware-photo img{transform:scale(2)}.hardware-ryzen7 .hardware-photo img{transform:scale(1.5)}
+.ha-hardware-card figcaption{font-size:.7rem;line-height:1.5;padding:.65rem 1.4rem;color:var(--text-dim);border-bottom:1px solid var(--border-soft)}
+.hardware-copy{padding:1.4rem;display:flex;flex:1;flex-direction:column}.hardware-copy>.eyebrow{font-size:.68rem;margin:0 0 .5rem}
+.hardware-copy h3,.hardware-decision h3{font-family:var(--display);font-size:1.6rem;font-weight:500;line-height:1.2;margin:0 0 .8rem}
+.hardware-specs{font-size:.83rem;line-height:1.65;font-weight:600;color:var(--text);margin:0 0 .4rem}
+.hardware-copy dl{margin:0 0 1.4rem}.hardware-copy dt{font-size:.77rem;font-weight:600;margin-top:1rem}.hardware-copy dd{margin:.35rem 0 0;font-size:.9rem;line-height:1.7;color:var(--text-soft)}
+.hardware-price{margin-top:auto;border-top:1px solid var(--border);padding-top:1.1rem}.hardware-price>span,.hardware-price>small{display:block;font-size:.76rem;color:var(--text-soft);line-height:1.6}.hardware-price>strong{display:block;font-size:1.55rem;font-weight:600;margin:.25rem 0}
+.hardware-decision{min-width:0;border:1px solid var(--accent);border-radius:16px;padding:2rem;background:var(--bg-soft);display:flex;flex-direction:column;justify-content:center}
+.hardware-decision p:not(.eyebrow){font-size:.95rem;line-height:1.8;color:var(--text-soft)}.hardware-decision>a{font-size:.85rem;min-height:44px;display:inline-flex;align-items:center}
+.hardware-references{margin-top:2rem;border-block:1px solid var(--border);padding:1rem 0}.hardware-references summary{cursor:pointer;min-height:44px;padding:.65rem 0;line-height:1.6;color:var(--link)}.hardware-references p,.hardware-references li{max-width:90ch;line-height:1.8;font-size:.85rem;color:var(--text-soft)}.hardware-references li{margin-block:.8rem}.hardware-references ul{padding-left:1.3rem}
+@media(max-width:1050px){.ha-hardware-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.ha-hardware-grid{grid-template-columns:1fr}.hardware-photo{height:230px}.hardware-copy{padding:1.4rem}.hardware-decision{padding:1.5rem}.hardware-references summary{font-size:.92rem}}
