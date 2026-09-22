@@ -1,7 +1,7 @@
 ---
-title: Comandos do Home Assistant OS e do shell Alpine
+title: Comandos do Home Assistant OS
 slug: comandos-haos
-description: Referência prática do CLI ha, do terminal Alpine do app Terminal & SSH e dos comandos de diagnóstico que resolvem 90% dos problemas do Home Assistant.
+description: Consulte comandos de manutenção e diagnóstico.
 category: Referência
 icon: terminal
 order: 18

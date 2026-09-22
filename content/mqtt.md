@@ -1,7 +1,7 @@
 ---
-title: MQTT explicado para iniciantes
+title: MQTT sem complicação
 slug: mqtt
-description: O que é um broker, o que são tópicos e payloads, para que servem retain e QoS, e como instalar o Mosquitto no Home Assistant em dez minutos.
+description: Entenda como os dispositivos trocam mensagens.
 category: Protocolos
 icon: message
 order: 9

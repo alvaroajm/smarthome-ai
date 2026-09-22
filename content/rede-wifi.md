@@ -1,7 +1,7 @@
 ---
-title: Wi-Fi, VLANs e a rede que sustenta a casa
+title: Prepare a rede da casa
 slug: rede-wifi
-description: Como preparar a rede doméstica para dezenas de dispositivos: canais, SSID de 2,4 GHz, VLAN de IoT, mDNS, IPv6 e acesso remoto seguro.
+description: Organize o Wi-Fi e entenda quando separar os dispositivos.
 category: Rede
 icon: wifi
 order: 16

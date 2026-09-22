@@ -1,7 +1,7 @@
 ---
-title: CasaOS e umbrelOS: o home server fácil ao lado do Home Assistant
+title: Seu servidor com CasaOS ou umbrelOS
 slug: casaos-umbrel
-description: O que são esses sistemas de home server, como se comparam entre si e ao Home Assistant, e como fazer os dois conviverem na mesma casa sem conflito.
+description: Conheça as opções para guardar arquivos e rodar aplicativos.
 category: Home server
 icon: server
 order: 17

@@ -1,7 +1,7 @@
 ---
-title: OpenClaw na casa inteligente: o que é e como usar sem se machucar
+title: Conheça o OpenClaw
 slug: openclaw
-description: O agente autônomo de código aberto que virou febre, como ele se conecta ao Home Assistant e as precauções de segurança que ninguém deveria ignorar.
+description: Entenda o agente de IA e os cuidados ao dar acesso à casa.
 category: IA & agentes
 icon: key
 order: 15

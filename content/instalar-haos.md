@@ -1,7 +1,7 @@
 ---
-title: Instalar o Home Assistant OS: passo a passo no Raspberry Pi 5 e no mini-PC
+title: Instale o Home Assistant OS
 slug: instalar-haos
-description: Tutorial completo, com todos os links de download, para gravar e configurar o Home Assistant OS num Raspberry Pi 5 (NVMe ou microSD) e num mini-PC x86 — direto no disco ou em VM no Proxmox.
+description: Siga a instalação no Raspberry Pi ou no mini-PC.
 category: Começando
 icon: server
 order: 2

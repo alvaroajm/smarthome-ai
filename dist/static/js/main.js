@@ -269,12 +269,26 @@
   $$('[data-filter-bar]').forEach(function(bar){
     var kind=bar.getAttribute('data-filter-bar');
     var cards=$$('[data-'+kind+'-category]');
-    $$('button',bar).forEach(function(button){button.addEventListener('click',function(){
+    var more=kind==='device'?$('.device-more'):null;
+    var starter=['device-bulb','device-plug','device-presence','device-contact','device-echo','device-lock'];
+    function apply(button){
       var filter=button.getAttribute('data-filter');
       $$('button',bar).forEach(function(b){b.setAttribute('aria-pressed',String(b===button));});
-      var count=0;cards.forEach(function(card){card.hidden=filter!=='all'&&card.getAttribute('data-'+kind+'-category')!==filter;if(!card.hidden)count++;});
-      var result=$('#'+kind+'-count');if(result)result.textContent=count+' '+(kind==='device'?(en?'devices to explore':'dispositivos para explorar'):(en?'links to explore':'links para consultar'));
-    });});
+      var count=0;cards.forEach(function(card){
+        card.hidden=filter==='starter'?starter.indexOf(card.id)===-1:filter!=='all'&&card.getAttribute('data-'+kind+'-category')!==filter;
+        if(!card.hidden)count++;
+      });
+      var result=$('#'+kind+'-count');
+      if(result)result.textContent=count+' '+(kind==='device'?(en?'devices to explore':'dispositivos para explorar'):(en?'links to explore':'links para consultar'));
+      if(more){more.hidden=filter!=='starter'&&filter!=='all';more.setAttribute('aria-expanded',String(filter==='all'));more.textContent=filter==='all'?(en?'Show essentials':'Mostrar essenciais'):(en?'See all 12 devices':'Ver todos os 12 dispositivos');}
+    }
+    $$('button',bar).forEach(function(button){button.addEventListener('click',function(){apply(button);});});
+    if(more)more.addEventListener('click',function(){apply($('[data-filter="'+(more.getAttribute('aria-expanded')==='true'?'starter':'all')+'"]',bar));});
+    apply($('[aria-pressed="true"]',bar));
+    if(kind==='device'){
+      function revealDevice(){var id=location.hash.slice(1);var card=cards.find(function(c){return c.id===id;});if(card&&card.hidden){apply($('[data-filter="all"]',bar));card.scrollIntoView();}}
+      window.addEventListener('hashchange',revealDevice);revealDevice();
+    }
   });
   /* The supplied floor plan is a local lighting simulation, with no device API. */
   var house=$('[data-house-demo]');

@@ -725,6 +725,10 @@ def base_context(lang: str, page_title: str, description: str, url_path: str,
         "search_index": "/" + cfg["prefix"] + "search-index.json",
         "css_url": asset_url("css/style.css"),
         "js_url": asset_url("js/main.js"),
+        "favicon_url": asset_url("img/favicon-sa-32.png"),
+        "favicon_large_url": asset_url("img/favicon-sa-192.png"),
+        "favicon_ico_url": asset_url("img/favicon-sa.ico"),
+        "apple_icon_url": asset_url("img/apple-touch-icon-sa.png"),
         "ui_skip": ui["skip"],
         "ui_close": ui["close"],
         "ui_search": ui["search"],
@@ -824,7 +828,7 @@ def build_home(lang: str, own: list[Page], foreign: list[Page], alts_for) -> Non
 
     body = render(tpl, {
         **home_visual_context(lang),
-        "cards": "\n      ".join(card_html(p, ui, is_foreign) for p in featured),
+        "cards": "\n      ".join(card_html(p, ui, is_foreign) for p in featured if p.slug in {"instalacao", "home-assistant", "hardware", "zigbee", "matter-thread", "apple-homekit"}),
         "recentes": "\n      ".join(list_item_html(p, ui, is_foreign) for p in guides[:6]),
         "total_guias": len(guides),
         "tagline": cfg["tagline"],
@@ -939,6 +943,7 @@ def copy_static() -> None:
     if STATIC.exists():
         shutil.copytree(STATIC, DIST / "static", dirs_exist_ok=True)
         log("static/")
+    shutil.copy2(STATIC / "img/favicon-sa.ico", DIST / "favicon.ico")
     for extra in ("_headers", "_redirects"):
         src = ROOT / extra
         if src.exists():

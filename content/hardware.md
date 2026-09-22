@@ -1,7 +1,7 @@
 ---
-title: Raspberry Pi, mini-PC ou appliance: escolhendo o hardware
+title: Escolha sua central
 slug: hardware
-description: Comparação honesta entre Home Assistant Green, Raspberry Pi 5, mini-PCs N100 e NAS, com consumo, armazenamento e quando cada um vale a pena.
+description: Compare Home Assistant Green, Raspberry Pi e mini-PC.
 category: Hardware
 icon: server
 order: 4

@@ -1,7 +1,7 @@
 ---
-title: Nabu Casa: quando vale pagar pelo Home Assistant Cloud
+title: Conheça o Home Assistant Cloud
 slug: nabu-casa
-description: O que a assinatura oficial inclui, quanto custa, como ela resolve acesso remoto, Alexa e Google, e quais são as alternativas gratuitas — com os prós e contras de cada uma.
+description: Entenda o acesso remoto e as conexões com assistentes de voz.
 category: Serviços
 icon: cloud
 order: 11

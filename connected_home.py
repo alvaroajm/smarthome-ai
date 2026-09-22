@@ -46,7 +46,7 @@ def connected_home(lang):
           <span class="room-number" aria-hidden="true">{n:02}</span><span class="room-toggle-copy"><strong>{name}</strong><small data-room-state>{t('Acesa', 'On')}</small></span><span class="room-switch" aria-hidden="true"></span>
          </button>''')
     return f'''<section class="wrap section connected-home" id="casa-interativa" aria-labelledby="house-title" data-house-demo>
-      <header class="section-head editorial-head"><div><p class="eyebrow">01 / {t('Experimente a casa conectada', 'Explore the connected home')}</p><h2 id="house-title">{t('Um toque.<br>Um ambiente diferente.', 'One touch.<br>A different atmosphere.')}</h2></div><p id="house-help">{t('Toque em um cômodo da planta ou use os botões para acender e apagar sua luz. Experimente também as cenas prontas.', 'Tap a room on the plan or use the buttons to turn its light on and off. Try the ready-made scenes, too.')}</p></header>
+      <header class="section-head editorial-head"><div><p class="eyebrow">02 / {t('Experimente a casa conectada', 'Explore the connected home')}</p><h2 id="house-title">{t('Um toque.<br>Um ambiente diferente.', 'One touch.<br>A different atmosphere.')}</h2></div><p id="house-help">{t('Toque nos cômodos para mudar a luz ou experimente uma cena.', 'Tap a room on the plan or use the buttons to turn its light on and off. Try the ready-made scenes, too.')}</p></header>
       <div class="house-demo-grid">
        <div class="plan-frame">
         <div class="plan-toolbar"><span class="plan-demo-tag">{t('Demonstração interativa', 'Interactive demo')}</span><button type="button" class="plan-zoom" data-plan-zoom aria-pressed="false" disabled>{t('Ampliar planta', 'Enlarge plan')} <span aria-hidden="true">⤢</span></button></div>

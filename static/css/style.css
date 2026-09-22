@@ -921,3 +921,41 @@ img.project-logo{display:inline-block;width:1.25em;height:1.25em;max-width:none;
 @media(max-width:420px){.room-toggle{padding:.55rem;gap:.4rem}.room-toggle-copy strong{font-size:.77rem}.room-toggle-copy small{font-size:.7rem}.room-switch{flex-basis:23px}.room-toggle[aria-pressed="true"] .room-switch::after{transform:translateX(7px)}.plan-toolbar{padding:.55rem .6rem}.plan-demo-tag{font-size:.64rem}.plan-zoom{font-size:.7rem}.plan-viewport{max-height:590px}.hardware-gallery{grid-template-columns:1fr}.hardware-gallery img{height:270px}.preview-caption{padding:3rem 1rem 1rem}.preview-caption strong{font-size:1.4rem}.server-platform{padding:1.3rem}}
 @media(prefers-reduced-motion:reduce){.plan-lit,.room-switch::after,.house-preview img{transition:none}}
 @media print{.house-scenes,.room-toggle-grid,.plan-zoom{display:none}.house-demo-grid{display:block}.plan-frame{max-width:430px}.server-platforms{grid-template-columns:1fr 1fr}}
+
+/* Beginner reading rhythm: short introductions, generous targets, optional detail. */
+.visual-hero-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(2rem,4vw,4rem)}
+.hero-editorial h1{font-size:clamp(3rem,4.8vw,4.6rem);line-height:1.05}
+.hero-intro{max-width:37ch;line-height:1.75;margin-block:1.5rem 1.8rem}
+.house-preview{aspect-ratio:1.18}.house-preview img{object-position:58% center}
+.explore-nav{justify-content:center;gap:1.2rem}.explore-nav a{min-height:44px;display:inline-flex;align-items:center}
+.section-head{margin-bottom:2.2rem}.section-head>p,.editorial-head>p{max-width:46ch;line-height:1.75}
+.device-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:1.5rem}
+.device-copy{padding:1.4rem}.device-copy>p{min-height:0;line-height:1.7}.device-copy h3{min-height:0}
+.device-more{margin-top:1.5rem;cursor:pointer}.device-card{scroll-margin-top:120px}
+.device-art>span{font-size:.73rem}.filter-bar button{min-height:44px;font-size:.86rem}
+.everyday-story{display:grid;grid-template-columns:1.15fr 1fr;align-items:center;gap:clamp(2rem,5vw,5rem)}
+.everyday-story>img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;border-radius:20px}
+.everyday-story p:not(.eyebrow){color:var(--text-soft);max-width:39ch;line-height:1.8}
+.everyday-story a{display:inline-flex;align-items:center;min-height:44px}
+.everyday-story small{display:block;font-size:.76rem;color:var(--text-dim);margin-top:1.2rem}
+.resource-directory>summary{cursor:pointer;min-height:48px;padding:1rem 0;font-size:1.1rem;color:var(--link)}
+.resource-directory[open]>summary{margin-bottom:1.2rem}
+.gallery-details>summary{font-size:1.25rem;padding:.3rem 0}
+.prose{max-width:66ch;line-height:1.85}.prose p{margin-block:1rem 1.4rem}.prose li{margin-block:.5rem}
+.prose h2{margin-top:2.8rem;line-height:1.2}.prose h3{margin-top:2rem}
+.prose details{padding:1rem 1.25rem;border:1px solid var(--border);border-radius:12px;margin-block:1.5rem}
+.prose summary{cursor:pointer;min-height:44px;font-weight:600;line-height:1.5;padding:.5rem 0}
+.prose .guide-image{width:100%;height:auto;border-radius:16px;margin:1.5rem 0}
+:focus-visible{outline:3px solid var(--link);outline-offset:4px}
+@media(max-width:1050px){.visual-hero-grid{gap:2rem}.device-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){
+ .visual-hero-grid,.everyday-story{grid-template-columns:1fr}.hero-editorial h1{font-size:clamp(2.8rem,9vw,4rem)}
+ .house-preview{aspect-ratio:3/2}.hero-intro{max-width:43ch}.section{padding-block:3.5rem}
+ .explore-nav{gap:.2rem .7rem}.explore-nav a{font-size:.85rem}
+ .everyday-story{gap:1.5rem}.device-grid{gap:1rem}.device-copy{padding:1.2rem}
+ .cards{grid-template-columns:1fr}.card{padding:1.5rem}.card h3{font-size:1.35rem}
+ .prose h2{font-size:1.85rem}.section-head{margin-bottom:1.75rem}.photo-card img{transform:none!important}
+}
+@media(max-width:480px){.device-grid{grid-template-columns:1fr}.device-art img{max-height:190px}.device-copy>p{font-size:.96rem}.device-copy h3{font-size:1.2rem}}
+/* The Markdown-generated TOC sits inside the article navigation. */
+.toc .toc{position:static;border:0;background:transparent;padding:0;box-shadow:none;max-height:none}

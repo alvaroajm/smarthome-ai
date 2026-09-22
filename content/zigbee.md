@@ -1,7 +1,7 @@
 ---
-title: Zigbee na prática: Zigbee2MQTT ou ZHA?
+title: Zigbee: conecte luzes e sensores
 slug: zigbee
-description: Como funciona a malha Zigbee, qual coordenador comprar, a diferença real entre Zigbee2MQTT e ZHA e como construir uma rede que não cai.
+description: Entenda a rede, o adaptador e as opções ZHA e Zigbee2MQTT.
 category: Protocolos
 icon: mesh
 order: 6

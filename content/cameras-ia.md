@@ -1,7 +1,7 @@
 ---
-title: Câmeras com IA: alertas que descrevem o que aconteceu
+title: Câmeras com inteligência artificial
 slug: cameras-ia
-description: Como sair do alerta genérico de movimento para uma notificação que diz "um entregador deixou uma caixa no portão" — com Frigate, LLM Vision e modelos locais ou na nuvem.
+description: Entenda os alertas e as opções de análise de imagens.
 category: Câmeras & vídeo
 icon: eye
 order: 13

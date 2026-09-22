@@ -1,7 +1,7 @@
 ---
-title: ESPHome e ESP32: construa seus próprios dispositivos
+title: Sensores com ESPHome e ESP32
 slug: esphome-esp32
-description: Como transformar um ESP32 de vinte reais em sensor, interruptor ou controlador integrado ao Home Assistant — com YAML, sem escrever uma linha de C++.
+description: Conheça os componentes e monte seu primeiro projeto.
 category: DIY & firmware
 icon: chip
 order: 5

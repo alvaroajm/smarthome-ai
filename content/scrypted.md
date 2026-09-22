@@ -1,7 +1,7 @@
 ---
-title: Câmeras em casa: Scrypted, Frigate e HomeKit Secure Video
+title: Conecte suas câmeras
 slug: scrypted
-description: Como integrar câmeras de qualquer marca ao Home Assistant e ao app Casa, com detecção local de objetos e sem enviar vídeo para a nuvem.
+description: Conheça Scrypted, Frigate e as opções do app Casa.
 category: Câmeras & vídeo
 icon: camera
 order: 12

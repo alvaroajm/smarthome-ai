@@ -1,7 +1,7 @@
 ---
-title: ZBT-1 e ZBT-2: os dongles oficiais do Home Assistant
+title: Adaptadores ZBT-1 e ZBT-2
 slug: zbt-dongles
-description: O que faz um dongle Zigbee/Thread, a diferença real entre o ZBT-1 e o ZBT-2, qual comprar e como instalar sem sofrer com quedas de sinal.
+description: Veja para que servem e o que conferir antes de escolher.
 category: Hardware
 icon: mesh
 order: 7

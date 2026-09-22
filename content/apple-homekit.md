@@ -1,7 +1,7 @@
 ---
-title: Apple HomeKit + Home Assistant: o melhor dos dois mundos
+title: Home Assistant no app Casa
 slug: apple-homekit
-description: Como expor tudo do Home Assistant no app Casa, usar Siri e atalhos sem abrir mão da automação local, e quando o caminho inverso faz mais sentido.
+description: Leve dispositivos compatíveis ao iPhone e à Siri.
 category: Ecossistemas
 icon: apple
 order: 10

@@ -1,7 +1,7 @@
 ---
-title: Claude, MCP e Home Assistant: a casa que você conversa
+title: Converse com sua casa
 slug: claude-mcp
-description: O que é MCP explicado sem jargão, como ligar o Claude Desktop e o Claude no terminal ao Home Assistant, quais servidores MCP valem a pena e como fazer isso com segurança.
+description: Entenda como Claude e MCP se conectam ao Home Assistant.
 category: IA & agentes
 icon: bot
 order: 14
