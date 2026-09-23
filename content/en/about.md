@@ -75,3 +75,5 @@ systems. The configurations published here run in a real house, with the mistake
 
 Found an error, have a suggestion or want to request a topic? Corrections are very welcome — this site is
 maintained in the open and improves with the people who read it.
+
+Reach me on WhatsApp at [+55 (85) 99662-1818](https://wa.me/5585996621818) or by e-mail at [admin@alvaro-menezes.com](mailto:admin@alvaro-menezes.com).

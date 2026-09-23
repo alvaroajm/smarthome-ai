@@ -76,3 +76,5 @@ ESP32 e sistemas locais. As configurações publicadas aqui rodam numa casa de v
 
 Encontrou um erro, tem uma sugestão ou quer indicar um tema? Correções são muito bem-vindas — este site é
 mantido publicamente e melhora com quem o lê.
+
+Fale comigo pelo WhatsApp [+55 (85) 99662-1818](https://wa.me/5585996621818) ou pelo e-mail [admin@alvaro-menezes.com](mailto:admin@alvaro-menezes.com).
