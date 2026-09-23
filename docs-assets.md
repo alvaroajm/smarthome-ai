@@ -67,3 +67,11 @@ Use `python3 build.py` e `python3 scripts/check.py`. A inspeção no navegador d
 ### Validação da planta (21/09/2026)
 
 Chromium desktop/toque emulado em 1440, 1024, 768, 390 e 320 px, PT/EN e claro/escuro: 16 zonas acionadas separadamente, sincronização bidirecional, Enter/espaço, quatro cenas, zoom sem transbordamento, recarga, idioma, armazenamento inválido, busca, filtros e carregamento das imagens. Conteúdo preservado com JS desligado. Sem erros JavaScript. Testes físicos de VoiceOver, Safari/iPhone e Android não executados.
+
+## Cenas de iluminação RGBCCT (set/2026)
+
+Galeria interativa em `lighting_scenes.py` (home e `/home-assistant/`). Posters em `static/img/scenes/`
+e vídeos silenciosos em `static/video/scenes/` (≈17 MB no total, reencodados de ≈100 MB originais).
+Imagens e vídeos gerados por IA para o projeto; créditos e tabela em `static/img/scenes/README.md`.
+Duas imagens enviadas junto (uma com marca d'água Vecteezy e uma captura de tela de origem
+desconhecida) foram deixadas de fora por não terem licença clara.

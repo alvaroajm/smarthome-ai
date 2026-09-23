@@ -13,6 +13,7 @@ from __future__ import annotations
 
 from beginner_content import beginner_home
 from visual_content import home_visual_context
+from lighting_scenes import scenes_showcase
 from brand_icons import decorate_project_links, icons_for_link, project_icons
 
 import hashlib
@@ -368,6 +369,8 @@ class Page:
     def __init__(self, path: Path, lang: str):
         raw = path.read_text(encoding="utf-8")
         self.meta, body = parse_front_matter(raw)
+        if "{{scenes_showcase}}" in body:
+            body = body.replace("{{scenes_showcase}}", scenes_showcase(lang, in_article=True))
         md = markdown.Markdown(extensions=MD_EXTENSIONS, extension_configs=MD_CONFIG)
         self.html = md.convert(body)
         self.toc = getattr(md, "toc", "")

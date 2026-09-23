@@ -7,8 +7,8 @@ icon: book
 order: 2
 featured: true
 level: basico
-reading: 7 min de leitura
-date: 2026-09-22
+reading: 9 min de leitura
+date: 2026-09-23
 tags: [Home Assistant]
 ---
 
@@ -35,6 +35,12 @@ O catálogo oficial apresenta **mais de 1.500 integrações**. Elas conectam mar
 <details class="feature-details"><summary>Como conectar cada marca?</summary><ul class="ha-brand-notes"><li><strong>LG</strong><span>TVs webOS com controle local; eletrodomésticos ThinQ usam outra integração, em nuvem.</span></li><li><strong>Samsung</strong><span>TVs compatíveis pela rede local; outros aparelhos podem usar SmartThings, em nuvem.</span></li><li><strong>Tuya / Smart Life</strong><span>A integração oficial usa nuvem. Dispositivos Zigbee compatíveis podem entrar direto no ZHA.</span></li><li><strong>Aqara</strong><span>Sensores Zigbee compatíveis pelo ZHA; produtos Matter ou HomeKit seguem outro caminho.</span></li><li><strong>Sony</strong><span>TVs Bravia compatíveis: volume, entradas e reprodução, conforme o modelo.</span></li><li><strong>Eve</strong><span>Acessórios HomeKit pelo HomeKit Device; versões Matter pela integração Matter.</span></li><li><strong>Tapo / TP-Link</strong><span>Tomadas, interruptores, luzes e câmeras suportadas; confira a lista e a autenticação.</span></li><li><strong>Reolink</strong><span>Vídeo e eventos locais nos modelos suportados; aparelhos a bateria têm requisitos próprios.</span></li><li><strong>Intelbras</strong><span>Câmeras com ONVIF Profile S compatível ou fluxo RTSP. Nem toda a linha oferece esses recursos.</span></li><li><strong>Philips Hue</strong><span>Luzes e cenas locais pela Hue Bridge. Lâmpadas Zigbee compatíveis também podem usar ZHA.</span></li><li><strong>Epson</strong><span>Projetores de rede compatíveis: energia e seleção de entrada para a cena de cinema.</span></li></ul><p>Antes de comprar, confira modelo, firmware e funções disponíveis. Uma integração pode atender várias marcas; uma marca pode usar várias integrações.</p></details><p class="feature-small"><a href="/static/img/manufacturers/README.md">Créditos dos logotipos</a> · Marcas de seus respectivos titulares. Exemplos, sem vínculo oficial.</p>
 
 Uma TV LG, um sensor Aqara e uma luz Philips Hue podem participar da mesma automação. A compatibilidade é do **modelo e da função**, não apenas da marca. TVs LG webOS e Samsung têm opções locais; [LG ThinQ](https://www.home-assistant.io/integrations/lg_thinq/) e [SmartThings](https://www.home-assistant.io/integrations/smartthings/) usam nuvem nas respectivas integrações.
+
+## Cenas de luz: a mesma sala, seis climas
+
+Depois de escolher as lâmpadas, o que muda a casa de verdade são as **cenas**. Passe o mouse ou toque nas imagens para ver cada ambiente em movimento; clique para trocar a iluminação de RGB exagerado para branco dia, leitura, manhã, pôr do sol e luz noturna.
+
+{{scenes_showcase}}
 
 ## Automações: a parte mais divertida
 

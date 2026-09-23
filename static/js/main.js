@@ -352,4 +352,78 @@
     });
     renderLights();
   }
+
+  /* ------------------------------------------- cenas de iluminação -- */
+  $$('[data-scene-gallery]').forEach(function (gallery) {
+    var coarse = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var modes = ['rgb', 'dia', 'leitura', 'manha', 'por-do-sol', 'noturna'];
+
+    $$('.scene-card', gallery).forEach(function (card) {
+      var stage = $('.scene-stage', card);
+      var video = $('video', card);
+      var badge = $('.scene-badge', card);
+      var chips = $$('.scene-modes button', card);
+
+      function setMode(mode) {
+        card.dataset.mode = mode;
+        chips.forEach(function (b) {
+          var on = b.dataset.mode === mode;
+          b.setAttribute('aria-pressed', String(on));
+          if (on && badge) {
+            badge.firstElementChild.textContent = b.textContent;
+            badge.lastElementChild.textContent = b.dataset.k || '';
+          }
+        });
+      }
+      function nextMode() {
+        var i = modes.indexOf(card.dataset.mode || 'rgb');
+        setMode(modes[(i + 1) % modes.length]);
+      }
+      function play() {
+        if (!video) return;
+        if (!video.getAttribute('src')) { video.src = video.dataset.src; video.load(); }
+        var p = video.play();
+        if (p && p.catch) { p.catch(function () {}); }
+        card.classList.add('is-playing');
+      }
+      function stop() {
+        if (!video) return;
+        video.pause();
+        card.classList.remove('is-playing');
+      }
+
+      // Mouse: passar por cima reproduz; sair volta para a imagem.
+      stage.addEventListener('pointerenter', function (e) {
+        if (e.pointerType === 'mouse' && !reduce) play();
+      });
+      stage.addEventListener('pointerleave', function (e) {
+        if (e.pointerType === 'mouse') stop();
+      });
+      // Clique/toque: no celular o primeiro toque liga o vídeo; os seguintes trocam a cena.
+      stage.addEventListener('click', function () {
+        var first = !card.classList.contains('is-touched');
+        card.classList.add('is-touched');
+        if ((coarse || reduce) && first) { play(); return; }
+        if (coarse && video && video.paused) play();
+        nextMode();
+      });
+      chips.forEach(function (b) {
+        b.addEventListener('click', function () { setMode(b.dataset.mode); });
+      });
+      video && video.addEventListener('error', function () { stop(); });
+    });
+
+    // Pausa vídeos que saíram da tela (economiza bateria no celular).
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          var v = $('video', en.target);
+          if (!v) return;
+          if (!en.isIntersecting && !v.paused) { v.pause(); en.target.classList.remove('is-playing'); }
+        });
+      }, { threshold: 0.1 });
+      $$('.scene-card', gallery).forEach(function (c) { io.observe(c); });
+    }
+  });
 })();
