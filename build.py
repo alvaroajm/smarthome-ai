@@ -52,7 +52,6 @@ SITE = {
 # --------------------------------------------------------------------------
 GA_MEASUREMENT_ID = "G-1TKBR87DTZ"
 GOOGLE_ADS_ID     = ""   # TODO: preencher com o ID do Google Ads, ex: "AW-123456789"
-ADSENSE_CLIENT_ID = "ca-pub-4633113806110595"  # Google AdSense publisher ID
 
 # --------------------------------------------------------------------------
 # Contato e ecossistema
@@ -992,7 +991,7 @@ def copy_static() -> None:
         shutil.copytree(STATIC, DIST / "static", dirs_exist_ok=True)
         log("static/")
     shutil.copy2(STATIC / "img/favicon-sa.ico", DIST / "favicon.ico")
-    for extra in ("_headers", "_redirects"):
+    for extra in ("_headers", "_redirects", "ads.txt"):
         src = ROOT / extra
         if src.exists():
             shutil.copy2(src, DIST / extra)
