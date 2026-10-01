@@ -44,6 +44,17 @@ SITE = {
 }
 
 # --------------------------------------------------------------------------
+# Google Analytics (GA4) & Google Ads — rastreamento
+# Preencha os IDs após criar as contas no Google.
+# GA_MEASUREMENT_ID  → Google Analytics 4 (formato "G-XXXXXXXXXX")
+# GOOGLE_ADS_ID      → Google Ads (formato "AW-XXXXXXXXXX")
+# Deixe vazio ("") para desabilitar o respectivo rastreamento.
+# --------------------------------------------------------------------------
+GA_MEASUREMENT_ID = "G-1TKBR87DTZ"
+GOOGLE_ADS_ID     = ""   # TODO: preencher com o ID do Google Ads, ex: "AW-123456789"
+ADSENSE_CLIENT_ID = "ca-pub-4633113806110595"  # Google AdSense publisher ID
+
+# --------------------------------------------------------------------------
 # Contato e ecossistema
 # --------------------------------------------------------------------------
 CONTACT = {
@@ -695,6 +706,33 @@ def hreflang_html(alts: dict) -> str:
     return "\n  ".join(tags)
 
 
+def gtag_snippet() -> str:
+    """Gera o snippet gtag.js para Google Analytics 4 e/ou Google Ads.
+
+    Retorna string vazia se nenhum ID estiver configurado.
+    """
+    ids = []
+    if GA_MEASUREMENT_ID:
+        ids.append(GA_MEASUREMENT_ID)
+    if GOOGLE_ADS_ID:
+        ids.append(GOOGLE_ADS_ID)
+    if not ids:
+        return ""
+
+    primary = ids[0]
+    config_lines = "\n    ".join(f"gtag('config', '{tag_id}');" for tag_id in ids)
+    return (
+        f'\n  <!-- Google tag (gtag.js) -->'
+        f'\n  <script async src="https://www.googletagmanager.com/gtag/js?id={primary}"></script>'
+        f'\n  <script>'
+        f'\n    window.dataLayer = window.dataLayer || [];'
+        f'\n    function gtag(){{dataLayer.push(arguments);}}'
+        f"\n    gtag('js', new Date());"
+        f'\n    {config_lines}'
+        f'\n  </script>'
+    )
+
+
 def base_context(lang: str, page_title: str, description: str, url_path: str,
                  alts: dict, content: str, body_class: str = "", extra_head: str = "") -> dict:
     cfg = LANGS[lang]
@@ -734,7 +772,7 @@ def base_context(lang: str, page_title: str, description: str, url_path: str,
         "ui_search_none": ui["search_none"],
         "ui_search_suggest": ui["search_suggest"],
         "ui_to_top": ui["to_top"],
-        "extra_head": jsonld(site_ld(lang)) + extra_head,
+        "extra_head": gtag_snippet() + jsonld(site_ld(lang)) + extra_head,
         "tagline_meta": esc(cfg["tagline"]),
         "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
     }
