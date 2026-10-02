@@ -566,6 +566,7 @@ def footer_html(lang: str) -> str:
         <a class="contact-line" href="mailto:{CONTACT['email']}">{icon_svg('mail')}<span>{esc(CONTACT['email'])}</span></a>
         <a class="contact-line" href="{CONTACT['whatsapp_url']}" target="_blank" rel="noopener">{icon_svg('whatsapp')}<span>WhatsApp {esc(CONTACT['whatsapp'])}</span></a>
         <a class="contact-line" href="{CONTACT['card']}" target="_blank" rel="noopener">{icon_svg('card')}<span>{ui['f_card']}</span></a>
+        <a class="contact-line" href="https://radapps.app" target="_blank" rel="noopener">{icon_svg('rocket')}<span>RadApps ↗</span></a>
       </div>
       <div class="contact-places">
         <h4>{ui['f_places']}</h4>
