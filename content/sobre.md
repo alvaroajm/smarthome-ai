@@ -48,7 +48,10 @@ Aqui o compromisso é outro: **explicar o porquê antes do como**, com exemplos 
 
 Este site é estático: HTML, CSS e JavaScript sem frameworks, gerado por um script em **Python** a partir de
 arquivos Markdown, versionado no **GitHub** e publicado no **Cloudflare**. Sem banco de dados, sem
-rastreadores, sem anúncios — carrega rápido até no 3G da estrada.
+cadastro de leitores. Usa Google Analytics para métricas de acesso e inclui integração com Google AdSense
+para publicidade, sujeita à aprovação do site pelo Google. Anúncios não determinam os temas ou as
+recomendações editoriais. Veja a [Política de privacidade](/privacidade/) para conhecer o uso de cookies,
+os serviços de terceiros e as opções de controle.
 
 O código do gerador é simples de propósito: cerca de 300 linhas, com uma única dependência
 (a biblioteca `Markdown`). Qualquer pessoa consegue clonar, escrever um arquivo `.md` na pasta `content/`,
