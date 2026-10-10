@@ -386,7 +386,11 @@ class Page:
         self.meta, body = parse_front_matter(raw)
         if "{{scenes_showcase}}" in body:
             body = body.replace("{{scenes_showcase}}", scenes_showcase(lang, in_article=True))
-        md = markdown.Markdown(extensions=MD_EXTENSIONS, extension_configs=MD_CONFIG)
+        md_config = MD_CONFIG
+        if self.meta.get("slug", path.stem) == "faq":
+            # Topic navigation keeps the FAQ usable on mobile.
+            md_config = {**MD_CONFIG, "toc": {**MD_CONFIG["toc"], "toc_depth": "2"}}
+        md = markdown.Markdown(extensions=MD_EXTENSIONS, extension_configs=md_config)
         self.html = md.convert(body)
         self.toc = getattr(md, "toc", "")
         self.lang = lang
@@ -669,8 +673,8 @@ def article_ld(lang: str, page) -> dict:
     return data
 
 
-# com baselevel=2 no Markdown, os "##" do texto viram <h3>
-FAQ_RE = re.compile(r'<h3 id="[^"]*">(.*?)</h3>(.*?)(?=<h3 |\Z)', re.S)
+# Stop each answer before the next question or topic heading.
+FAQ_RE = re.compile(r'<h3 id="[^"]*">(.*?)</h3>(.*?)(?=<h[23](?:\s|>)|<p>(?:Fontes|Sources):|\Z)', re.S)
 
 
 def faq_ld(page) -> dict | None:
