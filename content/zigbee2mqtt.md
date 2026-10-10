@@ -1,7 +1,7 @@
 ---
-title: Zigbee2MQTT: uma alternativa para depois
+title: Zigbee2MQTT ou ZHA: quando considerar a mudança
 slug: zigbee2mqtt
-description: Entenda quando avaliar o Z2M e o que muda em relação ao ZHA.
+description: Compare suporte a dispositivos e os serviços necessários para usar Zigbee2MQTT no Home Assistant. Saiba o que conferir antes de migrar do ZHA.
 category: Aprofundamento
 icon: book
 order: 91
@@ -9,6 +9,7 @@ featured: true
 level: avancado
 reading: 2 min de leitura
 date: 2026-09-22
+updated: 2026-10-09
 tags: [Home Assistant]
 ---
 
@@ -25,6 +26,8 @@ Um serviço Zigbee2MQTT e um servidor MQTT, responsáveis por encaminhar as mens
 Não use o mesmo coordenador no ZHA e no Z2M ao mesmo tempo. Trocar de solução normalmente exige planejar a rede e parear novamente os aparelhos.
 
 ## Referências
+
+Se a sua rede já usa Zigbee2MQTT e apresenta falhas, siga o [roteiro para diagnosticar desconexões](/zigbee2mqtt-desconectando/) antes de migrar ou parear os aparelhos novamente.
 
 - [Instalação oficial no Home Assistant](https://www.zigbee2mqtt.io/guide/installation/03_ha_addon.html)
 - [Catálogo de dispositivos](https://www.zigbee2mqtt.io/supported-devices/)

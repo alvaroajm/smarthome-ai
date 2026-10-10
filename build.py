@@ -402,6 +402,7 @@ class Page:
         self.level = self.meta.get("level", "avancado")
         self.order = int(self.meta.get("order", 99))
         self.date = self.meta.get("date", "")
+        self.updated = self.meta.get("updated", self.date)
         self.tags = self.meta.get("tags", []) or []
         self.reading = self.meta.get("reading", "")
         self.url = "/" + LANGS[lang]["prefix"] + self.slug + "/"
@@ -660,7 +661,7 @@ def article_ld(lang: str, page) -> dict:
     }
     if page.date:
         data["datePublished"] = str(page.date)
-        data["dateModified"] = str(page.date)
+        data["dateModified"] = str(page.updated)
     if page.tags:
         data["keywords"] = ", ".join(page.tags)
     if page.category:
@@ -702,7 +703,8 @@ def out_path(url: str) -> Path:
 def hreflang_html(alts: dict) -> str:
     tags = [f'<link rel="alternate" hreflang="{code}" href="{SITE["url"]}{url}">'
             for code, url in alts.items()]
-    tags.append(f'<link rel="alternate" hreflang="x-default" href="{SITE["url"]}{alts.get("pt", "/")}">')
+    default_url = alts.get("pt") or next(iter(alts.values()))
+    tags.append(f'<link rel="alternate" hreflang="x-default" href="{SITE["url"]}{default_url}">')
     return "\n  ".join(tags)
 
 
@@ -777,7 +779,7 @@ def base_context(lang: str, page_title: str, description: str, url_path: str,
             '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4633113806110595" crossorigin="anonymous"></script>'
         ),
         "tagline_meta": esc(cfg["tagline"]),
-        "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+        "robots": "noindex, follow" if body_class == "error" else "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
     }
 
 
@@ -850,7 +852,7 @@ def build_articles(lang: str, pages: list[Page], alts_for, pool: list[Page] | No
                 extra += jsonld(faq)
         if page.date:
             extra += (f'<meta property="article:published_time" content="{page.date}">'
-                      f'<meta property="article:modified_time" content="{page.date}">')
+                      f'<meta property="article:modified_time" content="{page.updated}">')
         ctx = base_context(lang, page.title, page.description, page.url,
                            alts_for(page.key, page.url), body, "article", extra)
         write(out_path(page.url), render(tpl_base, ctx))
@@ -879,7 +881,9 @@ def build_home(lang: str, own: list[Page], foreign: list[Page], alts_for) -> Non
         "tagline": cfg["tagline"],
     })
     url = "/" + cfg["prefix"]
-    ctx = base_context(lang, SITE["name"], cfg["description"], url,
+    home_title = ("Casa inteligente e Home Assistant: guias para iniciantes" if lang == "pt"
+                  else "Smart home and Home Assistant: beginner guides")
+    ctx = base_context(lang, home_title, cfg["description"], url,
                        alts_for("home", url), body, "home")
     write(out_path(url), render(tpl_base, ctx))
     log(url)
@@ -962,7 +966,6 @@ def build_search_index(lang: str, own: list[Page], foreign: list[Page]) -> None:
 
 
 def build_sitemap(urls: list[tuple[str, str, dict]]) -> None:
-    hoje = date.today().isoformat()
     blocos = []
     vistos = set()
     for loc, lastmod, alts in urls:
@@ -973,11 +976,10 @@ def build_sitemap(urls: list[tuple[str, str, dict]]) -> None:
             f'<xhtml:link rel="alternate" hreflang="{code}" href="{SITE["url"]}{href}"/>'
             for code, href in sorted(alts.items())
         )
+        modified = f"<lastmod>{lastmod}</lastmod>" if lastmod else ""
         blocos.append(
             f"  <url><loc>{SITE['url']}{loc}</loc>"
-            f"<lastmod>{lastmod or hoje}</lastmod>"
-            f"<changefreq>monthly</changefreq>"
-            f"<priority>{'1.0' if loc in ('/', '/en/') else '0.7'}</priority>"
+            f"{modified}"
             f"{alt}</url>"
         )
     write(DIST / "sitemap.xml",
@@ -1029,10 +1031,9 @@ def main() -> None:
         index.setdefault("listing", {})[lang] = prefix + ("artigos/" if lang == "pt" else "guides/")
 
     def alts_for(key: str, own_url: str) -> dict:
-        found = dict(index.get(key, {}))
-        for lang in LANGS:
-            found.setdefault(lang, "/" + LANGS[lang]["prefix"])
-        return found
+        # Only actual translations are language equivalents. Navigation can
+        # still fall back to the other homepage without advertising it to crawlers.
+        return dict(index[key])
 
     all_urls: list[tuple[str, str, dict]] = []
     for lang in ("pt", "en"):
@@ -1046,7 +1047,7 @@ def main() -> None:
         all_urls.append(("/" + LANGS[lang]["prefix"], "", alts_for("home", "")))
         all_urls.append(("/" + LANGS[lang]["prefix"] + ("artigos/" if lang == "pt" else "guides/"),
                          "", alts_for("listing", "")))
-        all_urls.extend((p.url, str(p.date or ""), alts_for(p.key, p.url)) for p in pages[lang])
+        all_urls.extend((p.url, str(p.updated or ""), alts_for(p.key, p.url)) for p in pages[lang])
 
     build_sitemap(all_urls)
     copy_static()
