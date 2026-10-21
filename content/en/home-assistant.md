@@ -104,7 +104,7 @@ You choose what to share. Not every feature has an equivalent in the Home app. F
 
 An AI assistant can explain the options, propose a configuration and help you understand errors. That makes learning more accessible, but you still need to check the board, the pins and the documentation, and validate before flashing. Start with a USB-powered, low-voltage project.
 
-[Meet ESPHome through the screens](/en/esphome-esp32/). There you'll find **ready-made examples to copy**: a [scale in Home Assistant over Bluetooth](/en/esphome-esp32/#example-scale) and a [Bluetooth Proxy with the ATOM-S3](/en/esphome-esp32/#example-bt-proxy).
+[Meet ESPHome through the screens](/en/esphome-esp32/). There you'll find **ready-made examples to copy**: a [scale in Home Assistant over Bluetooth](/en/esphome-esp32/#example-scale), a [Bluetooth Proxy with the ATOM-S3](/en/esphome-esp32/#example-bt-proxy) and an [infrared receiver](/en/esphome-esp32/#example-ir).
 
 ## Cameras that help you understand what is going on
 

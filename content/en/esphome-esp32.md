@@ -451,6 +451,101 @@ safe_mode:
 
 Validate it in the **ESPHome Device Builder** (*Validate*) and test one component at a time.
 
+## A ready-made example: an infrared (IR) receiver in Home Assistant {#example-ir}
+
+Want Home Assistant to "learn" the codes from your TV, air-conditioner or stereo remote? An **infrared receiver** wired to an ESP32 captures those signals. With `remote_receiver` and `dump: all`, every button you press shows up in the ESPHome log with its protocol and code — ready to reuse in an automation or a virtual remote.
+
+> **Replace with your own data before flashing.** The API encryption key, the static IP, the DNS and the `!secret` keys below are only examples. Never publish real keys, passwords or IPs — generate your own.
+
+```yaml
+# Infrared (IR) receiver on an ESP32, exposed to Home Assistant.
+# Replace the API key, the static IP, the DNS and the !secret keys with your own.
+
+esphome:
+  name: esp32-ir-receiver-escritorio
+  friendly_name: "ESP32-IR-RECEIVER-OFFICE"
+
+esp32:
+  board: esp32-devkit-v1
+  variant: esp32
+  framework:
+    type: esp-idf
+
+logger:
+  level: DEBUG
+
+api:
+  encryption:
+    key: !secret api_encryption_key   # generate yours in the ESPHome Builder
+
+ota:
+  - platform: esphome
+    encryption:
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  power_save_mode: NONE
+  manual_ip:                    # adjust to your network (or remove to use DHCP)
+    static_ip: 192.168.1.52
+    gateway: 192.168.1.1
+    subnet: 255.255.255.0
+    dns1: 1.1.1.1
+    dns2: 8.8.8.8
+
+remote_receiver:
+  id: ir_rx
+  pin:
+    number: GPIO27
+    inverted: true
+    mode:
+      input: true
+      pullup: true
+  dump: all          # logs the codes of every protocol
+  tolerance: 25%
+
+# Exposes the receiver to Home Assistant's infrared integration.
+infrared:
+  - platform: ir_rf_proxy
+    id: receptor_lg_escritorio
+    name: "LG IR Receiver OFFICE"
+    receiver_frequency: 38kHz
+    remote_receiver_id: ir_rx
+    icon: "mdi:remote"
+
+button:
+  - platform: restart
+    name: "Restart"
+  - platform: safe_mode
+    name: "Safe Mode"
+
+binary_sensor:
+  - platform: status
+    name: "ESPHome Status"
+    entity_category: diagnostic
+
+text_sensor:
+  - platform: wifi_info
+    ip_address:
+      name: "WI-FI IP Address"
+      entity_category: diagnostic
+    dns_address:
+      name: "DNS Address"
+      entity_category: diagnostic
+    mac_address:
+      name: "WI-FI MAC Address"
+      entity_category: diagnostic
+```
+
+**How it works, in short:**
+
+- An **IR sensor** (for example a VS1838B/TSOP, 38 kHz) is wired to pin `GPIO27`, with `pullup`.
+- `remote_receiver` with `dump: all` **decodes and logs** signals from several protocols — that's how you discover the code for each button.
+- The `infrared` block exposes the receiver to Home Assistant's infrared integration.
+- Diagnostic sensors (IP, DNS, MAC) and the **Restart** and **Safe Mode** buttons help with maintenance.
+
+Check your receiver's pinout (VCC, GND and signal) and validate it in the **ESPHome Device Builder** before flashing.
+
 [Back to Home Assistant](/en/home-assistant/).
 
-Sources: [getting started with ESPHome](https://esphome.io/install/getting-started/), [install ESPHome](https://esphome.io/install/), [ESP32-DevKitC](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html), [ATOM-S3](https://docs.m5stack.com/en/core/AtomS3), [xiaomi_miscale component](https://esphome.io/components/sensor/xiaomi_miscale.html), [Bluetooth Proxy](https://esphome.io/components/bluetooth_proxy.html) and [Nabu Casa and the Open Home Foundation](https://www.nabucasa.com/).
+Sources: [getting started with ESPHome](https://esphome.io/install/getting-started/), [install ESPHome](https://esphome.io/install/), [ESP32-DevKitC](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html), [ATOM-S3](https://docs.m5stack.com/en/core/AtomS3), [xiaomi_miscale component](https://esphome.io/components/sensor/xiaomi_miscale.html), [Bluetooth Proxy](https://esphome.io/components/bluetooth_proxy.html), [remote_receiver (IR)](https://esphome.io/components/remote_receiver.html) and [Nabu Casa and the Open Home Foundation](https://www.nabucasa.com/).

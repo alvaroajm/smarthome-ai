@@ -131,6 +131,7 @@
 <li><a href="#seu-primeiro-projeto">Seu primeiro projeto</a></li>
 <li><a href="#exemplo-balanca">Exemplo pronto: balança no Home Assistant via Bluetooth</a></li>
 <li><a href="#exemplo-bt-proxy">Exemplo pronto: Bluetooth Proxy com ATOM-S3</a></li>
+<li><a href="#exemplo-ir">Exemplo pronto: receptor de infravermelho (IR) no Home Assistant</a></li>
 </ul>
 </div>
 </nav>
@@ -548,8 +549,99 @@ safe_mode:
 <li>Sensores de diagnóstico (sinal Wi-Fi, uptime, IP, MAC, SSID) ajudam a monitorar o dispositivo; os botões <strong>Reiniciar</strong> e <strong>Safe Mode</strong> facilitam a recuperação.</li>
 </ul>
 <p>Valide no <strong>ESPHome Device Builder</strong> (<em>Validate</em>) e teste um componente por vez.</p>
+<h2 id="exemplo-ir">Exemplo pronto: receptor de infravermelho (IR) no Home Assistant<a class="headerlink" href="#exemplo-ir" title="Permanent link">#</a></h2>
+<p>Quer que o Home Assistant "aprenda" os códigos do controle remoto da TV, do ar-condicionado ou do som? Um <strong>receptor de infravermelho</strong> ligado a um ESP32 captura esses sinais. Com <code>remote_receiver</code> e <code>dump: all</code>, cada botão pressionado aparece no log do ESPHome com o protocolo e o código — pronto para reutilizar numa automação ou num controle virtual.</p>
+<blockquote>
+<p><strong>Troque pelos seus dados antes de gravar.</strong> A chave de criptografia da API, o IP fixo, o DNS e as chaves <code>!secret</code> abaixo são apenas exemplos. Nunca publique chaves, senhas ou IPs reais — gere os seus.</p>
+</blockquote>
+<pre><code class="language-yaml"># Receptor de infravermelho (IR) em ESP32, exposto ao Home Assistant.
+# Troque a chave da API, o IP fixo, o DNS e as chaves !secret pelos seus.
+
+esphome:
+  name: esp32-ir-receiver-escritorio
+  friendly_name: &quot;ESP32-IR-RECEIVER-ESCRITORIO&quot;
+
+esp32:
+  board: esp32-devkit-v1
+  variant: esp32
+  framework:
+    type: esp-idf
+
+logger:
+  level: DEBUG
+
+api:
+  encryption:
+    key: !secret api_encryption_key   # gere a sua no ESPHome Builder
+
+ota:
+  - platform: esphome
+    encryption:
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  power_save_mode: NONE
+  manual_ip:                    # ajuste para a sua rede (ou remova para usar DHCP)
+    static_ip: 192.168.1.52
+    gateway: 192.168.1.1
+    subnet: 255.255.255.0
+    dns1: 1.1.1.1
+    dns2: 8.8.8.8
+
+remote_receiver:
+  id: ir_rx
+  pin:
+    number: GPIO27
+    inverted: true
+    mode:
+      input: true
+      pullup: true
+  dump: all          # registra no log os códigos de todos os protocolos
+  tolerance: 25%
+
+# Expõe o receptor à integração de infravermelho do Home Assistant.
+infrared:
+  - platform: ir_rf_proxy
+    id: receptor_lg_escritorio
+    name: &quot;Receptor IR LG ESCRITORIO&quot;
+    receiver_frequency: 38kHz
+    remote_receiver_id: ir_rx
+    icon: &quot;mdi:remote&quot;
+
+button:
+  - platform: restart
+    name: &quot;Reiniciar&quot;
+  - platform: safe_mode
+    name: &quot;Safe Mode&quot;
+
+binary_sensor:
+  - platform: status
+    name: &quot;Status ESPHome&quot;
+    entity_category: diagnostic
+
+text_sensor:
+  - platform: wifi_info
+    ip_address:
+      name: &quot;WI-FI IP Address&quot;
+      entity_category: diagnostic
+    dns_address:
+      name: &quot;DNS Address&quot;
+      entity_category: diagnostic
+    mac_address:
+      name: &quot;WI-FI MAC Address&quot;
+      entity_category: diagnostic
+</code></pre>
+<p><strong>Como funciona, em resumo:</strong></p>
+<ul>
+<li>Um <strong>sensor de IR</strong> (por exemplo VS1838B/TSOP, 38 kHz) é ligado ao pino <code>GPIO27</code>, com <code>pullup</code>.</li>
+<li><code>remote_receiver</code> com <code>dump: all</code> <strong>decodifica e registra no log</strong> os sinais de vários protocolos — é assim que você descobre o código de cada botão.</li>
+<li>O bloco <code>infrared</code> expõe o receptor à integração de infravermelho do Home Assistant.</li>
+<li>Sensores de diagnóstico (IP, DNS, MAC) e os botões <strong>Reiniciar</strong> e <strong>Safe Mode</strong> ajudam na manutenção.</li>
+</ul>
+<p>Confira a pinagem do seu receptor (VCC, GND e sinal) e valide no <strong>ESPHome Device Builder</strong> antes de gravar.</p>
 <p><a href="/home-assistant/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Voltar ao Home Assistant</a>.</p>
-<p>Fontes: <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/install/getting-started/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>iniciar no ESPHome</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/install/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>instalar ESPHome</a>, <a class="ext" target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html">ESP32-DevKitC</a>, <a class="ext" target="_blank" rel="noopener" href="https://docs.m5stack.com/en/core/AtomS3">ATOM-S3</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/sensor/xiaomi_miscale.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>componente xiaomi_miscale</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/bluetooth_proxy.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>Bluetooth Proxy</a> e <a class="ext" target="_blank" rel="noopener" href="https://www.nabucasa.com/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="nabu-casa" src="/static/img/brands/nabu-casa.svg?v=fd7f86f9" width="32" height="32" alt="" decoding="async"></span>Nabu Casa e Open Home Foundation</a>.</p>
+<p>Fontes: <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/install/getting-started/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>iniciar no ESPHome</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/install/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>instalar ESPHome</a>, <a class="ext" target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html">ESP32-DevKitC</a>, <a class="ext" target="_blank" rel="noopener" href="https://docs.m5stack.com/en/core/AtomS3">ATOM-S3</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/sensor/xiaomi_miscale.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>componente xiaomi_miscale</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/bluetooth_proxy.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>Bluetooth Proxy</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/remote_receiver.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>remote_receiver (IR)</a> e <a class="ext" target="_blank" rel="noopener" href="https://www.nabucasa.com/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="nabu-casa" src="/static/img/brands/nabu-casa.svg?v=fd7f86f9" width="32" height="32" alt="" decoding="async"></span>Nabu Casa e Open Home Foundation</a>.</p>
         <ul class="tags"><li>ESPHome</li><li>ESP32</li><li>DIY</li><li>YAML</li><li>Sensores</li></ul>
       </div>
     </div>
