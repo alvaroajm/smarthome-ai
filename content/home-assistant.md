@@ -101,7 +101,7 @@ O **ESPHome**, projeto da Open Home Foundation apoiado pela Nabu Casa, oferece o
 
 Uma IA pode explicar as opções, propor uma configuração e ajudar a entender erros. Isso torna o aprendizado mais acessível, mas ainda é preciso conferir placa, pinos e documentação e validar antes de gravar. Comece com um projeto alimentado por USB, em baixa tensão.
 
-[Conheça o ESPHome pelas telas](/esphome-esp32/). Lá você encontra **exemplos prontos para copiar**: uma [balança no HA via Bluetooth](/esphome-exemplos/#exemplo-balanca), um [Bluetooth Proxy com ATOM-S3](/esphome-exemplos/#exemplo-bt-proxy), um [receptor de infravermelho](/esphome-exemplos/#exemplo-ir), um [dispositivo Thread (NanoC6)](/esphome-exemplos/#exemplo-thread), um [painel de toque (tela de clima e controles)](/esphome-exemplos/#exemplo-tela) e uma [tela Thread com temperatura/umidade (C6-GEEK)](/esphome-exemplos/#exemplo-c6geek).
+[Conheça o ESPHome pelas telas](/esphome-esp32/). Lá você encontra **exemplos prontos para copiar**: uma [balança no HA via Bluetooth](/esphome-exemplos/#exemplo-balanca), um [Bluetooth Proxy com ATOM-S3](/esphome-exemplos/#exemplo-bt-proxy), um [receptor de infravermelho](/esphome-exemplos/#exemplo-ir), um [dispositivo Thread (NanoC6)](/esphome-exemplos/#exemplo-thread), um [painel de toque (tela de clima e controles)](/esphome-exemplos/#exemplo-tela) uma [tela Thread com temperatura/umidade (C6-GEEK)](/esphome-exemplos/#exemplo-c6geek) e um [painel de parede 7" para a casa toda (Waveshare 7B)](/esphome-exemplos/#exemplo-painel7b).
 
 ## Câmeras que ajudam a entender o que acontece
 

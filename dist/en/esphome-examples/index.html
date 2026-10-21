@@ -133,6 +133,7 @@
 <li><a href="#example-thread">A ready-made example: a Thread device with the M5Stack NanoC6</a></li>
 <li><a href="#example-display">A ready-made example: a touchscreen panel (weather, curtains and AC)</a></li>
 <li><a href="#example-c6geek">A ready-made example: a Thread display with temperature and humidity (Waveshare C6-GEEK)</a></li>
+<li><a href="#example-panel7b">Reference example: a 7" wall panel for the whole home (Waveshare 7B)</a></li>
 </ul>
 </div>
 </nav>
@@ -147,6 +148,7 @@
 <li><a href="#example-thread">A Thread device (NanoC6)</a></li>
 <li><a href="#example-display">A touchscreen panel (weather, curtains and AC)</a></li>
 <li><a href="#example-c6geek">A Thread display with temperature and humidity (C6-GEEK)</a></li>
+<li><a href="#example-panel7b">A 7" wall panel for the whole home (Waveshare 7B)</a></li>
 </ul>
 <h2 id="example-scale">A ready-made example: a scale in Home Assistant over Bluetooth<a class="headerlink" href="#example-scale" title="Permanent link">#</a></h2>
 <p>A gateway that listens to the <strong>Bluetooth (BLE)</strong> advertisement from scales and publishes the weight to Home Assistant — without relying on the manufacturer's cloud. It runs on an <strong>M5Stack ATOM Lite (ESP32)</strong> and covers two protocols: <strong>OKOK/QJ-J</strong> scales (weight read straight from the advertisement) and the <strong>Xiaomi Mi Scale 2</strong> (through the native <code>xiaomi_miscale</code> component, with weight and impedance).</p>
@@ -1958,8 +1960,120 @@ text_sensor:
 <li>Diagnostic sensors (uptime, status, Thread info) help you monitor it.</li>
 </ul>
 <p>Check your sensor and your board's pinout, and validate it in the <strong>ESPHome Device Builder</strong> before flashing.</p>
+<h2 id="example-panel7b">Reference example: a 7" wall panel for the whole home (Waveshare 7B)<a class="headerlink" href="#example-panel7b" title="Permanent link">#</a></h2>
+<p>A <strong>7" wall panel</strong> (Waveshare ESP32-S3-Touch-LCD-7B, 1024×600) that becomes the <strong>central controller for the home</strong>: it shows the clock, the weather with a 5-day forecast, the <strong>Bitcoin</strong> price (with a mini-chart) and one page per room with <strong>lights (on/off + brightness), air-conditioner, fan and curtains</strong> — all via Home Assistant, with LVGL v9.</p>
+<p>Because it's large and depends on its own files, it's included here as a <strong>commented reference</strong> (key snippets), not the whole file.</p>
+<blockquote>
+<p><strong>This example is NOT self-contained.</strong> It must be accompanied by:
+- <strong><code>waveshare_7b/panel_data.h</code></strong> — a C++ <em>header</em> with the Bitcoin logic (Coinbase parsing, mini-chart) and the <code>condition_pt()</code> function that translates the weather conditions;
+- the <strong>room images</strong> (<code>waveshare_7b/assets/*.jpg</code>).</p>
+<p>It requires <strong>ESPHome 2026.9+</strong> and, in HA, the <strong>"Allow the device to perform Home Assistant actions"</strong> option enabled. The API key and static IP are only examples — generate/adjust your own. (The on-screen labels in this example are in Portuguese; adapt them as you like.)</p>
+</blockquote>
+<p><strong>1. Base (board, PSRAM, API and Wi-Fi):</strong></p>
+<pre><code class="language-yaml">substitutions:
+  name: waveshare-esp32-s3-touch-lcd-7b
+  friendly_name: Waveshare ESP32-S3-Touch-LCD-7B
+  weather_entity: weather.home
+
+esphome:
+  name: ${name}
+  friendly_name: ${friendly_name}
+  min_version: 2026.9.0
+  includes:
+    - waveshare_7b/panel_data.h   # C++ header (Bitcoin logic, condition_pt) — must be included
+  on_boot:
+    - priority: -100
+      then:
+        - light.turn_on: { id: screen_backlight, brightness: 75% }
+        - script.execute: refresh_clock
+        - delay: 8s
+        - script.execute: fetch_market
+        - script.execute: fetch_forecast
+
+esp32:
+  board: esp32-s3-devkitc-1
+  variant: esp32s3
+  flash_size: 16MB
+  framework:
+    type: esp-idf
+
+psram:
+  mode: octal
+  speed: 80MHz
+
+api:
+  encryption:
+    key: !secret api_encryption_key   # generate yours in the ESPHome Builder
+  reboot_timeout: 0s                   # keeps the screen alive even without HA
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  # manual_ip is optional — adjust to your network or remove it to use DHCP
+</code></pre>
+<p><strong>2. RGB screen + touch (the trickiest hardware part):</strong></p>
+<pre><code class="language-yaml"># 1024x600 RGB screen (native mipi_rgb driver) + GT911 touch on the I2C bus.
+# An I2C expander (waveshare_io_ch32v003) handles reset/enable/backlight.
+display:
+  - platform: mipi_rgb
+    id: disp1
+    model: RPI
+    dimensions: { width: 1024, height: 600 }
+    color_order: RGB
+    pclk_frequency: 30MHz
+    pclk_inverted: true
+    # data and sync pins depend on the board (see the full config)
+    update_interval: never
+    auto_clear_enabled: false
+
+touchscreen:
+  - platform: gt911
+    id: touch_panel
+    display: disp1
+    i2c_id: touch_bus
+    address: 93
+</code></pre>
+<p><strong>3. Bitcoin price (an HTTP request to Coinbase, independent of HA):</strong></p>
+<pre><code class="language-yaml">http_request:
+  id: market_http
+  verify_ssl: true
+
+script:
+  - id: fetch_market
+    then:
+      - http_request.get:
+          url: https://api.exchange.coinbase.com/products/BTC-USD/ticker
+          capture_response: true
+          on_response:
+            - lambda: |-
+                waveshare_panel::bitcoin().parse_quote(body, id(panel_time).now().strftime(&quot;%H:%M&quot;));
+            - script.execute: refresh_bitcoin
+</code></pre>
+<p><strong>4. Per-entity control pattern (repeated for each light/room):</strong></p>
+<pre><code class="language-yaml"># A sensor reads the light's brightness from HA and moves the on-screen slider:
+sensor:
+  - platform: homeassistant
+    id: level_light_led_sala
+    entity_id: light.led_sala
+    attribute: brightness
+    on_value:
+      - lvgl.slider.update:
+          id: slider_light_led_sala
+          value: !lambda &quot;return std::isfinite(x) ? (int)lroundf(x * 100.0f / 255.0f) : 0;&quot;
+
+# And, inside the room page, the button/slider calls the service back:
+#   button (toggle) + slider (brightness) -&gt; homeassistant.action: light.toggle / light.turn_on
+</code></pre>
+<p><strong>How it works, in short:</strong></p>
+<ul>
+<li>The screen uses the native <strong><code>mipi_rgb</code></strong> driver (1024×600) and <strong><code>gt911</code></strong> touch; an I²C expander (<code>waveshare_io_ch32v003</code>) handles reset, enable and backlight.</li>
+<li>Dozens of <strong><code>platform: homeassistant</code></strong> sensors mirror the entities' state (brightness, AC mode, cover state) and update the LVGL widgets; the buttons and sliders call services back with <strong><code>homeassistant.action</code></strong>.</li>
+<li>The clock, the forecast (via HA's <code>weather.get_forecasts</code>) and <strong>Bitcoin</strong> (Coinbase API) are refreshed by <code>interval</code>/<code>script</code>.</li>
+<li>The interface has a <strong>main page</strong> (weather + BTC + per-room shortcuts) and <strong>one page per room</strong>, with scrolling.</li>
+</ul>
+<p>Treat this example as an <strong>advanced starting point</strong>: the full file (with <code>panel_data.h</code> and the images) is long and specific to the home.</p>
 <p><a href="/en/home-assistant/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Back to Home Assistant</a>.</p>
-<p>Sources: <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/sensor/xiaomi_miscale.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>xiaomi_miscale component</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/bluetooth_proxy.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>Bluetooth Proxy</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/remote_receiver.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>remote_receiver (IR)</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/openthread.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>OpenThread</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/lvgl/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>LVGL</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/display/st7789v.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>ST7789V display</a> and <a class="ext" target="_blank" rel="noopener" href="https://www.nabucasa.com/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="nabu-casa" src="/static/img/brands/nabu-casa.svg?v=fd7f86f9" width="32" height="32" alt="" decoding="async"></span>Nabu Casa and the Open Home Foundation</a>.</p>
+<p>Sources: <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/sensor/xiaomi_miscale.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>xiaomi_miscale component</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/bluetooth_proxy.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>Bluetooth Proxy</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/remote_receiver.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>remote_receiver (IR)</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/openthread.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>OpenThread</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/lvgl/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>LVGL</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/display/st7789v.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>ST7789V display</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/http_request.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>http_request</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/touchscreen/gt911.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>GT911 touchscreen</a> and <a class="ext" target="_blank" rel="noopener" href="https://www.nabucasa.com/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="nabu-casa" src="/static/img/brands/nabu-casa.svg?v=fd7f86f9" width="32" height="32" alt="" decoding="async"></span>Nabu Casa and the Open Home Foundation</a>.</p>
         <ul class="tags"><li>ESPHome</li><li>ESP32</li><li>YAML</li><li>Examples</li><li>Thread</li></ul>
       </div>
     </div>

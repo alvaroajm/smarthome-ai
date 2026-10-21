@@ -27,6 +27,7 @@ New to ESPHome? Start with the [Sensors with ESPHome and ESP32](/en/esphome-esp3
 - [A Thread device (NanoC6)](#example-thread)
 - [A touchscreen panel (weather, curtains and AC)](#example-display)
 - [A Thread display with temperature and humidity (C6-GEEK)](#example-c6geek)
+- [A 7" wall panel for the whole home (Waveshare 7B)](#example-panel7b)
 
 ## A ready-made example: a scale in Home Assistant over Bluetooth {#example-scale}
 
@@ -1862,6 +1863,134 @@ text_sensor:
 
 Check your sensor and your board's pinout, and validate it in the **ESPHome Device Builder** before flashing.
 
+## Reference example: a 7" wall panel for the whole home (Waveshare 7B) {#example-panel7b}
+
+A **7" wall panel** (Waveshare ESP32-S3-Touch-LCD-7B, 1024×600) that becomes the **central controller for the home**: it shows the clock, the weather with a 5-day forecast, the **Bitcoin** price (with a mini-chart) and one page per room with **lights (on/off + brightness), air-conditioner, fan and curtains** — all via Home Assistant, with LVGL v9.
+
+Because it's large and depends on its own files, it's included here as a **commented reference** (key snippets), not the whole file.
+
+> **This example is NOT self-contained.** It must be accompanied by:
+> - **`waveshare_7b/panel_data.h`** — a C++ *header* with the Bitcoin logic (Coinbase parsing, mini-chart) and the `condition_pt()` function that translates the weather conditions;
+> - the **room images** (`waveshare_7b/assets/*.jpg`).
+>
+> It requires **ESPHome 2026.9+** and, in HA, the **"Allow the device to perform Home Assistant actions"** option enabled. The API key and static IP are only examples — generate/adjust your own. (The on-screen labels in this example are in Portuguese; adapt them as you like.)
+
+**1. Base (board, PSRAM, API and Wi-Fi):**
+
+```yaml
+substitutions:
+  name: waveshare-esp32-s3-touch-lcd-7b
+  friendly_name: Waveshare ESP32-S3-Touch-LCD-7B
+  weather_entity: weather.home
+
+esphome:
+  name: ${name}
+  friendly_name: ${friendly_name}
+  min_version: 2026.9.0
+  includes:
+    - waveshare_7b/panel_data.h   # C++ header (Bitcoin logic, condition_pt) — must be included
+  on_boot:
+    - priority: -100
+      then:
+        - light.turn_on: { id: screen_backlight, brightness: 75% }
+        - script.execute: refresh_clock
+        - delay: 8s
+        - script.execute: fetch_market
+        - script.execute: fetch_forecast
+
+esp32:
+  board: esp32-s3-devkitc-1
+  variant: esp32s3
+  flash_size: 16MB
+  framework:
+    type: esp-idf
+
+psram:
+  mode: octal
+  speed: 80MHz
+
+api:
+  encryption:
+    key: !secret api_encryption_key   # generate yours in the ESPHome Builder
+  reboot_timeout: 0s                   # keeps the screen alive even without HA
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  # manual_ip is optional — adjust to your network or remove it to use DHCP
+```
+
+**2. RGB screen + touch (the trickiest hardware part):**
+
+```yaml
+# 1024x600 RGB screen (native mipi_rgb driver) + GT911 touch on the I2C bus.
+# An I2C expander (waveshare_io_ch32v003) handles reset/enable/backlight.
+display:
+  - platform: mipi_rgb
+    id: disp1
+    model: RPI
+    dimensions: { width: 1024, height: 600 }
+    color_order: RGB
+    pclk_frequency: 30MHz
+    pclk_inverted: true
+    # data and sync pins depend on the board (see the full config)
+    update_interval: never
+    auto_clear_enabled: false
+
+touchscreen:
+  - platform: gt911
+    id: touch_panel
+    display: disp1
+    i2c_id: touch_bus
+    address: 93
+```
+
+**3. Bitcoin price (an HTTP request to Coinbase, independent of HA):**
+
+```yaml
+http_request:
+  id: market_http
+  verify_ssl: true
+
+script:
+  - id: fetch_market
+    then:
+      - http_request.get:
+          url: https://api.exchange.coinbase.com/products/BTC-USD/ticker
+          capture_response: true
+          on_response:
+            - lambda: |-
+                waveshare_panel::bitcoin().parse_quote(body, id(panel_time).now().strftime("%H:%M"));
+            - script.execute: refresh_bitcoin
+```
+
+**4. Per-entity control pattern (repeated for each light/room):**
+
+```yaml
+# A sensor reads the light's brightness from HA and moves the on-screen slider:
+sensor:
+  - platform: homeassistant
+    id: level_light_led_sala
+    entity_id: light.led_sala
+    attribute: brightness
+    on_value:
+      - lvgl.slider.update:
+          id: slider_light_led_sala
+          value: !lambda "return std::isfinite(x) ? (int)lroundf(x * 100.0f / 255.0f) : 0;"
+
+# And, inside the room page, the button/slider calls the service back:
+#   button (toggle) + slider (brightness) -> homeassistant.action: light.toggle / light.turn_on
+```
+
+**How it works, in short:**
+
+- The screen uses the native **`mipi_rgb`** driver (1024×600) and **`gt911`** touch; an I²C expander (`waveshare_io_ch32v003`) handles reset, enable and backlight.
+- Dozens of **`platform: homeassistant`** sensors mirror the entities' state (brightness, AC mode, cover state) and update the LVGL widgets; the buttons and sliders call services back with **`homeassistant.action`**.
+- The clock, the forecast (via HA's `weather.get_forecasts`) and **Bitcoin** (Coinbase API) are refreshed by `interval`/`script`.
+- The interface has a **main page** (weather + BTC + per-room shortcuts) and **one page per room**, with scrolling.
+
+Treat this example as an **advanced starting point**: the full file (with `panel_data.h` and the images) is long and specific to the home.
+
 [Back to Home Assistant](/en/home-assistant/).
 
-Sources: [xiaomi_miscale component](https://esphome.io/components/sensor/xiaomi_miscale.html), [Bluetooth Proxy](https://esphome.io/components/bluetooth_proxy.html), [remote_receiver (IR)](https://esphome.io/components/remote_receiver.html), [OpenThread](https://esphome.io/components/openthread.html), [LVGL](https://esphome.io/components/lvgl/), [ST7789V display](https://esphome.io/components/display/st7789v.html) and [Nabu Casa and the Open Home Foundation](https://www.nabucasa.com/).
+Sources: [xiaomi_miscale component](https://esphome.io/components/sensor/xiaomi_miscale.html), [Bluetooth Proxy](https://esphome.io/components/bluetooth_proxy.html), [remote_receiver (IR)](https://esphome.io/components/remote_receiver.html), [OpenThread](https://esphome.io/components/openthread.html), [LVGL](https://esphome.io/components/lvgl/), [ST7789V display](https://esphome.io/components/display/st7789v.html), [http_request](https://esphome.io/components/http_request.html), [GT911 touchscreen](https://esphome.io/components/touchscreen/gt911.html) and [Nabu Casa and the Open Home Foundation](https://www.nabucasa.com/).
