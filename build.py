@@ -170,6 +170,7 @@ LANGS = {
         "nav": [
             ("Início", ""),
             ("Guias", "artigos/"),
+            ("Exemplos", "esphome-exemplos/"),
             ("Dispositivos", "#dispositivos"),
             ("Links úteis", "#recursos"),
             ("Comece aqui", "instalacao/"),
@@ -234,6 +235,7 @@ LANGS = {
         "nav": [
             ("Home", ""),
             ("Guides", "guides/"),
+            ("Examples", "esphome-examples/"),
             ("Devices", "#dispositivos"),
             ("Resources", "#recursos"),
             ("Start here", "start/"),
