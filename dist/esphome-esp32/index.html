@@ -134,6 +134,7 @@
 <li><a href="#exemplo-ir">Exemplo pronto: receptor de infravermelho (IR) no Home Assistant</a></li>
 <li><a href="#exemplo-thread">Exemplo pronto: dispositivo Thread com M5Stack NanoC6</a></li>
 <li><a href="#exemplo-tela">Exemplo pronto: painel de toque (clima, cortinas e ar)</a></li>
+<li><a href="#exemplo-c6geek">Exemplo pronto: tela Thread com temperatura e umidade (Waveshare C6-GEEK)</a></li>
 </ul>
 </div>
 </nav>
@@ -1746,8 +1747,244 @@ lvgl:
 <li><strong>Hardware:</strong> confirme a flash/PSRAM da sua unidade; se o boot falhar, teste <code>psram.mode: quad</code>. A rotação da tela pode precisar de <code>90°</code>/<code>270°</code>.</li>
 </ul>
 <p>Ajuste as <code>substitutions</code> para as suas entidades e valide no <strong>ESPHome Device Builder</strong> antes de gravar.</p>
+<h2 id="exemplo-c6geek">Exemplo pronto: tela Thread com temperatura e umidade (Waveshare C6-GEEK)<a class="headerlink" href="#exemplo-c6geek" title="Permanent link">#</a></h2>
+<p>A placa <strong>Waveshare ESP32-C6-GEEK</strong> junta três coisas num dispositivo só: conexão <strong>Thread</strong>, uma <strong>telinha ST7789V</strong> (240×135) e um <strong>sensor DHT</strong> (AM2302/DHT11) de temperatura e umidade. A tela mostra <strong>relógio, data e as leituras do sensor</strong>, enquanto o dispositivo entra na sua rede Thread.</p>
+<blockquote>
+<p><strong>Dado MUITO sensível.</strong> O campo <code>tlv</code> (o <em>dataset</em>) do Thread contém a <strong>chave da sua rede</strong> — nunca o publique. A chave da API também é um exemplo; gere a sua.</p>
+</blockquote>
+<pre><code class="language-yaml"># Waveshare ESP32-C6-GEEK: dispositivo Thread com tela ST7789V e sensor DHT.
+# Troque a chave da API e, principalmente, o dataset TLV da sua rede Thread.
+
+esphome:
+  name: waveshare-esp32-c6-geek
+  friendly_name: &quot;Waveshare ESP32-C6-GEEK&quot;
+  min_version: 2026.9.0
+
+esp32:
+  board: esp32-c6-devkitc-1
+  variant: esp32c6
+  flash_size: 16MB
+  framework:
+    type: esp-idf
+    version: recommended
+    sdkconfig_options:
+      CONFIG_ESP_TASK_WDT_TIMEOUT_S: &quot;60&quot;   # watchdog maior p/ FTD (init pode demorar)
+      CONFIG_PM_ENABLE: &quot;n&quot;
+      CONFIG_ESP_INT_WDT_TIMEOUT_MS: &quot;2000&quot;
+
+logger:
+  level: DEBUG
+
+api:
+  encryption:
+    key: !secret api_encryption_key   # gere a sua no ESPHome Builder
+  # Mantém a tela funcionando mesmo sem conexão com o HA.
+  reboot_timeout: 0s
+
+ota:
+  - platform: esphome
+    encryption:
+
+# Thread usa IPv6.
+network:
+  enable_ipv6: true
+
+# Rádio Thread. ATENÇÃO: o 'tlv' (dataset) contém a CHAVE DA SUA REDE THREAD.
+# Nunca publique o seu; cole o dataset da sua rede aqui.
+openthread:
+  device_type: FTD
+  force_dataset: true
+  tlv: &quot;COLE_AQUI_O_DATASET_TLV_DA_SUA_REDE_THREAD&quot;
+  output_power: 20dBm
+
+# Horário do Google, exibido no fuso de Fortaleza.
+time:
+  - platform: sntp
+    id: horario_google
+    timezone: America/Fortaleza
+    servers:
+      - time1.google.com
+      - time2.google.com
+      - time3.google.com
+    update_interval: 1h
+
+spi:
+  clk_pin: GPIO1
+  mosi_pin: GPIO2
+
+# As fontes são baixadas durante a preparação do firmware.
+font:
+  - file: &quot;gfonts://Roboto&quot;
+    id: fonte_pequena
+    size: 14
+
+  - file: &quot;gfonts://Roboto&quot;
+    id: fonte_valores
+    size: 26
+    glyphs: [&quot;0123456789 .-°C%&quot;]
+
+  - file: &quot;gfonts://Roboto&quot;
+    id: fonte_relogio
+    size: 28
+
+sensor:
+  - platform: dht
+    id: sensor_dht_1
+    pin: GPIO11
+    model: AM2302
+    update_interval: 10s
+    temperature:
+      name: Temperature
+      id: sensor_dht_1_temperature
+      icon: &quot;mdi:thermometer&quot;
+      accuracy_decimals: 0
+    humidity:
+      name: Humidity
+      id: sensor_dht_1_humidity
+      icon: &quot;mdi:water-percent&quot;
+      accuracy_decimals: 0
+
+  - platform: uptime
+    name: &quot;Waveshare ESP32-C6-GEEK Tempo de Atividade&quot;
+    id: uptime_sensor
+    update_interval: 60s
+    filters:
+      - lambda: return x / 60.0;
+    unit_of_measurement: &quot;min&quot;
+    icon: mdi:clock-outline
+
+display:
+  - platform: st7789v
+    id: tela
+    model: CUSTOM
+    cs_pin: GPIO5
+    dc_pin: GPIO3
+    reset_pin: GPIO4
+    backlight_pin: GPIO6
+    # Geometria nativa; a rotação resulta em 240 × 135.
+    width: 135
+    height: 240
+    offset_width: 52
+    offset_height: 40
+    rotation: 270
+    update_interval: 1s
+    lambda: |-
+      const Color branco(255, 255, 255);
+      const Color cinza(160, 160, 160);
+      const Color azul(80, 190, 255);
+      const Color laranja(255, 180, 70);
+
+      it.fill(Color(0, 0, 0));
+
+      // Hora e data.
+      auto agora = id(horario_google).now();
+
+      if (agora.is_valid()) {
+        it.strftime(
+          120, 0, id(fonte_relogio), branco,
+          TextAlign::TOP_CENTER, &quot;%H:%M:%S&quot;, agora
+        );
+        it.strftime(
+          120, 34, id(fonte_pequena), cinza,
+          TextAlign::TOP_CENTER, &quot;%d/%m/%Y&quot;, agora
+        );
+      } else {
+        it.print(
+          120, 0, id(fonte_relogio), branco,
+          TextAlign::TOP_CENTER, &quot;--:--:--&quot;
+        );
+        it.print(
+          120, 34, id(fonte_pequena), cinza,
+          TextAlign::TOP_CENTER, &quot;Sincronizando hora...&quot;
+        );
+      }
+
+      // Separadores e títulos.
+      it.line(8, 57, 231, 57, cinza);
+      it.line(120, 67, 120, 125, cinza);
+
+      it.print(
+        60, 65, id(fonte_pequena), cinza,
+        TextAlign::TOP_CENTER, &quot;Temperatura&quot;
+      );
+      it.print(
+        180, 65, id(fonte_pequena), cinza,
+        TextAlign::TOP_CENTER, &quot;Umidade&quot;
+      );
+
+      // Leituras do DHT.
+      const float temperatura =
+        id(sensor_dht_1_temperature).state;
+      const float umidade =
+        id(sensor_dht_1_humidity).state;
+
+      if (!isnan(temperatura)) {
+        it.printf(
+          60, 88, id(fonte_valores), laranja,
+          TextAlign::TOP_CENTER, &quot;%.0f °C&quot;, temperatura
+        );
+      } else {
+        it.print(
+          60, 88, id(fonte_valores), laranja,
+          TextAlign::TOP_CENTER, &quot;-- °C&quot;
+        );
+      }
+
+      if (!isnan(umidade)) {
+        it.printf(
+          180, 88, id(fonte_valores), azul,
+          TextAlign::TOP_CENTER, &quot;%.0f %%&quot;, umidade
+        );
+      } else {
+        it.print(
+          180, 88, id(fonte_valores), azul,
+          TextAlign::TOP_CENTER, &quot;-- %&quot;
+        );
+      }
+
+switch:
+  - platform: restart
+    id: restart_switch
+    name: &quot;Waveshare ESP32-C6-GEEK Restart Switch&quot;
+
+binary_sensor:
+  - platform: status
+    name: &quot;Waveshare ESP32-C6-GEEK Status de Conexão&quot;
+    id: status_conexao
+
+text_sensor:
+  - platform: openthread_info
+    ip_address:
+      name: &quot;Thread IP Address&quot;
+    channel:
+      name: &quot;Thread Channel&quot;
+    role:
+      name: &quot;Thread Device Role&quot;
+    rloc16:
+      name: &quot;Thread RLOC16&quot;
+    ext_addr:
+      name: &quot;Thread Extended Address&quot;
+    eui64:
+      name: &quot;Thread EUI64&quot;
+    network_name:
+      name: &quot;Thread Network Name&quot;
+    network_key:
+      name: &quot;Thread Network Key&quot;
+    pan_id:
+      name: &quot;Thread PAN ID&quot;
+    ext_pan_id:
+      name: &quot;Thread Extended PAN ID&quot;
+</code></pre>
+<p><strong>Como funciona, em resumo:</strong></p>
+<ul>
+<li><code>openthread</code> (FTD) conecta a placa à rede Thread; o <code>tlv</code> é o <em>dataset</em> sigiloso (contém a chave da rede). O <code>network: enable_ipv6</code> é obrigatório.</li>
+<li>Um sensor <strong>DHT</strong> no <code>GPIO11</code> lê temperatura e umidade a cada 10 s.</li>
+<li>O <code>display</code> <strong>ST7789V</strong> desenha, no <code>lambda</code>, o relógio (via <code>sntp</code>), a data e as duas leituras — tudo localmente, sem depender do HA para a tela (<code>reboot_timeout: 0s</code> mantém a tela viva mesmo sem o HA).</li>
+<li>Sensores de diagnóstico (uptime, status, dados do Thread) ajudam a monitorar.</li>
+</ul>
+<p>Confira o sensor e a pinagem da sua placa, e valide no <strong>ESPHome Device Builder</strong> antes de gravar.</p>
 <p><a href="/home-assistant/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Voltar ao Home Assistant</a>.</p>
-<p>Fontes: <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/install/getting-started/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>iniciar no ESPHome</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/install/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>instalar ESPHome</a>, <a class="ext" target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html">ESP32-DevKitC</a>, <a class="ext" target="_blank" rel="noopener" href="https://docs.m5stack.com/en/core/AtomS3">ATOM-S3</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/sensor/xiaomi_miscale.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>componente xiaomi_miscale</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/bluetooth_proxy.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>Bluetooth Proxy</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/remote_receiver.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>remote_receiver (IR)</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/openthread.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>OpenThread</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/lvgl/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>LVGL</a> e <a class="ext" target="_blank" rel="noopener" href="https://www.nabucasa.com/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="nabu-casa" src="/static/img/brands/nabu-casa.svg?v=fd7f86f9" width="32" height="32" alt="" decoding="async"></span>Nabu Casa e Open Home Foundation</a>.</p>
+<p>Fontes: <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/install/getting-started/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>iniciar no ESPHome</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/install/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>instalar ESPHome</a>, <a class="ext" target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html">ESP32-DevKitC</a>, <a class="ext" target="_blank" rel="noopener" href="https://docs.m5stack.com/en/core/AtomS3">ATOM-S3</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/sensor/xiaomi_miscale.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>componente xiaomi_miscale</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/bluetooth_proxy.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>Bluetooth Proxy</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/remote_receiver.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>remote_receiver (IR)</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/openthread.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>OpenThread</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/lvgl/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>LVGL</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/display/st7789v.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>display ST7789V</a> e <a class="ext" target="_blank" rel="noopener" href="https://www.nabucasa.com/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="nabu-casa" src="/static/img/brands/nabu-casa.svg?v=fd7f86f9" width="32" height="32" alt="" decoding="async"></span>Nabu Casa e Open Home Foundation</a>.</p>
         <ul class="tags"><li>ESPHome</li><li>ESP32</li><li>DIY</li><li>YAML</li><li>Sensores</li></ul>
       </div>
     </div>

@@ -1658,6 +1658,246 @@ lvgl:
 
 Adjust the `substitutions` to your entities and validate it in the **ESPHome Device Builder** before flashing.
 
+## A ready-made example: a Thread display with temperature and humidity (Waveshare C6-GEEK) {#example-c6geek}
+
+The **Waveshare ESP32-C6-GEEK** board combines three things in a single device: a **Thread** connection, a small **ST7789V screen** (240×135) and a **DHT sensor** (AM2302/DHT11) for temperature and humidity. The screen shows the **clock, date and the sensor readings** while the device joins your Thread network.
+
+> **Highly sensitive data.** The `tlv` field (the *dataset*) contains **your Thread network key** — never publish it. The API key is an example too; generate your own.
+
+```yaml
+# Waveshare ESP32-C6-GEEK: a Thread device with an ST7789V screen and a DHT sensor.
+# Replace the API key and, above all, your Thread network's TLV dataset.
+
+esphome:
+  name: waveshare-esp32-c6-geek
+  friendly_name: "Waveshare ESP32-C6-GEEK"
+  min_version: 2026.9.0
+
+esp32:
+  board: esp32-c6-devkitc-1
+  variant: esp32c6
+  flash_size: 16MB
+  framework:
+    type: esp-idf
+    version: recommended
+    sdkconfig_options:
+      CONFIG_ESP_TASK_WDT_TIMEOUT_S: "60"   # larger watchdog for FTD (init can be slow)
+      CONFIG_PM_ENABLE: "n"
+      CONFIG_ESP_INT_WDT_TIMEOUT_MS: "2000"
+
+logger:
+  level: DEBUG
+
+api:
+  encryption:
+    key: !secret api_encryption_key   # generate yours in the ESPHome Builder
+  # Keeps the screen working even without a connection to HA.
+  reboot_timeout: 0s
+
+ota:
+  - platform: esphome
+    encryption:
+
+# Thread uses IPv6.
+network:
+  enable_ipv6: true
+
+# Thread radio. WARNING: the 'tlv' (dataset) contains YOUR THREAD NETWORK KEY.
+# Never publish yours; paste your own network's dataset here.
+openthread:
+  device_type: FTD
+  force_dataset: true
+  tlv: "PASTE_YOUR_THREAD_NETWORK_TLV_DATASET_HERE"
+  output_power: 20dBm
+
+# Google time, shown in the Fortaleza timezone.
+time:
+  - platform: sntp
+    id: horario_google
+    timezone: America/Fortaleza
+    servers:
+      - time1.google.com
+      - time2.google.com
+      - time3.google.com
+    update_interval: 1h
+
+spi:
+  clk_pin: GPIO1
+  mosi_pin: GPIO2
+
+# Fonts are downloaded while the firmware is prepared.
+font:
+  - file: "gfonts://Roboto"
+    id: fonte_pequena
+    size: 14
+
+  - file: "gfonts://Roboto"
+    id: fonte_valores
+    size: 26
+    glyphs: ["0123456789 .-°C%"]
+
+  - file: "gfonts://Roboto"
+    id: fonte_relogio
+    size: 28
+
+sensor:
+  - platform: dht
+    id: sensor_dht_1
+    pin: GPIO11
+    model: AM2302
+    update_interval: 10s
+    temperature:
+      name: Temperature
+      id: sensor_dht_1_temperature
+      icon: "mdi:thermometer"
+      accuracy_decimals: 0
+    humidity:
+      name: Humidity
+      id: sensor_dht_1_humidity
+      icon: "mdi:water-percent"
+      accuracy_decimals: 0
+
+  - platform: uptime
+    name: "Waveshare ESP32-C6-GEEK Uptime"
+    id: uptime_sensor
+    update_interval: 60s
+    filters:
+      - lambda: return x / 60.0;
+    unit_of_measurement: "min"
+    icon: mdi:clock-outline
+
+display:
+  - platform: st7789v
+    id: tela
+    model: CUSTOM
+    cs_pin: GPIO5
+    dc_pin: GPIO3
+    reset_pin: GPIO4
+    backlight_pin: GPIO6
+    # Native geometry; rotation yields 240 × 135.
+    width: 135
+    height: 240
+    offset_width: 52
+    offset_height: 40
+    rotation: 270
+    update_interval: 1s
+    lambda: |-
+      const Color branco(255, 255, 255);
+      const Color cinza(160, 160, 160);
+      const Color azul(80, 190, 255);
+      const Color laranja(255, 180, 70);
+
+      it.fill(Color(0, 0, 0));
+
+      // Time and date.
+      auto agora = id(horario_google).now();
+
+      if (agora.is_valid()) {
+        it.strftime(
+          120, 0, id(fonte_relogio), branco,
+          TextAlign::TOP_CENTER, "%H:%M:%S", agora
+        );
+        it.strftime(
+          120, 34, id(fonte_pequena), cinza,
+          TextAlign::TOP_CENTER, "%d/%m/%Y", agora
+        );
+      } else {
+        it.print(
+          120, 0, id(fonte_relogio), branco,
+          TextAlign::TOP_CENTER, "--:--:--"
+        );
+        it.print(
+          120, 34, id(fonte_pequena), cinza,
+          TextAlign::TOP_CENTER, "Syncing time..."
+        );
+      }
+
+      // Separators and titles.
+      it.line(8, 57, 231, 57, cinza);
+      it.line(120, 67, 120, 125, cinza);
+
+      it.print(
+        60, 65, id(fonte_pequena), cinza,
+        TextAlign::TOP_CENTER, "Temperature"
+      );
+      it.print(
+        180, 65, id(fonte_pequena), cinza,
+        TextAlign::TOP_CENTER, "Humidity"
+      );
+
+      // DHT readings.
+      const float temperatura =
+        id(sensor_dht_1_temperature).state;
+      const float umidade =
+        id(sensor_dht_1_humidity).state;
+
+      if (!isnan(temperatura)) {
+        it.printf(
+          60, 88, id(fonte_valores), laranja,
+          TextAlign::TOP_CENTER, "%.0f °C", temperatura
+        );
+      } else {
+        it.print(
+          60, 88, id(fonte_valores), laranja,
+          TextAlign::TOP_CENTER, "-- °C"
+        );
+      }
+
+      if (!isnan(umidade)) {
+        it.printf(
+          180, 88, id(fonte_valores), azul,
+          TextAlign::TOP_CENTER, "%.0f %%", umidade
+        );
+      } else {
+        it.print(
+          180, 88, id(fonte_valores), azul,
+          TextAlign::TOP_CENTER, "-- %"
+        );
+      }
+
+switch:
+  - platform: restart
+    id: restart_switch
+    name: "Waveshare ESP32-C6-GEEK Restart Switch"
+
+binary_sensor:
+  - platform: status
+    name: "Waveshare ESP32-C6-GEEK Connection Status"
+    id: status_conexao
+
+text_sensor:
+  - platform: openthread_info
+    ip_address:
+      name: "Thread IP Address"
+    channel:
+      name: "Thread Channel"
+    role:
+      name: "Thread Device Role"
+    rloc16:
+      name: "Thread RLOC16"
+    ext_addr:
+      name: "Thread Extended Address"
+    eui64:
+      name: "Thread EUI64"
+    network_name:
+      name: "Thread Network Name"
+    network_key:
+      name: "Thread Network Key"
+    pan_id:
+      name: "Thread PAN ID"
+    ext_pan_id:
+      name: "Thread Extended PAN ID"
+```
+
+**How it works, in short:**
+
+- `openthread` (FTD) connects the board to the Thread network; the `tlv` is the confidential *dataset* (it holds the network key). `network: enable_ipv6` is mandatory.
+- A **DHT** sensor on `GPIO11` reads temperature and humidity every 10 s.
+- The **ST7789V** `display` draws, in the `lambda`, the clock (via `sntp`), the date and the two readings — all locally, so the screen doesn't depend on HA (`reboot_timeout: 0s` keeps it alive even without HA).
+- Diagnostic sensors (uptime, status, Thread info) help you monitor it.
+
+Check your sensor and your board's pinout, and validate it in the **ESPHome Device Builder** before flashing.
+
 [Back to Home Assistant](/en/home-assistant/).
 
-Sources: [getting started with ESPHome](https://esphome.io/install/getting-started/), [install ESPHome](https://esphome.io/install/), [ESP32-DevKitC](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html), [ATOM-S3](https://docs.m5stack.com/en/core/AtomS3), [xiaomi_miscale component](https://esphome.io/components/sensor/xiaomi_miscale.html), [Bluetooth Proxy](https://esphome.io/components/bluetooth_proxy.html), [remote_receiver (IR)](https://esphome.io/components/remote_receiver.html), [OpenThread](https://esphome.io/components/openthread.html), [LVGL](https://esphome.io/components/lvgl/) and [Nabu Casa and the Open Home Foundation](https://www.nabucasa.com/).
+Sources: [getting started with ESPHome](https://esphome.io/install/getting-started/), [install ESPHome](https://esphome.io/install/), [ESP32-DevKitC](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html), [ATOM-S3](https://docs.m5stack.com/en/core/AtomS3), [xiaomi_miscale component](https://esphome.io/components/sensor/xiaomi_miscale.html), [Bluetooth Proxy](https://esphome.io/components/bluetooth_proxy.html), [remote_receiver (IR)](https://esphome.io/components/remote_receiver.html), [OpenThread](https://esphome.io/components/openthread.html), [LVGL](https://esphome.io/components/lvgl/), [ST7789V display](https://esphome.io/components/display/st7789v.html) and [Nabu Casa and the Open Home Foundation](https://www.nabucasa.com/).
