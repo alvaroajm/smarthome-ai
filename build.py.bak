@@ -43,7 +43,7 @@ SITE = {
         "ESP32, Zigbee2MQTT, ZHA, Matter over Thread, Apple HomeKit, Scrypted, "
         "Raspberry Pi e mini-PCs."
     ),
-    "author": "Dr. Álvaro Menezes",
+    "author": "Álvaro Menezes",
     "lang": "pt-BR",
     "locale": "pt_BR",
     "og_image": "/static/img/logo-smarthome-ai.jpg",

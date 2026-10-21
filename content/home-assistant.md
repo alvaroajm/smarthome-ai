@@ -38,7 +38,7 @@ Uma TV LG, um sensor Aqara e uma luz Philips Hue podem participar da mesma autom
 
 ## Cenas de luz: a mesma sala, seis climas
 
-Depois de escolher as lâmpadas, o que muda a casa de verdade são as **cenas**. Passe o mouse ou toque nas imagens para ver cada ambiente em movimento; clique para trocar a iluminação de RGB exagerado para branco dia, leitura, manhã, pôr do sol e luz noturna.
+Depois de escolher as lâmpadas, o que muda a casa de verdade são as **cenas**. Clique ou toque nas imagens ou nos botões para simular a iluminação em RGB, branco dia, leitura, manhã, pôr do sol e luz noturna.
 
 {{scenes_showcase}}
 
@@ -101,7 +101,7 @@ O **ESPHome**, projeto da Open Home Foundation apoiado pela Nabu Casa, oferece o
 
 Uma IA pode explicar as opções, propor uma configuração e ajudar a entender erros. Isso torna o aprendizado mais acessível, mas ainda é preciso conferir placa, pinos e documentação e validar antes de gravar. Comece com um projeto alimentado por USB, em baixa tensão.
 
-[Conheça o ESPHome pelas telas](/esphome-esp32/). Lá você encontra **exemplos prontos para copiar**: uma [balança no HA via Bluetooth](/esphome-exemplos/#exemplo-balanca), um [Bluetooth Proxy com ATOM-S3](/esphome-exemplos/#exemplo-bt-proxy), um [receptor de infravermelho](/esphome-exemplos/#exemplo-ir), um [dispositivo Thread (NanoC6)](/esphome-exemplos/#exemplo-thread), um [painel de toque (tela de clima e controles)](/esphome-exemplos/#exemplo-tela) uma [tela Thread com temperatura/umidade (C6-GEEK)](/esphome-exemplos/#exemplo-c6geek) um [painel de parede 7" para a casa toda (Waveshare 7B)](/esphome-exemplos/#exemplo-painel7b) um [assistente de voz com tela (AtomS3R + Echo Base)](/esphome-exemplos/#exemplo-voz) e um [leitor RFID/NFC com tela (AtomS3R + RFID 2)](/esphome-exemplos/#exemplo-rfid).
+[Conheça o ESPHome pelas telas](/esphome-esp32/). Lá você encontra **exemplos prontos para copiar**: um [Bluetooth Proxy com ATOM-S3](/esphome-exemplos/#exemplo-bt-proxy), um [receptor de infravermelho](/esphome-exemplos/#exemplo-ir), um [dispositivo Thread (NanoC6)](/esphome-exemplos/#exemplo-thread), um [painel de toque (tela de clima e controles)](/esphome-exemplos/#exemplo-tela) uma [tela Thread com temperatura/umidade (C6-GEEK)](/esphome-exemplos/#exemplo-c6geek) um [painel de parede 7" para a casa toda (Waveshare 7B)](/esphome-exemplos/#exemplo-painel7b) um [assistente de voz com tela (AtomS3R + Echo Base)](/esphome-exemplos/#exemplo-voz) e um [leitor RFID/NFC com tela (AtomS3R + RFID 2)](/esphome-exemplos/#exemplo-rfid).
 
 ## Câmeras que ajudam a entender o que acontece
 

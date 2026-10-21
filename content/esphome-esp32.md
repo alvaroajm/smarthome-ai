@@ -63,7 +63,7 @@ Comece com um **sensor de temperatura ou botão alimentado por USB**, em baixa t
 
 ## Exemplos prontos para copiar
 
-Reuni uma galeria com **configurações completas de ESPHome** — balança via Bluetooth, Bluetooth Proxy, receptor de IR, dispositivos Thread e telas — prontas para copiar e adaptar ao seu Home Assistant: a **[galeria de exemplos de ESPHome](/esphome-exemplos/)**.
+Reuni uma galeria com **configurações completas de ESPHome** — Bluetooth Proxy, receptor de IR, dispositivos Thread e telas — prontas para copiar e adaptar ao seu Home Assistant: a **[galeria de exemplos de ESPHome](/esphome-exemplos/)**.
 
 [Voltar ao Home Assistant](/home-assistant/).
 

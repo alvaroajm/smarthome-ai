@@ -41,7 +41,7 @@ An LG TV, an Aqara sensor and a Philips Hue light can take part in the same auto
 
 ## Light scenes: the same room, six moods
 
-Once the bulbs are chosen, what truly changes the house are the **scenes**. Hover or tap the images to see each room in motion; click to switch the lighting from loud RGB to daylight white, reading, morning, sunset and night light.
+Once the bulbs are chosen, what truly changes the house are the **scenes**. Click or tap the images or buttons to simulate RGB, daylight white, reading, morning, sunset and night lighting.
 
 {{scenes_showcase}}
 
@@ -104,7 +104,7 @@ You choose what to share. Not every feature has an equivalent in the Home app. F
 
 An AI assistant can explain the options, propose a configuration and help you understand errors. That makes learning more accessible, but you still need to check the board, the pins and the documentation, and validate before flashing. Start with a USB-powered, low-voltage project.
 
-[Meet ESPHome through the screens](/en/esphome-esp32/). There you'll find **ready-made examples to copy**: a [scale in Home Assistant over Bluetooth](/en/esphome-examples/#example-scale), a [Bluetooth Proxy with the ATOM-S3](/en/esphome-examples/#example-bt-proxy), an [infrared receiver](/en/esphome-examples/#example-ir), a [Thread device (NanoC6)](/en/esphome-examples/#example-thread), a [touchscreen panel (weather & controls)](/en/esphome-examples/#example-display) a [Thread display with temperature/humidity (C6-GEEK)](/en/esphome-examples/#example-c6geek) a [7" wall panel for the whole home (Waveshare 7B)](/en/esphome-examples/#example-panel7b) a [voice assistant with a display (AtomS3R + Echo Base)](/en/esphome-examples/#example-voice) and an [RFID/NFC reader with a display (AtomS3R + RFID 2)](/en/esphome-examples/#example-rfid).
+[Meet ESPHome through the screens](/en/esphome-esp32/). There you'll find **ready-made examples to copy**: a [Bluetooth Proxy with the ATOM-S3](/en/esphome-examples/#example-bt-proxy), an [infrared receiver](/en/esphome-examples/#example-ir), a [Thread device (NanoC6)](/en/esphome-examples/#example-thread), a [touchscreen panel (weather & controls)](/en/esphome-examples/#example-display) a [Thread display with temperature/humidity (C6-GEEK)](/en/esphome-examples/#example-c6geek) a [7" wall panel for the whole home (Waveshare 7B)](/en/esphome-examples/#example-panel7b) a [voice assistant with a display (AtomS3R + Echo Base)](/en/esphome-examples/#example-voice) and an [RFID/NFC reader with a display (AtomS3R + RFID 2)](/en/esphome-examples/#example-rfid).
 
 ## Cameras that help you understand what is going on
 

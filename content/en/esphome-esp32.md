@@ -66,7 +66,7 @@ Start with a **temperature sensor or a button powered over USB**, at low voltage
 
 ## Ready-made examples to copy
 
-I've put together a gallery of **complete ESPHome configurations** — a Bluetooth scale, a Bluetooth Proxy, an IR receiver, Thread devices and displays — ready to copy and adapt to your Home Assistant: the **[ESPHome examples gallery](/en/esphome-examples/)**.
+I've put together a gallery of **complete ESPHome configurations** — a Bluetooth Proxy, an IR receiver, Thread devices and displays — ready to copy and adapt to your Home Assistant: the **[ESPHome examples gallery](/en/esphome-examples/)**.
 
 [Back to Home Assistant](/en/home-assistant/).
 

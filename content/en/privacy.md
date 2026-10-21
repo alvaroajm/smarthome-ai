@@ -13,7 +13,7 @@ updated: 2026-10-20
 tags: [Privacy, Cookies]
 ---
 
-This policy applies to **smarthome-ai.com**. The site is operated by **Dr. Álvaro Menezes**.
+This policy applies to **smarthome-ai.com**. The site is operated by **Álvaro Menezes**.
 For privacy questions, contact [alvaroajm@gmail.com](mailto:alvaroajm@gmail.com).
 
 ## Browsing and local preferences

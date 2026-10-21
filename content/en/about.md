@@ -65,25 +65,23 @@ internal links and templates before publishing.
 ## Who I am
 
 <div class="author-box" markdown="0">
-  <img src="/static/img/author-original.jpg" alt="Dr. Álvaro Menezes" width="170" height="238" loading="lazy">
+  <img src="/static/img/alvaro-retrato-20261021.jpg" alt="Álvaro Menezes" width="666" height="1180" loading="lazy">
   <div>
-    <p class="author-name">Dr. Álvaro Menezes</p>
-    <p class="author-role">Radiologist · CRM 11.393/CE · RQE 6562<br>General and musculoskeletal radiology — Fortaleza, Brazil</p>
+    <p class="author-name">Álvaro Menezes</p>
+    <p class="author-role">I built my home automation setup and created SmartHome-AI to share what I learn.</p>
     <p class="author-links">
-      <a href="https://alvaro-menezes.com" target="_blank" rel="noopener">alvaro-menezes.com</a> ·
-      <a href="https://radapps.app" target="_blank" rel="noopener">radapps.app</a> ·
       <a href="https://github.com/alvaroajm" target="_blank" rel="noopener">GitHub</a>
     </p>
   </div>
 </div>
 
-I am **Dr. Álvaro Menezes**, a radiologist and an enthusiast of home automation, Home Assistant, ESP32 and local systems. I write these guides and share the installation I built at home.
+I am **Álvaro Menezes**, an enthusiast of home automation, Home Assistant, ESP32 and local systems. I write these guides and share the installation I built at home.
 
 <span id="the-authors-other-channels"></span>
 
 ## My other channels
 
-Besides my main YouTube channel, I run AI-generated video projects that are not directly related to smart homes. I keep their links here, outside the guides, for anyone curious:
+I also run AI-generated video projects that are not directly related to smart homes. I keep their links here, outside the guides, for anyone curious:
 
 {{channels}}
 
@@ -141,4 +139,4 @@ In my reports, I distinguish equipment I use from configurations and results I h
 Found an error, have a suggestion or want to request a topic? Corrections are very welcome — this site is
 maintained in the open and improves with the people who read it.
 
-Reach me on WhatsApp at [+55 (85) 99662-1818](https://wa.me/5585996621818) or by e-mail at [alvaroajm@gmail.com](mailto:alvaroajm@gmail.com).
+Reach me by e-mail at [alvaroajm@gmail.com](mailto:alvaroajm@gmail.com).

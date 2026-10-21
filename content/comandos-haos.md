@@ -144,7 +144,7 @@ ha dns options --servers dns://1.1.1.1
 
 ```bash
 ha resolution info           # problemas detectados e sugestões do Supervisor
-ha resolution healthcheck    # roda a verificação de saúde
+ha resolution healthcheck    # verifica o estado da instalação
 ha jobs info                 # tarefas em andamento
 ha observer info             # o vigia que responde na porta 4357
 ha multicast info            # serviço de mDNS/multicast

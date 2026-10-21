@@ -12,7 +12,7 @@ updated: 2026-10-20
 tags: [Privacidade, Cookies]
 ---
 
-Esta política se aplica a **smarthome-ai.com**. O responsável pelo site é **Dr. Álvaro Menezes**.
+Esta política se aplica a **smarthome-ai.com**. O responsável pelo site é **Álvaro Menezes**.
 Para assuntos de privacidade, entre em contato por [alvaroajm@gmail.com](mailto:alvaroajm@gmail.com).
 
 ## Navegação e preferências locais

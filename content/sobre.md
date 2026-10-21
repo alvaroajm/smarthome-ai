@@ -62,25 +62,23 @@ Depois de instalar as dependências de `requirements.txt`, `python3 build.py` ge
 ## Quem sou
 
 <div class="author-box" markdown="0">
-  <img src="/static/img/author-original.jpg" alt="Dr. Álvaro Menezes" width="170" height="238" loading="lazy">
+  <img src="/static/img/alvaro-retrato-20261021.jpg" alt="Álvaro Menezes" width="666" height="1180" loading="lazy">
   <div>
-    <p class="author-name">Dr. Álvaro Menezes</p>
-    <p class="author-role">Médico radiologista · CRM 11.393/CE · RQE 6562<br>Radiologia geral e musculoesquelética — Fortaleza/CE</p>
+    <p class="author-name">Álvaro Menezes</p>
+    <p class="author-role">Montei minha instalação de automação e criei o SmartHome-AI para compartilhar o que aprendo.</p>
     <p class="author-links">
-      <a class="ext" href="https://alvaro-menezes.com" target="_blank" rel="noopener">alvaro-menezes.com</a> ·
-      <a class="ext" href="https://radapps.app" target="_blank" rel="noopener">radapps.app</a> ·
       <a class="ext" href="https://github.com/alvaroajm" target="_blank" rel="noopener">GitHub</a>
     </p>
   </div>
 </div>
 
-Sou **Dr. Álvaro Menezes**, médico radiologista e entusiasta de automação residencial, Home Assistant, ESP32 e sistemas locais. Escrevo os guias e compartilho aqui a instalação que montei em casa.
+Sou **Álvaro Menezes**, entusiasta de automação residencial, Home Assistant, ESP32 e sistemas locais. Escrevo os guias e compartilho aqui a instalação que montei em casa.
 
 <span id="outros-canais-do-autor"></span>
 
 ## Meus outros canais
 
-Além do meu canal principal no YouTube, mantenho projetos de vídeo gerados com IA, sem relação direta com casa inteligente. Deixo os links aqui, fora dos guias, para quem quiser conhecer:
+Também mantenho projetos de vídeo gerados com IA, sem relação direta com casa inteligente. Deixo os links aqui, fora dos guias, para quem quiser conhecer:
 
 {{channels}}
 
@@ -138,4 +136,4 @@ Nos meus relatos, procuro distinguir os equipamentos que uso das configurações
 Encontrou um erro, tem uma sugestão ou quer indicar um tema? Correções são muito bem-vindas — este site é
 mantido publicamente e melhora com quem o lê.
 
-Fale comigo pelo WhatsApp [+55 (85) 99662-1818](https://wa.me/5585996621818) ou pelo e-mail [alvaroajm@gmail.com](mailto:alvaroajm@gmail.com).
+Fale comigo pelo e-mail [alvaroajm@gmail.com](mailto:alvaroajm@gmail.com).

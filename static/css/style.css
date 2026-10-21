@@ -551,7 +551,7 @@ mark { background: color-mix(in srgb, var(--gold-500) 35%, transparent); color: 
   display: grid; gap: 2rem; padding: 2rem 0 1rem;
   grid-template-columns: minmax(0, 1fr);
 }
-@media (min-width: 900px) { .contact-card { grid-template-columns: 1.4fr 1fr 1.2fr; } }
+@media (min-width: 900px) { .contact-card { grid-template-columns: 1.4fr 1fr; } }
 .contact-person { display: flex; gap: 1rem; align-items: flex-start; }
 .contact-photo {
   width: 84px; height: 84px; border-radius: 50%; object-fit: cover; flex: none;
@@ -597,7 +597,7 @@ mark { background: color-mix(in srgb, var(--gold-500) 35%, transparent); color: 
   margin: 1.5rem 0 2rem; padding: 1.4rem; border-radius: var(--radius-lg);
   border: 1px solid var(--border); background: var(--surface);
 }
-.author-box img { width: 150px; border-radius: var(--radius); object-fit: cover; flex: none; }
+.author-box img { width: 150px; height: auto; border-radius: var(--radius); object-fit: cover; flex: none; }
 .author-name { margin: 0; font-weight: 650; font-size: 1.05rem; }
 .author-role { margin: .3rem 0 .7rem; color: var(--text-soft); font-size: .92rem; }
 .author-links { margin: 0; font-size: .9rem; }

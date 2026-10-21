@@ -40,7 +40,7 @@ DIST = ROOT / "dist"
 SITE = {
     "name": "SmartHome-AI",
     "url": "https://smarthome-ai.com",
-    "author": "Dr. Álvaro Menezes",
+    "author": "Álvaro Menezes",
     "og_image": "/static/img/og-smarthome-ai.jpg",
 }
 
@@ -58,58 +58,19 @@ GOOGLE_ADS_ID     = ""   # TODO: preencher com o ID do Google Ads, ex: "AW-12345
 # Contato e ecossistema
 # --------------------------------------------------------------------------
 CONTACT = {
-    "name": "Dr. Álvaro Menezes",
-    "credentials": "CRM 11.393/CE · RQE 6562",
-    "photo": "/static/img/author-original.jpg",
+    "name": "Álvaro Menezes",
+    "photo": "/static/img/alvaro-retrato-20261021.jpg",
     "email": "alvaroajm@gmail.com",
-    "whatsapp": "+55 (85) 99662-1818",
-    "whatsapp_url": "https://wa.me/5585996621818",
-    "card": "https://alvaro-menezes.com/",
 }
 
 SOCIAL = [
-    ("YouTube", "https://www.youtube.com/@alvaromenezes-rad", "youtube"),
     ("GitHub", "https://github.com/alvaroajm", "github"),
-    ("Instagram", "https://www.instagram.com/alvaroajm/", "instagram"),
-    ("Facebook", "https://facebook.com/alvaroajm", "facebook"),
-    ("X", "https://x.com/alvaroajm", "x"),
-    ("LinkedIn", "https://www.linkedin.com/in/dr-alvaro-menezes/", "linkedin"),
 ]
 
 CHANNELS = [
     ("Clara Vilar", "https://youtube.com/@clara_vilar?si=RTeMR2ECLdKVlHxf", "YouTube"),
     ("AIvaro", "https://youtube.com/@aivaro-movies?si=XvFktd0cXM51t848", "YouTube"),
     ("Clara Vilar · @clara_vilar_24", "https://www.tiktok.com/@clara_vilar_24", "TikTok"),
-]
-
-PLACES = [
-    ("Instituto Doutor José Frota", "Rua Barão do Rio Branco, 1816 · Centro, Fortaleza/CE"),
-    ("Hospital Universitário Walter Cantídio", "Rua Pastor Samuel Munguba, 1290 · Rodolfo Teófilo, Fortaleza/CE"),
-    ("Clínica Boghos Boyadjian", "Av. Rui Barbosa, 1975 · Aldeota, Fortaleza/CE"),
-]
-
-ECOSYSTEM = [
-    {
-        "name": "SmartHome-AI",
-        "url": "https://smarthome-ai.com",
-        "img": "/static/img/logo-smarthome-ai-marca.png?v=20261021",
-        "pt": "Casa inteligente, automação local e código aberto",
-        "en": "Smart home, local automation and open source",
-    },
-    {
-        "name": "Dr. Álvaro Menezes",
-        "url": "https://alvaro-menezes.com",
-        "img": "/static/img/author-seal.jpg",
-        "pt": "Radiologia geral e musculoesquelética · Fortaleza/CE",
-        "en": "General and musculoskeletal radiology · Fortaleza, Brazil",
-    },
-    {
-        "name": "RadApps",
-        "url": "https://radapps.app",
-        "img": "/static/img/radapps-brand.jpg",
-        "pt": "Aplicativos para radiologistas · iOS e Android",
-        "en": "Apps for radiologists · iOS and Android",
-    },
 ]
 
 # Ícones de marca — Simple Icons (CC0)
@@ -206,8 +167,7 @@ LANGS = {
             "f_ecosystem": "Ecossistema",
             "f_contact": "Contato",
             "f_follow": "Redes",
-            "f_places": "Locais de atendimento",
-            "f_card": "Cartão de contato",
+            "f_card": "Fale comigo",
             "f_about_site": "Guias independentes de casa inteligente, automação local e código aberto.",
             "f_made": "Feito com HTML, CSS, JavaScript e um gerador estático em Python.",
             "f_by": "conteúdo por",
@@ -272,8 +232,7 @@ LANGS = {
             "f_ecosystem": "Ecosystem",
             "f_contact": "Contact",
             "f_follow": "Social",
-            "f_places": "Practice locations",
-            "f_card": "Contact card",
+            "f_card": "Contact me",
             "f_about_site": "Independent guides on smart homes, local automation and open source.",
             "f_made": "Built with HTML, CSS, JavaScript and a static site generator in Python.",
             "f_by": "written by",
@@ -534,19 +493,6 @@ def header_html(lang: str, current: str) -> str:
   </header>"""
 
 
-def ecosystem_html(lang: str) -> str:
-    tiles = []
-    for item in ECOSYSTEM:
-        current = item["url"].startswith(SITE["url"])
-        rel = "" if current else ' target="_blank" rel="noopener"'
-        href = ("/" + LANGS[lang]["prefix"]) if current else item["url"]
-        tiles.append(f"""<a class="eco-tile" href="{href}"{rel}>
-          <span class="eco-logo"><img src="{item['img']}" alt="{esc(item['name'])}" width="56" height="56" loading="lazy"></span>
-          <span class="eco-text"><strong>{esc(item['name'])}</strong><small>{esc(item[lang])}</small></span>
-        </a>""")
-    return "\n        ".join(tiles)
-
-
 def channels_html(lang: str) -> str:
     """Cartões dos outros canais do autor (YouTube/TikTok), inseridos na página Sobre por {{channels}}."""
     cta = "Visitar canal" if lang == "pt" else "Visit channel"
@@ -572,22 +518,13 @@ def footer_html(lang: str) -> str:
         f'<a class="social" href="{url}" target="_blank" rel="noopener me" aria-label="{name}" title="{name}">{brand_svg(key)}</a>'
         for name, url, key in SOCIAL
     )
-    places = "".join(f'<li><strong>{esc(n)}</strong><span>{esc(a)}</span></li>' for n, a in PLACES)
     return f"""<footer class="site-footer">
-
-    <section class="wrap eco">
-      <h2 class="eco-title">{ui['f_ecosystem']}</h2>
-      <div class="eco-grid">
-        {ecosystem_html(lang)}
-      </div>
-    </section>
 
     <section class="wrap contact-card" id="contato">
       <div class="contact-person">
         <img class="contact-photo" src="{CONTACT['photo']}" width="96" height="96" alt="{esc(CONTACT['name'])}" loading="lazy">
         <div>
           <p class="contact-name">{esc(CONTACT['name'])}</p>
-          <p class="contact-cred">{esc(CONTACT['credentials'])}</p>
           <p class="contact-cred">{ui['f_about_site']}</p>
           <div class="contact-social">{social}</div>
         </div>
@@ -595,13 +532,7 @@ def footer_html(lang: str) -> str:
       <div class="contact-actions">
         <h3>{ui['f_contact']}</h3>
         <a class="contact-line" href="mailto:{CONTACT['email']}">{icon_svg('mail')}<span>{esc(CONTACT['email'])}</span></a>
-        <a class="contact-line" href="{CONTACT['whatsapp_url']}" target="_blank" rel="noopener">{icon_svg('whatsapp')}<span>WhatsApp {esc(CONTACT['whatsapp'])}</span></a>
-        <a class="contact-line" href="{CONTACT['card']}" target="_blank" rel="noopener">{icon_svg('card')}<span>{ui['f_card']}</span></a>
-        <a class="contact-line" href="https://radapps.app" target="_blank" rel="noopener">{icon_svg('rocket')}<span>RadApps ↗</span></a>
-      </div>
-      <div class="contact-places">
-        <h3>{ui['f_places']}</h3>
-        <ul>{places}</ul>
+        <a class="contact-line" href="{'/en/contact/' if lang == 'en' else '/contato/'}">{icon_svg('card')}<span>{ui['f_card']}</span></a>
       </div>
     </section>
 
@@ -626,9 +557,8 @@ def footer_html(lang: str) -> str:
 # --------------------------------------------------------------------------
 AUTOR_LD = {
     "@type": "Person",
-    "name": "Dr. Álvaro Menezes",
-    "url": "https://alvaro-menezes.com",
-    "jobTitle": "Radiologista",
+    "name": "Álvaro Menezes",
+    "url": SITE["url"] + "/sobre/",
     "sameAs": [u for _, u, _ in SOCIAL],
 }
 

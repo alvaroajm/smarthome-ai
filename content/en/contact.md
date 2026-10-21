@@ -12,20 +12,13 @@ date: 2026-10-20
 tags: [Contact, Site]
 ---
 
-SmartHome-AI is maintained by one person, **Dr. Álvaro Menezes**, in Fortaleza, Brazil. There is no
-form and no registration: the site is static and messages go straight to the channels below.
+I am **Álvaro Menezes**, and I created and maintain SmartHome-AI to share what I learn about smart homes. The site has no registration or contact form; messages reach me through the channels below.
 
 ## Channels
 
 - **Email:** [alvaroajm@gmail.com](mailto:alvaroajm@gmail.com) — the best channel for
   technical questions, content corrections, guide suggestions and privacy matters.
-- **WhatsApp:** [+55 (85) 99662-1818](https://wa.me/5585996621818) — for short messages.
-  It is not live chat or remote technical support.
-- **YouTube:** [@alvaromenezes-rad](https://www.youtube.com/@alvaromenezes-rad) — videos and comments.
-- **Instagram:** [@alvaroajm](https://www.instagram.com/alvaroajm/) · **GitHub:**
-  [alvaroajm](https://github.com/alvaroajm) · **X:** [@alvaroajm](https://x.com/alvaroajm) ·
-  **LinkedIn:** [dr-alvaro-menezes](https://www.linkedin.com/in/dr-alvaro-menezes/)
-- **Contact card:** [alvaro-menezes.com](https://alvaro-menezes.com/)
+- **GitHub:** [alvaroajm](https://github.com/alvaroajm) — source code and projects.
 
 Replies are written in spare time, usually within a few days. Messages about smart homes,
 Home Assistant, ESPHome, Zigbee, Thread/Matter and home networks come first. Portuguese and

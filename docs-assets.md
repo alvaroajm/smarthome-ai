@@ -4,7 +4,7 @@ Atualização de 21/09/2026. A apresentação está nas homes PT/EN; tipografia,
 
 ## Imagens fornecidas pelo autor
 
-Arquivos copiados sem alteração dos anexos: `author-original.jpg` (IMG_2923), `author-seal.jpg` (IMG_2992), `radapps-brand.jpg` (IMG_3128), `smarthome-brand.jpg` (IMG_3207) e `smarthome-banner.jpg` (IMG_3209). IMG_3208 é uma alternativa de marca equivalente; foi usada a IMG_3207. As proporções e os recortes de apresentação são controlados por CSS. Links dos brasões: alvaro-menezes.com e radapps.app.
+O retrato atual (`alvaro-retrato-20261021.jpg`, 666 × 1180) foi fornecido por Álvaro Menezes em 21/10/2026. A cópia web preserva os pixels e foi verificada sem EXIF, GPS, XMP, IPTC ou comentários. O original permanece em pasta privada fora da publicação. As imagens `smarthome-brand.jpg` (IMG_3207) e `smarthome-banner.jpg` (IMG_3209) mantêm a identidade do projeto; os recortes de apresentação são controlados por CSS.
 
 ## Ilustrações originais
 

@@ -1,19 +1,14 @@
 # Cenas de iluminação (galeria interativa)
 
-Imagens (`static/img/scenes/*.webp`) e vídeos (`static/video/scenes/*.mp4`, sem áudio, 15 s, H.264)
-gerados por IA em 2026 para o SmartHome-AI, a pedido do autor, e usados na seção
-"Cenas de luz" da página inicial e do guia `/home-assistant/`. Não retratam produtos
-reais nem a casa do autor; as cenas (RGB, branco dia, leitura, manhã, pôr do sol, luz noturna)
-são simuladas no navegador com filtros CSS sobre a imagem e o vídeo.
+As seis imagens WEBP desta pasta foram geradas por IA em 2026 para o SmartHome-AI. Não retratam produtos reais nem a instalação do autor. A galeria usa filtros CSS para simular cores e temperaturas de luz; clique ou toque troca a cena.
 
-| arquivo | vídeo | dimensões |
-|---|---|---|
-| game-neon.webp | game-neon.mp4 | 1280×720 |
-| corrida.webp | corrida.mp4 | 1280×720 |
-| quatro-ambientes.webp | quatro-ambientes.mp4 | 1280×1280 / 944×944 |
-| cidade-noite.webp | cidade-noite.mp4 | 1280×1280 / 944×944 |
-| dia-tarde-noite.webp | dia-tarde-noite.mp4 | 1280×720 |
-| lounge.webp | lounge.mp4 | 1184×768 |
+| Arquivo | Dimensões |
+|---|---|
+| game-neon.webp | 1280 × 720 |
+| corrida.webp | 1280 × 720 |
+| quatro-ambientes.webp | 1280 × 1280 |
+| cidade-noite.webp | 1280 × 1280 |
+| dia-tarde-noite.webp | 1280 × 720 |
+| lounge.webp | 1184 × 768 |
 
-Os vídeos são carregados só quando o leitor passa o mouse ou toca no cartão
-(`preload="none"`, `muted`, `playsinline`, `loop`).
+Os arquivos MP4 antes referenciados não acompanham a publicação. O gerador só inclui um player quando o arquivo local correspondente existe, preservando a simulação por imagem quando não existe vídeo. Não há ID de YouTube associado a estas cenas.

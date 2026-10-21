@@ -404,7 +404,7 @@
       stage.addEventListener('click', function () {
         var first = !card.classList.contains('is-touched');
         card.classList.add('is-touched');
-        if ((coarse || reduce) && first) { play(); return; }
+        if (video && (coarse || reduce) && first) { play(); return; }
         if (coarse && video && video.paused) play();
         nextMode();
       });
