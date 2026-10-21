@@ -7,8 +7,9 @@ icon: book
 order: 7
 featured: true
 level: basico
-reading: 4 min de leitura
+reading: 6 min de leitura
 date: 2026-09-22
+updated: 2026-10-20
 tags: [Home Assistant]
 ---
 
@@ -40,10 +41,60 @@ Clique em **Salvar** e dê um nome claro, como “Luz da sala ao anoitecer”. N
 
 Esse teste verifica a ação, **não o gatilho do pôr do sol**. Para testar a regra completa sem esperar até a noite, crie uma automação temporária com um horário próximo; depois remova-a ou desative-a.
 
+## Defina o que conta como sucesso
+
+Antes de adicionar outras regras, use este pequeno roteiro na sua própria instalação. Ele é uma proposta de teste, não um relato de teste realizado pelo autor.
+
+| Etapa | O que fazer | Resultado que você procura |
+|---|---|---|
+| Controle básico | Com a luz apagada, ligue e desligue pelo painel. | O aparelho físico acompanha os comandos. |
+| Ação isolada | Use **Executar ações** na automação salva. | A luz escolhida acende; outra luz não é acionada por engano. |
+| Regra completa | Observe a execução no próximo pôr do sol. | Há uma execução no horário esperado e a luz acende. |
+| Uso cotidiano | Depois da execução, desligue a luz pelo controle habitual. | Os moradores continuam conseguindo escolher o estado da luz. |
+
+Anote separadamente “a interface mudou” e “a lâmpada acendeu”. Uma confirmação na tela, sozinha, não demonstra o resultado físico. Se você testar usando uma regra temporária por horário, registre isso: ainda falta observar o gatilho solar original.
+
+## A luz não acendeu: qual etapa falhou?
+
+Comece pelo primeiro teste da tabela que não passou. Não recrie a instalação inteira para corrigir uma automação.
+
+- **Nem o painel controla a luz:** confira alimentação e disponibilidade do aparelho na integração. A regra depende desse controle básico.
+- **O painel funciona, mas Executar ações não:** revise o alvo selecionado e abra o rastreamento da execução para localizar o passo com erro.
+- **Executar ações funciona, mas não há execução automática:** confira se a automação está habilitada. Execução manual não comprova que o gatilho ocorreu.
+- **Executou em horário inesperado:** confira localização e fuso horário da instalação. O cálculo solar depende da localização, não de um horário fixo como 18h.
+
+Abra os **rastreamentos (Traces)** da automação e escolha a execução pelo horário da falha. Eles ajudam a distinguir um gatilho que não ocorreu de uma ação que falhou. Veja a [documentação de diagnóstico](https://www.home-assistant.io/docs/automation/troubleshooting/).
+
+## Escolha a regra pelo problema da sala
+
+O pôr do sol é um ponto de partida previsível, mas não mede a luminosidade dentro da casa. Um cômodo pode escurecer antes por causa de chuva, cortinas ou posição das janelas. Observe primeiro; só depois decida se precisa de um deslocamento de horário ou de um sensor de luminosidade. A [integração Sol](https://www.home-assistant.io/integrations/sun/) explica os cálculos e as opções de gatilho.
+
+Essa regra também não define quando apagar a luz. Combine com os moradores se o desligamento será manual ou se merece uma segunda automação. Mantenha as duas decisões separadas enquanto estiver aprendendo: assim fica mais fácil descobrir qual regra produziu um resultado inesperado.
+
+## Ficha para acompanhar sua instalação
+
+Copie e preencha este registro. Não inclua endereço da casa, senhas ou tokens ao compartilhar.
+
+```text
+Data e versão do Home Assistant:
+Modelo da luz e integração utilizada:
+Nome da automação:
+Horário esperado / horário observado:
+Controle pelo painel: passou / falhou
+Executar ações: passou / falhou
+Gatilho observado: solar / horário temporário / ainda não observado
+Resultado físico:
+Erro no rastreamento (sem dados privados):
+Única alteração feita após o teste:
+Resultado da nova tentativa:
+```
+
+Se pedir ajuda pelo [contato do site](/sobre/#contato-e-correcoes), informe em qual etapa parou. Isso é mais útil para reproduzir o problema do que apenas dizer “a automação não funciona”.
+
 ## Funcionou? Pare por aqui por enquanto
 
 Você já tem uma automação útil. Observe o resultado e mantenha seus backups antes de adicionar outras regras. A mesma ideia poderá usar um sensor de movimento como gatilho depois.
 
 [Quando quiser, conheça integrações e Apps](/apps-integracoes/).
 
-Fontes: [primeiras automações](https://www.home-assistant.io/getting-started/automation/) e [como testar](https://www.home-assistant.io/docs/automation/troubleshooting/#testing-your-automation).
+Fontes: [primeiras automações](https://www.home-assistant.io/getting-started/automation/) e [como testar](https://www.home-assistant.io/docs/automation/testing/).

@@ -9,6 +9,7 @@ order: 3
 section: pagina
 reading: 3 min read
 date: 2026-09-21
+updated: 2026-10-20
 tags: [About, Contact, Open Source]
 ---
 
@@ -72,7 +73,47 @@ third-party services and your control options.
 </div>
 
 Content by **Dr. Álvaro Menezes** — radiologist, home automation enthusiast, Home Assistant, ESP32 and local
-systems. The configurations published here run in a real house, with the mistakes already made.
+systems. The guides bring together explanations and references for readers building their own installation.
+
+## Equipment used at home
+
+The author uses **Home Assistant OS on a mini-PC with a Ryzen 7 processor**, **Zemismart Zigbee smart switches** and **Philips Hue Zigbee lights**.
+
+In the **living room**, an installed **Zemismart smart plug** controls the room’s lights, according to the author. **Philips Hue lights** are installed in both the **living room** and the **primary suite**. The author controls the lights from a phone using the **Apple Home app (HomeKit)**, through **Alexa voice commands**, and directly through **Home Assistant**.
+
+This is the setup reported by the author, not a list of products tested by this site. Exact models, the coordinator and the Zigbee integration have not yet been documented here, so this description is not a compatibility guarantee for a purchase. Individual automation reports need to include their configuration and observed results.
+
+The author uses several devices he identifies as **Echo Dot Max** and **one Echo Studio Max in the living room**. According to the author, Alexa connects to **Home Assistant** through **Nabu Casa**. He also uses **two Apple TV 4K devices as Apple HomeKit home hubs**.
+
+The setup also includes a **Broadlink IR and RF controller**, pictured alongside the Zemismart Zigbee switches in the [installation report (Portuguese)](/minha-instalacao/#interruptores-na-parede-e-controle-broadlink).
+
+### LED strips
+
+According to the author, the installation’s **LED strips** are controlled using the **WLED app over Wi-Fi**.
+
+### Cameras
+
+In the setup described by the author, cameras send images to **Home Assistant**, and **Scrypted** then forwards the video to **HomeKit Secure Video**. The reported equipment includes a **Tapo TC70 camera**, an **Intelbras DVR**, and an **Intelbras iM4 camera**. This is the reported flow in his home; the DVR model and the Scrypted connection configuration for each device have not yet been documented here.
+
+## Installation record
+
+See the [installation photo report (in Portuguese)](/minha-instalacao/), including the mini-PC, Mac mini M4, ESP32-S3 display configured with ESPHome, Apple TV and Roborock robot vacuum. The setup also includes a Philips Hue hub.
+
+## Inside the living room
+
+Living-room photos supplied by the author. They show the setting where the equipment described is used: lighting around the TV wall, lamps and accent lighting on furniture. The author reports controlling the LED strips with WLED over Wi-Fi. Lighting control through Apple Home, Alexa and Home Assistant is reported by the author; the images show the physical arrangement, not how the integrations work.
+
+<figure class="ha-screen"><a href="/static/img/casa-do-autor/sala-vista-geral.jpg" target="_blank" rel="noopener" aria-label="Enlarge photo: Living room opening onto the dining area, with a sofa, armchairs and piano."><img src="/static/img/casa-do-autor/sala-vista-geral.jpg" alt="Living room opening onto the dining area, with a sofa, armchairs and piano." width="1280" height="960" loading="lazy" decoding="async"></a><figcaption>Living room opening onto the dining area, with a sofa, armchairs and piano. Image supplied by Álvaro Menezes.</figcaption></figure>
+
+<figure class="ha-screen"><a href="/static/img/casa-do-autor/sala-painel-tv.jpg" target="_blank" rel="noopener" aria-label="Enlarge photo: TV wall with table lamps and lighting beneath the cabinet."><img src="/static/img/casa-do-autor/sala-painel-tv.jpg" alt="TV wall with table lamps and lighting beneath the cabinet." width="1280" height="960" loading="lazy" decoding="async"></a><figcaption>TV wall with table lamps and lighting beneath the cabinet. Image supplied by Álvaro Menezes.</figcaption></figure>
+
+<figure class="ha-screen"><a href="/static/img/casa-do-autor/sala-iluminacao-lateral.jpg" target="_blank" rel="noopener" aria-label="Enlarge photo: Side view of the living room, with floor lamps and lighting around the glass cabinet."><img src="/static/img/casa-do-autor/sala-iluminacao-lateral.jpg" alt="Side view of the living room, with floor lamps and lighting around the glass cabinet." width="1280" height="960" loading="lazy" decoding="async"></a><figcaption>Side view of the living room, with floor lamps and lighting around the glass cabinet. Image supplied by Álvaro Menezes.</figcaption></figure>
+
+## How to read these guides
+
+Screenshots labelled as official come from the projects' documentation; they are not screenshots of the author's home. Configuration examples and test plans need to be adapted to your installation. An educational example does not establish compatibility with every device.
+
+Experience reports should identify equipment, versions, conditions and observed results. Where these details are absent, read the content as guidance based on the cited sources, rather than a product test. You can consult the [public change history](https://github.com/alvaroajm/smarthome-ai/commits/main/) and submit corrections using the contact details below.
 
 ## Contact and corrections
 

@@ -836,6 +836,17 @@ def build_articles(lang: str, pages: list[Page], alts_for, pool: list[Page] | No
             toc_block = (f'<nav class="toc" aria-label="{ui["toc"]}">'
                          f'<p class="toc-title">{ui["toc"]}</p>{page.toc}</nav>')
 
+        about_url = "/en/about/" if lang == "en" else "/sobre/"
+        byline = [f'<a href="{about_url}" rel="author">{esc(SITE["author"])}</a>']
+        for value, label in [(page.date, "Published" if lang == "en" else "Publicado") ,
+                             (page.updated if page.updated != page.date else "", "Updated" if lang == "en" else "Atualizado")]:
+            if value:
+                parsed = date.fromisoformat(str(value))
+                display = parsed.isoformat() if lang == "en" else parsed.strftime("%d/%m/%Y")
+                byline.append(f'{label}: <time datetime="{parsed.isoformat()}">{display}</time>')
+        if page.reading:
+            byline.append(esc(page.reading))
+
         body = render(tpl_article, {
             "title": esc(page.title),
             "description": esc(page.description),
@@ -844,6 +855,7 @@ def build_articles(lang: str, pages: list[Page], alts_for, pool: list[Page] | No
             "toc": toc_block,
             "tags": tags_html(page.tags),
             "reading": esc(page.reading),
+            "byline": " · ".join(byline),
             "prev": prev_html,
             "next": next_html,
             "crumbs": breadcrumbs_html(lang, page),

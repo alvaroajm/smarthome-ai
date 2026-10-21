@@ -8,6 +8,7 @@ order: 20
 section: pagina
 reading: 3 min de leitura
 date: 2026-09-21
+updated: 2026-10-20
 tags: [Sobre, Contato, Open Source]
 ---
 
@@ -73,7 +74,47 @@ rodar `python3 build.py` e ter o site pronto.
 </div>
 
 Conteúdo por **Dr. Álvaro Menezes** — médico radiologista, entusiasta de automação residencial, Home Assistant,
-ESP32 e sistemas locais. As configurações publicadas aqui rodam numa casa de verdade, com os erros já cometidos.
+ESP32 e sistemas locais. Os guias reúnem explicações e referências para quem está montando sua própria instalação.
+
+## Equipamentos usados em casa
+
+O autor utiliza **Home Assistant OS em um mini-PC com processador Ryzen 7**, **interruptores inteligentes Zemismart Zigbee** e **luzes Philips Hue Zigbee**.
+
+Na **sala**, uma **tomada Zemismart** está instalada e controla as luzes do ambiente, conforme relato do autor. As **luzes Philips Hue** estão presentes na **sala** e na **suíte master**. O autor aciona as luzes pelo celular usando o **aplicativo Casa da Apple (HomeKit)**, por comandos de voz pela **Alexa** e diretamente pelo **Home Assistant**.
+
+Esse é o conjunto informado pelo autor, não uma lista de produtos testados neste site. Os modelos exatos, o coordenador e a integração Zigbee utilizada ainda não estão documentados aqui; por isso, essa descrição não deve ser usada como garantia de compatibilidade para uma compra. Relatos específicos de automações precisam trazer a configuração e os resultados de cada caso.
+
+O autor utiliza vários dispositivos identificados por ele como **Echo Dot Max** e **um Echo Studio Max na sala**. A integração da Alexa com o **Home Assistant** é feita pelo **Nabu Casa**, conforme seu relato. Também utiliza **duas Apple TV 4K como centrais da casa no Apple HomeKit**.
+
+O conjunto inclui também um **controle Broadlink IR e RF**, fotografado no [registro da instalação](/minha-instalacao/#interruptores-na-parede-e-controle-broadlink), junto aos interruptores Zemismart Zigbee.
+
+### Tiras de LED
+
+As **tiras de LED** da instalação são controladas pelo **aplicativo WLED, via Wi-Fi**, conforme informado pelo autor.
+
+### Câmeras
+
+Na instalação descrita pelo autor, as câmeras enviam imagens ao **Home Assistant** e, a partir dele, o **Scrypted** encaminha o vídeo ao **HomeKit Secure Video**. Os equipamentos informados são a **câmera Tapo TC70**, um **DVR Intelbras** e a **câmera Intelbras iM4**. Esse é o fluxo relatado para sua casa; o modelo do DVR e a configuração da conexão de cada equipamento com o Scrypted ainda não estão documentados aqui.
+
+## Registro da instalação
+
+Veja [minha instalação em detalhes](/minha-instalacao/), com fotos do mini-PC, Mac mini M4, tela ESP32-S3 configurada pelo ESPHome, Apple TV e robô aspirador Roborock. O conjunto também inclui um hub Philips Hue.
+
+## A sala em imagens
+
+Fotos da sala fornecidas pelo autor. Elas mostram o ambiente em que os equipamentos descritos são usados: iluminação junto ao painel da TV, luminárias e luzes de destaque nos móveis. O autor informa que controla as tiras de LED pelo WLED via Wi-Fi. O controle das luzes pelo Casa, Alexa e Home Assistant foi relatado pelo autor; as imagens mostram a disposição física, não o funcionamento das integrações.
+
+<figure class="ha-screen"><a href="/static/img/casa-do-autor/sala-vista-geral.jpg" target="_blank" rel="noopener" aria-label="Ampliar foto: Vista da sala integrada à área de jantar, com sofá, poltronas e piano."><img src="/static/img/casa-do-autor/sala-vista-geral.jpg" alt="Vista da sala integrada à área de jantar, com sofá, poltronas e piano." width="1280" height="960" loading="lazy" decoding="async"></a><figcaption>Vista da sala integrada à área de jantar, com sofá, poltronas e piano. Imagem fornecida por Álvaro Menezes.</figcaption></figure>
+
+<figure class="ha-screen"><a href="/static/img/casa-do-autor/sala-painel-tv.jpg" target="_blank" rel="noopener" aria-label="Ampliar foto: Painel da televisão com abajures e iluminação sob o móvel."><img src="/static/img/casa-do-autor/sala-painel-tv.jpg" alt="Painel da televisão com abajures e iluminação sob o móvel." width="1280" height="960" loading="lazy" decoding="async"></a><figcaption>Painel da televisão com abajures e iluminação sob o móvel. Imagem fornecida por Álvaro Menezes.</figcaption></figure>
+
+<figure class="ha-screen"><a href="/static/img/casa-do-autor/sala-iluminacao-lateral.jpg" target="_blank" rel="noopener" aria-label="Ampliar foto: Vista lateral da sala, com luminárias de piso e iluminação ao redor da cristaleira."><img src="/static/img/casa-do-autor/sala-iluminacao-lateral.jpg" alt="Vista lateral da sala, com luminárias de piso e iluminação ao redor da cristaleira." width="1280" height="960" loading="lazy" decoding="async"></a><figcaption>Vista lateral da sala, com luminárias de piso e iluminação ao redor da cristaleira. Imagem fornecida por Álvaro Menezes.</figcaption></figure>
+
+## Como interpretar os guias
+
+Capturas identificadas como oficiais pertencem à documentação dos respectivos projetos; não são capturas da casa do autor. Exemplos de configuração e roteiros de teste devem ser adaptados à sua instalação. Um exemplo didático não comprova compatibilidade com todos os aparelhos.
+
+Relatos de experiência devem informar os equipamentos, versões, condições e resultados observados. Quando esses dados não estiverem presentes, trate o conteúdo como orientação baseada nas fontes citadas, e não como ensaio de produto. Você pode consultar o [histórico público de alterações](https://github.com/alvaroajm/smarthome-ai/commits/main/) e enviar correções pelo contato abaixo.
 
 ## Contato e correções
 
