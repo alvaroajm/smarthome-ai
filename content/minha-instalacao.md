@@ -83,6 +83,34 @@ Uso **Tapo TC70**, **Intelbras iM4** e um **DVR Intelbras**, cujo modelo ainda p
 
 Antes de transformar esse relato em instruções, é necessário registrar a origem de vídeo configurada no Scrypted e os plugins usados. Essa sequência não deve ser interpretada como exigência de que toda instalação Scrypted passe pelo Home Assistant. Veja o [guia de câmeras](/scrypted/) para o contexto das ferramentas.
 
+## Telas da minha instalação
+
+Estas capturas mostram como organizei algumas interfaces do Home Assistant e do aplicativo Casa. As contagens e os estados são os que aparecem no momento do registro; não representam um teste de todas as integrações. Toque ou clique nas imagens para abrir o arquivo no tamanho original.
+
+### Painel por áreas da casa
+
+<figure class="ha-screen"><a href="/static/img/minha-instalacao-20261021/painel-areas-sanitizado.png" target="_blank" rel="noopener" aria-label="Ampliar captura do painel por áreas, com dados pessoais ocultados"><img src="/static/img/minha-instalacao-20261021/painel-areas-sanitizado.png" alt="Painel do Home Assistant organizado por áreas da casa, com um cartão ocultado para preservar dados pessoais." width="1708" height="921" loading="lazy" decoding="async"></a><figcaption>Meu painel do Home Assistant organizado por áreas da casa, com atalhos para os ambientes. O cartão com dados pessoais foi ocultado nesta cópia da captura.</figcaption></figure>
+
+### Integrações no Home Assistant
+
+<figure class="ha-screen"><a href="/static/img/minha-instalacao-20261021/integracoes.png" target="_blank" rel="noopener" aria-label="Ampliar captura das integrações no Home Assistant"><img src="/static/img/minha-instalacao-20261021/integracoes.png" alt="Tela de integrações do Home Assistant com ESPHome, Broadlink e os adaptadores Connect ZBT-1 e ZBT-2 entre os itens visíveis." width="2048" height="1087" loading="lazy" decoding="async"></a><figcaption>Integrações exibidas no meu Home Assistant, incluindo ESPHome, Broadlink e Connect ZBT-1 e ZBT-2. Os totais são os do momento da captura; não indicam o número de centrais Apple HomeKit.</figcaption></figure>
+
+### Aplicativos no Home Assistant
+
+<figure class="ha-screen"><a href="/static/img/minha-instalacao-20261021/aplicativos.png" target="_blank" rel="noopener" aria-label="Ampliar captura dos aplicativos no Home Assistant"><img src="/static/img/minha-instalacao-20261021/aplicativos.png" alt="Lista de aplicativos no Home Assistant, com Mosquitto broker, Matter Server, OpenThread Border Router, Scrypted e outros itens." width="2048" height="1100" loading="lazy" decoding="async"></a><figcaption>Lista de aplicativos no meu Home Assistant. Mosquitto broker, Matter Server, OpenThread Border Router e Scrypted aparecem entre os itens; os indicadores de execução pertencem ao instante registrado.</figcaption></figure>
+
+### Projetos no ESPHome
+
+<figure class="ha-screen"><a href="/static/img/minha-instalacao-20261021/esphome-projetos-sanitizado.png" target="_blank" rel="noopener" aria-label="Ampliar captura dos projetos no ESPHome, com dados pessoais ocultados"><img src="/static/img/minha-instalacao-20261021/esphome-projetos-sanitizado.png" alt="Projetos no ESPHome Device Builder, com um cartão ocultado para preservar o nome pessoal presente no título e no arquivo YAML." width="1697" height="927" loading="lazy" decoding="async"></a><figcaption>Projetos exibidos no meu ESPHome Device Builder; os estados correspondem ao momento da captura. O cartão com nome pessoal, inclusive no arquivo YAML, foi ocultado nesta cópia.</figcaption></figure>
+
+### Controles no aplicativo Casa
+
+<figure class="ha-screen" style="max-width:282px;margin-inline:auto"><a href="/static/img/minha-instalacao-20261021/apple-home-quarto.jpg" target="_blank" rel="noopener" aria-label="Abrir captura dos controles do quarto no aplicativo Casa"><img src="/static/img/minha-instalacao-20261021/apple-home-quarto.jpg" alt="Aplicativo Casa da Apple aberto no quarto, com controles de TV, ar-condicionado e iluminação." width="282" height="612" loading="lazy" decoding="async"></a><figcaption>Controles do quarto no aplicativo Casa da Apple, com TV, ar-condicionado e iluminação. Mantive a resolução recebida, sem ampliar artificialmente o texto.</figcaption></figure>
+
+### Interface de terminal
+
+<figure class="ha-screen"><a href="/static/img/minha-instalacao-20261021/claude-terminal.png" target="_blank" rel="noopener" aria-label="Ampliar captura do Claude Terminal Pro no Home Assistant"><img src="/static/img/minha-instalacao-20261021/claude-terminal.png" alt="Interface do Claude Terminal Pro aberta no Home Assistant, com a mensagem de que não há sessão iniciada." width="2047" height="1109" loading="lazy" decoding="async"></a><figcaption>Interface do Claude Terminal Pro no meu Home Assistant. A mensagem visível informa que não há sessão iniciada; esta captura não demonstra comandos ou automações executados.</figcaption></figure>
+
 ## O que falta para reproduzir esta instalação
 
 | Parte | Informação que precisa acompanhar um passo a passo |
