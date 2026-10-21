@@ -546,6 +546,181 @@ text_sensor:
 
 Check your receiver's pinout (VCC, GND and signal) and validate it in the **ESPHome Device Builder** before flashing.
 
+## A ready-made example: a Thread device with the M5Stack NanoC6 {#example-thread}
+
+**Thread** is a low-power wireless mesh network that underpins **Matter**. The **M5Stack NanoC6 (ESP32-C6)** has the required 802.15.4 radio and, with the `openthread` component, joins your Thread network as an FTD (router) device. The RGB LED signals the state: it blinks **red** with no connection to Home Assistant and turns **blue** once connected.
+
+> **Highly sensitive data.** The `tlv` field (the *dataset*) contains **your Thread network key** — anyone who has that value can join your mesh. Never publish it. The API key and the other values below are examples too; generate your own.
+
+```yaml
+# M5Stack NanoC6 (ESP32-C6) as a Thread device (OpenThread).
+# Replace the API key and, above all, your Thread network's TLV dataset.
+
+esphome:
+  name: nanoc6-thread
+  friendly_name: "NanoC6 Thread"
+  on_boot:
+    # Priority -10: runs only after lights and switches already exist.
+    priority: -10
+    then:
+      - switch.turn_on: pwr_g19   # ensures power to the RGB LED
+      - delay: 1s
+      - light.turn_on:
+          id: rgb_led
+          effect: "NanoC6 Thread Blink_Red"
+
+esp32:
+  board: esp32-c6-devkitc-1
+  framework:
+    type: esp-idf
+    version: recommended
+    sdkconfig_options:
+      CONFIG_ESP_TASK_WDT_TIMEOUT_S: "60"   # larger watchdog for FTD (init can be slow)
+      CONFIG_PM_ENABLE: "n"
+      CONFIG_ESP_INT_WDT_TIMEOUT_MS: "2000"
+
+logger:
+  level: DEBUG
+
+api:
+  encryption:
+    key: !secret api_encryption_key   # generate yours in the ESPHome Builder
+  on_client_connected:
+    - light.turn_on:
+        id: rgb_led
+        red: 0.0
+        green: 0.0
+        blue: 1.0
+        brightness: 1.0
+        effect: none
+  on_client_disconnected:
+    - light.turn_on:
+        id: rgb_led
+        effect: "NanoC6 Thread Blink_Red"
+
+ota:
+  - platform: esphome
+    encryption:
+
+# IPv6 is required for Thread
+network:
+  enable_ipv6: true
+
+# Thread radio. WARNING: the 'tlv' (dataset) contains YOUR THREAD NETWORK KEY.
+# Never publish yours; paste your own network's dataset here.
+openthread:
+  device_type: FTD
+  tlv: "PASTE_YOUR_THREAD_NETWORK_TLV_DATASET_HERE"
+  force_dataset: true
+  output_power: 20dBm
+
+# ===== M5 Nano-C6 peripherals =====
+
+# Native ESPHome diagnostic LED on pin 7
+status_led:
+  pin: GPIO7
+
+switch:
+  - platform: gpio
+    pin: GPIO19
+    id: pwr_g19
+    name: "NanoC6 Thread Peripheral Power"
+    restore_mode: ALWAYS_ON
+  - platform: restart
+    id: restart_switch
+    name: "NanoC6 Thread Restart Switch"
+
+# RGB LED (GPIO20)
+light:
+  - platform: esp32_rmt_led_strip
+    id: rgb_led
+    name: "Nano C6 RGB"
+    pin: GPIO20
+    num_leds: 1
+    chipset: WS2812
+    channel_colors: GRB
+    effects:
+      - strobe:
+          name: "NanoC6 Thread Blink_Red"
+          colors:
+            - state: true
+              red: 1.0
+              green: 0.0
+              blue: 0.0
+              brightness: 1.0
+              duration: 500ms
+            - state: false
+              duration: 500ms
+
+button:
+  - platform: restart
+    id: restart_device
+    name: "Restart Nano C6"
+
+# Physical button (GPIO9): hold for 5s to restart
+binary_sensor:
+  - platform: gpio
+    id: btn_gpio9
+    name: "M5Stack Button"
+    pin:
+      number: GPIO9
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+    filters:
+      - delayed_on: 5s
+    on_press:
+      - button.press: restart_device
+
+  - platform: status
+    name: "NanoC6 Thread Connection Status"
+    id: status_conexao
+
+# ===== Diagnostic sensors =====
+sensor:
+  - platform: uptime
+    name: "NanoC6 Thread Uptime"
+    id: uptime_sensor
+    update_interval: 60s
+    filters:
+      - lambda: return x / 60.0;
+    unit_of_measurement: "min"
+    icon: mdi:clock-outline
+
+text_sensor:
+  - platform: openthread_info
+    ip_address:
+      name: "Thread IP Address"
+    channel:
+      name: "Thread Channel"
+    role:
+      name: "Thread Device Role"
+    rloc16:
+      name: "Thread RLOC16"
+    ext_addr:
+      name: "Thread Extended Address"
+    eui64:
+      name: "Thread EUI64"
+    network_name:
+      name: "Thread Network Name"
+    network_key:
+      name: "Thread Network Key"
+    pan_id:
+      name: "Thread PAN ID"
+    ext_pan_id:
+      name: "Thread Extended PAN ID"
+```
+
+**How it works, in short:**
+
+- `openthread` with `device_type: FTD` makes the NanoC6 join the Thread network; the `tlv` is the *dataset* describing the network (channel, PAN ID and the **key**) — which is why it's confidential. `network: enable_ipv6` is mandatory.
+- The RGB LED gives visual feedback: **blue** when Home Assistant is connected, **blinking red** when it isn't.
+- The `switch` on `GPIO19` powers the NanoC6 peripherals (including the LED); the physical button on `GPIO9`, held for 5 s, restarts the device.
+- The `openthread_info` `text_sensor`s expose the network diagnostics (IP, channel, role, PAN ID, etc.) in Home Assistant.
+
+Get your Thread network's TLV dataset (from Home Assistant or your Border Router) and validate it in the **ESPHome Device Builder** before flashing.
+
 [Back to Home Assistant](/en/home-assistant/).
 
-Sources: [getting started with ESPHome](https://esphome.io/install/getting-started/), [install ESPHome](https://esphome.io/install/), [ESP32-DevKitC](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html), [ATOM-S3](https://docs.m5stack.com/en/core/AtomS3), [xiaomi_miscale component](https://esphome.io/components/sensor/xiaomi_miscale.html), [Bluetooth Proxy](https://esphome.io/components/bluetooth_proxy.html), [remote_receiver (IR)](https://esphome.io/components/remote_receiver.html) and [Nabu Casa and the Open Home Foundation](https://www.nabucasa.com/).
+Sources: [getting started with ESPHome](https://esphome.io/install/getting-started/), [install ESPHome](https://esphome.io/install/), [ESP32-DevKitC](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html), [ATOM-S3](https://docs.m5stack.com/en/core/AtomS3), [xiaomi_miscale component](https://esphome.io/components/sensor/xiaomi_miscale.html), [Bluetooth Proxy](https://esphome.io/components/bluetooth_proxy.html), [remote_receiver (IR)](https://esphome.io/components/remote_receiver.html), [OpenThread](https://esphome.io/components/openthread.html) and [Nabu Casa and the Open Home Foundation](https://www.nabucasa.com/).

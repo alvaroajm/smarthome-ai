@@ -132,6 +132,7 @@
 <li><a href="#exemplo-balanca">Exemplo pronto: balança no Home Assistant via Bluetooth</a></li>
 <li><a href="#exemplo-bt-proxy">Exemplo pronto: Bluetooth Proxy com ATOM-S3</a></li>
 <li><a href="#exemplo-ir">Exemplo pronto: receptor de infravermelho (IR) no Home Assistant</a></li>
+<li><a href="#exemplo-thread">Exemplo pronto: dispositivo Thread com M5Stack NanoC6</a></li>
 </ul>
 </div>
 </nav>
@@ -640,8 +641,179 @@ text_sensor:
 <li>Sensores de diagnóstico (IP, DNS, MAC) e os botões <strong>Reiniciar</strong> e <strong>Safe Mode</strong> ajudam na manutenção.</li>
 </ul>
 <p>Confira a pinagem do seu receptor (VCC, GND e sinal) e valide no <strong>ESPHome Device Builder</strong> antes de gravar.</p>
+<h2 id="exemplo-thread">Exemplo pronto: dispositivo Thread com M5Stack NanoC6<a class="headerlink" href="#exemplo-thread" title="Permanent link">#</a></h2>
+<p><strong>Thread</strong> é uma rede sem fio de malha (<em>mesh</em>), de baixo consumo, que serve de base para o <strong>Matter</strong>. O <strong>M5Stack NanoC6 (ESP32-C6)</strong> tem o rádio 802.15.4 necessário e, com o componente <code>openthread</code>, entra na sua rede Thread como um dispositivo FTD (roteador). O LED RGB sinaliza o estado: pisca <strong>vermelho</strong> sem conexão com o Home Assistant e fica <strong>azul</strong> quando conecta.</p>
+<blockquote>
+<p><strong>Dado MUITO sensível.</strong> O campo <code>tlv</code> (o <em>dataset</em>) do Thread contém a <strong>chave da sua rede</strong> — quem tiver esse valor entra na sua malha. Nunca o publique. A chave da API e os demais dados abaixo também são exemplos; gere os seus.</p>
+</blockquote>
+<pre><code class="language-yaml"># M5Stack NanoC6 (ESP32-C6) como dispositivo Thread (OpenThread).
+# Troque a chave da API e, principalmente, o dataset TLV da sua rede Thread.
+
+esphome:
+  name: nanoc6-thread
+  friendly_name: &quot;NanoC6 Thread&quot;
+  on_boot:
+    # Prioridade -10: executa só depois que luzes e switches já existem.
+    priority: -10
+    then:
+      - switch.turn_on: pwr_g19   # garante a energia do LED RGB
+      - delay: 1s
+      - light.turn_on:
+          id: rgb_led
+          effect: &quot;NanoC6 Thread Blink_Red&quot;
+
+esp32:
+  board: esp32-c6-devkitc-1
+  framework:
+    type: esp-idf
+    version: recommended
+    sdkconfig_options:
+      CONFIG_ESP_TASK_WDT_TIMEOUT_S: &quot;60&quot;   # watchdog maior p/ FTD (init pode demorar)
+      CONFIG_PM_ENABLE: &quot;n&quot;
+      CONFIG_ESP_INT_WDT_TIMEOUT_MS: &quot;2000&quot;
+
+logger:
+  level: DEBUG
+
+api:
+  encryption:
+    key: !secret api_encryption_key   # gere a sua no ESPHome Builder
+  on_client_connected:
+    - light.turn_on:
+        id: rgb_led
+        red: 0.0
+        green: 0.0
+        blue: 1.0
+        brightness: 1.0
+        effect: none
+  on_client_disconnected:
+    - light.turn_on:
+        id: rgb_led
+        effect: &quot;NanoC6 Thread Blink_Red&quot;
+
+ota:
+  - platform: esphome
+    encryption:
+
+# IPv6 é necessário para o Thread
+network:
+  enable_ipv6: true
+
+# Rádio Thread. ATENÇÃO: o 'tlv' (dataset) contém a CHAVE DA SUA REDE THREAD.
+# Nunca publique o seu; cole o dataset da sua rede aqui.
+openthread:
+  device_type: FTD
+  tlv: &quot;COLE_AQUI_O_DATASET_TLV_DA_SUA_REDE_THREAD&quot;
+  force_dataset: true
+  output_power: 20dBm
+
+# ===== Periféricos do M5 Nano-C6 =====
+
+# LED de diagnóstico nativo do ESPHome no pino 7
+status_led:
+  pin: GPIO7
+
+switch:
+  - platform: gpio
+    pin: GPIO19
+    id: pwr_g19
+    name: &quot;NanoC6 Thread Energia Periféricos&quot;
+    restore_mode: ALWAYS_ON
+  - platform: restart
+    id: restart_switch
+    name: &quot;NanoC6 Thread Restart Switch&quot;
+
+# LED RGB (GPIO20)
+light:
+  - platform: esp32_rmt_led_strip
+    id: rgb_led
+    name: &quot;Nano C6 RGB&quot;
+    pin: GPIO20
+    num_leds: 1
+    chipset: WS2812
+    channel_colors: GRB
+    effects:
+      - strobe:
+          name: &quot;NanoC6 Thread Blink_Red&quot;
+          colors:
+            - state: true
+              red: 1.0
+              green: 0.0
+              blue: 0.0
+              brightness: 1.0
+              duration: 500ms
+            - state: false
+              duration: 500ms
+
+button:
+  - platform: restart
+    id: restart_device
+    name: &quot;Reiniciar Nano C6&quot;
+
+# Botão físico (GPIO9): segurar por 5s reinicia
+binary_sensor:
+  - platform: gpio
+    id: btn_gpio9
+    name: &quot;Botão M5Stack&quot;
+    pin:
+      number: GPIO9
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+    filters:
+      - delayed_on: 5s
+    on_press:
+      - button.press: restart_device
+
+  - platform: status
+    name: &quot;NanoC6 Thread Status de Conexão&quot;
+    id: status_conexao
+
+# ===== Sensores de diagnóstico =====
+sensor:
+  - platform: uptime
+    name: &quot;NanoC6 Thread Tempo de Atividade&quot;
+    id: uptime_sensor
+    update_interval: 60s
+    filters:
+      - lambda: return x / 60.0;
+    unit_of_measurement: &quot;min&quot;
+    icon: mdi:clock-outline
+
+text_sensor:
+  - platform: openthread_info
+    ip_address:
+      name: &quot;Thread IP Address&quot;
+    channel:
+      name: &quot;Thread Channel&quot;
+    role:
+      name: &quot;Thread Device Role&quot;
+    rloc16:
+      name: &quot;Thread RLOC16&quot;
+    ext_addr:
+      name: &quot;Thread Extended Address&quot;
+    eui64:
+      name: &quot;Thread EUI64&quot;
+    network_name:
+      name: &quot;Thread Network Name&quot;
+    network_key:
+      name: &quot;Thread Network Key&quot;
+    pan_id:
+      name: &quot;Thread PAN ID&quot;
+    ext_pan_id:
+      name: &quot;Thread Extended PAN ID&quot;
+</code></pre>
+<p><strong>Como funciona, em resumo:</strong></p>
+<ul>
+<li><code>openthread</code> com <code>device_type: FTD</code> faz o NanoC6 participar da rede Thread; o <code>tlv</code> é o <em>dataset</em> que descreve a rede (canal, PAN ID e a <strong>chave</strong>) — por isso é sigiloso. O <code>network: enable_ipv6</code> é obrigatório.</li>
+<li>O LED RGB dá feedback visual: <strong>azul</strong> com o HA conectado, <strong>vermelho piscando</strong> sem conexão.</li>
+<li>O <code>switch</code> em <code>GPIO19</code> liga a energia dos periféricos do NanoC6 (incluindo o LED); o botão físico em <code>GPIO9</code>, segurado por 5 s, reinicia.</li>
+<li>Os <code>text_sensor</code> do <code>openthread_info</code> expõem o diagnóstico da rede (IP, canal, papel, PAN ID etc.) no Home Assistant.</li>
+</ul>
+<p>Obtenha o <em>dataset</em> TLV da sua rede Thread (pelo Home Assistant ou pelo seu Border Router) e valide no <strong>ESPHome Device Builder</strong> antes de gravar.</p>
 <p><a href="/home-assistant/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Voltar ao Home Assistant</a>.</p>
-<p>Fontes: <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/install/getting-started/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>iniciar no ESPHome</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/install/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>instalar ESPHome</a>, <a class="ext" target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html">ESP32-DevKitC</a>, <a class="ext" target="_blank" rel="noopener" href="https://docs.m5stack.com/en/core/AtomS3">ATOM-S3</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/sensor/xiaomi_miscale.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>componente xiaomi_miscale</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/bluetooth_proxy.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>Bluetooth Proxy</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/remote_receiver.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>remote_receiver (IR)</a> e <a class="ext" target="_blank" rel="noopener" href="https://www.nabucasa.com/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="nabu-casa" src="/static/img/brands/nabu-casa.svg?v=fd7f86f9" width="32" height="32" alt="" decoding="async"></span>Nabu Casa e Open Home Foundation</a>.</p>
+<p>Fontes: <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/install/getting-started/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>iniciar no ESPHome</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/install/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>instalar ESPHome</a>, <a class="ext" target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html">ESP32-DevKitC</a>, <a class="ext" target="_blank" rel="noopener" href="https://docs.m5stack.com/en/core/AtomS3">ATOM-S3</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/sensor/xiaomi_miscale.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>componente xiaomi_miscale</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/bluetooth_proxy.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>Bluetooth Proxy</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/remote_receiver.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>remote_receiver (IR)</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/openthread.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>OpenThread</a> e <a class="ext" target="_blank" rel="noopener" href="https://www.nabucasa.com/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="nabu-casa" src="/static/img/brands/nabu-casa.svg?v=fd7f86f9" width="32" height="32" alt="" decoding="async"></span>Nabu Casa e Open Home Foundation</a>.</p>
         <ul class="tags"><li>ESPHome</li><li>ESP32</li><li>DIY</li><li>YAML</li><li>Sensores</li></ul>
       </div>
     </div>
