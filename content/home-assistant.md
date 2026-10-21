@@ -101,7 +101,7 @@ O **ESPHome**, projeto da Open Home Foundation apoiado pela Nabu Casa, oferece o
 
 Uma IA pode explicar as opções, propor uma configuração e ajudar a entender erros. Isso torna o aprendizado mais acessível, mas ainda é preciso conferir placa, pinos e documentação e validar antes de gravar. Comece com um projeto alimentado por USB, em baixa tensão.
 
-[Conheça o ESPHome pelas telas](/esphome-esp32/). Lá você encontra **exemplos prontos para copiar**: uma [balança no HA via Bluetooth](/esphome-esp32/#exemplo-balanca), um [Bluetooth Proxy com ATOM-S3](/esphome-esp32/#exemplo-bt-proxy), um [receptor de infravermelho](/esphome-esp32/#exemplo-ir) e um [dispositivo Thread (NanoC6)](/esphome-esp32/#exemplo-thread).
+[Conheça o ESPHome pelas telas](/esphome-esp32/). Lá você encontra **exemplos prontos para copiar**: uma [balança no HA via Bluetooth](/esphome-esp32/#exemplo-balanca), um [Bluetooth Proxy com ATOM-S3](/esphome-esp32/#exemplo-bt-proxy), um [receptor de infravermelho](/esphome-esp32/#exemplo-ir), um [dispositivo Thread (NanoC6)](/esphome-esp32/#exemplo-thread) e um [painel de toque (tela de clima e controles)](/esphome-esp32/#exemplo-tela).
 
 ## Câmeras que ajudam a entender o que acontece
 

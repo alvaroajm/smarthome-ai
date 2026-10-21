@@ -133,6 +133,7 @@
 <li><a href="#exemplo-bt-proxy">Exemplo pronto: Bluetooth Proxy com ATOM-S3</a></li>
 <li><a href="#exemplo-ir">Exemplo pronto: receptor de infravermelho (IR) no Home Assistant</a></li>
 <li><a href="#exemplo-thread">Exemplo pronto: dispositivo Thread com M5Stack NanoC6</a></li>
+<li><a href="#exemplo-tela">Exemplo pronto: painel de toque (clima, cortinas e ar)</a></li>
 </ul>
 </div>
 </nav>
@@ -812,8 +813,941 @@ text_sensor:
 <li>Os <code>text_sensor</code> do <code>openthread_info</code> expõem o diagnóstico da rede (IP, canal, papel, PAN ID etc.) no Home Assistant.</li>
 </ul>
 <p>Obtenha o <em>dataset</em> TLV da sua rede Thread (pelo Home Assistant ou pelo seu Border Router) e valide no <strong>ESPHome Device Builder</strong> antes de gravar.</p>
+<h2 id="exemplo-tela">Exemplo pronto: painel de toque (clima, cortinas e ar)<a class="headerlink" href="#exemplo-tela" title="Permanent link">#</a></h2>
+<p>Uma telinha de toque na parede que mostra <strong>relógio, data e clima</strong> e controla <strong>cortinas, ventilador e ar-condicionado</strong> direto no Home Assistant. Este exemplo usa uma placa <strong>Guition JC3248W535 (ESP32-S3, 3,5" 320×480)</strong> com a biblioteca de interface <strong>LVGL</strong> do ESPHome, em três páginas e uma barra de navegação inferior.</p>
+<blockquote>
+<p><strong>Personalize antes de gravar.</strong> No topo, o bloco <code>substitutions</code> define as <strong>entidades do seu Home Assistant</strong> (clima, ventilador, ar) e a cidade — ajuste para as suas. A chave da API é um exemplo; gere a sua. Os nomes <code>cover.cortina_1..3</code> também são exemplos.</p>
+</blockquote>
+<pre><code class="language-yaml">substitutions:
+  device_name: tela-clima
+  friendly_name: &quot;Tela Clima&quot;
+  city_name: &quot;Fortaleza&quot;
+  ha_weather_entity: &quot;weather.home&quot;
+  ha_fan_entity: &quot;fan.ventilador_sala&quot;
+  ha_ac_entity: &quot;climate.ar_sala&quot;
+  tz: &quot;America/Fortaleza&quot;
+
+esphome:
+  name: ${device_name}
+  friendly_name: ${friendly_name}
+  platformio_options:
+    upload_speed: 921600
+    board_build.flash_mode: dio
+    board_build.f_flash: 80000000L
+    board_build.f_cpu: 240000000L
+
+# Placa: Guition JC3248W535C_I_Y — ESP32-S3, tela QSPI 3.5&quot; 320x480 (AXS15231B),
+# toque capacitivo no mesmo chip via I2C. Confirme flash/PSRAM da sua unidade
+# (16MB / PSRAM octal é o padrão dessa família; se a compilação/boot falhar,
+# tente psram.mode: quad).
+esp32:
+  board: esp32-s3-devkitc-1
+  variant: esp32s3
+  flash_size: 16MB
+  framework:
+    type: esp-idf
+    sdkconfig_options:
+      COMPILER_OPTIMIZATION_SIZE: y
+      CONFIG_ESP32S3_DEFAULT_CPU_FREQ_240: y
+      CONFIG_ESP32S3_DATA_CACHE_64KB: y
+      CONFIG_ESP32S3_DATA_CACHE_LINE_64B: y
+      CONFIG_SPIRAM_FETCH_INSTRUCTIONS: y
+      CONFIG_SPIRAM_RODATA: y
+
+psram:
+  mode: octal
+  speed: 80MHz
+
+logger:
+  level: INFO
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  on_connect:
+    - lvgl.label.update:
+        id: wifi_icon
+        text: &quot;\U000F0928&quot;
+  on_disconnect:
+    - lvgl.label.update:
+        id: wifi_icon
+        text: &quot;\U000F092E&quot;
+
+api:
+  encryption:
+    key: !secret api_encryption_key   # gere a sua no ESPHome Builder
+
+ota:
+  - platform: esphome
+    encryption:
+
+# Necessário para a Home Assistant &quot;empurrar&quot; a entidade de clima para o
+# dispositivo E para o dispositivo chamar serviços de volta (cortinas/ar/vent).
+# Só funciona depois que o device for adicionado à integração ESPHome no HA.
+
+time:
+  - platform: sntp
+    id: sntp_time
+    timezone: &quot;${tz}&quot;
+    servers:
+      - time.google.com
+      - time1.google.com
+      - pool.ntp.org
+
+# --- Barramentos ---------------------------------------------------------
+spi:
+  - type: quad
+    clk_pin: 47
+    data_pins: [21, 48, 40, 39]
+
+i2c:
+  - sda: 4
+    scl: 8
+
+# --- Backlight -------------------------------------------------------------
+output:
+  - id: gpio_backlight_pwm
+    platform: ledc
+    pin: 1
+
+light:
+  - id: backlight
+    name: &quot;Backlight&quot;
+    platform: monochromatic
+    output: gpio_backlight_pwm
+    restore_mode: ALWAYS_ON
+
+# --- Tela + toque (AXS15231B, driver nativo mipi_spi) -----------------------
+display:
+  - id: main_display
+    platform: mipi_spi
+    model: JC3248W535
+    rotation: 0°   # 0° = retrato 320x480 nesta placa; troque p/ 90°/270° se vier deitada
+    data_rate: 40MHz
+    update_interval: never
+    auto_clear_enabled: false
+
+touchscreen:
+  - id: main_touchscreen
+    platform: axs15231
+
+# --- Fontes ------------------------------------------------------------
+font:
+  - file:
+      type: gfonts
+      family: Roboto
+      weight: bold
+    id: font_time
+    size: 72
+    bpp: 4
+    glyphs: &quot;0123456789:&quot;
+
+  - file: &quot;gfonts://Roboto&quot;
+    id: font_text_md
+    size: 22
+    bpp: 4
+    glyphsets: GF_Latin_Core
+    glyphs: [&quot;°&quot;, &quot;•&quot;]
+
+  - file:
+      type: gfonts
+      family: Roboto
+      weight: bold
+    id: font_num_big
+    size: 48
+    bpp: 4
+    glyphs: &quot;0123456789°C+- &quot;
+
+  # Ícones grandes do clima (sol / nuvem / chuva)
+  - file:
+      type: web
+      url: &quot;https://github.com/Templarian/MaterialDesign-Webfont/raw/master/fonts/materialdesignicons-webfont.ttf&quot;
+    id: font_icon_weather
+    size: 150
+    bpp: 4
+    glyphs:
+      - &quot;\U000F0599&quot;  # weather-sunny
+      - &quot;\U000F0594&quot;  # weather-night (clear-night)
+      - &quot;\U000F0595&quot;  # weather-partly-cloudy
+      - &quot;\U000F0590&quot;  # weather-cloudy
+      - &quot;\U000F0596&quot;  # weather-pouring (chuva)
+
+  # Ícone de WiFi (pequeno)
+  - file:
+      type: web
+      url: &quot;https://github.com/Templarian/MaterialDesign-Webfont/raw/master/fonts/materialdesignicons-webfont.ttf&quot;
+    id: font_icon_wifi
+    size: 22
+    bpp: 4
+    glyphs:
+      - &quot;\U000F0928&quot;  # wifi-strength-4
+      - &quot;\U000F0925&quot;  # wifi-strength-3
+      - &quot;\U000F0922&quot;  # wifi-strength-2
+      - &quot;\U000F091F&quot;  # wifi-strength-1
+      - &quot;\U000F092E&quot;  # wifi-strength-off-outline
+
+  # Ícones da barra de navegação inferior
+  - file:
+      type: web
+      url: &quot;https://github.com/Templarian/MaterialDesign-Webfont/raw/master/fonts/materialdesignicons-webfont.ttf&quot;
+    id: font_nav
+    size: 30
+    bpp: 4
+    glyphs:
+      - &quot;\U000F02DC&quot;  # home
+      - &quot;\U000F111C&quot;  # window-shutter (cortinas)
+      - &quot;\U000F001B&quot;  # air-conditioner
+
+  # Ícones dos botões de controle
+  - file:
+      type: web
+      url: &quot;https://github.com/Templarian/MaterialDesign-Webfont/raw/master/fonts/materialdesignicons-webfont.ttf&quot;
+    id: font_icon
+    size: 40
+    bpp: 4
+    glyphs:
+      - &quot;\U000F0737&quot;  # arrow-up-bold (abrir)
+      - &quot;\U000F072E&quot;  # arrow-down-bold (fechar)
+      - &quot;\U000F04DB&quot;  # stop (parar)
+      - &quot;\U000F0425&quot;  # power
+      - &quot;\U000F0210&quot;  # fan
+      - &quot;\U000F001B&quot;  # air-conditioner
+      - &quot;\U000F111C&quot;  # window-shutter
+
+# --- Sensores ------------------------------------------------------------
+sensor:
+  - platform: wifi_signal
+    id: wifi_signal_dbm
+    update_interval: 30s
+    internal: true
+    on_value:
+      - lvgl.label.update:
+          id: wifi_icon
+          text: !lambda |-
+            if (x &gt;= -60) return std::string(&quot;\U000F0928&quot;);
+            else if (x &gt;= -67) return std::string(&quot;\U000F0925&quot;);
+            else if (x &gt;= -75) return std::string(&quot;\U000F0922&quot;);
+            else return std::string(&quot;\U000F091F&quot;);
+
+  - platform: homeassistant
+    id: ha_weather_temp
+    entity_id: ${ha_weather_entity}
+    attribute: temperature
+    internal: true
+    on_value:
+      - lvgl.label.update:
+          id: temp_city_label
+          text:
+            format: &quot;${city_name} • %.0f°C&quot;
+            args: [x]
+            if_nan: &quot;${city_name} • --°C&quot;
+
+  # Ar-condicionado: temperatura atual da sala
+  - platform: homeassistant
+    id: ha_ac_current
+    entity_id: ${ha_ac_entity}
+    attribute: current_temperature
+    internal: true
+    on_value:
+      - lvgl.label.update:
+          id: ac_current_label
+          text:
+            format: &quot;Atual: %.1f°C&quot;
+            args: [x]
+            if_nan: &quot;Atual: --&quot;
+
+  # Ar-condicionado: temperatura alvo (setpoint)
+  - platform: homeassistant
+    id: ha_ac_target
+    entity_id: ${ha_ac_entity}
+    attribute: temperature
+    internal: true
+    on_value:
+      - lvgl.label.update:
+          id: ac_target_label
+          text:
+            format: &quot;%.0f°C&quot;
+            args: [x]
+            if_nan: &quot;--&quot;
+
+  # Ventilador: velocidade atual (%)
+  - platform: homeassistant
+    id: ha_fan_pct
+    entity_id: ${ha_fan_entity}
+    attribute: percentage
+    internal: true
+    on_value:
+      - lvgl.label.update:
+          id: fan_speed_label
+          text:
+            format: &quot;Velocidade: %.0f%%&quot;
+            args: [x]
+            if_nan: &quot;Velocidade: --&quot;
+
+text_sensor:
+  - platform: homeassistant
+    id: ha_weather_condition
+    entity_id: ${ha_weather_entity}
+    internal: true
+    on_value:
+      - lvgl.label.update:
+          id: weather_icon
+          text: !lambda |-
+            std::string c = x;
+            if (c == &quot;sunny&quot;) return std::string(&quot;\U000F0599&quot;);
+            if (c == &quot;clear-night&quot;) return std::string(&quot;\U000F0594&quot;);
+            if (c == &quot;partlycloudy&quot;) return std::string(&quot;\U000F0595&quot;);
+            if (c == &quot;rainy&quot; || c == &quot;pouring&quot; || c == &quot;lightning&quot; ||
+                c == &quot;lightning-rainy&quot; || c == &quot;hail&quot; || c == &quot;snowy&quot; ||
+                c == &quot;snowy-rainy&quot;) return std::string(&quot;\U000F0596&quot;);
+            return std::string(&quot;\U000F0590&quot;);
+      - lvgl.label.update:
+          id: forecast_label
+          text: !lambda |-
+            std::string c = x;
+            if (c == &quot;sunny&quot;) return std::string(&quot;Ensolarado&quot;);
+            if (c == &quot;clear-night&quot;) return std::string(&quot;Céu limpo&quot;);
+            if (c == &quot;partlycloudy&quot;) return std::string(&quot;Parcialmente nublado&quot;);
+            if (c == &quot;cloudy&quot;) return std::string(&quot;Nublado&quot;);
+            if (c == &quot;fog&quot;) return std::string(&quot;Neblina&quot;);
+            if (c == &quot;windy&quot; || c == &quot;windy-variant&quot;) return std::string(&quot;Ventania&quot;);
+            if (c == &quot;rainy&quot;) return std::string(&quot;Chuva&quot;);
+            if (c == &quot;pouring&quot;) return std::string(&quot;Chuva forte&quot;);
+            if (c == &quot;lightning&quot;) return std::string(&quot;Tempestade&quot;);
+            if (c == &quot;lightning-rainy&quot;) return std::string(&quot;Tempestade com chuva&quot;);
+            if (c == &quot;hail&quot;) return std::string(&quot;Granizo&quot;);
+            if (c == &quot;snowy&quot;) return std::string(&quot;Neve&quot;);
+            if (c == &quot;snowy-rainy&quot;) return std::string(&quot;Chuva com neve&quot;);
+            return std::string(&quot;Indisponível&quot;);
+
+  # Ar-condicionado: modo atual (off/cool/dry/...) — atualiza rótulo e cor do power
+  - platform: homeassistant
+    id: ha_ac_mode
+    entity_id: ${ha_ac_entity}
+    internal: true
+    on_value:
+      - lvgl.label.update:
+          id: ac_mode_label
+          text: !lambda |-
+            std::string m = x;
+            if (m == &quot;off&quot;) return std::string(&quot;Desligado&quot;);
+            if (m == &quot;cool&quot;) return std::string(&quot;Refrigerar&quot;);
+            if (m == &quot;dry&quot;) return std::string(&quot;Desumidificar&quot;);
+            if (m == &quot;fan_only&quot;) return std::string(&quot;Ventilar&quot;);
+            if (m == &quot;heat&quot;) return std::string(&quot;Aquecer&quot;);
+            if (m == &quot;heat_cool&quot;) return std::string(&quot;Automático&quot;);
+            return m;
+      - if:
+          condition:
+            lambda: 'return x == &quot;off&quot;;'
+          then:
+            - lvgl.widget.update:
+                id: btn_ac_power
+                bg_color: 0x263238
+          else:
+            - lvgl.widget.update:
+                id: btn_ac_power
+                bg_color: 0x2196F3
+
+# --- Relógio / data (atualizados localmente, não dependem do HA) -----------
+interval:
+  - interval: 1s
+    then:
+      - lvgl.label.update:
+          id: time_label
+          text: !lambda |-
+            auto t = id(sntp_time).now();
+            if (!t.is_valid()) return std::string(&quot;--:--&quot;);
+            char buf[8];
+            snprintf(buf, sizeof(buf), &quot;%02d:%02d&quot;, t.hour, t.minute);
+            return std::string(buf);
+
+  - interval: 30s
+    then:
+      - lvgl.label.update:
+          id: date_label
+          text: !lambda |-
+            auto t = id(sntp_time).now();
+            if (!t.is_valid()) return std::string(&quot;Sincronizando...&quot;);
+            static const char *dias[] = {&quot;&quot;, &quot;Domingo&quot;, &quot;Segunda-feira&quot;, &quot;Terça-feira&quot;,
+                &quot;Quarta-feira&quot;, &quot;Quinta-feira&quot;, &quot;Sexta-feira&quot;, &quot;Sábado&quot;};
+            static const char *meses[] = {&quot;&quot;, &quot;Janeiro&quot;, &quot;Fevereiro&quot;, &quot;Março&quot;, &quot;Abril&quot;,
+                &quot;Maio&quot;, &quot;Junho&quot;, &quot;Julho&quot;, &quot;Agosto&quot;, &quot;Setembro&quot;, &quot;Outubro&quot;, &quot;Novembro&quot;, &quot;Dezembro&quot;};
+            char buf[48];
+            snprintf(buf, sizeof(buf), &quot;%s, %d de %s de %d&quot;,
+                dias[t.day_of_week], t.day_of_month, meses[t.month], t.year);
+            return std::string(buf);
+
+# --- Interface LVGL ----------------------------------------------------
+lvgl:
+  displays:
+    - main_display
+  touchscreens:
+    - main_touchscreen
+  bg_color: 0x000000
+
+  # Barra de navegação inferior — sempre visível sobre todas as páginas
+  top_layer:
+    widgets:
+      - obj:
+          width: 320
+          height: 56
+          align: BOTTOM_MID
+          y: 0
+          bg_color: 0x11151A
+          bg_opa: COVER
+          border_width: 0
+          radius: 0
+          pad_all: 0
+
+      - button:
+          id: nav_clima
+          width: 100
+          height: 48
+          align: BOTTOM_LEFT
+          x: 4
+          y: -4
+          bg_color: 0x2196F3
+          radius: 10
+          border_width: 0
+          widgets:
+            - label:
+                text: &quot;\U000F02DC&quot;
+                text_font: font_nav
+                text_color: 0xFFFFFF
+                align: CENTER
+          on_click:
+            - lvgl.page.show: page_clima
+            - lvgl.widget.update: {id: nav_clima, bg_color: 0x2196F3}
+            - lvgl.widget.update: {id: nav_cortinas, bg_color: 0x263238}
+            - lvgl.widget.update: {id: nav_ar, bg_color: 0x263238}
+
+      - button:
+          id: nav_cortinas
+          width: 100
+          height: 48
+          align: BOTTOM_LEFT
+          x: 110
+          y: -4
+          bg_color: 0x263238
+          radius: 10
+          border_width: 0
+          widgets:
+            - label:
+                text: &quot;\U000F111C&quot;
+                text_font: font_nav
+                text_color: 0xFFFFFF
+                align: CENTER
+          on_click:
+            - lvgl.page.show: page_cortinas
+            - lvgl.widget.update: {id: nav_clima, bg_color: 0x263238}
+            - lvgl.widget.update: {id: nav_cortinas, bg_color: 0x2196F3}
+            - lvgl.widget.update: {id: nav_ar, bg_color: 0x263238}
+
+      - button:
+          id: nav_ar
+          width: 100
+          height: 48
+          align: BOTTOM_LEFT
+          x: 216
+          y: -4
+          bg_color: 0x263238
+          radius: 10
+          border_width: 0
+          widgets:
+            - label:
+                text: &quot;\U000F001B&quot;
+                text_font: font_nav
+                text_color: 0xFFFFFF
+                align: CENTER
+          on_click:
+            - lvgl.page.show: page_ar
+            - lvgl.widget.update: {id: nav_clima, bg_color: 0x263238}
+            - lvgl.widget.update: {id: nav_cortinas, bg_color: 0x263238}
+            - lvgl.widget.update: {id: nav_ar, bg_color: 0x2196F3}
+
+  pages:
+    # ===================== PÁGINA 1: CLIMA / RELÓGIO =====================
+    - id: page_clima
+      bg_color: 0x000000
+      widgets:
+        - label:
+            id: wifi_icon
+            text: &quot;\U000F092E&quot;
+            text_font: font_icon_wifi
+            text_color: 0xB0BEC5
+            align: TOP_LEFT
+            x: 8
+            y: 6
+
+        - label:
+            id: time_label
+            text: &quot;--:--&quot;
+            text_font: font_time
+            text_color: 0xFFFFFF
+            align: TOP_MID
+            y: 4
+
+        - label:
+            id: date_label
+            text: &quot;Sincronizando...&quot;
+            text_font: font_text_md
+            text_color: 0xB0BEC5
+            align: TOP_MID
+            y: 98
+
+        - label:
+            id: weather_icon
+            text: &quot;\U000F0595&quot;
+            text_font: font_icon_weather
+            text_color: 0x90A4AE
+            align: CENTER
+            y: -20
+
+        - label:
+            id: forecast_label
+            text: &quot;Aguardando dados...&quot;
+            text_font: font_text_md
+            text_color: 0xFFFFFF
+            align: CENTER
+            y: 120
+
+        - label:
+            id: temp_city_label
+            text: &quot;--&quot;
+            text_font: font_text_md
+            text_color: 0xB0BEC5
+            align: CENTER
+            y: 155
+
+    # ===================== PÁGINA 2: CORTINAS =====================
+    - id: page_cortinas
+      bg_color: 0x000000
+      widgets:
+        - label:
+            text: &quot;Cortinas&quot;
+            text_font: font_text_md
+            text_color: 0xFFFFFF
+            align: TOP_MID
+            y: 14
+
+        # ---- Linha: Todas ----
+        - label:
+            text: &quot;Todas&quot;
+            text_font: font_text_md
+            text_color: 0xB0BEC5
+            align: TOP_LEFT
+            x: 12
+            y: 78
+        - button:
+            width: 60
+            height: 60
+            align: TOP_LEFT
+            x: 118
+            y: 60
+            bg_color: 0x263238
+            radius: 10
+            border_width: 0
+            widgets:
+              - label: {text: &quot;\U000F0737&quot;, text_font: font_icon, text_color: 0x4CAF50, align: CENTER}
+            on_click:
+              - homeassistant.action:
+                  action: cover.open_cover
+                  data: {entity_id: &quot;cover.cortina_1, cover.cortina_2, cover.cortina_3&quot;}
+        - button:
+            width: 60
+            height: 60
+            align: TOP_LEFT
+            x: 186
+            y: 60
+            bg_color: 0x263238
+            radius: 10
+            border_width: 0
+            widgets:
+              - label: {text: &quot;\U000F04DB&quot;, text_font: font_icon, text_color: 0xFFB300, align: CENTER}
+            on_click:
+              - homeassistant.action:
+                  action: cover.stop_cover
+                  data: {entity_id: &quot;cover.cortina_1, cover.cortina_2, cover.cortina_3&quot;}
+        - button:
+            width: 60
+            height: 60
+            align: TOP_LEFT
+            x: 254
+            y: 60
+            bg_color: 0x263238
+            radius: 10
+            border_width: 0
+            widgets:
+              - label: {text: &quot;\U000F072E&quot;, text_font: font_icon, text_color: 0xEF5350, align: CENTER}
+            on_click:
+              - homeassistant.action:
+                  action: cover.close_cover
+                  data: {entity_id: &quot;cover.cortina_1, cover.cortina_2, cover.cortina_3&quot;}
+
+        # ---- Linha: Cortina 1 ----
+        - label:
+            text: &quot;Cortina 1&quot;
+            text_font: font_text_md
+            text_color: 0xFFFFFF
+            align: TOP_LEFT
+            x: 12
+            y: 170
+        - button:
+            width: 60
+            height: 60
+            align: TOP_LEFT
+            x: 118
+            y: 152
+            bg_color: 0x263238
+            radius: 10
+            border_width: 0
+            widgets:
+              - label: {text: &quot;\U000F0737&quot;, text_font: font_icon, text_color: 0x4CAF50, align: CENTER}
+            on_click:
+              - homeassistant.action:
+                  action: cover.open_cover
+                  data: {entity_id: cover.cortina_1}
+        - button:
+            width: 60
+            height: 60
+            align: TOP_LEFT
+            x: 186
+            y: 152
+            bg_color: 0x263238
+            radius: 10
+            border_width: 0
+            widgets:
+              - label: {text: &quot;\U000F04DB&quot;, text_font: font_icon, text_color: 0xFFB300, align: CENTER}
+            on_click:
+              - homeassistant.action:
+                  action: cover.stop_cover
+                  data: {entity_id: cover.cortina_1}
+        - button:
+            width: 60
+            height: 60
+            align: TOP_LEFT
+            x: 254
+            y: 152
+            bg_color: 0x263238
+            radius: 10
+            border_width: 0
+            widgets:
+              - label: {text: &quot;\U000F072E&quot;, text_font: font_icon, text_color: 0xEF5350, align: CENTER}
+            on_click:
+              - homeassistant.action:
+                  action: cover.close_cover
+                  data: {entity_id: cover.cortina_1}
+
+        # ---- Linha: Cortina 2 ----
+        - label:
+            text: &quot;Cortina 2&quot;
+            text_font: font_text_md
+            text_color: 0xFFFFFF
+            align: TOP_LEFT
+            x: 12
+            y: 262
+        - button:
+            width: 60
+            height: 60
+            align: TOP_LEFT
+            x: 118
+            y: 244
+            bg_color: 0x263238
+            radius: 10
+            border_width: 0
+            widgets:
+              - label: {text: &quot;\U000F0737&quot;, text_font: font_icon, text_color: 0x4CAF50, align: CENTER}
+            on_click:
+              - homeassistant.action:
+                  action: cover.open_cover
+                  data: {entity_id: cover.cortina_2}
+        - button:
+            width: 60
+            height: 60
+            align: TOP_LEFT
+            x: 186
+            y: 244
+            bg_color: 0x263238
+            radius: 10
+            border_width: 0
+            widgets:
+              - label: {text: &quot;\U000F04DB&quot;, text_font: font_icon, text_color: 0xFFB300, align: CENTER}
+            on_click:
+              - homeassistant.action:
+                  action: cover.stop_cover
+                  data: {entity_id: cover.cortina_2}
+        - button:
+            width: 60
+            height: 60
+            align: TOP_LEFT
+            x: 254
+            y: 244
+            bg_color: 0x263238
+            radius: 10
+            border_width: 0
+            widgets:
+              - label: {text: &quot;\U000F072E&quot;, text_font: font_icon, text_color: 0xEF5350, align: CENTER}
+            on_click:
+              - homeassistant.action:
+                  action: cover.close_cover
+                  data: {entity_id: cover.cortina_2}
+
+        # ---- Linha: Cortina 3 ----
+        - label:
+            text: &quot;Cortina 3&quot;
+            text_font: font_text_md
+            text_color: 0xFFFFFF
+            align: TOP_LEFT
+            x: 12
+            y: 354
+        - button:
+            width: 60
+            height: 60
+            align: TOP_LEFT
+            x: 118
+            y: 336
+            bg_color: 0x263238
+            radius: 10
+            border_width: 0
+            widgets:
+              - label: {text: &quot;\U000F0737&quot;, text_font: font_icon, text_color: 0x4CAF50, align: CENTER}
+            on_click:
+              - homeassistant.action:
+                  action: cover.open_cover
+                  data: {entity_id: cover.cortina_3}
+        - button:
+            width: 60
+            height: 60
+            align: TOP_LEFT
+            x: 186
+            y: 336
+            bg_color: 0x263238
+            radius: 10
+            border_width: 0
+            widgets:
+              - label: {text: &quot;\U000F04DB&quot;, text_font: font_icon, text_color: 0xFFB300, align: CENTER}
+            on_click:
+              - homeassistant.action:
+                  action: cover.stop_cover
+                  data: {entity_id: cover.cortina_3}
+        - button:
+            width: 60
+            height: 60
+            align: TOP_LEFT
+            x: 254
+            y: 336
+            bg_color: 0x263238
+            radius: 10
+            border_width: 0
+            widgets:
+              - label: {text: &quot;\U000F072E&quot;, text_font: font_icon, text_color: 0xEF5350, align: CENTER}
+            on_click:
+              - homeassistant.action:
+                  action: cover.close_cover
+                  data: {entity_id: cover.cortina_3}
+
+    # ===================== PÁGINA 3: VENTILADOR + AR =====================
+    - id: page_ar
+      bg_color: 0x000000
+      widgets:
+        # ---------- Ventilador ----------
+        - label:
+            text: &quot;\U000F0210&quot;
+            text_font: font_icon
+            text_color: 0x2196F3
+            align: TOP_LEFT
+            x: 14
+            y: 10
+        - label:
+            text: &quot;Ventilador&quot;
+            text_font: font_text_md
+            text_color: 0xFFFFFF
+            align: TOP_LEFT
+            x: 62
+            y: 20
+
+        - button:
+            width: 72
+            height: 52
+            align: TOP_LEFT
+            x: 8
+            y: 62
+            bg_color: 0x37474F
+            radius: 10
+            border_width: 0
+            widgets:
+              - label: {text: &quot;Desl&quot;, text_font: font_text_md, text_color: 0xFFFFFF, align: CENTER}
+            on_click:
+              - homeassistant.action:
+                  action: fan.turn_off
+                  data: {entity_id: &quot;${ha_fan_entity}&quot;}
+        - button:
+            width: 72
+            height: 52
+            align: TOP_LEFT
+            x: 84
+            y: 62
+            bg_color: 0x263238
+            radius: 10
+            border_width: 0
+            widgets:
+              - label: {text: &quot;Baixa&quot;, text_font: font_text_md, text_color: 0xFFFFFF, align: CENTER}
+            on_click:
+              - homeassistant.action:
+                  action: fan.set_percentage
+                  data: {entity_id: &quot;${ha_fan_entity}&quot;, percentage: &quot;33&quot;}
+        - button:
+            width: 72
+            height: 52
+            align: TOP_LEFT
+            x: 160
+            y: 62
+            bg_color: 0x263238
+            radius: 10
+            border_width: 0
+            widgets:
+              - label: {text: &quot;Média&quot;, text_font: font_text_md, text_color: 0xFFFFFF, align: CENTER}
+            on_click:
+              - homeassistant.action:
+                  action: fan.set_percentage
+                  data: {entity_id: &quot;${ha_fan_entity}&quot;, percentage: &quot;66&quot;}
+        - button:
+            width: 72
+            height: 52
+            align: TOP_LEFT
+            x: 236
+            y: 62
+            bg_color: 0x263238
+            radius: 10
+            border_width: 0
+            widgets:
+              - label: {text: &quot;Alta&quot;, text_font: font_text_md, text_color: 0xFFFFFF, align: CENTER}
+            on_click:
+              - homeassistant.action:
+                  action: fan.set_percentage
+                  data: {entity_id: &quot;${ha_fan_entity}&quot;, percentage: &quot;100&quot;}
+
+        - label:
+            id: fan_speed_label
+            text: &quot;Velocidade: --&quot;
+            text_font: font_text_md
+            text_color: 0x90A4AE
+            align: TOP_MID
+            y: 124
+
+        # ---------- Ar-condicionado ----------
+        - label:
+            text: &quot;\U000F001B&quot;
+            text_font: font_icon
+            text_color: 0x2196F3
+            align: TOP_LEFT
+            x: 14
+            y: 166
+        - label:
+            text: &quot;Ar Sala&quot;
+            text_font: font_text_md
+            text_color: 0xFFFFFF
+            align: TOP_LEFT
+            x: 62
+            y: 176
+
+        - button:
+            id: btn_ac_power
+            width: 60
+            height: 52
+            align: TOP_RIGHT
+            x: -10
+            y: 166
+            bg_color: 0x263238
+            radius: 10
+            border_width: 0
+            widgets:
+              - label: {text: &quot;\U000F0425&quot;, text_font: font_icon, text_color: 0xFFFFFF, align: CENTER}
+            on_click:
+              - if:
+                  condition:
+                    lambda: 'return id(ha_ac_mode).state == &quot;off&quot;;'
+                  then:
+                    - homeassistant.action:
+                        action: climate.set_hvac_mode
+                        data: {entity_id: &quot;${ha_ac_entity}&quot;, hvac_mode: cool}
+                  else:
+                    - homeassistant.action:
+                        action: climate.set_hvac_mode
+                        data: {entity_id: &quot;${ha_ac_entity}&quot;, hvac_mode: &quot;off&quot;}
+
+        - button:
+            width: 66
+            height: 72
+            align: TOP_LEFT
+            x: 16
+            y: 232
+            bg_color: 0x263238
+            radius: 12
+            border_width: 0
+            widgets:
+              - label: {text: &quot;-&quot;, text_font: font_num_big, text_color: 0xFFFFFF, align: CENTER}
+            on_click:
+              - homeassistant.action:
+                  action: climate.set_temperature
+                  data: {entity_id: &quot;${ha_ac_entity}&quot;}
+                  data_template:
+                    temperature: &quot;{{ [ (state_attr('${ha_ac_entity}','temperature') | float(21)) - 1, 16 ] | max }}&quot;
+
+        - label:
+            id: ac_target_label
+            text: &quot;--&quot;
+            text_font: font_num_big
+            text_color: 0xFFFFFF
+            align: TOP_MID
+            y: 244
+
+        - button:
+            width: 66
+            height: 72
+            align: TOP_RIGHT
+            x: -16
+            y: 232
+            bg_color: 0x263238
+            radius: 12
+            border_width: 0
+            widgets:
+              - label: {text: &quot;+&quot;, text_font: font_num_big, text_color: 0xFFFFFF, align: CENTER}
+            on_click:
+              - homeassistant.action:
+                  action: climate.set_temperature
+                  data: {entity_id: &quot;${ha_ac_entity}&quot;}
+                  data_template:
+                    temperature: &quot;{{ [ (state_attr('${ha_ac_entity}','temperature') | float(21)) + 1, 30 ] | min }}&quot;
+
+        - label:
+            id: ac_current_label
+            text: &quot;Atual: --&quot;
+            text_font: font_text_md
+            text_color: 0x90A4AE
+            align: TOP_MID
+            y: 322
+
+        - label:
+            id: ac_mode_label
+            text: &quot;—&quot;
+            text_font: font_text_md
+            text_color: 0x64B5F6
+            align: TOP_MID
+            y: 352
+</code></pre>
+<p><strong>Como funciona, em resumo:</strong></p>
+<ul>
+<li><code>substitutions</code> no topo centraliza o que você troca: nome do dispositivo, <strong>entidades do HA</strong> (<code>weather</code>, <code>fan</code>, <code>climate</code>), cidade e fuso — sem procurar no meio do arquivo.</li>
+<li><code>display</code> (driver <code>mipi_spi</code>, modelo <code>JC3248W535</code>) + <code>touchscreen</code> (<code>axs15231</code>) ativam a tela e o toque; <code>lvgl</code> desenha a interface em 3 páginas com barra inferior.</li>
+<li>Sensores <code>platform: homeassistant</code> <strong>puxam</strong> dados do HA (temperatura do clima, modo do ar, velocidade do ventilador) e atualizam os rótulos; os botões chamam serviços de volta (<code>homeassistant.action</code>) para abrir/fechar cortinas, ligar o ar e mudar a velocidade.</li>
+<li>O relógio e a data são gerados localmente (via <code>sntp</code>), sem depender do HA.</li>
+<li><strong>Hardware:</strong> confirme a flash/PSRAM da sua unidade; se o boot falhar, teste <code>psram.mode: quad</code>. A rotação da tela pode precisar de <code>90°</code>/<code>270°</code>.</li>
+</ul>
+<p>Ajuste as <code>substitutions</code> para as suas entidades e valide no <strong>ESPHome Device Builder</strong> antes de gravar.</p>
 <p><a href="/home-assistant/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Voltar ao Home Assistant</a>.</p>
-<p>Fontes: <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/install/getting-started/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>iniciar no ESPHome</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/install/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>instalar ESPHome</a>, <a class="ext" target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html">ESP32-DevKitC</a>, <a class="ext" target="_blank" rel="noopener" href="https://docs.m5stack.com/en/core/AtomS3">ATOM-S3</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/sensor/xiaomi_miscale.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>componente xiaomi_miscale</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/bluetooth_proxy.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>Bluetooth Proxy</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/remote_receiver.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>remote_receiver (IR)</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/openthread.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>OpenThread</a> e <a class="ext" target="_blank" rel="noopener" href="https://www.nabucasa.com/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="nabu-casa" src="/static/img/brands/nabu-casa.svg?v=fd7f86f9" width="32" height="32" alt="" decoding="async"></span>Nabu Casa e Open Home Foundation</a>.</p>
+<p>Fontes: <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/install/getting-started/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>iniciar no ESPHome</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/install/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>instalar ESPHome</a>, <a class="ext" target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html">ESP32-DevKitC</a>, <a class="ext" target="_blank" rel="noopener" href="https://docs.m5stack.com/en/core/AtomS3">ATOM-S3</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/sensor/xiaomi_miscale.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>componente xiaomi_miscale</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/bluetooth_proxy.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>Bluetooth Proxy</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/remote_receiver.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>remote_receiver (IR)</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/openthread.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>OpenThread</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/lvgl/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>LVGL</a> e <a class="ext" target="_blank" rel="noopener" href="https://www.nabucasa.com/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="nabu-casa" src="/static/img/brands/nabu-casa.svg?v=fd7f86f9" width="32" height="32" alt="" decoding="async"></span>Nabu Casa e Open Home Foundation</a>.</p>
         <ul class="tags"><li>ESPHome</li><li>ESP32</li><li>DIY</li><li>YAML</li><li>Sensores</li></ul>
       </div>
     </div>
