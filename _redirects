@@ -1,4 +1,7 @@
 # Redirecionamentos do Cloudflare Pages
+# Retired image paths use the current portrait and SmartHome branding.
+/static/img/author-seal.jpg   /static/img/alvaro-retrato-20261021.jpg   301
+/static/img/radapps-brand.jpg /static/img/logo-smarthome-ai-marca.png  301
 /home-assistant.html   /home-assistant/   301
 /index.html            /                  301
 /guias/                /artigos/          301
