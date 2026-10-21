@@ -104,7 +104,7 @@ You choose what to share. Not every feature has an equivalent in the Home app. F
 
 An AI assistant can explain the options, propose a configuration and help you understand errors. That makes learning more accessible, but you still need to check the board, the pins and the documentation, and validate before flashing. Start with a USB-powered, low-voltage project.
 
-[Meet ESPHome through the screens](/en/esphome-esp32/). There you'll find **ready-made examples to copy**: a [scale in Home Assistant over Bluetooth](/en/esphome-esp32/#example-scale), a [Bluetooth Proxy with the ATOM-S3](/en/esphome-esp32/#example-bt-proxy), an [infrared receiver](/en/esphome-esp32/#example-ir), a [Thread device (NanoC6)](/en/esphome-esp32/#example-thread), a [touchscreen panel (weather & controls)](/en/esphome-esp32/#example-display) and a [Thread display with temperature/humidity (C6-GEEK)](/en/esphome-esp32/#example-c6geek).
+[Meet ESPHome through the screens](/en/esphome-esp32/). There you'll find **ready-made examples to copy**: a [scale in Home Assistant over Bluetooth](/en/esphome-examples/#example-scale), a [Bluetooth Proxy with the ATOM-S3](/en/esphome-examples/#example-bt-proxy), an [infrared receiver](/en/esphome-examples/#example-ir), a [Thread device (NanoC6)](/en/esphome-examples/#example-thread), a [touchscreen panel (weather & controls)](/en/esphome-examples/#example-display) and a [Thread display with temperature/humidity (C6-GEEK)](/en/esphome-examples/#example-c6geek).
 
 ## Cameras that help you understand what is going on
 
