@@ -29,7 +29,7 @@ Adicione a integração em **Configurações → Dispositivos e serviços** e de
 <figure class="feature-figure"><a href="/static/img/ha-features/frigate-live.webp" target="_blank" rel="noopener" aria-label="Ampliar: Tela oficial do Frigate: visão ao vivo de várias câmeras."><img src="/static/img/ha-features/frigate-live.webp" width="1400" height="786" alt="Tela oficial do Frigate: visão ao vivo de várias câmeras." loading="lazy" decoding="async"></a><figcaption>Tela oficial do Frigate: visão ao vivo de várias câmeras. · <a class="ext" href="https://frigate.video/" target="_blank" rel="noopener">Imagem oficial</a></figcaption></figure>
 <figure class="feature-figure"><a href="/static/img/ha-features/frigate-review.webp" target="_blank" rel="noopener" aria-label="Ampliar: Tela oficial do Frigate: revisão de alertas e detecções."><img src="/static/img/ha-features/frigate-review.webp" width="1400" height="1236" alt="Tela oficial do Frigate: revisão de alertas e detecções." loading="lazy" decoding="async"></a><figcaption>Tela oficial do Frigate: revisão de alertas e detecções. · <a class="ext" href="https://frigate.video/" target="_blank" rel="noopener">Imagem oficial</a></figcaption></figure>
 
-As imagens acima são exemplos do projeto Frigate. Não são capturas da casa do autor. A aparência e os menus variam conforme a versão.
+Os diagramas acima ilustram conceitos de vídeo e eventos; não são capturas da minha casa nem da interface do Frigate. Consulte a documentação vinculada para ver a interface atual.
 
 ## Três níveis de inteligência
 

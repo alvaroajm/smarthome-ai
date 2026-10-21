@@ -15,7 +15,7 @@ tags: [MCP, Claude, IA, Assist, Automação]
 
 Você pode pedir a um assistente de IA que consulte a casa ou use ferramentas conectadas a ela. **MCP é o protocolo dessa conexão; não garante que qualquer pedido seja possível.** Histórico, criação de automações e edição de arquivos dependem das ferramentas disponíveis.
 
-Este guia foi revisto pelas fontes oficiais em **21/10/2026**. É orientação documental e um roteiro de verificação, não um relato de conexão testada na casa do autor.
+Este guia foi revisto pelas fontes oficiais em **21/10/2026**. É orientação documental e um roteiro de verificação, não um relato de conexão testada na minha casa.
 
 ## Cliente e servidor: duas direções diferentes
 

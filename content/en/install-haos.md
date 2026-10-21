@@ -34,7 +34,7 @@ Not bought yet? [Compare the hardware, photos and prices](/#hardware-haos) (in P
 | **Storage** | 32 GB internal eMMC. | The NVMe SSD you choose. | Internal SSD, usually 256 GB or more. |
 | **Backup and replacement** | HAOS backups; closed hardware. | Easy to swap SSD or board. | Easy to swap SSD and memory. |
 
-When in doubt, the **Green** is the safest choice for anyone who only wants lights, sensors and automations; the **mini PC** is the choice for those who already know cameras with image analysis are coming. In the [author's home](/minha-instalacao/) the hub is a mini PC with a Ryzen 7 processor, precisely because the house has cameras and an ESPHome display besides the lights.
+When in doubt, the **Green** is the safest choice for anyone who only wants lights, sensors and automations; the **mini PC** is the choice for those who already know cameras with image analysis are coming. In [my home](/minha-instalacao/) the hub is a mini PC with a Ryzen 7 processor. I also use cameras and an ESPHome display in addition to the lights.
 
 ## Before you start, have ready
 

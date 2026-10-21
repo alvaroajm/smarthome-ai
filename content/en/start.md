@@ -67,7 +67,7 @@ shopping.
   buy more of the same.
 - **Leaving a Zigbee bulb behind an ordinary wall switch.** When someone flips the switch, the bulb
   disappears from the network. Keep the switch on, or replace it with a Zigbee switch, like the
-  Zemismart ones in the [author's home (PT)](/minha-instalacao/).
+  Zemismart ones in [my home (PT)](/minha-instalacao/).
 - **Ignoring the exact model.** Before buying, search the exact model (not just the brand) in the ZHA
   or Zigbee2MQTT device lists. "Works with Alexa" on the box says nothing about Zigbee.
 - **Skipping the backup.** Next topic.
@@ -94,7 +94,7 @@ access and cloud services such as voice assistants.
 
 **Can I use Alexa or Apple Home as well?** Yes, later. Home Assistant can expose devices to Alexa
 through [Home Assistant Cloud (PT)](/nabu-casa/) and to the Apple Home app through the
-[HomeKit integration (PT)](/apple-homekit/). The author uses all three in the same house.
+[HomeKit integration (PT)](/apple-homekit/). I use all three in my home.
 
 **Zigbee or Wi-Fi bulbs?** Zigbee for this path: it does not load the router, forms a mesh and works
 without the manufacturer's cloud. Wi-Fi products can come later, case by case.

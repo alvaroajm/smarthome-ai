@@ -34,8 +34,7 @@ Ainda não comprou? [Compare os equipamentos, fotos e preços](/#hardware-haos).
 
 Na dúvida, o **Green** é a escolha mais segura para quem só quer luzes, sensores e automações; o
 **mini-PC** é a escolha de quem já sabe que vai colocar câmeras com análise de imagem. Na
-[instalação do autor](/minha-instalacao/) a central é um mini-PC com processador Ryzen 7, justamente
-porque a casa tem câmeras e uma tela ESPHome além das luzes.
+[minha instalação](/minha-instalacao/) a central é um mini-PC com processador Ryzen 7, e também uso câmeras e uma tela ESPHome além das luzes.
 
 ## Antes de começar, separe
 

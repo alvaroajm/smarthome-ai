@@ -43,7 +43,7 @@ Esse teste verifica a ação, **não o gatilho do pôr do sol**. Para testar a r
 
 ## Defina o que conta como sucesso
 
-Antes de adicionar outras regras, use este pequeno roteiro na sua própria instalação. Ele é uma proposta de teste, não um relato de teste realizado pelo autor.
+Antes de adicionar outras regras, use este pequeno roteiro na sua própria instalação. Ele é uma proposta de teste, não um relato de teste que realizei na minha casa.
 
 | Etapa | O que fazer | Resultado que você procura |
 |---|---|---|

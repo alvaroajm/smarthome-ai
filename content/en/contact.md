@@ -2,7 +2,7 @@
 title: Contact
 slug: contact
 key: contato
-description: How to reach SmartHome-AI — the author's email, WhatsApp and social channels, and what to include in a Home Assistant, Zigbee or ESPHome question.
+description: How to reach SmartHome-AI — my email, WhatsApp and social channels, and what to include in a Home Assistant, Zigbee or ESPHome question.
 category: Site
 icon: message
 order: 5
@@ -60,5 +60,5 @@ can be reported there as well.
 Manufacturers and projects are welcome to get in touch about product reviews, but the site keeps
 its editorial independence: there is no paid content disguised as a guide, and any partnership or
 review unit is disclosed on the page itself. Ads shown on the site are served by Google AdSense and
-are not recommendations by the author. See also the [Privacy policy](/en/privacy/) and the
+are not my recommendations. See also the [Privacy policy](/en/privacy/) and the
 [Terms of use](/en/terms/).

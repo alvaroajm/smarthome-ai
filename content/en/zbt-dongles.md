@@ -70,7 +70,7 @@ Mains-powered devices (bulbs, wall switches, plugs) are **routers**: besides doi
 
 So pair the mains devices first, from the room closest to the adapter to the farthest, and only then the battery ones, each near the router it will use. A sensor paired next to the adapter and then carried to the garage will drop off, because it keeps the old route.
 
-A home with three or four well-spread routers (a Zigbee bulb or plug in each important room) has a far more stable network than one with a powerful adapter and ten battery sensors. In the [author's home](/minha-instalacao/) (in Portuguese), the Zemismart Zigbee wall switches play that router role besides controlling the lights.
+A home with three or four well-spread routers (a Zigbee bulb or plug in each important room) has a far more stable network than one with a powerful adapter and ten battery sensors. In [my home](/minha-instalacao/) (in Portuguese), I use Zemismart Zigbee wall switches to control the lights; repeater support needs to be checked for the exact model.
 
 <figure class="ha-screen"><a href="/static/img/ha-guide/zha-add.png" target="_blank" rel="noopener" aria-label="Enlarge: Use Add device to search for devices in pairing mode."><img src="/static/img/ha-guide/zha-add.png" alt="Use Add device to search for devices in pairing mode." width="684" height="288" loading="lazy" decoding="async"></a><figcaption>Use Add device to search for devices in pairing mode. <a class="ext" href="https://support.nabucasa.com/hc/en-us/articles/29400591254301" target="_blank" rel="noopener">Official screenshot · Nabu Casa</a> <span>Names may vary by version. Tap to enlarge.</span><a href="/static/img/ha-guide/README.md">Image credits</a></figcaption></figure>
 

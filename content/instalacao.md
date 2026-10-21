@@ -78,7 +78,7 @@ aparelhos ("Luz da sala", "Sensor do corredor") e teste cada dispositivo antes d
   bem suportado, compre mais do mesmo.
 - **Lâmpada no interruptor de parede comum.** Se alguém desliga o interruptor, a lâmpada Zigbee some
   da rede. Deixe o interruptor sempre ligado ou troque-o por um interruptor Zigbee, como os
-  Zemismart usados na [instalação do autor](/minha-instalacao/).
+  Zemismart usados na [minha instalação](/minha-instalacao/).
 - **Ignorar o nome do modelo.** Antes de comprar, procure o modelo exato (não só a marca) na lista de
   dispositivos do ZHA ou do Zigbee2MQTT. "Compatível com Alexa" na caixa não diz nada sobre Zigbee.
 - **Esquecer o backup.** Está no próximo tópico.
@@ -106,7 +106,7 @@ acesso remoto e serviços de nuvem, como assistentes de voz.
 
 **Posso usar Alexa ou o app Casa da Apple junto?** Sim, mais tarde. O Home Assistant pode expor os
 dispositivos para a Alexa pelo [Home Assistant Cloud](/nabu-casa/) e para o app Casa pela
-[integração HomeKit](/apple-homekit/). O autor usa as três formas de controle na mesma casa.
+[integração HomeKit](/apple-homekit/). Uso as três formas de controle na minha casa.
 
 **Zigbee ou Wi-Fi para as lâmpadas?** Zigbee, para esta trilha: não ocupa o roteador, forma uma rede
 em malha e funciona sem a nuvem do fabricante. Produtos Wi-Fi podem entrar depois, caso a caso.

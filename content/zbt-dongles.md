@@ -86,8 +86,7 @@ pareado colado no adaptador e depois levado para a garagem vai cair, porque ele 
 
 Uma casa com três ou quatro roteadores bem distribuídos (uma lâmpada ou tomada Zigbee por cômodo
 importante) tem uma rede muito mais estável do que uma com um adaptador potente e dez sensores de
-bateria. Na [casa do autor](/minha-instalacao/), os interruptores Zemismart Zigbee nas paredes cumprem
-esse papel de roteador, além de controlar as luzes.
+bateria. Na [minha casa](/minha-instalacao/), uso interruptores Zemismart Zigbee nas paredes para controlar as luzes; o papel de repetidor precisa ser conferido no modelo exato.
 
 <figure class="ha-screen"><a href="/static/img/ha-guide/zha-add.png" target="_blank" rel="noopener" aria-label="Ampliar tela: Use Adicionar dispositivo para buscar aparelhos em pareamento."><img src="/static/img/ha-guide/zha-add.png" alt="Use Adicionar dispositivo para buscar aparelhos em pareamento." width="684" height="288" loading="lazy" decoding="async"></a><figcaption>Use Adicionar dispositivo para buscar aparelhos em pareamento. <a class="ext" href="https://support.nabucasa.com/hc/en-us/articles/29400591254301" target="_blank" rel="noopener">Tela oficial · Nabu Casa</a> <span>Em inglês; os nomes podem variar por versão. Toque para ampliar.</span><a href="/static/img/ha-guide/README.md">Créditos das imagens</a></figcaption></figure>
 

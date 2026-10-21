@@ -58,7 +58,7 @@ Nossa trilha prioriza liberdade de escolha e automações locais. O Home Assista
 
 **Vamos começar pelo Home Assistant OS, com Zigbee, ZHA e ZBT-2.** Aprenda uma etapa de cada vez; voz, câmeras e recursos extras podem esperar.
 
-As plataformas não se excluem. Na [casa do autor](/minha-instalacao/), o Home Assistant é a central, e as
+As plataformas não se excluem. Na [minha casa](/minha-instalacao/), o Home Assistant é a central, e as
 mesmas luzes são acionadas pelo app Casa da Apple e por voz pela Alexa. A diferença é quem guarda as
 regras: o Home Assistant.
 

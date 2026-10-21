@@ -73,7 +73,7 @@ As duas plataformas automatizam, e é tentador espalhar regras pelas duas. Uma d
   "ao chegar em casa" baseada na localização dos iPhones, quando ela funcionar melhor do que a do
   Home Assistant.
 
-Na [casa do autor](/minha-instalacao/), o Home Assistant é a central, e duas Apple TV 4K servem como
+Na [minha casa](/minha-instalacao/), o Home Assistant é a central, e duas Apple TV 4K servem como
 centrais do HomeKit para o acesso pelo app Casa.
 
 ## Siri e acesso remoto

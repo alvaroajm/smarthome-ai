@@ -59,7 +59,7 @@ quando a internet cai.
   e notificações, que são a base de "avise se a porta ficou aberta".
 - **Sun (Sol):** já vem ativa; é o pôr do sol da primeira automação.
 - **Philips Hue:** se você tem o hub Hue, a integração local aparece sozinha; basta apertar o botão
-  do hub. É o caso da [casa do autor](/minha-instalacao/), que mantém as Hue no hub da Philips.
+  do hub. É o caso da [minha casa](/minha-instalacao/), que mantém as Hue no hub da Philips.
 - **HomeKit Bridge:** expõe dispositivos do Home Assistant ao app Casa da Apple. Guia:
   [Home Assistant no app Casa](/apple-homekit/).
 - **Home Assistant Cloud:** necessária para Alexa e Google Assistant sem abrir portas. Guia:

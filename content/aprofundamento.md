@@ -56,7 +56,7 @@ Há três degraus, e cada um pode ser o último:
 3. **Analisar com IA.** [Câmeras com inteligência artificial](/cameras-ia/): detecção de pessoas,
    veículos e animais com Frigate, e descrições em linguagem natural com modelos de visão.
 
-Na [instalação do autor](/minha-instalacao/), o fluxo relatado é câmeras → Home Assistant → Scrypted →
+Na [minha instalação](/minha-instalacao/), o fluxo relatado é câmeras → Home Assistant → Scrypted →
 HomeKit Secure Video, com câmeras Tapo e Intelbras. Confira capacidade do equipamento, armazenamento e
 privacidade antes de gravar, e lembre que câmeras dentro de casa merecem regras claras com quem mora
 com você.
@@ -65,7 +65,7 @@ com você.
 
 Quando a loja não tem o sensor que você quer, o [ESPHome](/esphome-esp32/) permite montar um com uma
 placa ESP32 e um arquivo de configuração, sem programar em C. Sensores de temperatura, presença por
-radar, medidores de energia e telas de parede, como a tela ESP32-S3 da casa do autor, entram por aqui.
+radar, medidores de energia e telas de parede, como a tela ESP32-S3 da minha casa, entram por aqui.
 Exige cuidado com fontes de alimentação e com o que se liga à rede elétrica; leia os
 [Termos de uso](/termos/#2-instalacoes-eletricas-hardware-e-firmware) antes de abrir qualquer caixa.
 
@@ -92,7 +92,7 @@ para esses serviços, deixando a central de automação livre e simples.
 Três caminhos, do mais simples ao mais técnico:
 
 - **[Home Assistant Cloud (Nabu Casa)](/nabu-casa/):** assinatura que dá acesso remoto seguro e a
-  integração com Alexa e Google sem abrir portas. É o caminho usado pelo autor para a Alexa.
+  integração com Alexa e Google sem abrir portas. É o caminho que uso para a Alexa.
 - **VPN** como WireGuard ou Tailscale: acesso à rede de casa a partir do celular, sem expor nada à
   internet. Exige configurar o cliente em cada aparelho.
 - **Proxy reverso com HTTPS:** expõe o Home Assistant num domínio próprio. Dá mais trabalho e exige

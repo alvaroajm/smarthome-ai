@@ -55,7 +55,7 @@ This path prioritises freedom of choice and local automations. Home Assistant pr
 
 **We start with Home Assistant OS, Zigbee, ZHA and the ZBT-2.** Learn one step at a time; voice, cameras and extras can wait.
 
-The platforms are not mutually exclusive. In the [author's home](/minha-instalacao/) (page in Portuguese), Home Assistant is the hub, and the same lights are switched from the Apple Home app and by voice through Alexa. The difference is who keeps the rules: Home Assistant.
+The platforms are not mutually exclusive. In [my home](/minha-instalacao/) (page in Portuguese), Home Assistant is the hub, and the same lights are switched from the Apple Home app and by voice through Alexa. The difference is who keeps the rules: Home Assistant.
 
 ## What to automate first
 

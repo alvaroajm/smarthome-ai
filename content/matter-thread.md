@@ -113,7 +113,7 @@ caminho de instalação que não depende de Bluetooth, IPv6 nem roteador de bord
 
 Faz sentido pensar em Matter sobre Thread quando: você já tem um HomePod ou uma Apple TV recente e quer
 sensores que apareçam também no app Casa; um fabricante só oferece o produto em Matter; ou quer evitar
-depender da nuvem de produtos Wi-Fi. Na [instalação do autor](/minha-instalacao/), duas Apple TV 4K
+depender da nuvem de produtos Wi-Fi. Na [minha instalação](/minha-instalacao/), duas Apple TV 4K
 servem como centrais do HomeKit e as luzes são acionadas também pelo app Casa; o caminho exato dessa
 integração ainda não está documentado naquela página.
 
