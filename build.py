@@ -75,6 +75,11 @@ SOCIAL = [
     ("LinkedIn", "https://www.linkedin.com/in/dr-alvaro-menezes/", "linkedin"),
 ]
 
+CHANNELS = [
+    ("Clara Vilar", "https://youtube.com/@clara_vilar?si=RTeMR2ECLdKVlHxf"),
+    ("AIvaro", "https://youtube.com/@aivaro-movies?si=XvFktd0cXM51t848"),
+]
+
 PLACES = [
     ("Instituto Doutor José Frota", "Rua Barão do Rio Branco, 1816 · Centro, Fortaleza/CE"),
     ("Hospital Universitário Walter Cantídio", "Rua Pastor Samuel Munguba, 1290 · Rodolfo Teófilo, Fortaleza/CE"),
@@ -538,6 +543,16 @@ def ecosystem_html(lang: str) -> str:
 
 def footer_html(lang: str) -> str:
     ui = LANGS[lang]["ui"]
+    channels_title = "Conheça os canais" if lang == "pt" else "Discover the channels"
+    channels_cta = "Visitar canal" if lang == "pt" else "Visit channel"
+    channels = "".join(
+        f'''<a class="channel-card" href="{esc(url)}" target="_blank" rel="noopener noreferrer">
+          <span class="channel-platform">{brand_svg('youtube')} YouTube</span>
+          <strong>{esc(name)}</strong>
+          <span class="channel-cta">{channels_cta} <span aria-hidden="true">↗</span></span>
+        </a>'''
+        for name, url in CHANNELS
+    )
     links = FOOTER_LINKS[lang]
     cols = []
     for key in ("f_platforms", "f_protocols", "f_ai", "f_site"):
@@ -549,6 +564,11 @@ def footer_html(lang: str) -> str:
     )
     places = "".join(f'<li><strong>{esc(n)}</strong><span>{esc(a)}</span></li>' for n, a in PLACES)
     return f"""<footer class="site-footer">
+    <section class="wrap channels" id="canais" aria-labelledby="channels-title">
+      <h2 id="channels-title">{channels_title}</h2>
+      <div class="channels-grid">{channels}</div>
+    </section>
+
     <section class="wrap eco">
       <h2 class="eco-title">{ui['f_ecosystem']}</h2>
       <div class="eco-grid">
