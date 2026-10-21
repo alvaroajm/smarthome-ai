@@ -136,7 +136,7 @@ Yes, as separate networks. Hue Bridge devices stay on that bridge while others u
 
 Not on its own. LQI indicates link quality, not a complete diagnosis. Observe lost messages, delays, routes, power and changes over time. Avoid deciding from one number alone.
 
-Sources: [ZHA](https://www.home-assistant.io/integrations/zha/), [Zigbee networking](https://www.zigbee2mqtt.io/guide/configuration/zigbee-network.html), [Z2M device catalog](https://www.zigbee2mqtt.io/supported-devices/) and [Hue integration](https://www.home-assistant.io/integrations/hue/). Continue with [Zigbee in practice (PT)](/zigbee/).
+Sources: [ZHA](https://www.home-assistant.io/integrations/zha/), [Zigbee networking](https://www.zigbee2mqtt.io/guide/configuration/zigbee-network.html), [Z2M device catalog](https://www.zigbee2mqtt.io/supported-devices/) and [Hue integration](https://www.home-assistant.io/integrations/hue/). Continue with [Zigbee in practice](/en/zigbee/).
 
 ## ZHA, Zigbee2MQTT and MQTT
 

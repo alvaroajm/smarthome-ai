@@ -2,164 +2,66 @@
 level: avancado
 title: Converse com sua casa
 slug: claude-mcp
-description: Como conectar o Claude ao Home Assistant pelo protocolo MCP: servidor MCP oficial, Claude Desktop, Claude no terminal e os melhores servidores.
+description: Claude e Home Assistant com MCP: conector remoto, autenticação OAuth, diferença entre cliente e servidor e roteiro para verificar a conexão.
 category: IA & agentes
 icon: bot
 order: 114
 featured: true
-reading: 13 min de leitura
+reading: 6 min de leitura
 date: 2026-09-21
-tags: [MCP, Claude, IA, Assist, Ollama, Automação]
+updated: 2026-10-21
+tags: [MCP, Claude, IA, Assist, Automação]
 ---
 
-Existe uma diferença enorme entre "minha casa tem um assistente de voz" e "eu converso com a minha casa".
-A primeira entende comandos decorados. A segunda entende **contexto**: *"a varanda ficou com a luz acesa
-ontem à noite?"*, *"crie uma automação que feche as cortinas quando o sol bater na sala"*.
+Você pode pedir a um assistente de IA que consulte a casa ou use ferramentas conectadas a ela. **MCP é o protocolo dessa conexão; não garante que qualquer pedido seja possível.** Histórico, criação de automações e edição de arquivos dependem das ferramentas disponíveis.
 
-O que tornou isso possível chama-se **MCP**.
+Este guia foi revisto pelas fontes oficiais em **21/10/2026**. É orientação documental e um roteiro de verificação, não um relato de conexão testada na casa do autor.
 
-## O que é MCP, em uma analogia
+## Cliente e servidor: duas direções diferentes
 
-Antes do USB, cada aparelho tinha um conector diferente. O USB não deixou a impressora mais inteligente —
-só criou **um jeito padrão** de qualquer computador conversar com qualquer periférico.
+- O **Model Context Protocol Server** do Home Assistant oferece ferramentas para um cliente como Claude. É a integração relevante para conectar Claude à casa.
+- A integração **Model Context Protocol**, sem “Server”, faz o caminho inverso: o Home Assistant consome ferramentas de outro servidor MCP para seus agentes de conversação. Adicioná-la não conecta o Claude à sua casa.
 
-O **MCP (Model Context Protocol)** é o USB dos modelos de inteligência artificial. É um padrão aberto que
-define como um programa oferece **ferramentas** e **dados** para um modelo usar. Quem fala MCP de um lado
-conversa com quem fala MCP do outro, sem integração feita à mão.
+Fonte: [integração cliente MCP do Home Assistant](https://www.home-assistant.io/integrations/mcp/).
 
-Na prática:
+## Prepare o endereço do servidor
 
-- **Servidor MCP** — quem oferece. O Home Assistant oferece "ligar a luz da sala", "qual a temperatura do
-  quarto".
-- **Cliente MCP** — quem consome. Claude Desktop, Claude no terminal, ChatGPT, Cursor, Antigravity.
+Na documentação atual, a URL é obtida em **Configurações → Sistema → IA**. Outra entrada de configuração é **Dispositivos e serviços → Adicionar integração → Model Context Protocol Server**. Use o endereço fornecido pela sua instalação.
 
-!!! nota "O modelo não vira dono da casa"
-    O servidor MCP decide **o que** fica exposto e se o cliente pode **agir** ou apenas **ler**. É você quem
-    entrega as chaves, uma a uma.
+Revise as APIs e entidades disponíveis: instalações novas podem expor todas as APIs LLM e exigir administrador por padrão. Instalações antigas podem manter escolhas anteriores. Não presuma um modo somente leitura nem acesso restrito apenas por ter configurado o Assist.
 
-## Passo 1: ligar o MCP no Home Assistant
+O servidor suporta **OAuth 2.0 com PKCE**. O fluxo oficial do Claude usa autenticação no Home Assistant; não exige copiar um token de longa duração para um JSON. Os nomes dos menus podem mudar entre versões.
 
-O Home Assistant tem uma integração oficial chamada **Model Context Protocol Server**.
+Fonte: [servidor MCP e configuração de clientes](https://www.home-assistant.io/integrations/mcp_server/).
 
-1. Vá em *Configurações → Dispositivos e serviços → Adicionar integração*
-2. Escolha **Model Context Protocol Server**
-3. Decida se os clientes poderão **controlar** a casa ou apenas consultá-la
+## Claude: conector remoto e servidor local são diferentes
 
-Dois detalhes que costumam travar iniciantes:
+Um **conector remoto** é acessado pela infraestrutura da Anthropic, inclusive quando você usa o aplicativo Desktop. Um endereço acessível somente na sua rede, como `homeassistant.local`, não fica acessível ao conector só porque o Mac está nessa rede.
 
-- **Só entra no MCP o que está exposto ao Assist.** Em *Configurações → Assistentes de voz → Expor*,
-  escolha as entidades. Nada exposto = o modelo não vê nada.
-- **A autenticação usa um token.** No seu perfil (canto inferior esquerdo) → aba *Segurança* → **Criar
-  token de longa duração**. Copie e guarde: ele aparece **uma única vez**.
+No Claude, procure **Customize → Connectors → Add → Custom → Web**; em algumas versões aparece “Add custom connector”. Informe o nome e a URL MCP, revise a autenticação detectada, conecte e entre na sua instância do Home Assistant. A disponibilidade e as etapas dependem do plano e das regras da organização.
 
-O endereço do servidor é `http://<ip-do-home-assistant>:8123/api/mcp`.
+Já um **servidor MCP local** do Claude Desktop é um processo executado no computador. Não é o mesmo mecanismo do conector remoto. Uma configuração de ponte local precisa corresponder ao transporte, à autenticação e à versão do programa escolhido; não há aqui um JSON genérico prometido como pronto para uso.
 
-!!! atencao "Um token de longa duração é uma chave mestra"
-    Ele vale para sempre e dá acesso à API do Home Assistant. Guarde num gerenciador de senhas, nunca num
-    arquivo versionado no Git, e revogue na mesma tela se desconfiar de algo.
+Fontes: [conectores remotos e requisitos de rede](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp) e [servidores locais no Claude Desktop](https://support.claude.com/en/articles/10949351-getting-started-with-local-mcp-servers-on-claude-desktop).
 
-## Passo 2: Claude Desktop (no seu Mac)
+## Verifique uma etapa de cada vez
 
-O Claude Desktop conversa com servidores MCP de duas formas:
+O roteiro abaixo é uma proposta de teste. Registre o resultado real, inclusive falhas; não trate uma resposta convincente do modelo como confirmação de execução.
 
-**a) Conector remoto** — se o seu Home Assistant tem endereço público e HTTPS (por exemplo, o
-`https://….ui.nabu.casa` da [Nabu Casa](/nabu-casa/)), basta adicioná-lo como conector e autenticar.
-
-**b) Ponte local** — se a casa só existe na rede interna, um pequeno programa (*mcp-proxy*) faz a ponte
-entre o Claude Desktop e o endereço local. A configuração fica no arquivo de configuração do Claude
-Desktop, mais ou menos assim:
-
-```json
-{
-  "mcpServers": {
-    "home-assistant": {
-      "command": "mcp-proxy",
-      "args": ["http://192.168.1.50:8123/api/mcp"],
-      "env": { "API_ACCESS_TOKEN": "SEU_TOKEN_DE_LONGA_DURACAO" }
-    }
-  }
-}
-```
-
-Reinicie o Claude Desktop e a casa aparece como ferramenta disponível. A partir daí:
-
-> *"Quais luzes estão acesas agora?"*
-> *"A temperatura do quarto passou de 26 graus em algum momento desta madrugada?"*
-> *"Desligue tudo da área de serviço."*
-
-## Passo 3: Claude no terminal (o ajudante de configuração)
-
-O Claude Desktop é ótimo para **conversar com a casa**. O Claude no terminal é ótimo para **trabalhar na
-casa**: ele lê e escreve arquivos, roda comandos e entende projetos inteiros.
-
-Casos em que isso muda o jogo:
-
-- **Escrever e corrigir YAML** de automações complexas, com `ha core check` rodando logo depois
-- **Criar configurações do [ESPHome](/esphome-esp32/)** para um sensor novo, já com os pinos certos
-- **Refatorar o `configuration.yaml`** que cresceu demais, separando em pacotes
-- **Investigar logs** e explicar o que aquele erro significa
-- **Versionar tudo no Git**, com mensagens de commit decentes
-
-Para ele enxergar os arquivos do Home Assistant, há três caminhos:
-
-| Caminho | Como funciona | Quando usar |
-|---|---|---|
-| **Samba** | O app *Samba share* monta `/config` como pasta de rede no Mac | O mais simples no dia a dia |
-| **Git** | Você versiona `/config` num repositório e trabalha na cópia local | O mais seguro: histórico e volta atrás |
-| **SSH** | Acesso direto ao [shell do HAOS](/comandos-haos/) | Ajustes rápidos e diagnóstico |
-
-!!! dica "A combinação que funciona"
-    Configuração no Git + Claude no terminal + `ha core check` antes de reiniciar. Você ganha histórico,
-    revisão e a possibilidade de voltar atrás — três coisas que faltam a quem edita YAML pela interface.
-
-## Quais servidores MCP valem a pena
-
-A lista cresce toda semana. Para quem cuida de uma casa inteligente, estes são os que realmente aparecem no
-uso diário:
-
-| Servidor MCP | Para quê |
+| Etapa | O que verificar |
 |---|---|
-| **Home Assistant (oficial)** | Ler estados e controlar a casa |
-| **Filesystem** | Ler e escrever arquivos de configuração numa pasta específica |
-| **Git** | Histórico, diferenças e commits da sua configuração |
-| **Fetch** | Buscar uma página da web (documentação, tabela de referência) |
-| **Memory** | Dar memória persistente ao assistente entre conversas |
-| **SQLite** | Consultar bancos locais — inclusive o histórico do Home Assistant |
-| **Playwright / navegador** | Automatizar páginas que não têm API |
-| **Cloudflare, GitHub e afins** | Se você também publica sites, como este |
+| Identificar a casa | Confirme instância e conta antes de autorizar a conexão. |
+| Conectar | O cliente deve concluir a autenticação e apresentar as ferramentas. Anote o erro exato se isso não acontecer. |
+| Consultar | Peça o estado de uma luz conhecida e compare com o painel do Home Assistant. Não peça histórico antes de confirmar que existe ferramenta para isso. |
+| Agir, se desejado | Escolha uma luz de teste, peça uma única mudança e confira o estado no painel e no ambiente. Evite comandos amplos como “desligue tudo”. |
+| Documentar | Anote versões, cliente, tipo de conexão, ferramenta chamada, estado anterior e resultado observado. Não publique credenciais. |
 
-Os servidores de referência ficam em
-[github.com/modelcontextprotocol/servers](https://github.com/modelcontextprotocol/servers).
+**Se a conexão falhar:** separe alcance de rede, autenticação e ferramenta ausente. Um servidor inacessível da nuvem não é o mesmo problema que uma luz não exposta. Compare o erro com a seção de diagnóstico da documentação oficial antes de trocar configurações.
 
-!!! atencao "Servidor MCP roda código no seu computador"
-    Instale apenas o que vier de fonte conhecida. Um servidor MCP malicioso tem o mesmo poder que qualquer
-    programa que você executa — e ainda ganha a ajuda de um modelo para usá-lo. Dê a cada servidor **a menor
-    pasta e o menor escopo** que resolvam o problema.
+## Editar YAML é outra tarefa
 
-## O Assist do Home Assistant com um modelo por trás
+Consultar ferramentas MCP não significa acesso automático a `/config`, ao Git ou ao sistema de arquivos. Se o objetivo for preparar uma automação, peça primeiro uma proposta de YAML, revise entidades e condições e use uma cópia da configuração. O [guia de comandos do HAOS](/comandos-haos/) explica a validação; a [primeira automação](/primeira-automacao/) segue pelas telas.
 
-Não é obrigatório sair do Home Assistant para ter conversa natural. Em
-*Configurações → Assistentes de voz*, você pode definir um **agente de conversação** baseado em modelo de
-linguagem — do Claude, do Google, da OpenAI ou **local**, via [Ollama](/casaos-umbrel/) rodando no seu
-mini-PC ou no Mac mini.
+Também não basta executar o modelo localmente para garantir que todo o áudio permaneça em casa: reconhecimento de voz, modelo, síntese e serviços acionados precisam ser avaliados separadamente. Escolha a arquitetura pelo que cada componente realmente faz.
 
-O arranjo mais equilibrado:
-
-- **Comandos simples** (acender, apagar, trancar) → processados localmente, rápidos e sem custo
-- **Pedidos complexos** ("deixe a casa pronta para dormir") → vão para o modelo
-- **Satélites de voz** ESP32 espalhados pela casa ([ESPHome](/esphome-esp32/)) como entrada de áudio
-
-Rodando o modelo localmente, nenhum áudio sai de casa — e o custo por pergunta é zero.
-
-## Segurança: as cinco regras
-
-1. **Exponha só o necessário.** Comece com luzes e sensores; deixe fechaduras, portão e alarme de fora até
-   confiar no conjunto.
-2. **Um token por cliente**, com nome claro ("claude-desktop-mac"). Assim você revoga um sem derrubar os outros.
-3. **Cuidado com injeção de prompt.** Um modelo lê textos de muitas fontes; se uma delas contiver instruções
-   disfarçadas, ele pode tentar executá-las. Isso é mais um motivo para não expor o que é crítico.
-4. **Nada de tokens no Git.** Use `secrets.yaml` e `.gitignore`.
-5. **Prefira ler antes de agir.** Passe semanas em modo consulta; só depois libere o controle.
-
-Um passo adiante nessa estrada são os **agentes autônomos**, que não esperam sua pergunta — e trazem
-vantagens e riscos próprios. É o tema do guia sobre [OpenClaw](/openclaw/).
+Para decidir o próximo passo, use o [guia do Home Assistant](/home-assistant/) e a [documentação do Assist](https://www.home-assistant.io/voice_control/). Relatos futuros da instalação devem incluir as configurações e os resultados efetivamente observados.

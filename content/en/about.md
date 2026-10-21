@@ -9,7 +9,7 @@ order: 3
 section: pagina
 reading: 3 min read
 date: 2026-09-21
-updated: 2026-10-20
+updated: 2026-10-21
 tags: [About, Contact, Open Source]
 ---
 
@@ -32,21 +32,21 @@ including homes with unstable internet, thick walls and people who would rather 
 
 ## Topics covered
 
-- [Home Assistant](/home-assistant/) — the platform
-- [ESPHome and ESP32](/esphome-esp32/) — devices you build yourself
-- [Zigbee2MQTT and ZHA](/zigbee/) and the [ZBT-1 / ZBT-2 dongles](/zbt-dongles/)
-- [Matter and Thread](/matter-thread/) — the standard that crosses ecosystems
-- [MQTT](/mqtt/) — the postal service of the smart home
-- [Apple HomeKit](/apple-homekit/) — iPhone, Siri and Apple TV
-- [Scrypted, Frigate and cameras](/scrypted/) and [AI cameras](/cameras-ia/)
-- [Claude and MCP](/claude-mcp/) and [OpenClaw](/openclaw/) — AI at home
-- [Hardware](/hardware/), [networking](/rede-wifi/) and [CasaOS / umbrelOS](/casaos-umbrel/)
+- [Home Assistant](/en/home-assistant/) — the platform
+- [ESPHome and ESP32 (PT)](/esphome-esp32/) — devices you build yourself
+- [Zigbee and ZHA](/en/zigbee/), [Zigbee2MQTT (PT)](/zigbee2mqtt/) and the [ZBT-1 / ZBT-2 dongles](/en/zbt-dongles/)
+- [Matter and Thread (PT)](/matter-thread/) — the standard that crosses ecosystems
+- [MQTT (PT)](/mqtt/) — the postal service of the smart home
+- [Apple HomeKit (PT)](/apple-homekit/) — iPhone, Siri and Apple TV
+- [Scrypted, Frigate and cameras (PT)](/scrypted/) and [AI cameras (PT)](/cameras-ia/)
+- [Claude and MCP (PT)](/claude-mcp/) and [OpenClaw (PT)](/openclaw/) — AI at home
+- [Hardware (PT)](/hardware/), [networking (PT)](/rede-wifi/) and [CasaOS / umbrelOS (PT)](/casaos-umbrel/)
 
 ## About the language
 
-The guide library is written in Brazilian Portuguese and is being translated into English progressively.
-Configuration files, YAML and command examples are language-neutral, and browser translation handles these
-pages well in the meantime.
+The beginner library includes English guides; links marked **PT** lead to Brazilian Portuguese pages
+that do not yet have an English edition. Configuration examples still need to be adapted to your setup,
+including entity IDs and any text used in labels or notifications.
 
 ## How this site is built
 
@@ -56,6 +56,11 @@ or site database. The site uses Google Analytics for traffic metrics and include
 integration for advertising, subject to Google's site approval. Advertising does not determine our
 topics or editorial recommendations. See the [Privacy policy](/en/privacy/) for cookies,
 third-party services and your control options.
+
+The generator lives in `build.py`, with separate modules for visual components and the `Markdown`
+library as its declared dependency. Content is stored as `.md` files under `content/`. After installing
+`requirements.txt`, run `python3 build.py` to generate `dist/` and `python3 scripts/check.py` to check
+internal links and templates before publishing.
 
 ## Who writes it
 
@@ -117,7 +122,7 @@ Living-room photos supplied by the author. They show the setting where the equip
 
 ## How to read these guides
 
-Screenshots labelled as official come from the projects' documentation; they are not screenshots of the author's home. Configuration examples and test plans need to be adapted to your installation. An educational example does not establish compatibility with every device.
+Original diagrams are conceptual overviews, not interface screenshots or drawings of commercial models. Official instructions are linked beside the illustrations. Configuration examples and test plans need to be adapted to your installation. An educational example does not establish compatibility with every device.
 
 Experience reports should identify equipment, versions, conditions and observed results. Where these details are absent, read the content as guidance based on the cited sources, rather than a product test. You can consult the [public change history](https://github.com/alvaroajm/smarthome-ai/commits/main/) and submit corrections using the contact details below.
 

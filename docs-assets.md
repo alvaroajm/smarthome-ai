@@ -75,3 +75,10 @@ e vídeos silenciosos em `static/video/scenes/` (≈17 MB no total, reencodados 
 Imagens e vídeos gerados por IA para o projeto; créditos e tabela em `static/img/scenes/README.md`.
 Duas imagens enviadas junto (uma com marca d'água Vecteezy e uma captura de tela de origem
 desconhecida) foram deixadas de fora por não terem licença clara.
+
+
+## Revisão de imagens — 21/10/2026
+
+A apresentação gerada agora substitui 31 referências de fotografias e telas de terceiros por diagramas originais bilíngues, mapeados em `editorial_diagrams.py` e documentados em `static/img/diagrams/README.md`. A decisão é preventiva: os créditos anteriores não demonstravam permissão comercial; a documentação local registra CC BY-NC-SA para parte das telas e ausência de licença separada para outras. Isso não é um diagnóstico jurídico nem uma causa confirmada da reprovação AdSense. Os links de instruções e produtos permanecem. As 31 cópias antigas são excluídas de `dist/`; o acervo e seus créditos ficam no repositório. Fotografias fornecidas pelo autor, ilustrações próprias, cenas geradas para o projeto e ícones de identificação dos links foram preservados. Não se alega que os diagramas retratem a interface atual ou o produto citado.
+
+A home mantém a planta interativa e a trilha inicial, mas os blocos extensos de Home Assistant e Zigbee ficam nos respectivos guias; a home usa resumos com links.

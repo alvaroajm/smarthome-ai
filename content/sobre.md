@@ -8,7 +8,7 @@ order: 20
 section: pagina
 reading: 3 min de leitura
 date: 2026-09-21
-updated: 2026-10-20
+updated: 2026-10-21
 tags: [Sobre, Contato, Open Source]
 ---
 
@@ -54,9 +54,10 @@ para publicidade, sujeita à aprovação do site pelo Google. Anúncios não det
 recomendações editoriais. Veja a [Política de privacidade](/privacidade/) para conhecer o uso de cookies,
 os serviços de terceiros e as opções de controle.
 
-O código do gerador é simples de propósito: cerca de 300 linhas, com uma única dependência
-(a biblioteca `Markdown`). Qualquer pessoa consegue clonar, escrever um arquivo `.md` na pasta `content/`,
-rodar `python3 build.py` e ter o site pronto.
+O gerador fica em `build.py`, com módulos separados para os componentes visuais e a biblioteca
+`Markdown` como dependência declarada. O conteúdo fica em arquivos `.md` na pasta `content/`.
+Depois de instalar as dependências de `requirements.txt`, `python3 build.py` gera o site em `dist/`;
+`python3 scripts/check.py` verifica os links internos e os templates antes da publicação.
 
 ## Quem escreve
 
@@ -118,7 +119,7 @@ Fotos da sala fornecidas pelo autor. Elas mostram o ambiente em que os equipamen
 
 ## Como interpretar os guias
 
-Capturas identificadas como oficiais pertencem à documentação dos respectivos projetos; não são capturas da casa do autor. Exemplos de configuração e roteiros de teste devem ser adaptados à sua instalação. Um exemplo didático não comprova compatibilidade com todos os aparelhos.
+Os diagramas originais são esquemas conceituais, não capturas da interface nem retratos de modelos comerciais. As instruções oficiais estão vinculadas junto às ilustrações. Exemplos de configuração e roteiros de teste devem ser adaptados à sua instalação. Um exemplo didático não comprova compatibilidade com todos os aparelhos.
 
 Relatos de experiência devem informar os equipamentos, versões, condições e resultados observados. Quando esses dados não estiverem presentes, trate o conteúdo como orientação baseada nas fontes citadas, e não como ensaio de produto. Você pode consultar o [histórico público de alterações](https://github.com/alvaroajm/smarthome-ai/commits/main/) e enviar correções pelo contato abaixo.
 

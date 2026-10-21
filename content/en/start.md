@@ -50,11 +50,11 @@ shopping.
    You end up at `http://homeassistant.local:8123`, with an account and an empty dashboard.
 4. [Understand Zigbee](/en/zigbee/) — 10 minutes. Coordinator, routers and end devices, and why mains-
    powered bulbs strengthen the mesh.
-5. [Thread and Matter, briefly](/matter-thread/) — 10 minutes. Enough to read a box in the shop and
+5. [Thread and Matter, briefly (PT)](/matter-thread/) — 10 minutes. Enough to read a box in the shop and
    avoid buying what your network cannot serve yet.
 6. [Connect ZBT-2 and set up ZHA](/en/zbt-dongles/) — 20 minutes. The bulb shows up on the dashboard
    and turns on from your phone.
-7. [Create your first automation](/primeira-automacao/) — 20 minutes. The light turns on at sunset,
+7. [Create your first automation (PT)](/primeira-automacao/) — 20 minutes. The light turns on at sunset,
    with menus only.
 
 ## Mistakes that slow beginners down
@@ -67,7 +67,7 @@ shopping.
   buy more of the same.
 - **Leaving a Zigbee bulb behind an ordinary wall switch.** When someone flips the switch, the bulb
   disappears from the network. Keep the switch on, or replace it with a Zigbee switch, like the
-  Zemismart ones in the [author's home](/minha-instalacao/).
+  Zemismart ones in the [author's home (PT)](/minha-instalacao/).
 - **Ignoring the exact model.** Before buying, search the exact model (not just the brand) in the ZHA
   or Zigbee2MQTT device lists. "Works with Alexa" on the box says nothing about Zigbee.
 - **Skipping the backup.** Next topic.
@@ -84,7 +84,7 @@ the local network still need power; cloud-based services need internet.
 After the first light, in this order: update Home Assistant if an update is pending; install the
 companion app on your phone (it also provides a home/away sensor used in many automations); add one
 sensor (door, motion or temperature) and build a second automation; then explore
-[integrations, Apps, HACS and cameras](/apps-integracoes/) as needs appear.
+[integrations, Apps, HACS and cameras (PT)](/apps-integracoes/) as needs appear.
 
 ## Common questions at this stage
 
@@ -93,15 +93,15 @@ Zigbee and the sunset automation run on the local network. The internet is neede
 access and cloud services such as voice assistants.
 
 **Can I use Alexa or Apple Home as well?** Yes, later. Home Assistant can expose devices to Alexa
-through [Home Assistant Cloud](/nabu-casa/) and to the Apple Home app through the
-[HomeKit integration](/apple-homekit/). The author uses all three in the same house.
+through [Home Assistant Cloud (PT)](/nabu-casa/) and to the Apple Home app through the
+[HomeKit integration (PT)](/apple-homekit/). The author uses all three in the same house.
 
 **Zigbee or Wi-Fi bulbs?** Zigbee for this path: it does not load the router, forms a mesh and works
 without the manufacturer's cloud. Wi-Fi products can come later, case by case.
 
 ## Later, if you need more
 
-[Further learning](/aprofundamento/) covers alternative installations, Zigbee2MQTT, cameras and other
+[Further learning (PT)](/aprofundamento/) covers alternative installations, Zigbee2MQTT, cameras and other
 advanced topics. None of it is required for your first ZHA light. If you get stuck, check the
 [FAQ](/en/faq/) or write through the [contact page](/en/contact/), stating hub, version, adapter and
 device model.

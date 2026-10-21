@@ -11,6 +11,7 @@ de templates/, copia static/ e escreve o site pronto em dist/.
 """
 from __future__ import annotations
 
+from editorial_diagrams import DIAGRAMS, replace_editorial_images, write_diagrams
 from beginner_content import beginner_home
 from visual_content import home_visual_context
 from lighting_scenes import scenes_showcase
@@ -717,6 +718,7 @@ def faq_ld(page) -> dict | None:
 def write(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     if path.suffix == ".html":
+        content = replace_editorial_images(content, "en" if '<html lang="en"' in content else "pt")
         content = decorate_project_links(content)
     path.write_text(content, encoding="utf-8")
 
@@ -1063,6 +1065,9 @@ def minify_css(css: str) -> str:
 def copy_static() -> None:
     if STATIC.exists():
         shutil.copytree(STATIC, DIST / "static", dirs_exist_ok=True)
+        # Keep historical source credits in Git; publish the original diagrams.
+        for source in DIAGRAMS:
+            (DIST / source.lstrip("/")).unlink(missing_ok=True)
         css_src = STATIC / "css/style.css"
         if css_src.exists():
             (DIST / "static/css/style.css").write_text(minify_css(css_src.read_text(encoding="utf-8")), encoding="utf-8")
@@ -1084,6 +1089,7 @@ def main() -> None:
     if "--clean" in sys.argv and DIST.exists():
         shutil.rmtree(DIST)
     DIST.mkdir(parents=True, exist_ok=True)
+    write_diagrams(ROOT)
 
     print(f"\n🏠  Gerando {SITE['name']} (pt + en) → {DIST.relative_to(ROOT)}/\n")
 
