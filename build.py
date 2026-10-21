@@ -76,8 +76,9 @@ SOCIAL = [
 ]
 
 CHANNELS = [
-    ("Clara Vilar", "https://youtube.com/@clara_vilar?si=RTeMR2ECLdKVlHxf"),
-    ("AIvaro", "https://youtube.com/@aivaro-movies?si=XvFktd0cXM51t848"),
+    ("Clara Vilar", "https://youtube.com/@clara_vilar?si=RTeMR2ECLdKVlHxf", "YouTube"),
+    ("AIvaro", "https://youtube.com/@aivaro-movies?si=XvFktd0cXM51t848", "YouTube"),
+    ("Clara Vilar · @clara_vilar_24", "https://www.tiktok.com/@clara_vilar_24", "TikTok"),
 ]
 
 PLACES = [
@@ -547,11 +548,11 @@ def footer_html(lang: str) -> str:
     channels_cta = "Visitar canal" if lang == "pt" else "Visit channel"
     channels = "".join(
         f'''<a class="channel-card" href="{esc(url)}" target="_blank" rel="noopener noreferrer">
-          <span class="channel-platform">{brand_svg('youtube')} YouTube</span>
+          <span class="channel-platform">{brand_svg('youtube') if platform == 'YouTube' else ''} {esc(platform)}</span>
           <strong>{esc(name)}</strong>
           <span class="channel-cta">{channels_cta} <span aria-hidden="true">↗</span></span>
         </a>'''
-        for name, url in CHANNELS
+        for name, url, platform in CHANNELS
     )
     links = FOOTER_LINKS[lang]
     cols = []

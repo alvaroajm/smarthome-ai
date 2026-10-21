@@ -1157,3 +1157,5 @@ img.project-logo{display:inline-block;width:1.25em;height:1.25em;max-width:none;
 .home-installation h2{margin:.5rem 0 1rem}
 .home-installation .btn{margin-top:1rem;white-space:normal}
 @media(max-width:760px){.home-installation{grid-template-columns:1fr}}
+
+@media (min-width: 1000px) { .channels-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
