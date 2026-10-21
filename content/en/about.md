@@ -13,7 +13,7 @@ updated: 2026-10-20
 tags: [About, Contact, Open Source]
 ---
 
-<img src="/static/img/smarthome-banner.jpg" alt="SmartHome-AI banner" width="1400" height="788" decoding="async">
+<img src="/static/img/smarthome-banner.jpg?v=20261021" alt="SmartHome-AI banner" width="1400" height="788" decoding="async">
 
 
 **SmartHome-AI** started from a common frustration: most smart home content is either product marketing, or
@@ -109,7 +109,7 @@ See the [installation photo report (in Portuguese)](/minha-instalacao/), includi
 
 Living-room photos supplied by the author. They show the setting where the equipment described is used: lighting around the TV wall, lamps and accent lighting on furniture. The author reports controlling the LED strips with WLED over Wi-Fi. Lighting control through Apple Home, Alexa and Home Assistant is reported by the author; the images show the physical arrangement, not how the integrations work.
 
-<figure class="ha-screen"><a href="/static/img/casa-do-autor/sala-vista-geral.jpg" target="_blank" rel="noopener" aria-label="Enlarge photo: Living room opening onto the dining area, with a sofa, armchairs and piano."><img src="/static/img/casa-do-autor/sala-vista-geral.jpg" alt="Living room opening onto the dining area, with a sofa, armchairs and piano." width="1280" height="960" loading="lazy" decoding="async"></a><figcaption>Living room opening onto the dining area, with a sofa, armchairs and piano. Image supplied by Álvaro Menezes.</figcaption></figure>
+<figure class="ha-screen"><a href="/static/img/casa-do-autor/sala-vista-geral.jpg?v=20261021" target="_blank" rel="noopener" aria-label="Enlarge photo: Living room opening onto the dining area, with a sofa, armchairs and piano."><img src="/static/img/casa-do-autor/sala-vista-geral.jpg?v=20261021" alt="Living room opening onto the dining area, with a sofa, armchairs and piano." width="1280" height="960" loading="lazy" decoding="async"></a><figcaption>Living room opening onto the dining area, with a sofa, armchairs and piano. Image supplied by Álvaro Menezes.</figcaption></figure>
 
 <figure class="ha-screen"><a href="/static/img/casa-do-autor/sala-painel-tv.jpg" target="_blank" rel="noopener" aria-label="Enlarge photo: TV wall with table lamps and lighting beneath the cabinet."><img src="/static/img/casa-do-autor/sala-painel-tv.jpg" alt="TV wall with table lamps and lighting beneath the cabinet." width="1280" height="960" loading="lazy" decoding="async"></a><figcaption>TV wall with table lamps and lighting beneath the cabinet. Image supplied by Álvaro Menezes.</figcaption></figure>
 

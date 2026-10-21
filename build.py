@@ -91,7 +91,7 @@ ECOSYSTEM = [
     {
         "name": "SmartHome-AI",
         "url": "https://smarthome-ai.com",
-        "img": "/static/img/logo-smarthome-ai-marca.png",
+        "img": "/static/img/logo-smarthome-ai-marca.png?v=20261021",
         "pt": "Casa inteligente, automação local e código aberto",
         "en": "Smart home, local automation and open source",
     },
@@ -510,7 +510,7 @@ def header_html(lang: str, current: str) -> str:
     return f"""<header class="site-header">
     <div class="wrap header-inner">
       <a class="brand" href="{home}">
-        <img class="brand-mark" src="/static/img/logo-smarthome-ai-marca.png" width="44" height="44" alt="" loading="eager">
+        <img class="brand-mark" src="/static/img/logo-smarthome-ai-marca.png?v=20261021" width="44" height="44" alt="" loading="eager">
         <span class="brand-text">
           <strong>SmartHome<span class="accent">-AI</span></strong>
           <small>{LANGS[lang]['tagline']}</small>
@@ -633,7 +633,7 @@ EDITOR_LD = {
     "@type": "Organization",
     "name": SITE["name"],
     "url": SITE["url"],
-    "logo": {"@type": "ImageObject", "url": SITE["url"] + "/static/img/logo-smarthome-ai-marca.png",
+    "logo": {"@type": "ImageObject", "url": SITE["url"] + "/static/img/logo-smarthome-ai-marca.png?v=20261021",
              "width": 360, "height": 360},
 }
 

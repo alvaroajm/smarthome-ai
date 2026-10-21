@@ -12,7 +12,7 @@ updated: 2026-10-20
 tags: [Sobre, Contato, Open Source]
 ---
 
-<img src="/static/img/smarthome-banner.jpg" alt="Banner do SmartHome-AI" width="1400" height="788" decoding="async">
+<img src="/static/img/smarthome-banner.jpg?v=20261021" alt="Banner do SmartHome-AI" width="1400" height="788" decoding="async">
 
 
 O **SmartHome-AI** nasceu de uma frustração comum: a maior parte do conteúdo sobre casa inteligente ou é
@@ -110,7 +110,7 @@ Veja [minha instalação em detalhes](/minha-instalacao/), com fotos do mini-PC,
 
 Fotos da sala fornecidas pelo autor. Elas mostram o ambiente em que os equipamentos descritos são usados: iluminação junto ao painel da TV, luminárias e luzes de destaque nos móveis. O autor informa que controla as tiras de LED pelo WLED via Wi-Fi. O controle das luzes pelo Casa, Alexa e Home Assistant foi relatado pelo autor; as imagens mostram a disposição física, não o funcionamento das integrações.
 
-<figure class="ha-screen"><a href="/static/img/casa-do-autor/sala-vista-geral.jpg" target="_blank" rel="noopener" aria-label="Ampliar foto: Vista da sala integrada à área de jantar, com sofá, poltronas e piano."><img src="/static/img/casa-do-autor/sala-vista-geral.jpg" alt="Vista da sala integrada à área de jantar, com sofá, poltronas e piano." width="1280" height="960" loading="lazy" decoding="async"></a><figcaption>Vista da sala integrada à área de jantar, com sofá, poltronas e piano. Imagem fornecida por Álvaro Menezes.</figcaption></figure>
+<figure class="ha-screen"><a href="/static/img/casa-do-autor/sala-vista-geral.jpg?v=20261021" target="_blank" rel="noopener" aria-label="Ampliar foto: Vista da sala integrada à área de jantar, com sofá, poltronas e piano."><img src="/static/img/casa-do-autor/sala-vista-geral.jpg?v=20261021" alt="Vista da sala integrada à área de jantar, com sofá, poltronas e piano." width="1280" height="960" loading="lazy" decoding="async"></a><figcaption>Vista da sala integrada à área de jantar, com sofá, poltronas e piano. Imagem fornecida por Álvaro Menezes.</figcaption></figure>
 
 <figure class="ha-screen"><a href="/static/img/casa-do-autor/sala-painel-tv.jpg" target="_blank" rel="noopener" aria-label="Ampliar foto: Painel da televisão com abajures e iluminação sob o móvel."><img src="/static/img/casa-do-autor/sala-painel-tv.jpg" alt="Painel da televisão com abajures e iluminação sob o móvel." width="1280" height="960" loading="lazy" decoding="async"></a><figcaption>Painel da televisão com abajures e iluminação sob o móvel. Imagem fornecida por Álvaro Menezes.</figcaption></figure>
 

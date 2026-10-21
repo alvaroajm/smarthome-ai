@@ -53,7 +53,7 @@ def connected_home(lang):
         <div class="plan-viewport" tabindex="0" role="region" aria-label="{t('Planta da casa. Quando ampliada, role para explorar.', 'House plan. Scroll to explore when enlarged.')}">
          <svg class="house-plan" viewBox="0 150 1136 1450" xmlns="http://www.w3.org/2000/svg" role="group" aria-labelledby="plan-title plan-description">
           <title id="plan-title">{t('Planta 3D de uma casa conectada', '3D connected home floor plan')}</title><desc id="plan-description">{t('Dezesseis zonas de iluminação. Use Tab para escolher e Enter ou espaço para alternar. Os mesmos controles estão na lista de ambientes.', 'Sixteen lighting zones. Use Tab to select and Enter or Space to toggle. The same controls are available in the room list.')}</desc>
-          <defs><image id="plan-photo" href="/static/img/connected-home-plan.jpg" width="1136" height="1744"/>{''.join(definitions)}</defs>
+          <defs><image id="plan-photo" href="/static/img/connected-home-plan.jpg?v=20261021" width="1136" height="1744"/>{''.join(definitions)}</defs>
           <use href="#plan-photo" class="plan-base"/>{''.join(regions)}{''.join(markers)}
          </svg>
         </div>
