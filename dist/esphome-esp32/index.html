@@ -129,7 +129,8 @@
 <li><a href="#preciso-saber-programar">Preciso saber programar?</a></li>
 <li><a href="#voz-com-esp32">Voz com ESP32</a></li>
 <li><a href="#seu-primeiro-projeto">Seu primeiro projeto</a></li>
-<li><a href="#exemplo-pronto-balanca-no-home-assistant-via-bluetooth">Exemplo pronto: balança no Home Assistant via Bluetooth</a></li>
+<li><a href="#exemplo-balanca">Exemplo pronto: balança no Home Assistant via Bluetooth</a></li>
+<li><a href="#exemplo-bt-proxy">Exemplo pronto: Bluetooth Proxy com ATOM-S3</a></li>
 </ul>
 </div>
 </nav>
@@ -168,7 +169,7 @@
 <p>A placa captura e reproduz áudio; o reconhecimento e a resposta podem usar processamento local no sistema ou serviços de nuvem, conforme a configuração. Não é necessário começar por voz: um botão de cena costuma ser um projeto mais simples.</p>
 <h2 id="seu-primeiro-projeto">Seu primeiro projeto<a class="headerlink" href="#seu-primeiro-projeto" title="Permanent link">#</a></h2>
 <p>Comece com um <strong>sensor de temperatura ou botão alimentado por USB</strong>, em baixa tensão. Depois que ele aparecer no Home Assistant, crie a automação pelo editor visual. Projetos ligados à rede elétrica exigem componentes adequados e instalação por profissional qualificado.</p>
-<h2 id="exemplo-pronto-balanca-no-home-assistant-via-bluetooth">Exemplo pronto: balança no Home Assistant via Bluetooth<a class="headerlink" href="#exemplo-pronto-balanca-no-home-assistant-via-bluetooth" title="Permanent link">#</a></h2>
+<h2 id="exemplo-balanca">Exemplo pronto: balança no Home Assistant via Bluetooth<a class="headerlink" href="#exemplo-balanca" title="Permanent link">#</a></h2>
 <p>Um gateway que escuta o anúncio <strong>Bluetooth (BLE)</strong> de balanças e publica o peso no Home Assistant — sem depender da nuvem do fabricante. Roda num <strong>M5Stack ATOM Lite (ESP32)</strong> e cobre dois protocolos: balanças <strong>OKOK/QJ-J</strong> (peso lido direto do anúncio) e <strong>Xiaomi Mi Scale 2</strong> (pelo componente nativo <code>xiaomi_miscale</code>, com peso e impedância).</p>
 <blockquote>
 <p><strong>Troque pelos seus dados antes de gravar.</strong> Os MACs das balanças, o IP fixo e as chaves <code>!secret</code> abaixo são apenas exemplos. Nunca publique MACs, IPs ou senhas reais.</p>
@@ -361,8 +362,194 @@ switch:
 <li>O LED do ATOM pisca verde a cada peso final — um feedback visual opcional.</li>
 </ul>
 <p>Valide no <strong>ESPHome Device Builder</strong> (<em>Validate</em>), gere as entidades no Home Assistant e teste um componente por vez.</p>
+<h2 id="exemplo-bt-proxy">Exemplo pronto: Bluetooth Proxy com ATOM-S3<a class="headerlink" href="#exemplo-bt-proxy" title="Permanent link">#</a></h2>
+<p>Um <strong>Bluetooth Proxy</strong> estende o alcance Bluetooth do Home Assistant: o ESP32 repassa, pela rede, os sinais BLE de dispositivos próximos (sensores, lâmpadas, etiquetas). Aqui, num <strong>M5Stack ATOM-S3 (ESP32-S3)</strong>, ele também traz um LED que muda de cor conforme o Wi-Fi e um pequeno <em>sniffer</em> opcional que registra no log os anúncios BLE de lâmpadas <strong>Philips Hue</strong> — útil para diagnóstico.</p>
+<blockquote>
+<p><strong>Troque pelos seus dados antes de gravar.</strong> A chave de criptografia da API, a senha de OTA, o IP fixo e as chaves <code>!secret</code> abaixo são apenas exemplos. Nunca publique chaves, senhas, MACs ou IPs reais — gere os seus.</p>
+</blockquote>
+<pre><code class="language-yaml"># Bluetooth Proxy em M5Stack ATOM-S3 (ESP32-S3), com LED de status Wi-Fi
+# e um sniffer opcional de anúncios BLE da Philips Hue (diagnóstico).
+# Troque a chave da API, a senha de OTA, o IP fixo e as chaves !secret.
+
+esphome:
+  name: atom-s3-bt-proxy
+  friendly_name: &quot;ATOM-S3 BT PROXY&quot;
+  on_boot:
+    priority: -10
+    then:
+      - script.execute: atualizar_led_wifi
+
+esp32:
+  board: esp32-s3-devkitc-1
+  variant: esp32s3
+  framework:
+    type: esp-idf
+  flash_size: 8MB
+
+logger:
+  level: DEBUG
+
+api:
+  encryption:
+    key: !secret api_encryption_key   # gere a sua no ESPHome Builder
+
+ota:
+  - platform: esphome
+    password: !secret ota_password
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  manual_ip:                    # ajuste para a sua rede (ou remova para usar DHCP)
+    static_ip: 192.168.1.51
+    gateway: 192.168.1.1
+    subnet: 255.255.255.0
+  power_save_mode: NONE
+  on_connect:
+    then:
+      - script.execute: atualizar_led_wifi
+  on_disconnect:
+    then:
+      - light.turn_on:
+          id: led_rgb
+          red: 100%
+          green: 0%
+          blue: 0%
+          brightness: 100%
+  ap:
+    ssid: atom-s3-bt-proxy
+
+captive_portal:
+
+light:
+  - platform: esp32_rmt_led_strip
+    id: led_rgb
+    name: &quot;LED RGB Interno&quot;
+    pin: GPIO35
+    num_leds: 1
+    chipset: WS2812
+    channel_colors: GRB
+    restore_mode: ALWAYS_OFF
+
+esp32_ble_tracker:
+  scan_parameters:
+    interval: 1100ms
+    window: 1100ms
+    active: true
+  # Filtro opcional em C++ (lambda): registra no log apenas anúncios da Philips Hue
+  on_ble_advertise:
+    then:
+      - lambda: |-
+          // 1. Filtrar pelo UUID de serviço da Signify (0xFE0F), se disponível
+          bool is_hue = false;
+
+          for (auto data : x.get_service_uuids()) {
+              if (data.to_string() == &quot;0000fe0f-0000-1000-8000-00805f9b34fb&quot; || data.to_string() == &quot;0XFE0F&quot;) {
+                  is_hue = true;
+              }
+          }
+
+          // 2. Filtrar pelos dados de fabricante (Manufacturer Data ID 0xFE0F)
+          for (auto data : x.get_manufacturer_datas()) {
+              if (data.uuid.to_string() == &quot;0XFE0F&quot; || data.uuid.to_string() == &quot;0000fe0f-0000-1000-8000-00805f9b34fb&quot;) {
+                  is_hue = true;
+              }
+          }
+
+          // Se for uma lâmpada Hue, imprime as informações brutas no log
+          if (is_hue) {
+              ESP_LOGI(&quot;HUE_SNIFFER&quot;, &quot;Lampada Hue encontrada!&quot;);
+              ESP_LOGI(&quot;HUE_SNIFFER&quot;, &quot;  Endereco MAC: %s&quot;, x.address_str().c_str());
+              ESP_LOGI(&quot;HUE_SNIFFER&quot;, &quot;  Nome BLE: %s&quot;, x.get_name().c_str());
+              ESP_LOGI(&quot;HUE_SNIFFER&quot;, &quot;  Sinal (RSSI): %d dBm&quot;, x.get_rssi());
+
+              for (auto data : x.get_manufacturer_datas()) {
+                  std::string hex_data = &quot;&quot;;
+                  for (uint8_t byte : data.data) {
+                      char buf[4];
+                      sprintf(buf, &quot;%02X &quot;, byte);
+                      hex_data += buf;
+                  }
+                  ESP_LOGI(&quot;HUE_SNIFFER&quot;, &quot;  Manufacturer Data [%s]: %s&quot;, data.uuid.to_string().c_str(), hex_data.c_str());
+              }
+          }
+
+bluetooth_proxy:
+  active: true
+
+script:
+  - id: atualizar_led_wifi
+    mode: restart
+    then:
+      - if:
+          condition:
+            wifi.connected:
+          then:
+            - light.turn_on:
+                id: led_rgb
+                red: 0%
+                green: 100%
+                blue: 0%
+                brightness: 100%
+          else:
+            - light.turn_on:
+                id: led_rgb
+                red: 100%
+                green: 0%
+                blue: 0%
+                brightness: 100%
+
+button:
+  - platform: restart
+    name: &quot;Reiniciar&quot;
+  - platform: safe_mode
+    name: &quot;Safe Mode&quot;
+
+binary_sensor:
+  - platform: status
+    name: &quot;Status ESPHome&quot;
+    entity_category: diagnostic
+
+sensor:
+  - platform: wifi_signal
+    name: &quot;Sinal Wi-Fi&quot;
+    update_interval: 60s
+    entity_category: diagnostic
+  - platform: uptime
+    name: &quot;Tempo Ligado&quot;
+    update_interval: 60s
+    entity_category: diagnostic
+
+text_sensor:
+  - platform: wifi_info
+    ip_address:
+      name: &quot;WI-FI IP Address&quot;
+      entity_category: diagnostic
+    dns_address:
+      name: &quot;DNS Address&quot;
+      entity_category: diagnostic
+    mac_address:
+      name: &quot;WI-FI MAC Address&quot;
+      entity_category: diagnostic
+    ssid:
+      name: &quot;SSID&quot;
+      entity_category: diagnostic
+    bssid:
+      name: &quot;BSSID&quot;
+      entity_category: diagnostic
+
+safe_mode:
+</code></pre>
+<p><strong>Como funciona, em resumo:</strong></p>
+<ul>
+<li><code>bluetooth_proxy</code> + <code>esp32_ble_tracker</code> fazem o ESP32 repassar ao Home Assistant os sinais BLE que ele enxerga — <strong>ampliando a cobertura Bluetooth</strong> da casa.</li>
+<li>O LED fica <strong>verde</strong> quando o Wi-Fi conecta e <strong>vermelho</strong> quando cai, controlado pelo <code>script</code>.</li>
+<li>O bloco <code>lambda</code> é um filtro opcional: identifica anúncios da <strong>Philips Hue</strong> (UUID de serviço <code>0xFE0F</code>, da Signify) e imprime no log o MAC, o RSSI e os bytes do fabricante — apenas para diagnóstico.</li>
+<li>Sensores de diagnóstico (sinal Wi-Fi, uptime, IP, MAC, SSID) ajudam a monitorar o dispositivo; os botões <strong>Reiniciar</strong> e <strong>Safe Mode</strong> facilitam a recuperação.</li>
+</ul>
+<p>Valide no <strong>ESPHome Device Builder</strong> (<em>Validate</em>) e teste um componente por vez.</p>
 <p><a href="/home-assistant/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Voltar ao Home Assistant</a>.</p>
-<p>Fontes: <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/install/getting-started/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>iniciar no ESPHome</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/install/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>instalar ESPHome</a>, <a class="ext" target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html">ESP32-DevKitC</a>, <a class="ext" target="_blank" rel="noopener" href="https://docs.m5stack.com/en/core/AtomS3">ATOM-S3</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/sensor/xiaomi_miscale.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>componente xiaomi_miscale</a> e <a class="ext" target="_blank" rel="noopener" href="https://www.nabucasa.com/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="nabu-casa" src="/static/img/brands/nabu-casa.svg?v=fd7f86f9" width="32" height="32" alt="" decoding="async"></span>Nabu Casa e Open Home Foundation</a>.</p>
+<p>Fontes: <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/install/getting-started/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>iniciar no ESPHome</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/install/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>instalar ESPHome</a>, <a class="ext" target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html">ESP32-DevKitC</a>, <a class="ext" target="_blank" rel="noopener" href="https://docs.m5stack.com/en/core/AtomS3">ATOM-S3</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/sensor/xiaomi_miscale.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>componente xiaomi_miscale</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/bluetooth_proxy.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>Bluetooth Proxy</a> e <a class="ext" target="_blank" rel="noopener" href="https://www.nabucasa.com/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="nabu-casa" src="/static/img/brands/nabu-casa.svg?v=fd7f86f9" width="32" height="32" alt="" decoding="async"></span>Nabu Casa e Open Home Foundation</a>.</p>
         <ul class="tags"><li>ESPHome</li><li>ESP32</li><li>DIY</li><li>YAML</li><li>Sensores</li></ul>
       </div>
     </div>

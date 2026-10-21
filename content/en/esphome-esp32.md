@@ -64,7 +64,7 @@ The board captures and plays back audio; recognition and the response can use lo
 
 Start with a **temperature sensor or a button powered over USB**, at low voltage. Once it shows up in Home Assistant, create the automation from the visual editor. Projects wired to mains power require suitable components and installation by a qualified professional.
 
-## A ready-made example: a scale in Home Assistant over Bluetooth
+## A ready-made example: a scale in Home Assistant over Bluetooth {#example-scale}
 
 A gateway that listens to the **Bluetooth (BLE)** advertisement from scales and publishes the weight to Home Assistant — without relying on the manufacturer's cloud. It runs on an **M5Stack ATOM Lite (ESP32)** and covers two protocols: **OKOK/QJ-J** scales (weight read straight from the advertisement) and the **Xiaomi Mi Scale 2** (through the native `xiaomi_miscale` component, with weight and impedance).
 
@@ -261,6 +261,196 @@ switch:
 
 Validate it in the **ESPHome Device Builder** (*Validate*), create the entities in Home Assistant and test one component at a time.
 
+## A ready-made example: a Bluetooth Proxy with the ATOM-S3 {#example-bt-proxy}
+
+A **Bluetooth Proxy** extends Home Assistant's Bluetooth range: the ESP32 relays, over the network, the BLE signals of nearby devices (sensors, bulbs, tags). Here, on a **M5Stack ATOM-S3 (ESP32-S3)**, it also includes an LED that changes colour with the Wi-Fi state and a small optional *sniffer* that logs the BLE advertisements of **Philips Hue** bulbs — handy for diagnostics.
+
+> **Replace with your own data before flashing.** The API encryption key, the OTA password, the static IP and the `!secret` keys below are only examples. Never publish real keys, passwords, MAC addresses or IPs — generate your own.
+
+```yaml
+# Bluetooth Proxy on a M5Stack ATOM-S3 (ESP32-S3), with a Wi-Fi status LED
+# and an optional sniffer of Philips Hue BLE advertisements (diagnostics).
+# Replace the API key, the OTA password, the static IP and the !secret keys.
+
+esphome:
+  name: atom-s3-bt-proxy
+  friendly_name: "ATOM-S3 BT PROXY"
+  on_boot:
+    priority: -10
+    then:
+      - script.execute: atualizar_led_wifi
+
+esp32:
+  board: esp32-s3-devkitc-1
+  variant: esp32s3
+  framework:
+    type: esp-idf
+  flash_size: 8MB
+
+logger:
+  level: DEBUG
+
+api:
+  encryption:
+    key: !secret api_encryption_key   # generate yours in the ESPHome Builder
+
+ota:
+  - platform: esphome
+    password: !secret ota_password
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  manual_ip:                    # adjust to your network (or remove to use DHCP)
+    static_ip: 192.168.1.51
+    gateway: 192.168.1.1
+    subnet: 255.255.255.0
+  power_save_mode: NONE
+  on_connect:
+    then:
+      - script.execute: atualizar_led_wifi
+  on_disconnect:
+    then:
+      - light.turn_on:
+          id: led_rgb
+          red: 100%
+          green: 0%
+          blue: 0%
+          brightness: 100%
+  ap:
+    ssid: atom-s3-bt-proxy
+
+captive_portal:
+
+light:
+  - platform: esp32_rmt_led_strip
+    id: led_rgb
+    name: "Internal RGB LED"
+    pin: GPIO35
+    num_leds: 1
+    chipset: WS2812
+    channel_colors: GRB
+    restore_mode: ALWAYS_OFF
+
+esp32_ble_tracker:
+  scan_parameters:
+    interval: 1100ms
+    window: 1100ms
+    active: true
+  # Optional C++ filter (lambda): logs only Philips Hue advertisements
+  on_ble_advertise:
+    then:
+      - lambda: |-
+          // 1. Filter by Signify's service UUID (0xFE0F), if available
+          bool is_hue = false;
+
+          for (auto data : x.get_service_uuids()) {
+              if (data.to_string() == "0000fe0f-0000-1000-8000-00805f9b34fb" || data.to_string() == "0XFE0F") {
+                  is_hue = true;
+              }
+          }
+
+          // 2. Filter by manufacturer data (Manufacturer Data ID 0xFE0F)
+          for (auto data : x.get_manufacturer_datas()) {
+              if (data.uuid.to_string() == "0XFE0F" || data.uuid.to_string() == "0000fe0f-0000-1000-8000-00805f9b34fb") {
+                  is_hue = true;
+              }
+          }
+
+          // If it is a Hue bulb, print the raw details to the log
+          if (is_hue) {
+              ESP_LOGI("HUE_SNIFFER", "Hue bulb found!");
+              ESP_LOGI("HUE_SNIFFER", "  MAC address: %s", x.address_str().c_str());
+              ESP_LOGI("HUE_SNIFFER", "  BLE name: %s", x.get_name().c_str());
+              ESP_LOGI("HUE_SNIFFER", "  Signal (RSSI): %d dBm", x.get_rssi());
+
+              for (auto data : x.get_manufacturer_datas()) {
+                  std::string hex_data = "";
+                  for (uint8_t byte : data.data) {
+                      char buf[4];
+                      sprintf(buf, "%02X ", byte);
+                      hex_data += buf;
+                  }
+                  ESP_LOGI("HUE_SNIFFER", "  Manufacturer Data [%s]: %s", data.uuid.to_string().c_str(), hex_data.c_str());
+              }
+          }
+
+bluetooth_proxy:
+  active: true
+
+script:
+  - id: atualizar_led_wifi
+    mode: restart
+    then:
+      - if:
+          condition:
+            wifi.connected:
+          then:
+            - light.turn_on:
+                id: led_rgb
+                red: 0%
+                green: 100%
+                blue: 0%
+                brightness: 100%
+          else:
+            - light.turn_on:
+                id: led_rgb
+                red: 100%
+                green: 0%
+                blue: 0%
+                brightness: 100%
+
+button:
+  - platform: restart
+    name: "Restart"
+  - platform: safe_mode
+    name: "Safe Mode"
+
+binary_sensor:
+  - platform: status
+    name: "ESPHome Status"
+    entity_category: diagnostic
+
+sensor:
+  - platform: wifi_signal
+    name: "Wi-Fi Signal"
+    update_interval: 60s
+    entity_category: diagnostic
+  - platform: uptime
+    name: "Uptime"
+    update_interval: 60s
+    entity_category: diagnostic
+
+text_sensor:
+  - platform: wifi_info
+    ip_address:
+      name: "WI-FI IP Address"
+      entity_category: diagnostic
+    dns_address:
+      name: "DNS Address"
+      entity_category: diagnostic
+    mac_address:
+      name: "WI-FI MAC Address"
+      entity_category: diagnostic
+    ssid:
+      name: "SSID"
+      entity_category: diagnostic
+    bssid:
+      name: "BSSID"
+      entity_category: diagnostic
+
+safe_mode:
+```
+
+**How it works, in short:**
+
+- `bluetooth_proxy` + `esp32_ble_tracker` make the ESP32 relay the BLE signals it sees to Home Assistant — **extending the home's Bluetooth coverage**.
+- The LED turns **green** when Wi-Fi connects and **red** when it drops, driven by the `script`.
+- The `lambda` block is an optional filter: it identifies **Philips Hue** advertisements (Signify's `0xFE0F` service UUID) and logs the MAC, the RSSI and the manufacturer bytes — for diagnostics only.
+- Diagnostic sensors (Wi-Fi signal, uptime, IP, MAC, SSID) help you monitor the device; the **Restart** and **Safe Mode** buttons make recovery easier.
+
+Validate it in the **ESPHome Device Builder** (*Validate*) and test one component at a time.
+
 [Back to Home Assistant](/en/home-assistant/).
 
-Sources: [getting started with ESPHome](https://esphome.io/install/getting-started/), [install ESPHome](https://esphome.io/install/), [ESP32-DevKitC](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html), [ATOM-S3](https://docs.m5stack.com/en/core/AtomS3), [xiaomi_miscale component](https://esphome.io/components/sensor/xiaomi_miscale.html) and [Nabu Casa and the Open Home Foundation](https://www.nabucasa.com/).
+Sources: [getting started with ESPHome](https://esphome.io/install/getting-started/), [install ESPHome](https://esphome.io/install/), [ESP32-DevKitC](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html), [ATOM-S3](https://docs.m5stack.com/en/core/AtomS3), [xiaomi_miscale component](https://esphome.io/components/sensor/xiaomi_miscale.html), [Bluetooth Proxy](https://esphome.io/components/bluetooth_proxy.html) and [Nabu Casa and the Open Home Foundation](https://www.nabucasa.com/).

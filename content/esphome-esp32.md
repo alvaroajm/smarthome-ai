@@ -61,7 +61,7 @@ A placa captura e reproduz áudio; o reconhecimento e a resposta podem usar proc
 
 Comece com um **sensor de temperatura ou botão alimentado por USB**, em baixa tensão. Depois que ele aparecer no Home Assistant, crie a automação pelo editor visual. Projetos ligados à rede elétrica exigem componentes adequados e instalação por profissional qualificado.
 
-## Exemplo pronto: balança no Home Assistant via Bluetooth
+## Exemplo pronto: balança no Home Assistant via Bluetooth {#exemplo-balanca}
 
 Um gateway que escuta o anúncio **Bluetooth (BLE)** de balanças e publica o peso no Home Assistant — sem depender da nuvem do fabricante. Roda num **M5Stack ATOM Lite (ESP32)** e cobre dois protocolos: balanças **OKOK/QJ-J** (peso lido direto do anúncio) e **Xiaomi Mi Scale 2** (pelo componente nativo `xiaomi_miscale`, com peso e impedância).
 
@@ -258,6 +258,196 @@ switch:
 
 Valide no **ESPHome Device Builder** (*Validate*), gere as entidades no Home Assistant e teste um componente por vez.
 
+## Exemplo pronto: Bluetooth Proxy com ATOM-S3 {#exemplo-bt-proxy}
+
+Um **Bluetooth Proxy** estende o alcance Bluetooth do Home Assistant: o ESP32 repassa, pela rede, os sinais BLE de dispositivos próximos (sensores, lâmpadas, etiquetas). Aqui, num **M5Stack ATOM-S3 (ESP32-S3)**, ele também traz um LED que muda de cor conforme o Wi-Fi e um pequeno *sniffer* opcional que registra no log os anúncios BLE de lâmpadas **Philips Hue** — útil para diagnóstico.
+
+> **Troque pelos seus dados antes de gravar.** A chave de criptografia da API, a senha de OTA, o IP fixo e as chaves `!secret` abaixo são apenas exemplos. Nunca publique chaves, senhas, MACs ou IPs reais — gere os seus.
+
+```yaml
+# Bluetooth Proxy em M5Stack ATOM-S3 (ESP32-S3), com LED de status Wi-Fi
+# e um sniffer opcional de anúncios BLE da Philips Hue (diagnóstico).
+# Troque a chave da API, a senha de OTA, o IP fixo e as chaves !secret.
+
+esphome:
+  name: atom-s3-bt-proxy
+  friendly_name: "ATOM-S3 BT PROXY"
+  on_boot:
+    priority: -10
+    then:
+      - script.execute: atualizar_led_wifi
+
+esp32:
+  board: esp32-s3-devkitc-1
+  variant: esp32s3
+  framework:
+    type: esp-idf
+  flash_size: 8MB
+
+logger:
+  level: DEBUG
+
+api:
+  encryption:
+    key: !secret api_encryption_key   # gere a sua no ESPHome Builder
+
+ota:
+  - platform: esphome
+    password: !secret ota_password
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  manual_ip:                    # ajuste para a sua rede (ou remova para usar DHCP)
+    static_ip: 192.168.1.51
+    gateway: 192.168.1.1
+    subnet: 255.255.255.0
+  power_save_mode: NONE
+  on_connect:
+    then:
+      - script.execute: atualizar_led_wifi
+  on_disconnect:
+    then:
+      - light.turn_on:
+          id: led_rgb
+          red: 100%
+          green: 0%
+          blue: 0%
+          brightness: 100%
+  ap:
+    ssid: atom-s3-bt-proxy
+
+captive_portal:
+
+light:
+  - platform: esp32_rmt_led_strip
+    id: led_rgb
+    name: "LED RGB Interno"
+    pin: GPIO35
+    num_leds: 1
+    chipset: WS2812
+    channel_colors: GRB
+    restore_mode: ALWAYS_OFF
+
+esp32_ble_tracker:
+  scan_parameters:
+    interval: 1100ms
+    window: 1100ms
+    active: true
+  # Filtro opcional em C++ (lambda): registra no log apenas anúncios da Philips Hue
+  on_ble_advertise:
+    then:
+      - lambda: |-
+          // 1. Filtrar pelo UUID de serviço da Signify (0xFE0F), se disponível
+          bool is_hue = false;
+
+          for (auto data : x.get_service_uuids()) {
+              if (data.to_string() == "0000fe0f-0000-1000-8000-00805f9b34fb" || data.to_string() == "0XFE0F") {
+                  is_hue = true;
+              }
+          }
+
+          // 2. Filtrar pelos dados de fabricante (Manufacturer Data ID 0xFE0F)
+          for (auto data : x.get_manufacturer_datas()) {
+              if (data.uuid.to_string() == "0XFE0F" || data.uuid.to_string() == "0000fe0f-0000-1000-8000-00805f9b34fb") {
+                  is_hue = true;
+              }
+          }
+
+          // Se for uma lâmpada Hue, imprime as informações brutas no log
+          if (is_hue) {
+              ESP_LOGI("HUE_SNIFFER", "Lampada Hue encontrada!");
+              ESP_LOGI("HUE_SNIFFER", "  Endereco MAC: %s", x.address_str().c_str());
+              ESP_LOGI("HUE_SNIFFER", "  Nome BLE: %s", x.get_name().c_str());
+              ESP_LOGI("HUE_SNIFFER", "  Sinal (RSSI): %d dBm", x.get_rssi());
+
+              for (auto data : x.get_manufacturer_datas()) {
+                  std::string hex_data = "";
+                  for (uint8_t byte : data.data) {
+                      char buf[4];
+                      sprintf(buf, "%02X ", byte);
+                      hex_data += buf;
+                  }
+                  ESP_LOGI("HUE_SNIFFER", "  Manufacturer Data [%s]: %s", data.uuid.to_string().c_str(), hex_data.c_str());
+              }
+          }
+
+bluetooth_proxy:
+  active: true
+
+script:
+  - id: atualizar_led_wifi
+    mode: restart
+    then:
+      - if:
+          condition:
+            wifi.connected:
+          then:
+            - light.turn_on:
+                id: led_rgb
+                red: 0%
+                green: 100%
+                blue: 0%
+                brightness: 100%
+          else:
+            - light.turn_on:
+                id: led_rgb
+                red: 100%
+                green: 0%
+                blue: 0%
+                brightness: 100%
+
+button:
+  - platform: restart
+    name: "Reiniciar"
+  - platform: safe_mode
+    name: "Safe Mode"
+
+binary_sensor:
+  - platform: status
+    name: "Status ESPHome"
+    entity_category: diagnostic
+
+sensor:
+  - platform: wifi_signal
+    name: "Sinal Wi-Fi"
+    update_interval: 60s
+    entity_category: diagnostic
+  - platform: uptime
+    name: "Tempo Ligado"
+    update_interval: 60s
+    entity_category: diagnostic
+
+text_sensor:
+  - platform: wifi_info
+    ip_address:
+      name: "WI-FI IP Address"
+      entity_category: diagnostic
+    dns_address:
+      name: "DNS Address"
+      entity_category: diagnostic
+    mac_address:
+      name: "WI-FI MAC Address"
+      entity_category: diagnostic
+    ssid:
+      name: "SSID"
+      entity_category: diagnostic
+    bssid:
+      name: "BSSID"
+      entity_category: diagnostic
+
+safe_mode:
+```
+
+**Como funciona, em resumo:**
+
+- `bluetooth_proxy` + `esp32_ble_tracker` fazem o ESP32 repassar ao Home Assistant os sinais BLE que ele enxerga — **ampliando a cobertura Bluetooth** da casa.
+- O LED fica **verde** quando o Wi-Fi conecta e **vermelho** quando cai, controlado pelo `script`.
+- O bloco `lambda` é um filtro opcional: identifica anúncios da **Philips Hue** (UUID de serviço `0xFE0F`, da Signify) e imprime no log o MAC, o RSSI e os bytes do fabricante — apenas para diagnóstico.
+- Sensores de diagnóstico (sinal Wi-Fi, uptime, IP, MAC, SSID) ajudam a monitorar o dispositivo; os botões **Reiniciar** e **Safe Mode** facilitam a recuperação.
+
+Valide no **ESPHome Device Builder** (*Validate*) e teste um componente por vez.
+
 [Voltar ao Home Assistant](/home-assistant/).
 
-Fontes: [iniciar no ESPHome](https://esphome.io/install/getting-started/), [instalar ESPHome](https://esphome.io/install/), [ESP32-DevKitC](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html), [ATOM-S3](https://docs.m5stack.com/en/core/AtomS3), [componente xiaomi_miscale](https://esphome.io/components/sensor/xiaomi_miscale.html) e [Nabu Casa e Open Home Foundation](https://www.nabucasa.com/).
+Fontes: [iniciar no ESPHome](https://esphome.io/install/getting-started/), [instalar ESPHome](https://esphome.io/install/), [ESP32-DevKitC](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html), [ATOM-S3](https://docs.m5stack.com/en/core/AtomS3), [componente xiaomi_miscale](https://esphome.io/components/sensor/xiaomi_miscale.html), [Bluetooth Proxy](https://esphome.io/components/bluetooth_proxy.html) e [Nabu Casa e Open Home Foundation](https://www.nabucasa.com/).
