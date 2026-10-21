@@ -76,6 +76,12 @@ rodar `python3 build.py` e ter o site pronto.
 Conteúdo por **Dr. Álvaro Menezes** — médico radiologista, entusiasta de automação residencial, Home Assistant,
 ESP32 e sistemas locais. Os guias reúnem explicações e referências para quem está montando sua própria instalação.
 
+## Outros canais do autor
+
+Além do canal principal no YouTube, o autor mantém projetos de vídeo gerados com IA, sem relação direta com casa inteligente. Ficam aqui, fora dos guias, para quem quiser conhecer:
+
+{{channels}}
+
 ## Equipamentos usados em casa
 
 O autor utiliza **Home Assistant OS em um mini-PC com processador Ryzen 7**, **interruptores inteligentes Zemismart Zigbee** e **luzes Philips Hue Zigbee**.
@@ -121,4 +127,4 @@ Relatos de experiência devem informar os equipamentos, versões, condições e 
 Encontrou um erro, tem uma sugestão ou quer indicar um tema? Correções são muito bem-vindas — este site é
 mantido publicamente e melhora com quem o lê.
 
-Fale comigo pelo WhatsApp [+55 (85) 99662-1818](https://wa.me/5585996621818) ou pelo e-mail [admin@alvaro-menezes.com](mailto:admin@alvaro-menezes.com).
+Fale comigo pelo WhatsApp [+55 (85) 99662-1818](https://wa.me/5585996621818) ou pelo e-mail [alvaroajm@gmail.com](mailto:alvaroajm@gmail.com).

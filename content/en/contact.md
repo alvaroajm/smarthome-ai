@@ -17,13 +17,13 @@ form and no registration: the site is static and messages go straight to the cha
 
 ## Channels
 
-- **Email:** [admin@alvaro-menezes.com](mailto:admin@alvaro-menezes.com) — the best channel for
+- **Email:** [alvaroajm@gmail.com](mailto:alvaroajm@gmail.com) — the best channel for
   technical questions, content corrections, guide suggestions and privacy matters.
 - **WhatsApp:** [+55 (85) 99662-1818](https://wa.me/5585996621818) — for short messages.
   It is not live chat or remote technical support.
 - **YouTube:** [@alvaromenezes-rad](https://www.youtube.com/@alvaromenezes-rad) — videos and comments.
 - **Instagram:** [@alvaroajm](https://www.instagram.com/alvaroajm/) · **GitHub:**
-  [alvaroajm](https://github.com/alvaroajm) · **X:** [@alvaromenezesMD](https://x.com/alvaromenezesMD) ·
+  [alvaroajm](https://github.com/alvaroajm) · **X:** [@alvaroajm](https://x.com/alvaroajm) ·
   **LinkedIn:** [dr-alvaro-menezes](https://www.linkedin.com/in/dr-alvaro-menezes/)
 - **Contact card:** [alvaro-menezes.com](https://alvaro-menezes.com/)
 

@@ -12,7 +12,7 @@ tags: [Termos de uso, Site]
 ---
 
 Estes termos se aplicam ao site **smarthome-ai.com**, mantido pelo **Dr. Álvaro Menezes**
-(contato: [admin@alvaro-menezes.com](mailto:admin@alvaro-menezes.com)). Ao navegar pelo site,
+(contato: [alvaroajm@gmail.com](mailto:alvaroajm@gmail.com)). Ao navegar pelo site,
 você concorda com as condições abaixo. Se não concordar, não utilize o conteúdo.
 
 ## 1. O que o site é

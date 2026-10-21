@@ -60,7 +60,7 @@ CONTACT = {
     "name": "Dr. Álvaro Menezes",
     "credentials": "CRM 11.393/CE · RQE 6562",
     "photo": "/static/img/author-original.jpg",
-    "email": "admin@alvaro-menezes.com",
+    "email": "alvaroajm@gmail.com",
     "whatsapp": "+55 (85) 99662-1818",
     "whatsapp_url": "https://wa.me/5585996621818",
     "card": "https://alvaro-menezes.com/",
@@ -71,7 +71,7 @@ SOCIAL = [
     ("GitHub", "https://github.com/alvaroajm", "github"),
     ("Instagram", "https://www.instagram.com/alvaroajm/", "instagram"),
     ("Facebook", "https://facebook.com/alvaroajm", "facebook"),
-    ("X", "https://x.com/alvaromenezesMD", "x"),
+    ("X", "https://x.com/alvaroajm", "x"),
     ("LinkedIn", "https://www.linkedin.com/in/dr-alvaro-menezes/", "linkedin"),
 ]
 
@@ -392,6 +392,8 @@ class Page:
         self.meta, body = parse_front_matter(raw)
         if "{{scenes_showcase}}" in body:
             body = body.replace("{{scenes_showcase}}", scenes_showcase(lang, in_article=True))
+        if "{{channels}}" in body:
+            body = body.replace("{{channels}}", channels_html(lang))
         md_config = MD_CONFIG
         if self.meta.get("slug", path.stem) == "faq":
             # Topic navigation keeps the FAQ usable on mobile.
@@ -542,18 +544,22 @@ def ecosystem_html(lang: str) -> str:
     return "\n        ".join(tiles)
 
 
-def footer_html(lang: str) -> str:
-    ui = LANGS[lang]["ui"]
-    channels_title = "Conheça os canais" if lang == "pt" else "Discover the channels"
-    channels_cta = "Visitar canal" if lang == "pt" else "Visit channel"
-    channels = "".join(
+def channels_html(lang: str) -> str:
+    """Cartões dos outros canais do autor (YouTube/TikTok), inseridos na página Sobre por {{channels}}."""
+    cta = "Visitar canal" if lang == "pt" else "Visit channel"
+    cards = "".join(
         f'''<a class="channel-card" href="{esc(url)}" target="_blank" rel="noopener noreferrer">
           <span class="channel-platform">{brand_svg('youtube') if platform == 'YouTube' else ''} {esc(platform)}</span>
           <strong>{esc(name)}</strong>
-          <span class="channel-cta">{channels_cta} <span aria-hidden="true">↗</span></span>
+          <span class="channel-cta">{cta} <span aria-hidden="true">↗</span></span>
         </a>'''
         for name, url, platform in CHANNELS
     )
+    return f'<div class="channels-grid channels-inline">{cards}</div>'
+
+
+def footer_html(lang: str) -> str:
+    ui = LANGS[lang]["ui"]
     links = FOOTER_LINKS[lang]
     cols = []
     for key in ("f_platforms", "f_protocols", "f_ai", "f_site"):
@@ -565,10 +571,6 @@ def footer_html(lang: str) -> str:
     )
     places = "".join(f'<li><strong>{esc(n)}</strong><span>{esc(a)}</span></li>' for n, a in PLACES)
     return f"""<footer class="site-footer">
-    <section class="wrap channels" id="canais" aria-labelledby="channels-title">
-      <h2 id="channels-title">{channels_title}</h2>
-      <div class="channels-grid">{channels}</div>
-    </section>
 
     <section class="wrap eco">
       <h2 class="eco-title">{ui['f_ecosystem']}</h2>

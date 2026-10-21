@@ -13,7 +13,7 @@ tags: [Terms of use, Site]
 ---
 
 These terms apply to **smarthome-ai.com**, maintained by **Dr. Álvaro Menezes**
-(contact: [admin@alvaro-menezes.com](mailto:admin@alvaro-menezes.com)). By browsing the site you
+(contact: [alvaroajm@gmail.com](mailto:alvaroajm@gmail.com)). By browsing the site you
 agree to the conditions below. If you do not agree, please do not use the content.
 
 ## 1. What this site is

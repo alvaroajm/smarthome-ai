@@ -50,6 +50,6 @@ Abra o dispositivo e use o controle da luz. Se for um sensor de abertura, abra e
 
 [Agora crie uma automação pelo editor visual](/primeira-automacao/).
 
-Já usa ZBT-1? Não precisa trocá-lo apenas para seguir os conceitos do guia. Zigbee2MQTT é uma alternativa disponível no [aprofundamento](/aprofundamento/#zigbee2mqtt).
+Já usa ZBT-1? Não precisa trocá-lo apenas para seguir os conceitos do guia. Zigbee2MQTT é uma alternativa disponível no [aprofundamento](/zigbee2mqtt/).
 
 Fontes: [assistente oficial do ZBT-2](https://support.nabucasa.com/hc/en-us/articles/29400591254301) e [ZHA](https://www.home-assistant.io/integrations/zha/).

@@ -75,6 +75,12 @@ third-party services and your control options.
 Content by **Dr. Álvaro Menezes** — radiologist, home automation enthusiast, Home Assistant, ESP32 and local
 systems. The guides bring together explanations and references for readers building their own installation.
 
+## The author's other channels
+
+Besides the main YouTube channel, the author runs AI-generated video projects that are not directly related to smart homes. They are listed here, outside the guides, for anyone curious:
+
+{{channels}}
+
 ## Equipment used at home
 
 The author uses **Home Assistant OS on a mini-PC with a Ryzen 7 processor**, **Zemismart Zigbee smart switches** and **Philips Hue Zigbee lights**.
@@ -120,4 +126,4 @@ Experience reports should identify equipment, versions, conditions and observed 
 Found an error, have a suggestion or want to request a topic? Corrections are very welcome — this site is
 maintained in the open and improves with the people who read it.
 
-Reach me on WhatsApp at [+55 (85) 99662-1818](https://wa.me/5585996621818) or by e-mail at [admin@alvaro-menezes.com](mailto:admin@alvaro-menezes.com).
+Reach me on WhatsApp at [+55 (85) 99662-1818](https://wa.me/5585996621818) or by e-mail at [alvaroajm@gmail.com](mailto:alvaroajm@gmail.com).

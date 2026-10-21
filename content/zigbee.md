@@ -56,6 +56,6 @@ Thread também é uma rede de baixo consumo e pode formar uma malha. É usada po
 
 Primeiro, [entenda o que é Matter](/matter-thread/). Depois, [configure ZBT-2 + ZHA pelas telas](/zbt-dongles/).
 
-Existe a alternativa **Zigbee2MQTT**, tratada no [aprofundamento](/aprofundamento/#zigbee2mqtt). Ela não é necessária nesta trilha.
+Existe a alternativa **Zigbee2MQTT**, tratada no [aprofundamento](/zigbee2mqtt/). Ela não é necessária nesta trilha.
 
 Fontes: [ZHA](https://www.home-assistant.io/integrations/zha/), [ZBT-2](https://www.home-assistant.io/connect/zbt-2/) e [Thread](https://www.home-assistant.io/integrations/thread/).
