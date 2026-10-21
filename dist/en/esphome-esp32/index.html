@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sensors with ESPHome and ESP32 · SmartHome-AI</title>
+  <meta name="description" content="Build temperature, presence and energy sensors with ESP32 and ESPHome, without coding in C: components, your first project and Home Assistant integration.">
+  <meta name="author" content="Dr. Álvaro Menezes">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#f8f8f1">
+  <link rel="canonical" href="https://smarthome-ai.com/en/esphome-esp32/">
+  <link rel="alternate" hreflang="pt" href="https://smarthome-ai.com/esphome-esp32/">
+  <link rel="alternate" hreflang="en" href="https://smarthome-ai.com/en/esphome-esp32/">
+  <link rel="alternate" hreflang="x-default" href="https://smarthome-ai.com/esphome-esp32/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SmartHome-AI">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Sensors with ESPHome and ESP32 · SmartHome-AI">
+  <meta property="og:description" content="Build temperature, presence and energy sensors with ESP32 and ESPHome, without coding in C: components, your first project and Home Assistant integration.">
+  <meta property="og:url" content="https://smarthome-ai.com/en/esphome-esp32/">
+  <meta property="og:image" content="https://smarthome-ai.com/static/img/og-smarthome-ai.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="SmartHome-AI — Intelligence for your home">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Sensors with ESPHome and ESP32 · SmartHome-AI">
+  <meta name="twitter:description" content="Build temperature, presence and energy sensors with ESP32 and ESPHome, without coding in C: components, your first project and Home Assistant integration.">
+  <meta name="twitter:image" content="https://smarthome-ai.com/static/img/og-smarthome-ai.jpg">
+  <meta name="twitter:image:alt" content="SmartHome-AI — Intelligence for your home">
+
+  <link rel="icon" href="/static/img/favicon-sa.ico?v=42f648b8" sizes="16x16 32x32 48x48">
+  <link rel="icon" href="/static/img/favicon-sa-32.png?v=a641890e" type="image/png" sizes="32x32">
+  <link rel="icon" href="/static/img/favicon-sa-192.png?v=bd4f5944" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/static/img/apple-touch-icon-sa.png?v=1ca56a26" sizes="180x180">
+  <link rel="preload" href="/static/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/static/fonts/inter-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/static/fonts/newsreader-500.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/static/css/style.css?v=d936c75c">
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('sha-theme');
+        if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4633113806110595" crossorigin="anonymous"></script>
+  
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1TKBR87DTZ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1TKBR87DTZ');
+  </script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"SmartHome-AI","alternateName":"SmartHome-AI — Intelligence for your home","url":"https://smarthome-ai.com/en/","inLanguage":"en","description":"Smart homes for beginners: compare platforms, set up Home Assistant OS and connect lights and sensors with Zigbee, ZBT-2 and ZHA. Visual steps, no code.","publisher":{"@type":"Organization","name":"SmartHome-AI","url":"https://smarthome-ai.com","logo":{"@type":"ImageObject","url":"https://smarthome-ai.com/static/img/logo-smarthome-ai-marca.png?v=20261021","width":360,"height":360}}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Sensors with ESPHome and ESP32","description":"Build temperature, presence and energy sensors with ESP32 and ESPHome, without coding in C: components, your first project and Home Assistant integration.","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://smarthome-ai.com/en/esphome-esp32/"},"author":{"@type":"Person","name":"Dr. Álvaro Menezes","url":"https://alvaro-menezes.com","jobTitle":"Radiologista","sameAs":["https://www.youtube.com/@alvaromenezes-rad","https://github.com/alvaroajm","https://www.instagram.com/alvaroajm/","https://facebook.com/alvaroajm","https://x.com/alvaroajm","https://www.linkedin.com/in/dr-alvaro-menezes/"]},"publisher":{"@type":"Organization","name":"SmartHome-AI","url":"https://smarthome-ai.com","logo":{"@type":"ImageObject","url":"https://smarthome-ai.com/static/img/logo-smarthome-ai-marca.png?v=20261021","width":360,"height":360}},"image":"https://smarthome-ai.com/static/img/og-smarthome-ai.jpg","isAccessibleForFree":true,"datePublished":"2026-09-22","dateModified":"2026-10-21","keywords":"ESPHome, ESP32, DIY, YAML, Sensors","articleSection":"DIY & firmware"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://smarthome-ai.com/en/"},{"@type":"ListItem","position":2,"name":"All guides","item":"https://smarthome-ai.com/en/guides/"},{"@type":"ListItem","position":3,"name":"Sensors with ESPHome and ESP32","item":"https://smarthome-ai.com/en/esphome-esp32/"}]}</script><meta property="article:published_time" content="2026-09-22"><meta property="article:modified_time" content="2026-10-21">
+</head>
+<body class="article"
+      data-lang="en"
+      data-intl="en-US"
+      data-search-index="/en/search-index.json"
+      data-search-empty="Type to search the guides."
+      data-search-none="Nothing found. Try “zigbee”, “ZHA” or “matter”."
+      data-search-suggest="Popular guides">
+  <a class="skip-link" href="#conteudo">Skip to content</a>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <div class="topbar">
+    <div class="wrap topbar-inner">
+      <p class="clock" id="clock" data-intl="en-US" aria-label="Date and time in Fortaleza">&nbsp;</p>
+      <div class="topbar-actions">
+        <div class="lang-switch" role="group" aria-label="Language">
+          <a href="/esphome-esp32/" hreflang="pt" lang="pt"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>PT</a>
+          <span aria-hidden="true">·</span>
+          <span class="lang-current" aria-current="true">EN</span>
+        </div>
+        <button class="icon-btn" id="theme-toggle" aria-label="Toggle light/dark theme" title="Toggle light/dark theme">
+          <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5Z"/></svg>
+          <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.6 5.6l1.4 1.4m10 10 1.4 1.4m0-12.8-1.4 1.4m-10 10-1.4 1.4"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="/en/">
+        <img class="brand-mark" src="/static/img/logo-smarthome-ai-marca.png?v=20261021" width="44" height="44" alt="" loading="eager">
+        <span class="brand-text">
+          <strong>SmartHome<span class="accent">-AI</span></strong>
+          <small>Intelligence for your home</small>
+        </span>
+      </a>
+      <nav class="site-nav" id="menu" aria-label="Main navigation">
+        <a href="/en/">Home</a>
+        <a href="/en/guides/">Guides</a>
+        <a href="/en/#dispositivos">Devices</a>
+        <a href="/en/#recursos">Resources</a>
+        <a href="/en/start/">Start here</a>
+        <a href="/en/faq/">FAQ</a>
+        <a href="/en/about/">About</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" id="search-open" aria-label="Search the site" title="Search the site (/)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </button>
+        <button class="icon-btn menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <article class="page">
+    <nav class="crumbs" aria-label="breadcrumb"><ol><li><a href="/en/">Home</a></li><li><a href="/en/guides/">All guides</a></li><li aria-current="page">DIY &amp; firmware</li></ol></nav>
+    <header class="page-head">
+      <p class="eyebrow">DIY &amp; firmware</p>
+      <h1>Sensors with ESPHome and ESP32</h1>
+      <p class="lead">Build temperature, presence and energy sensors with ESP32 and ESPHome, without coding in C: components, your first project and Home Assistant integration.</p>
+      <p class="byline"><a href="/en/about/" rel="author">Dr. Álvaro Menezes</a> · Published: <time datetime="2026-09-22">2026-09-22</time> · Updated: <time datetime="2026-10-21">2026-10-21</time> · 5 min read</p>
+    </header>
+    <div class="article-grid">
+      <nav class="toc" aria-label="In this guide"><p class="toc-title">In this guide</p><div class="toc">
+<ul>
+<li><a href="#two-ways-to-start">Two ways to start</a></li>
+<li><a href="#esphome-device-builder-the-dashboard-for-your-projects">ESPHome Device Builder: the dashboard for your projects</a></li>
+<li><a href="#do-i-need-to-know-how-to-code">Do I need to know how to code?</a></li>
+<li><a href="#voice-with-esp32">Voice with ESP32</a></li>
+<li><a href="#your-first-project">Your first project</a></li>
+<li><a href="#a-ready-made-example-a-scale-in-home-assistant-over-bluetooth">A ready-made example: a scale in Home Assistant over Bluetooth</a></li>
+</ul>
+</div>
+</nav>
+      <div class="prose">
+        <p>A sensor that fits exactly where you need it. A button that triggers your favourite scene. A tiny screen showing the bedroom temperature. <strong>ESP32 + ESPHome</strong> lets you build these small projects and connect them to Home Assistant.</p>
+<p><strong>IoT</strong> means connected objects exchanging information. <strong>DIY</strong> is doing it yourself. Here, your board talks to the hub over the local network; you don't need a manufacturer's app for each project.</p>
+<h2 id="two-ways-to-start">Two ways to start<a class="headerlink" href="#two-ways-to-start" title="Permanent link">#</a></h2>
+<figure class="feature-figure feature-product"><a href="/static/img/diagrams/ha-features-esp32.svg" target="_blank" rel="noopener" aria-label="Enlarge: ESP32-DevKitC: a general-purpose board for connecting sensors and other components."><img src="/static/img/diagrams/ha-features-esp32.svg" width="600" height="520" alt="Original conceptual diagram: An ESPHome device" loading="lazy" decoding="async"></a><figcaption><span>Original conceptual diagram; not a photo of the named model.</span> ESP32-DevKitC: a general-purpose board for connecting sensors and other components. · <a class="ext" href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html" target="_blank" rel="noopener">Official image</a></figcaption></figure>
+
+<p>ESP32 development boards offer connections for sensors, buttons and screens. There are many variants: check the chip, the pinout, the memory and the components before following a recipe.</p>
+<figure class="feature-figure feature-product"><a href="/static/img/diagrams/ha-features-atom-s3.svg" target="_blank" rel="noopener" aria-label="Enlarge: M5Stack ATOM-S3: an ESP32-S3 with a screen, a button and connectors in a tiny case."><img src="/static/img/diagrams/ha-features-atom-s3.svg" width="600" height="520" alt="Original conceptual diagram: An ESPHome device" loading="lazy" decoding="async"></a><figcaption><span>Original conceptual diagram; not a photo of the named model.</span> M5Stack ATOM-S3: an ESP32-S3 with a screen, a button and connectors in a tiny case. · <a class="ext" href="https://docs.m5stack.com/en/core/AtomS3" target="_blank" rel="noopener">Official image</a></figcaption></figure>
+
+<p>The <strong>ATOM-S3</strong> includes a small screen and a button, useful for controls and information. Configuring the screen and its components is specific to the board. It should not be confused with the <strong>ATOM Echo</strong>, which has audio hardware and an official tutorial for using Assist.</p>
+<h2 id="esphome-device-builder-the-dashboard-for-your-projects">ESPHome Device Builder: the dashboard for your projects<a class="headerlink" href="#esphome-device-builder-the-dashboard-for-your-projects" title="Permanent link">#</a></h2>
+<p><strong>ESPHome</strong> is an open-source project from the Open Home Foundation, backed by Nabu Casa. The <strong>Device Builder</strong> can be installed as an App on HAOS and organises your devices from the browser.</p>
+<figure class="feature-figure"><a href="/static/img/diagrams/ha-features-esphome-builder.svg" target="_blank" rel="noopener" aria-label="Enlarge: Official ESPHome Device Builder screen, showing devices and their connection state."><img src="/static/img/diagrams/ha-features-esphome-builder.svg" width="600" height="520" alt="Original conceptual diagram: An ESPHome device" loading="lazy" decoding="async"></a><figcaption><span>Original conceptual diagram; not a photo of the named model.</span> Official ESPHome Device Builder screen, showing devices and their connection state. · <a class="ext" href="https://esphome.io/install/getting-started/" target="_blank" rel="noopener"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>Official image</a></figcaption></figure>
+
+<ol>
+<li>In <strong>Settings → Apps</strong>, open the store and install <strong>ESPHome Device Builder</strong>.</li>
+<li>Start the App and open the web interface.</li>
+<li>Choose <strong>Create device</strong> and follow the new-configuration wizard.</li>
+<li>Confirm the board type and the Wi-Fi network.</li>
+<li>Use <strong>Install</strong> and follow the USB flashing option. In the browser, use Chrome or Edge on a computer, with a secure context and Web Serial support.</li>
+<li>Add the discovered device in <strong>Settings → Devices &amp; services → ESPHome</strong>.</li>
+</ol>
+<p>After the first install, and with the network working, many updates can be sent over Wi-Fi. The exact path depends on the board and the configuration.</p>
+<h2 id="do-i-need-to-know-how-to-code">Do I need to know how to code?<a class="headerlink" href="#do-i-need-to-know-how-to-code" title="Permanent link">#</a></h2>
+<p>You don't need to start by writing C++. ESPHome uses <strong>YAML</strong>, a file that describes the components and what they should do. The wizard builds the base; ready-made projects save a lot of work. Custom sensors and screens may still require editing that file.</p>
+<p>An <strong>AI can be a good tutor</strong>: explaining each part, adapting an example and helping you interpret errors. A useful request is:</p>
+<blockquote>
+<p>"I have this ESP32 board and this sensor. Use the current ESPHome documentation, explain the connections and propose a minimal configuration. Don't invent pins; tell me what I need to confirm."</p>
+</blockquote>
+<p>State the exact model and don't include real passwords in the request. Compare the answer with the documentation, use <strong>Validate</strong> and test one component at a time. A configuration that compiles still has to match the physical wiring.</p>
+<h2 id="voice-with-esp32">Voice with ESP32<a class="headerlink" href="#voice-with-esp32" title="Permanent link">#</a></h2>
+<p>With a compatible microphone, speaker and configuration, an ESP32 device can act as a voice point for <strong>Assist</strong>. The <a class="ext" target="_blank" rel="noopener" href="https://www.home-assistant.io/voice_control/thirteen-usd-voice-remote/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="assist" src="/static/img/brands/assist.png?v=b4bcbb3e" width="32" height="32" alt="" decoding="async"></span>official ATOM Echo tutorial</a> offers browser-based installation.</p>
+<p>The board captures and plays back audio; recognition and the response can use local processing on the system or cloud services, depending on the configuration. You don't have to start with voice: a scene button is usually a simpler project.</p>
+<h2 id="your-first-project">Your first project<a class="headerlink" href="#your-first-project" title="Permanent link">#</a></h2>
+<p>Start with a <strong>temperature sensor or a button powered over USB</strong>, at low voltage. Once it shows up in Home Assistant, create the automation from the visual editor. Projects wired to mains power require suitable components and installation by a qualified professional.</p>
+<h2 id="a-ready-made-example-a-scale-in-home-assistant-over-bluetooth">A ready-made example: a scale in Home Assistant over Bluetooth<a class="headerlink" href="#a-ready-made-example-a-scale-in-home-assistant-over-bluetooth" title="Permanent link">#</a></h2>
+<p>A gateway that listens to the <strong>Bluetooth (BLE)</strong> advertisement from scales and publishes the weight to Home Assistant — without relying on the manufacturer's cloud. It runs on an <strong>M5Stack ATOM Lite (ESP32)</strong> and covers two protocols: <strong>OKOK/QJ-J</strong> scales (weight read straight from the advertisement) and the <strong>Xiaomi Mi Scale 2</strong> (through the native <code>xiaomi_miscale</code> component, with weight and impedance).</p>
+<blockquote>
+<p><strong>Replace with your own data before flashing.</strong> The scale MAC addresses, the static IP and the <code>!secret</code> keys below are only examples. Never publish real MAC addresses, IPs or passwords.</p>
+</blockquote>
+<pre><code class="language-yaml"># BLE gateway -&gt; Home Assistant for OKOK and Xiaomi Mi Scale 2 scales
+# Hardware: M5Stack ATOM Lite (ESP32-PICO-D4) | Framework: ESP-IDF
+# Replace the MACs, the static IP and the !secret keys with your own.
+
+esphome:
+  name: atom-bt-gateway-balanca
+  friendly_name: &quot;ATOM BT GATEWAY SCALE&quot;
+
+esp32:
+  board: m5stack-atom
+  framework:
+    type: esp-idf
+
+# ---- Connectivity ----
+logger:
+  level: DEBUG
+
+api:
+  encryption:
+    key: !secret balanca_api_key
+
+ota:
+  - platform: esphome
+    encryption:
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  manual_ip:                    # adjust to your network (or remove to use DHCP)
+    static_ip: 192.168.1.50
+    gateway: 192.168.1.1
+    subnet: 255.255.255.0
+    dns1: 1.1.1.1
+    dns2: 8.8.8.8
+  power_save_mode: NONE
+
+# ---- Internal state variables ----
+globals:
+  - id: medindo
+    type: bool
+    restore_value: no
+    initial_value: 'false'
+  - id: ultimo_peso
+    type: float
+    restore_value: no
+    initial_value: '0'
+
+# ---- ATOM Lite RGB LED (optional visual feedback) ----
+light:
+  - platform: esp32_rmt_led_strip
+    id: status_led
+    name: &quot;Scale Status LED&quot;
+    pin: GPIO27
+    num_leds: 1
+    chipset: SK6812
+    channel_colors: GRB
+    entity_category: config
+
+script:
+  - id: pisca_ok
+    then:
+      - light.turn_on:
+          id: status_led
+          red: 0%
+          green: 100%
+          blue: 20%
+          brightness: 40%
+      - delay: 1500ms
+      - light.turn_off: status_led
+
+# ---- BLE listening ----
+esp32_ble_tracker:
+  scan_parameters:
+    active: true          # requests scan response; does not open a GATT connection
+    interval: 320ms
+    window: 160ms
+  on_ble_advertise:
+    - mac_address: AA:BB:CC:DD:EE:FF   # &lt;- MAC of YOUR OKOK scale
+      then:
+        - lambda: |-
+            // The counter occupies the high byte: don't filter by the full ID.
+            for (const auto &amp;manu : x.get_manufacturer_datas()) {
+              const auto uuid = manu.uuid.get_uuid();
+              if (uuid.len != ESP_UUID_LEN_16 || (uuid.uuid.uuid16 &amp; 0xFF) != 0xC0)
+                continue;
+              const auto &amp;d = manu.data;
+              if (d.size() != 13) continue;
+              // Confirm the MAC embedded in the payload (use your own MAC bytes)
+              if (!(d[7]==0xAA &amp;&amp; d[8]==0xBB &amp;&amp; d[9]==0xCC &amp;&amp;
+                    d[10]==0xDD &amp;&amp; d[11]==0xEE &amp;&amp; d[12]==0xFF)) continue;
+
+              uint16_t peso_raw = (uint16_t(d[0]) &lt;&lt; 8) | d[1];
+              uint8_t  flag     = d[6];
+              if (flag != 0x24 &amp;&amp; flag != 0x25) continue;
+              if (flag == 0x25 &amp;&amp; peso_raw == 0) continue;
+
+              float peso = peso_raw / 100.0f;   // kg
+
+              // Avoid re-sending hundreds of identical values to the API.
+              if (!id(balanca_peso_vivo).has_state() ||
+                  fabsf(id(balanca_peso_vivo).state - peso) &gt; 0.005f) {
+                id(balanca_peso_vivo).publish_state(peso);
+              }
+
+              if (flag == 0x24) {
+                id(medindo) = true;
+                id(balanca_estavel).publish_state(false);
+              } else if (flag == 0x25) {
+                const bool nova = id(medindo) || !id(balanca_peso).has_state() ||
+                    fabsf(peso - id(ultimo_peso)) &gt; 0.005f;
+                id(medindo) = false;
+                id(balanca_estavel).publish_state(true);
+                if (nova) {
+                  ESP_LOGI(&quot;balanca&quot;, &quot;OKOK: weight=%.2f kg&quot;, peso);
+                  id(ultimo_peso) = peso;
+                  id(balanca_peso).publish_state(peso);
+                  id(pisca_ok).execute();
+                }
+              }
+            }
+
+# ---- Sensors published to Home Assistant ----
+sensor:
+  - platform: template
+    name: &quot;Scale Weight&quot;
+    id: balanca_peso
+    update_interval: never
+    unit_of_measurement: &quot;kg&quot;
+    device_class: weight
+    state_class: measurement
+    accuracy_decimals: 2
+    icon: &quot;mdi:scale-bathroom&quot;
+
+  - platform: template
+    name: &quot;Scale Weight (live)&quot;
+    id: balanca_peso_vivo
+    update_interval: never
+    unit_of_measurement: &quot;kg&quot;
+    state_class: measurement
+    accuracy_decimals: 2
+    icon: &quot;mdi:scale&quot;
+    entity_category: diagnostic
+
+  - platform: wifi_signal
+    name: &quot;Scale Gateway WiFi&quot;
+    update_interval: 120s
+    entity_category: diagnostic
+
+  # Xiaomi: shares the BLE scanner; the only source of impedance.
+  - platform: xiaomi_miscale
+    id: xiaomi_balanca
+    mac_address: 11:22:33:44:55:66   # &lt;- MAC of YOUR Xiaomi Mi Scale 2
+    clear_impedance: true
+    weight:
+      name: &quot;Xiaomi Weight&quot;
+      id: xiaomi_peso
+    impedance:
+      name: &quot;Xiaomi Impedance&quot;
+      id: xiaomi_impedancia
+
+binary_sensor:
+  - platform: template
+    name: &quot;Scale Measurement Stable&quot;
+    id: balanca_estavel
+    icon: &quot;mdi:check-circle&quot;
+    entity_category: diagnostic
+
+  - platform: status
+    name: &quot;Scale Gateway Online&quot;
+
+text_sensor:
+  - platform: version
+    name: &quot;Scale Gateway ESPHome&quot;
+    entity_category: diagnostic
+
+switch:
+  - platform: restart
+    name: &quot;Scale Gateway RESTART&quot;
+    id: balanca_gateway_restart
+</code></pre>
+<p><strong>How it works, in short:</strong></p>
+<ul>
+<li>The ESP32 only <strong>listens</strong> to BLE advertisements (<code>esp32_ble_tracker</code>); it never pairs with the scales.</li>
+<li>In the <strong>OKOK</strong> protocol, the weight comes in the first two bytes (<code>weight = (byte0 &lt;&lt; 8 | byte1) / 100</code>). Flag <strong><code>0x24</code></strong> means an unstable (live) reading and <strong><code>0x25</code></strong> the final weight.</li>
+<li>The OKOK impedance is ignored; <strong>impedance comes only from the Xiaomi</strong>, through the <code>xiaomi_miscale</code> component.</li>
+<li>The ATOM LED blinks green on each final weight — an optional visual cue.</li>
+</ul>
+<p>Validate it in the <strong>ESPHome Device Builder</strong> (<em>Validate</em>), create the entities in Home Assistant and test one component at a time.</p>
+<p><a href="/en/home-assistant/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Back to Home Assistant</a>.</p>
+<p>Sources: <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/install/getting-started/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>getting started with ESPHome</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/install/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>install ESPHome</a>, <a class="ext" target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html">ESP32-DevKitC</a>, <a class="ext" target="_blank" rel="noopener" href="https://docs.m5stack.com/en/core/AtomS3">ATOM-S3</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/sensor/xiaomi_miscale.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>xiaomi_miscale component</a> and <a class="ext" target="_blank" rel="noopener" href="https://www.nabucasa.com/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="nabu-casa" src="/static/img/brands/nabu-casa.svg?v=fd7f86f9" width="32" height="32" alt="" decoding="async"></span>Nabu Casa and the Open Home Foundation</a>.</p>
+        <ul class="tags"><li>ESPHome</li><li>ESP32</li><li>DIY</li><li>YAML</li><li>Sensors</li></ul>
+      </div>
+    </div>
+<section class="related"><h2>Read next</h2><div class="cards"><a class="card" href="/esphome-esp32/">
+        <span class="card-icon"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span></span>
+        <span class="card-tag">DIY &amp; firmware<span class="badge-lang">in Portuguese</span></span>
+        <h3>Sensores com ESPHome e ESP32</h3>
+        <p>Monte sensores de temperatura, presença e energia com ESP32 e ESPHome, sem programar em C: componentes, primeiro projeto e integração com o HA.</p>
+        <span class="card-go">Read the guide <span aria-hidden="true">→</span></span>
+      </a>
+      <a class="card" href="/aprofundamento/">
+        <span class="card-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2Z"/><path d="M6 17h13"/></svg></span>
+        <span class="card-tag">Aprofundamento<span class="badge-lang">in Portuguese</span></span>
+        <h3>Aprofundamento: para depois do básico</h3>
+        <p>Roteiro para a segunda fase: tipos de instalação, Zigbee2MQTT, câmeras com Scrypted e Frigate, ESPHome, MQTT, rede, acesso remoto, IA e manutenção.</p>
+        <span class="card-go">Read the guide <span aria-hidden="true">→</span></span>
+      </a>
+      <a class="card" href="/zigbee2mqtt/">
+        <span class="card-icon"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="zigbee2mqtt" src="/static/img/brands/zigbee2mqtt.png?v=2d56cc31" width="32" height="32" alt="" decoding="async"></span></span>
+        <span class="card-tag">Aprofundamento<span class="badge-lang">in Portuguese</span></span>
+        <h3>Zigbee2MQTT ou ZHA: quando considerar a mudança</h3>
+        <p>ZHA e Zigbee2MQTT comparados ponto a ponto, os sinais de que vale migrar, como conferir seu modelo no catálogo e como planejar a troca sem perder a rede.</p>
+        <span class="card-go">Read the guide <span aria-hidden="true">→</span></span>
+      </a></div></section>
+    <nav class="pager">
+      
+      
+    </nav>
+  </article>
+
+  </main>
+
+  <footer class="site-footer">
+
+    <section class="wrap eco">
+      <h2 class="eco-title">Ecosystem</h2>
+      <div class="eco-grid">
+        <a class="eco-tile" href="/en/">
+          <span class="eco-logo"><img src="/static/img/logo-smarthome-ai-marca.png?v=20261021" alt="SmartHome-AI" width="56" height="56" loading="lazy"></span>
+          <span class="eco-text"><strong>SmartHome-AI</strong><small>Smart home, local automation and open source</small></span>
+        </a>
+        <a class="eco-tile" href="https://alvaro-menezes.com" target="_blank" rel="noopener">
+          <span class="eco-logo"><img src="/static/img/author-seal.jpg" alt="Dr. Álvaro Menezes" width="56" height="56" loading="lazy"></span>
+          <span class="eco-text"><strong>Dr. Álvaro Menezes</strong><small>General and musculoskeletal radiology · Fortaleza, Brazil</small></span>
+        </a>
+        <a class="eco-tile" href="https://radapps.app" target="_blank" rel="noopener">
+          <span class="eco-logo"><img src="/static/img/radapps-brand.jpg" alt="RadApps" width="56" height="56" loading="lazy"></span>
+          <span class="eco-text"><strong>RadApps</strong><small>Apps for radiologists · iOS and Android</small></span>
+        </a>
+      </div>
+    </section>
+
+    <section class="wrap contact-card" id="contato">
+      <div class="contact-person">
+        <img class="contact-photo" src="/static/img/author-original.jpg" width="96" height="96" alt="Dr. Álvaro Menezes" loading="lazy">
+        <div>
+          <p class="contact-name">Dr. Álvaro Menezes</p>
+          <p class="contact-cred">CRM 11.393/CE · RQE 6562</p>
+          <p class="contact-cred">Independent guides on smart homes, local automation and open source.</p>
+          <div class="contact-social"><a class="social" href="https://www.youtube.com/@alvaromenezes-rad" target="_blank" rel="noopener me" aria-label="YouTube" title="YouTube"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.2 3.6-6.2 3.6Z"/></svg></a><a class="social" href="https://github.com/alvaroajm" target="_blank" rel="noopener me" aria-label="GitHub" title="GitHub"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="github" src="/static/img/brands/github.svg?v=c964ca8e" width="32" height="32" alt="" decoding="async"></span></a><a class="social" href="https://www.instagram.com/alvaroajm/" target="_blank" rel="noopener me" aria-label="Instagram" title="Instagram"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg></a><a class="social" href="https://facebook.com/alvaroajm" target="_blank" rel="noopener me" aria-label="Facebook" title="Facebook"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg></a><a class="social" href="https://x.com/alvaroajm" target="_blank" rel="noopener me" aria-label="X" title="X"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"/></svg></a><a class="social" href="https://www.linkedin.com/in/dr-alvaro-menezes/" target="_blank" rel="noopener me" aria-label="LinkedIn" title="LinkedIn"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></div>
+        </div>
+      </div>
+      <div class="contact-actions">
+        <h3>Contact</h3>
+        <a class="contact-line" href="mailto:alvaroajm@gmail.com"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6 8.5-6"/></svg><span>alvaroajm@gmail.com</span></a>
+        <a class="contact-line" href="https://wa.me/5585996621818" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5a8.5 8.5 0 0 0-7.3 12.9L3.5 20.5l4.2-1.1A8.5 8.5 0 1 0 12 3.5Z"/><path d="M9.2 8.6c.2-.5.6-.5 1-.5l.7 1.6-.6.8c.6 1.2 1.6 2.2 2.8 2.8l.8-.6 1.6.7c0 .4 0 .8-.5 1-2.7.7-6.5-3.1-5.8-5.8Z"/></svg><span>WhatsApp +55 (85) 99662-1818</span></a>
+        <a class="contact-line" href="https://alvaro-menezes.com/" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3 10h18M7 14.5h4"/></svg><span>Contact card</span></a>
+        <a class="contact-line" href="https://radapps.app" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 15c-1 2-1 4-1 4s2 0 4-1"/><path d="M13.5 4.5C16 2 21 3 21 3s1 5-1.5 7.5L14 16l-6-6 5.5-5.5Z"/><circle cx="15.5" cy="8.5" r="1.5"/><path d="m8 10-4 1 1 4 4-1"/></svg><span>RadApps ↗</span></a>
+      </div>
+      <div class="contact-places">
+        <h3>Practice locations</h3>
+        <ul><li><strong>Instituto Doutor José Frota</strong><span>Rua Barão do Rio Branco, 1816 · Centro, Fortaleza/CE</span></li><li><strong>Hospital Universitário Walter Cantídio</strong><span>Rua Pastor Samuel Munguba, 1290 · Rodolfo Teófilo, Fortaleza/CE</span></li><li><strong>Clínica Boghos Boyadjian</strong><span>Av. Rui Barbosa, 1975 · Aldeota, Fortaleza/CE</span></li></ul>
+      </div>
+    </section>
+
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <strong>SmartHome<span class="accent">-AI</span></strong>
+        <p>Intelligence for your home — Independent guides on smart homes, local automation and open source.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Site">
+        <div><h3>First steps</h3><a href="/en/start/">Start here</a><a href="/en/home-assistant/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Home Assistant</a><a href="/en/install-haos/">Install HAOS</a></div><div><h3>Connect and automate</h3><a href="/en/zigbee/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Zigbee</a><a href="/en/zbt-dongles/">ZBT-2 with ZHA</a><a href="/primeira-automacao/">First automation (PT)</a></div><div><h3>After the basics</h3><a href="/apps-integracoes/">Integrations and Apps (PT)</a><a href="/aprofundamento/">Further learning (PT)</a></div><div><h3>Site</h3><a href="/en/guides/">All guides</a><a href="/en/faq/">FAQ</a><a href="/en/about/">About</a><a href="/en/contact/">Contact</a><a href="/en/privacy/">Privacy</a><a href="/en/terms/">Terms of use</a></div>
+      </nav>
+    </div>
+    <div class="wrap footer-bottom">
+      <p>© 2026 SmartHome-AI · written by Dr. Álvaro Menezes</p>
+      <p>Built with HTML, CSS, JavaScript and a static site generator in Python.</p>
+    </div>
+  </footer>
+
+  <button class="to-top" id="to-top" type="button" aria-label="Back to top" title="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 14 6-6 6 6"/></svg>
+  </button>
+
+  <div class="search-modal" id="search-modal" hidden>
+    <div class="search-backdrop" data-close></div>
+    <div class="search-box" role="dialog" aria-modal="true" aria-label="Search the site">
+      <div class="search-field">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" id="search-input" aria-label="Search the site" placeholder="Search: light, Zigbee, installation…" autocomplete="off" spellcheck="false">
+        <button class="search-close icon-btn" type="button" data-close aria-label="Close search">×</button>
+      </div>
+      <ul class="search-results" id="search-results"></ul>
+    </div>
+  </div>
+
+  <script src="/static/js/main.js?v=5b14565b" defer></script>
+</body>
+</html>

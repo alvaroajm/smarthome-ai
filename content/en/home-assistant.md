@@ -104,7 +104,7 @@ You choose what to share. Not every feature has an equivalent in the Home app. F
 
 An AI assistant can explain the options, propose a configuration and help you understand errors. That makes learning more accessible, but you still need to check the board, the pins and the documentation, and validate before flashing. Start with a USB-powered, low-voltage project.
 
-[Meet ESPHome through the screens](/esphome-esp32/) (in Portuguese).
+[Meet ESPHome through the screens](/en/esphome-esp32/).
 
 ## Cameras that help you understand what is going on
 

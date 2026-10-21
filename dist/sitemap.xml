@@ -24,7 +24,7 @@
   <url><loc>https://smarthome-ai.com/zigbee2mqtt-desconectando/</loc><lastmod>2026-10-09</lastmod><xhtml:link rel="alternate" hreflang="pt" href="https://smarthome-ai.com/zigbee2mqtt-desconectando/"/></url>
   <url><loc>https://smarthome-ai.com/minha-instalacao/</loc><lastmod>2026-10-21</lastmod><xhtml:link rel="alternate" hreflang="pt" href="https://smarthome-ai.com/minha-instalacao/"/></url>
   <url><loc>https://smarthome-ai.com/hardware/</loc><lastmod>2026-09-21</lastmod><xhtml:link rel="alternate" hreflang="pt" href="https://smarthome-ai.com/hardware/"/></url>
-  <url><loc>https://smarthome-ai.com/esphome-esp32/</loc><lastmod>2026-09-22</lastmod><xhtml:link rel="alternate" hreflang="pt" href="https://smarthome-ai.com/esphome-esp32/"/></url>
+  <url><loc>https://smarthome-ai.com/esphome-esp32/</loc><lastmod>2026-09-22</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://smarthome-ai.com/en/esphome-esp32/"/><xhtml:link rel="alternate" hreflang="pt" href="https://smarthome-ai.com/esphome-esp32/"/></url>
   <url><loc>https://smarthome-ai.com/mqtt/</loc><lastmod>2026-09-21</lastmod><xhtml:link rel="alternate" hreflang="pt" href="https://smarthome-ai.com/mqtt/"/></url>
   <url><loc>https://smarthome-ai.com/apple-homekit/</loc><lastmod>2026-10-21</lastmod><xhtml:link rel="alternate" hreflang="pt" href="https://smarthome-ai.com/apple-homekit/"/></url>
   <url><loc>https://smarthome-ai.com/nabu-casa/</loc><lastmod>2026-09-22</lastmod><xhtml:link rel="alternate" hreflang="pt" href="https://smarthome-ai.com/nabu-casa/"/></url>
@@ -48,4 +48,5 @@
   <url><loc>https://smarthome-ai.com/en/contact/</loc><lastmod>2026-10-20</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://smarthome-ai.com/en/contact/"/><xhtml:link rel="alternate" hreflang="pt" href="https://smarthome-ai.com/contato/"/></url>
   <url><loc>https://smarthome-ai.com/en/terms/</loc><lastmod>2026-10-20</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://smarthome-ai.com/en/terms/"/><xhtml:link rel="alternate" hreflang="pt" href="https://smarthome-ai.com/termos/"/></url>
   <url><loc>https://smarthome-ai.com/en/zbt-dongles/</loc><lastmod>2026-10-21</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://smarthome-ai.com/en/zbt-dongles/"/><xhtml:link rel="alternate" hreflang="pt" href="https://smarthome-ai.com/zbt-dongles/"/></url>
+  <url><loc>https://smarthome-ai.com/en/esphome-esp32/</loc><lastmod>2026-10-21</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://smarthome-ai.com/en/esphome-esp32/"/><xhtml:link rel="alternate" hreflang="pt" href="https://smarthome-ai.com/esphome-esp32/"/></url>
 </urlset>
