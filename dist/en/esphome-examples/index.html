@@ -134,6 +134,7 @@
 <li><a href="#example-display">A ready-made example: a touchscreen panel (weather, curtains and AC)</a></li>
 <li><a href="#example-c6geek">A ready-made example: a Thread display with temperature and humidity (Waveshare C6-GEEK)</a></li>
 <li><a href="#example-panel7b">Reference example: a 7" wall panel for the whole home (Waveshare 7B)</a></li>
+<li><a href="#example-voice">A ready-made example: a voice assistant with a display (M5Stack AtomS3R + Echo Base)</a></li>
 </ul>
 </div>
 </nav>
@@ -149,6 +150,7 @@
 <li><a href="#example-display">A touchscreen panel (weather, curtains and AC)</a></li>
 <li><a href="#example-c6geek">A Thread display with temperature and humidity (C6-GEEK)</a></li>
 <li><a href="#example-panel7b">A 7" wall panel for the whole home (Waveshare 7B)</a></li>
+<li><a href="#example-voice">A voice assistant with a display (AtomS3R + Echo Base)</a></li>
 </ul>
 <h2 id="example-scale">A ready-made example: a scale in Home Assistant over Bluetooth<a class="headerlink" href="#example-scale" title="Permanent link">#</a></h2>
 <p>A gateway that listens to the <strong>Bluetooth (BLE)</strong> advertisement from scales and publishes the weight to Home Assistant — without relying on the manufacturer's cloud. It runs on an <strong>M5Stack ATOM Lite (ESP32)</strong> and covers two protocols: <strong>OKOK/QJ-J</strong> scales (weight read straight from the advertisement) and the <strong>Xiaomi Mi Scale 2</strong> (through the native <code>xiaomi_miscale</code> component, with weight and impedance).</p>
@@ -2072,8 +2074,1051 @@ sensor:
 <li>The interface has a <strong>main page</strong> (weather + BTC + per-room shortcuts) and <strong>one page per room</strong>, with scrolling.</li>
 </ul>
 <p>Treat this example as an <strong>advanced starting point</strong>: the full file (with <code>panel_data.h</code> and the images) is long and specific to the home.</p>
+<h2 id="example-voice">A ready-made example: a voice assistant with a display (M5Stack AtomS3R + Echo Base)<a class="headerlink" href="#example-voice" title="Permanent link">#</a></h2>
+<p>A <strong>voice assistant</strong> with a small status screen, built with the <strong>M5Stack AtomS3R + Echo Base</strong>. It detects wake words (<em>Okay Nabu</em>, <em>Hey Jarvis</em>, <em>Hey Mycroft</em>) with the <strong>wake word running on the device itself</strong> (or in Home Assistant) and talks to HA's <strong>Assist</strong>; the screen shows each phase — listening, thinking, replying — with the <em>Casita</em> illustrations.</p>
+<blockquote>
+<p><strong>Replace with your own data before flashing.</strong> The API key and the static IP are examples; generate/adjust your own. The illustrations, sounds and wake-word models are <strong>downloaded from public URLs</strong> at compile time — this example needs no local files. It requires <strong>ESPHome 2026.7+</strong> and the <strong>Echo Base</strong> audio hardware (microphone + speaker).</p>
+</blockquote>
+<pre><code class="language-yaml">substitutions:
+  name: atom-lcd-echo
+  friendly_name: &quot;ATOM LCD ECHO&quot;
+
+  # Casita images
+  loading_illustration_file: https://github.com/esphome/wake-word-voice-assistants/raw/main/casita/loading_320_240.png
+  idle_illustration_file: https://github.com/esphome/wake-word-voice-assistants/raw/main/casita/idle_320_240.png
+  listening_illustration_file: https://github.com/esphome/wake-word-voice-assistants/raw/main/casita/listening_320_240.png
+  thinking_illustration_file: https://github.com/esphome/wake-word-voice-assistants/raw/main/casita/thinking_320_240.png
+  replying_illustration_file: https://github.com/esphome/wake-word-voice-assistants/raw/main/casita/replying_320_240.png
+  error_illustration_file: https://github.com/esphome/wake-word-voice-assistants/raw/main/casita/error_320_240.png
+  error_no_wifi_illustration_file: https://github.com/esphome/wake-word-voice-assistants/raw/main/error_box_illustrations/error-no-wifi.png
+  error_no_ha_illustration_file: https://github.com/esphome/wake-word-voice-assistants/raw/main/error_box_illustrations/error-no-ha.png
+
+  # Fonts
+  mdi_webfont_file: https://raw.githubusercontent.com/Templarian/MaterialDesign-Webfont/master/fonts/materialdesignicons-webfont.ttf
+
+  # Audio files
+  wake_word_trigger_sound_file: https://github.com/esphome/home-assistant-voice-pe/raw/dev/sounds/wake_word_triggered.flac
+  timer_finished_sound_file: https://github.com/esphome/home-assistant-voice-pe/raw/dev/sounds/timer_finished.flac
+  error_cloud_expired_file: https://github.com/esphome/home-assistant-voice-pe/raw/dev/sounds/error_cloud_expired.mp3
+
+  # Micro Wake Word models
+  stop_model_file: https://github.com/kahrendt/microWakeWord/releases/download/stop/stop.json
+
+  # Background colors
+  loading_illustration_background_color: &quot;000000&quot;
+  idle_illustration_background_color: &quot;000000&quot;
+  listening_illustration_background_color: &quot;FFFFFF&quot;
+  thinking_illustration_background_color: &quot;FFFFFF&quot;
+  replying_illustration_background_color: &quot;FFFFFF&quot;
+  error_illustration_background_color: &quot;000000&quot;
+
+  # Voice assistant phases
+  voice_assist_idle_phase_id: &quot;1&quot;
+  voice_assist_listening_phase_id: &quot;2&quot;
+  voice_assist_thinking_phase_id: &quot;3&quot;
+  voice_assist_replying_phase_id: &quot;4&quot;
+  voice_assist_not_ready_phase_id: &quot;10&quot;
+  voice_assist_error_phase_id: &quot;11&quot;
+  voice_assist_muted_phase_id: &quot;12&quot;
+  voice_assist_timer_finished_phase_id: &quot;20&quot;
+
+esphome:
+  name: ${name}
+  friendly_name: ${friendly_name}
+  min_version: 2026.7.0
+  on_boot:
+    priority: 200
+    then:
+      - light.turn_on:
+          id: lcd_backlight
+          brightness: 100%
+      - delay: 500ms
+      - component.update: atoms3r_lcd
+      - script.execute: draw_display
+      - delay: 30s
+      - if:
+          condition:
+            lambda: return id(init_in_progress);
+          then:
+            - lambda: id(init_in_progress) = false;
+            - script.execute: draw_display
+
+esp32:
+  variant: ESP32S3
+  board: esp32-s3-devkitc-1
+  flash_size: 8MB
+  cpu_frequency: 240MHz
+  framework:
+    type: esp-idf
+    sdkconfig_options:
+      CONFIG_ESP32S3_DEFAULT_CPU_FREQ_240: &quot;y&quot;
+      CONFIG_ESP32S3_DATA_CACHE_64KB: &quot;y&quot;
+      CONFIG_ESP32S3_DATA_CACHE_LINE_64B: &quot;y&quot;
+
+psram:
+  mode: octal
+  speed: 80MHz
+
+api:
+  encryption:
+    key: !secret api_encryption_key   # generate yours in the ESPHome Builder
+  on_client_connected:
+    - script.execute: draw_display
+  on_client_disconnected:
+    - script.execute: draw_display
+
+ota:
+  - platform: esphome
+    id: ota_esphome
+    encryption:
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  manual_ip:                    # adjust to your network or remove it to use DHCP
+    static_ip: 192.168.1.60
+    gateway: 192.168.1.1
+    subnet: 255.255.255.0
+    dns1: 8.8.8.8
+    dns2: 8.8.4.4
+  power_save_mode: NONE
+  on_connect:
+    - script.execute: draw_display
+  on_disconnect:
+    then:
+      - script.execute: draw_display
+logger:
+  level: DEBUG
+  hardware_uart: USB_SERIAL_JTAG
+
+button:
+  - platform: factory_reset
+    id: factory_reset_btn
+    internal: true
+
+  - platform: template
+    name: &quot;Test speaker&quot;
+    entity_category: diagnostic
+    on_press:
+      - switch.turn_on: speaker_enable
+      - script.execute:
+          id: play_sound
+          priority: true
+          sound_file: !lambda return id(wake_word_triggered_sound);
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO41
+      mode: INPUT_PULLUP
+      inverted: true
+    id: user_button
+    internal: true
+    on_multi_click:
+      # Quick click toggles mute
+      - timing:
+          - ON for at least 50ms
+          - OFF for at least 50ms
+        then:
+          - switch.toggle: mute
+          - switch.turn_off: timer_ringing
+
+      # Hold for 10 seconds to factory reset
+      - timing:
+          - ON for at least 10s
+        then:
+          - button.press: factory_reset_btn
+
+external_components:
+  - source: github://m5stack/esphome-yaml/components@main
+    components:
+      - lp5562
+      - es8311
+    refresh: 1d
+
+i2c:
+  - id: bsp_bus
+    sda:
+      number: GPIO45
+      ignore_strapping_warning: true
+    scl:
+      number: GPIO0
+      ignore_strapping_warning: true
+    scan: true
+
+  - id: ext_bus
+    sda: GPIO38
+    scl: GPIO39
+    scan: true
+
+pi4ioe5v6408:
+  - id: pi4ioe5v6408_hub
+    i2c_id: ext_bus
+    address: 0x43
+
+i2s_audio:
+  - id: i2s_audio_bus
+    i2s_lrclk_pin: GPIO6
+    i2s_bclk_pin: GPIO8
+
+spi:
+  id: spi_bus
+  clk_pin: GPIO15
+  mosi_pin: GPIO21
+
+audio_dac:
+  - platform: es8311
+    id: es8311_dac
+    i2c_id: ext_bus
+    bits_per_sample: 16bit
+    sample_rate: 48000
+    use_microphone: false
+    use_mclk: false
+
+microphone:
+  - platform: i2s_audio
+    id: i2s_mic
+    sample_rate: 16000
+    i2s_din_pin: GPIO7
+    bits_per_sample: 16bit
+    adc_type: external
+
+speaker:
+  - platform: i2s_audio
+    id: i2s_speaker
+    i2s_dout_pin: GPIO5
+    dac_type: external
+    sample_rate: 48000
+    audio_dac: es8311_dac
+    channel: left
+
+media_player:
+  - platform: speaker
+    name: &quot;Echo Base Player&quot;
+    id: echo_base_player
+    volume_min: 0.5
+    volume_max: 0.8
+
+    announcement_pipeline:
+      speaker: i2s_speaker
+      format: FLAC
+      sample_rate: 48000
+      num_channels: 1
+
+    files:
+      - id: wake_word_triggered_sound
+        file: ${wake_word_trigger_sound_file}
+
+      - id: timer_finished_sound
+        file: ${timer_finished_sound_file}
+
+      - id: error_cloud_expired
+        file: ${error_cloud_expired_file}
+
+    on_state:
+      - logger.log: &quot;Media player state updated&quot;
+
+    on_play:
+      - logger.log: &quot;Playback started&quot;
+
+    on_announcement:
+      then:
+        - logger.log:
+            format: &quot;Playing announcement&quot;
+            level: DEBUG
+
+        - if:
+            condition:
+              microphone.is_capturing:
+            then:
+              - script.execute: stop_wake_word
+
+              - if:
+                  condition:
+                    lambda: |-
+                      return id(wake_word_engine_location).current_option() ==
+                             &quot;In Home Assistant&quot;;
+                  then:
+                    - wait_until:
+                        not:
+                          voice_assistant.is_running:
+
+        - if:
+            condition:
+              not:
+                voice_assistant.is_running:
+            then:
+              - lambda: |-
+                  id(voice_assistant_phase) =
+                    ${voice_assist_muted_phase_id};
+              - script.execute: draw_display
+
+    on_idle:
+      - if:
+          condition:
+            not:
+              voice_assistant.is_running:
+          then:
+            - script.execute: start_wake_word
+            - script.execute: set_idle_or_mute_phase
+            - script.execute: draw_display
+
+switch:
+  # NS4150B amplifier enable
+  - platform: gpio
+    name: &quot;Speaker Enable&quot;
+    id: speaker_enable
+    pin:
+      pi4ioe5v6408: pi4ioe5v6408_hub
+      number: 0
+      mode:
+        output: true
+    icon: &quot;mdi:volume-high&quot;
+    restore_mode: ALWAYS_ON
+
+  - platform: template
+    name: &quot;Mute Microphone&quot;
+    id: mute
+    icon: &quot;mdi:microphone-off&quot;
+    optimistic: true
+    restore_mode: RESTORE_DEFAULT_OFF
+    entity_category: config
+
+    on_turn_off:
+      - microphone.unmute:
+      - lambda: |-
+          id(voice_assistant_phase) =
+            ${voice_assist_idle_phase_id};
+      - script.execute: draw_display
+
+    on_turn_on:
+      - microphone.mute:
+      - lambda: |-
+          id(voice_assistant_phase) =
+            ${voice_assist_muted_phase_id};
+      - script.execute: draw_display
+
+  - platform: template
+    id: timer_ringing
+    optimistic: true
+    internal: true
+    restore_mode: ALWAYS_OFF
+
+    on_turn_off:
+      - lambda: |-
+          id(echo_base_player)
+            -&gt;make_call()
+            .set_command(
+              media_player::MediaPlayerCommand::
+                MEDIA_PLAYER_COMMAND_REPEAT_OFF
+            )
+            .set_announcement(true)
+            .perform();
+
+          id(echo_base_player)-&gt;set_playlist_delay_ms(
+            speaker::AudioPipelineType::ANNOUNCEMENT,
+            0
+          );
+
+      - media_player.stop:
+          id: echo_base_player
+          announcement: true
+
+      - script.execute: start_wake_word
+
+    on_turn_on:
+      - script.execute: stop_wake_word
+
+      - lambda: |-
+          id(echo_base_player)
+            -&gt;make_call()
+            .set_command(
+              media_player::MediaPlayerCommand::
+                MEDIA_PLAYER_COMMAND_REPEAT_ONE
+            )
+            .set_announcement(true)
+            .perform();
+
+          id(echo_base_player)-&gt;set_playlist_delay_ms(
+            speaker::AudioPipelineType::ANNOUNCEMENT,
+            1000
+          );
+
+      - script.execute:
+          id: play_sound
+          priority: true
+          sound_file: !lambda return id(timer_finished_sound);
+
+      - delay: 15min
+      - switch.turn_off: timer_ringing
+
+select:
+  - platform: template
+    entity_category: config
+    name: &quot;Wake word engine location&quot;
+    id: wake_word_engine_location
+    icon: &quot;mdi:account-voice&quot;
+    optimistic: true
+    restore_value: true
+
+    options:
+      - In Home Assistant
+      - On device
+
+    initial_option: On device
+
+    on_value:
+      - if:
+          condition:
+            lambda: return !id(init_in_progress);
+          then:
+            - wait_until:
+                lambda: |-
+                  return
+                    id(voice_assistant_phase) ==
+                      ${voice_assist_muted_phase_id} ||
+                    id(voice_assistant_phase) ==
+                      ${voice_assist_idle_phase_id};
+
+            - if:
+                condition:
+                  lambda: return x == &quot;In Home Assistant&quot;;
+                then:
+                  - micro_wake_word.stop:
+                  - delay: 500ms
+
+                  - if:
+                      condition:
+                        switch.is_off: mute
+                      then:
+                        - lambda: id(va).set_use_wake_word(true);
+                        - voice_assistant.start_continuous:
+
+            - if:
+                condition:
+                  lambda: return x == &quot;On device&quot;;
+                then:
+                  - lambda: id(va).set_use_wake_word(false);
+                  - voice_assistant.stop:
+                  - delay: 500ms
+
+                  - if:
+                      condition:
+                        switch.is_off: mute
+                      then:
+                        - micro_wake_word.start:
+
+  - platform: template
+    name: &quot;Wake word sensitivity&quot;
+    id: wake_word_sensitivity
+    optimistic: true
+    initial_option: Slightly sensitive
+    restore_value: true
+    entity_category: config
+
+    options:
+      - Slightly sensitive
+      - Moderately sensitive
+      - Very sensitive
+
+    on_value:
+      - lambda: |-
+          if (x == &quot;Slightly sensitive&quot;) {
+            id(okay_nabu).set_probability_cutoff(217);
+            id(hey_jarvis).set_probability_cutoff(247);
+            id(hey_mycroft).set_probability_cutoff(253);
+          } else if (x == &quot;Moderately sensitive&quot;) {
+            id(okay_nabu).set_probability_cutoff(176);
+            id(hey_jarvis).set_probability_cutoff(235);
+            id(hey_mycroft).set_probability_cutoff(242);
+          } else if (x == &quot;Very sensitive&quot;) {
+            id(okay_nabu).set_probability_cutoff(143);
+            id(hey_jarvis).set_probability_cutoff(212);
+            id(hey_mycroft).set_probability_cutoff(237);
+          }
+
+micro_wake_word:
+  id: mww
+  microphone: i2s_mic
+
+  models:
+    - model: okay_nabu
+      id: okay_nabu
+
+    - model: hey_jarvis
+      id: hey_jarvis
+
+    - model: hey_mycroft
+      id: hey_mycroft
+
+    - model: ${stop_model_file}
+      id: stop
+      internal: true
+
+  vad:
+
+  on_wake_word_detected:
+    - script.execute:
+        id: play_sound
+        priority: true
+        sound_file: !lambda return id(wake_word_triggered_sound);
+
+    - wait_until:
+        condition:
+          media_player.is_announcing: echo_base_player
+        timeout: 500ms
+
+    - wait_until:
+        condition:
+          and:
+            - not:
+                media_player.is_announcing: echo_base_player
+            - not:
+                speaker.is_playing: i2s_speaker
+        timeout: 10s
+
+    - voice_assistant.start:
+        wake_word: !lambda return wake_word;
+
+voice_assistant:
+  id: va
+  microphone: i2s_mic
+  media_player: echo_base_player
+  micro_wake_word: mww
+  noise_suppression_level: 2
+  auto_gain: 31dBFS
+  volume_multiplier: 2.0
+
+  on_listening:
+    - lambda: |-
+        id(voice_assistant_phase) =
+          ${voice_assist_listening_phase_id};
+    - script.execute: draw_display
+
+  on_stt_vad_end:
+    - lambda: |-
+        id(voice_assistant_phase) =
+          ${voice_assist_thinking_phase_id};
+    - script.execute: draw_display
+
+  on_tts_start:
+    - lambda: |-
+        id(voice_assistant_phase) =
+          ${voice_assist_replying_phase_id};
+    - script.execute: draw_display
+
+  on_end:
+    - wait_until:
+        condition:
+          media_player.is_announcing: echo_base_player
+        timeout: 500ms
+
+    - wait_until:
+        condition:
+          and:
+            - not:
+                media_player.is_announcing: echo_base_player
+            - not:
+                speaker.is_playing: i2s_speaker
+        timeout: 30s
+
+    - if:
+        condition:
+          lambda: |-
+            return id(wake_word_engine_location).current_option() ==
+                   &quot;On device&quot;;
+        then:
+          - lambda: id(va).set_use_wake_word(false);
+          - micro_wake_word.start:
+
+    - script.execute: set_idle_or_mute_phase
+    - script.execute: draw_display
+
+  on_error:
+    - if:
+        condition:
+          and:
+            - lambda: return !id(init_in_progress);
+            - lambda: return code != &quot;duplicate_wake_up_detected&quot;;
+            - lambda: return code != &quot;stt-no-text-recognized&quot;;
+        then:
+          - lambda: |-
+              id(voice_assistant_phase) =
+                ${voice_assist_error_phase_id};
+          - script.execute: draw_display
+          - delay: 1s
+          - script.execute: set_idle_or_mute_phase
+          - script.execute: draw_display
+
+    - if:
+        condition:
+          lambda: return code == &quot;cloud-auth-failed&quot;;
+        then:
+          - script.execute:
+              id: play_sound
+              priority: true
+              sound_file: !lambda return id(error_cloud_expired);
+          - script.execute: draw_display
+
+  on_client_connected:
+    - lambda: id(init_in_progress) = false;
+    - script.execute: start_wake_word
+    - script.execute: set_idle_or_mute_phase
+    - script.execute: draw_display
+
+  on_client_disconnected:
+    - script.execute: stop_wake_word
+    - lambda: |-
+        id(voice_assistant_phase) =
+          ${voice_assist_not_ready_phase_id};
+    - script.execute: draw_display
+
+  on_timer_finished:
+    - switch.turn_on: timer_ringing
+
+    - wait_until:
+        condition:
+          media_player.is_announcing: echo_base_player
+        timeout: 5s
+
+    - lambda: |-
+        id(voice_assistant_phase) =
+          ${voice_assist_timer_finished_phase_id};
+    - script.execute: draw_display
+
+globals:
+  - id: init_in_progress
+    type: bool
+    restore_value: false
+    initial_value: &quot;true&quot;
+
+  - id: voice_assistant_phase
+    type: int
+    restore_value: false
+    initial_value: ${voice_assist_not_ready_phase_id}
+
+lp5562:
+  id: lp5562_led
+  i2c_id: bsp_bus
+  use_internal_clk: true
+  white_current: 17.5
+
+output:
+  - platform: lp5562
+    id: lp5562_white_channel
+    lp5562_id: lp5562_led
+    channel: white
+
+light:
+  - platform: monochromatic
+    name: &quot;LCD Backlight&quot;
+    id: lcd_backlight
+    output: lp5562_white_channel
+    icon: &quot;mdi:television&quot;
+    restore_mode: ALWAYS_ON
+
+time:
+  - platform: sntp
+    id: sntp_time
+    servers:
+      - time.google.com
+    timezone: &quot;America/Fortaleza&quot;
+    on_time_sync:
+      - script.execute: draw_display
+
+font:
+  - file: &quot;gfonts://Roboto&quot;
+    id: time_font
+    size: 18
+
+  - file: &quot;gfonts://Roboto&quot;
+    id: status_font
+    size: 16
+
+  - file: &quot;gfonts://Roboto@700&quot;
+    id: time_bold_font
+    size: 23
+
+  - file: &quot;gfonts://Roboto@400&quot;
+    id: date_font
+    size: 14
+
+  - file: &quot;gfonts://Roboto@700&quot;
+    id: pronto_font
+    size: 19
+
+  - file: ${mdi_webfont_file}
+    id: mdi_icon_128
+    size: 128
+    bpp: 4
+    glyphs:
+      - &quot;\U000F036D&quot; # mdi:mic-mute
+
+color:
+  - id: idle_color
+    hex: ${idle_illustration_background_color}
+
+  - id: listening_color
+    hex: ${listening_illustration_background_color}
+
+  - id: thinking_color
+    hex: ${thinking_illustration_background_color}
+
+  - id: replying_color
+    hex: ${replying_illustration_background_color}
+
+  - id: loading_color
+    hex: ${loading_illustration_background_color}
+
+  - id: error_color
+    hex: ${error_illustration_background_color}
+
+  - id: text_yellow
+    red: 50%
+    green: 50%
+    blue: 0%
+
+  - id: text_cyan
+    red: 0%
+    green: 50%
+    blue: 50%
+
+  - id: text_green
+    red: 0%
+    green: 100%
+    blue: 0%
+
+  - id: text_red
+    red: 100%
+    green: 0%
+    blue: 0%
+
+  - id: light_gray
+    hex: &quot;CCCCCC&quot;
+
+  - id: text_blue
+    hex: &quot;2196F3&quot;
+
+  - id: color_white
+    hex: &quot;FFFFFF&quot;
+
+  - id: color_black
+    hex: &quot;000000&quot;
+
+image:
+  - file: ${error_illustration_file}
+    id: casita_error
+    resize: 160x120
+    type: RGB
+    transparency: alpha_channel
+
+  - file: ${idle_illustration_file}
+    id: casita_idle
+    resize: 160x120
+    type: RGB
+    transparency: alpha_channel
+
+  - file: ${listening_illustration_file}
+    id: casita_listening
+    resize: 160x120
+    type: RGB
+    transparency: alpha_channel
+
+  - file: ${thinking_illustration_file}
+    id: casita_thinking
+    resize: 160x120
+    type: RGB
+    transparency: alpha_channel
+
+  - file: ${replying_illustration_file}
+    id: casita_replying
+    resize: 160x120
+    type: RGB
+    transparency: alpha_channel
+
+  - file: ${loading_illustration_file}
+    id: casita_initializing
+    resize: 160x120
+    type: RGB
+    transparency: alpha_channel
+
+  - file: ${error_no_wifi_illustration_file}
+    id: error_no_wifi
+    resize: 160x120
+    type: RGB
+    transparency: alpha_channel
+
+  - file: ${error_no_ha_illustration_file}
+    id: error_no_ha
+    resize: 160x120
+    type: RGB
+    transparency: alpha_channel
+
+display:
+  - platform: mipi_spi
+    id: atoms3r_lcd
+    model: M5STACK-ATOMS3R-GC9107
+    spi_id: spi_bus
+    rotation: 180°
+    update_interval: never
+
+    pages:
+      - id: idle_page
+        lambda: |-
+          it.fill(id(idle_color));
+          it.image(64, 64, id(casita_idle), ImageAlign::CENTER);
+          it.strftime(64, 6, id(time_bold_font), id(color_white), TextAlign::CENTER, &quot;%H:%M&quot;, id(sntp_time).now());
+          it.strftime(64, 32, id(date_font), id(light_gray), TextAlign::CENTER, &quot;%d/%m/%Y&quot;, id(sntp_time).now());
+          it.printf(64, 96, id(pronto_font), id(text_blue), TextAlign::CENTER, &quot;READY!&quot;);
+
+      - id: listening_page
+        lambda: |-
+          it.fill(id(listening_color));
+          it.image(64, 64, id(casita_listening), ImageAlign::CENTER);
+          it.strftime(64, 8, id(time_font), id(color_white), TextAlign::CENTER, &quot;%H:%M&quot;, id(sntp_time).now());
+          it.strftime(64, 26, id(time_font), id(color_white), TextAlign::CENTER, &quot;%d/%m/%Y&quot;, id(sntp_time).now());
+          it.printf(64, 92, id(status_font), id(text_yellow), TextAlign::CENTER, &quot;Listening...&quot;);
+
+      - id: thinking_page
+        lambda: |-
+          it.fill(id(thinking_color));
+          it.image(64, 64, id(casita_thinking), ImageAlign::CENTER);
+          it.strftime(64, 8, id(time_font), id(color_white), TextAlign::CENTER, &quot;%H:%M&quot;, id(sntp_time).now());
+          it.strftime(64, 26, id(time_font), id(color_white), TextAlign::CENTER, &quot;%d/%m/%Y&quot;, id(sntp_time).now());
+          it.printf(64, 92, id(status_font), id(text_cyan), TextAlign::CENTER, &quot;Sending to HA...&quot;);
+
+      - id: replying_page
+        lambda: |-
+          it.fill(id(replying_color));
+          it.image(64, 64, id(casita_replying), ImageAlign::CENTER);
+          it.strftime(64, 8, id(time_font), id(color_white), TextAlign::CENTER, &quot;%H:%M&quot;, id(sntp_time).now());
+          it.strftime(64, 26, id(time_font), id(color_white), TextAlign::CENTER, &quot;%d/%m/%Y&quot;, id(sntp_time).now());
+          it.printf(64, 92, id(status_font), id(text_green), TextAlign::CENTER, &quot;Replying...&quot;);
+
+      - id: error_page
+        lambda: |-
+          it.fill(id(error_color));
+          it.image(64, 64, id(casita_error), ImageAlign::CENTER);
+          it.strftime(64, 8, id(time_font), id(color_white), TextAlign::CENTER, &quot;%H:%M&quot;, id(sntp_time).now());
+          it.strftime(64, 26, id(time_font), id(color_white), TextAlign::CENTER, &quot;%d/%m/%Y&quot;, id(sntp_time).now());
+          it.printf(64, 92, id(status_font), id(text_red), TextAlign::CENTER, &quot;Error&quot;);
+
+      - id: no_ha_page
+        lambda: |-
+          it.fill(id(error_color));
+          it.image(64, 64, id(error_no_ha), ImageAlign::CENTER);
+          it.strftime(64, 8, id(time_font), id(color_white), TextAlign::CENTER, &quot;%H:%M&quot;, id(sntp_time).now());
+          it.strftime(64, 26, id(time_font), id(color_white), TextAlign::CENTER, &quot;%d/%m/%Y&quot;, id(sntp_time).now());
+          it.printf(64, 100, id(status_font), id(text_red), TextAlign::CENTER, &quot;No HA connection&quot;);
+
+      - id: no_wifi_page
+        lambda: |-
+          it.fill(id(error_color));
+          it.image(64, 64, id(error_no_wifi), ImageAlign::CENTER);
+          it.strftime(64, 8, id(time_font), id(color_white), TextAlign::CENTER, &quot;%H:%M&quot;, id(sntp_time).now());
+          it.strftime(64, 26, id(time_font), id(color_white), TextAlign::CENTER, &quot;%d/%m/%Y&quot;, id(sntp_time).now());
+          it.printf(64, 100, id(status_font), id(text_red), TextAlign::CENTER, &quot;No Wi-Fi&quot;);
+
+      - id: initializing_page
+        lambda: |-
+          it.fill(id(loading_color));
+          it.image(64, 64, id(casita_initializing), ImageAlign::CENTER);
+          it.strftime(64, 8, id(time_font), id(color_white), TextAlign::CENTER, &quot;%H:%M&quot;, id(sntp_time).now());
+          it.strftime(64, 26, id(time_font), id(color_white), TextAlign::CENTER, &quot;%d/%m/%Y&quot;, id(sntp_time).now());
+          it.printf(64, 92, id(status_font), id(color_white), TextAlign::CENTER, &quot;Initializing...&quot;);
+
+      - id: muted_page
+        lambda: |-
+          it.fill(id(color_black));
+          it.image(64, 64, id(casita_idle), ImageAlign::CENTER);
+          it.strftime(64, 8, id(time_font), id(color_white), TextAlign::CENTER, &quot;%H:%M&quot;, id(sntp_time).now());
+          it.strftime(64, 26, id(time_font), id(color_white), TextAlign::CENTER, &quot;%d/%m/%Y&quot;, id(sntp_time).now());
+          it.printf(64, 92, id(status_font), id(text_red), TextAlign::CENTER, &quot;Microphone muted&quot;);
+
+script:
+  - id: start_wake_word
+    mode: restart
+    then:
+      - if:
+          condition:
+            and:
+              - switch.is_off: mute
+              - not:
+                  voice_assistant.is_running:
+              - lambda: |-
+                  return
+                    id(wake_word_engine_location).current_option() ==
+                    &quot;On device&quot;;
+          then:
+            - lambda: id(va).set_use_wake_word(false);
+            - micro_wake_word.start:
+
+      - if:
+          condition:
+            and:
+              - switch.is_off: mute
+              - not:
+                  voice_assistant.is_running:
+              - lambda: |-
+                  return
+                    id(wake_word_engine_location).current_option() ==
+                    &quot;In Home Assistant&quot;;
+          then:
+            - lambda: id(va).set_use_wake_word(true);
+            - voice_assistant.start_continuous:
+
+  - id: stop_wake_word
+    mode: restart
+    then:
+      - if:
+          condition:
+            lambda: |-
+              return
+                id(wake_word_engine_location).current_option() ==
+                &quot;In Home Assistant&quot;;
+          then:
+            - lambda: id(va).set_use_wake_word(false);
+            - voice_assistant.stop:
+
+      - if:
+          condition:
+            lambda: |-
+              return
+                id(wake_word_engine_location).current_option() ==
+                &quot;On device&quot;;
+          then:
+            - micro_wake_word.stop:
+
+  - id: set_idle_or_mute_phase
+    mode: restart
+    then:
+      - if:
+          condition:
+            switch.is_off: mute
+          then:
+            - lambda: |-
+                id(voice_assistant_phase) =
+                  ${voice_assist_idle_phase_id};
+          else:
+            - lambda: |-
+                id(voice_assistant_phase) =
+                  ${voice_assist_muted_phase_id};
+
+  - id: play_sound
+    mode: restart
+    parameters:
+      priority: bool
+      sound_file: &quot;audio::AudioFile*&quot;
+    then:
+      - lambda: |-
+          if (priority) {
+            id(echo_base_player)
+              -&gt;make_call()
+              .set_command(
+                media_player::MediaPlayerCommand::
+                  MEDIA_PLAYER_COMMAND_STOP
+              )
+              .set_announcement(true)
+              .perform();
+          }
+
+          if (
+            id(echo_base_player).state !=
+              media_player::MediaPlayerState::
+                MEDIA_PLAYER_STATE_ANNOUNCING ||
+            priority
+          ) {
+            id(echo_base_player)-&gt;play_file(
+              sound_file,
+              true,
+              false
+            );
+          }
+
+  - id: draw_display
+    mode: restart
+    then:
+      - if:
+          condition:
+            lambda: return !id(init_in_progress);
+          then:
+            - if:
+                condition:
+                  wifi.connected:
+                then:
+                  - if:
+                      condition:
+                        api.connected:
+                      then:
+                        - lambda: |-
+                            switch (id(voice_assistant_phase)) {
+                              case ${voice_assist_listening_phase_id}:
+                                id(atoms3r_lcd).show_page(listening_page);
+                                break;
+                              case ${voice_assist_thinking_phase_id}:
+                                id(atoms3r_lcd).show_page(thinking_page);
+                                break;
+                              case ${voice_assist_replying_phase_id}:
+                                id(atoms3r_lcd).show_page(replying_page);
+                                break;
+                              case ${voice_assist_error_phase_id}:
+                                id(atoms3r_lcd).show_page(error_page);
+                                break;
+                              case ${voice_assist_muted_phase_id}:
+                                id(atoms3r_lcd).show_page(muted_page);
+                                break;
+                              case ${voice_assist_not_ready_phase_id}:
+                                id(atoms3r_lcd).show_page(no_ha_page);
+                                break;
+                              default:
+                                id(atoms3r_lcd).show_page(idle_page);
+                                break;
+                            }
+                            id(atoms3r_lcd).update();
+                      else:
+                        - display.page.show: no_ha_page
+                        - component.update: atoms3r_lcd
+                else:
+                  - display.page.show: no_wifi_page
+                  - component.update: atoms3r_lcd
+          else:
+            - display.page.show: initializing_page
+            - component.update: atoms3r_lcd
+
+interval:
+  # Refreshes the on-screen clock without over-redrawing
+  - interval: 30s
+    then:
+      - if:
+          condition:
+            lambda: |-
+              return
+                !id(init_in_progress) &amp;&amp;
+                id(voice_assistant_phase) ==
+                  ${voice_assist_idle_phase_id};
+          then:
+            - script.execute: draw_display
+
+text_sensor:
+  - platform: wifi_info
+    ip_address:
+      name: &quot;IP&quot;
+    dns_address:
+      name: &quot;DNS&quot;
+    mac_address:
+      name: &quot;MAC&quot;
+</code></pre>
+<p><strong>How it works, in short:</strong></p>
+<ul>
+<li><strong><code>micro_wake_word</code></strong> runs the models locally (okay_nabu, hey_jarvis, hey_mycroft). When a wake word is detected, <strong><code>voice_assistant</code></strong> starts and talks to Home Assistant's Assist.</li>
+<li>The screen (<strong><code>mipi_spi</code></strong>, AtomS3R GC9107) has one <em>page</em> per phase (idle, listening, thinking, replying, error, muted, no Wi-Fi, no HA); the <code>draw_display</code> script picks the page based on the state.</li>
+<li>The <strong>physical button</strong>: a short click mutes/unmutes the microphone; holding it for 10 s does a factory reset.</li>
+<li>Audio over <strong>I²S</strong> (microphone + speaker with an <code>es8311</code> DAC); M5Stack external components (<code>lp5562</code> for the LED/backlight and <code>es8311</code>).</li>
+<li>You can choose the <strong>wake-word engine</strong> (on device or in HA) and the <strong>sensitivity</strong>, plus a timer that plays a sound when it finishes.</li>
+</ul>
+<p>Enable <strong>Assist</strong> in Home Assistant, validate it in the <strong>ESPHome Device Builder</strong> and test the wake words.</p>
 <p><a href="/en/home-assistant/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Back to Home Assistant</a>.</p>
-<p>Sources: <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/sensor/xiaomi_miscale.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>xiaomi_miscale component</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/bluetooth_proxy.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>Bluetooth Proxy</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/remote_receiver.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>remote_receiver (IR)</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/openthread.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>OpenThread</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/lvgl/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>LVGL</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/display/st7789v.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>ST7789V display</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/http_request.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>http_request</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/touchscreen/gt911.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>GT911 touchscreen</a> and <a class="ext" target="_blank" rel="noopener" href="https://www.nabucasa.com/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="nabu-casa" src="/static/img/brands/nabu-casa.svg?v=fd7f86f9" width="32" height="32" alt="" decoding="async"></span>Nabu Casa and the Open Home Foundation</a>.</p>
+<p>Sources: <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/sensor/xiaomi_miscale.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>xiaomi_miscale component</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/bluetooth_proxy.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>Bluetooth Proxy</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/remote_receiver.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>remote_receiver (IR)</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/openthread.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>OpenThread</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/lvgl/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>LVGL</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/display/st7789v.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>ST7789V display</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/http_request.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>http_request</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/touchscreen/gt911.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>GT911 touchscreen</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/voice_assistant/index.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>voice_assistant</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/micro_wake_word.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>micro_wake_word</a> and <a class="ext" target="_blank" rel="noopener" href="https://www.nabucasa.com/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="nabu-casa" src="/static/img/brands/nabu-casa.svg?v=fd7f86f9" width="32" height="32" alt="" decoding="async"></span>Nabu Casa and the Open Home Foundation</a>.</p>
         <ul class="tags"><li>ESPHome</li><li>ESP32</li><li>YAML</li><li>Examples</li><li>Thread</li></ul>
       </div>
     </div>
