@@ -30,7 +30,7 @@ def connected_home(lang):
     # A compact, accessible on/off control accompanies every directly clickable zone.
     for n, (key, pt, eng, points, x, y) in enumerate(ROOMS, 1):
         name = escape(eng if en else pt)
-        label = escape(t('Luz: ', 'Light: ') + (eng if en else pt))
+        label = escape(f"{n:02} · " + (eng if en else pt) + t(' (luz)', ' (light)'))
         definitions.append(f'<clipPath id="clip-{key}"><polygon points="{points}"/></clipPath>')
         regions.append(f'''<g class="plan-zone" data-room-zone="{key}" data-on="true">
           <g class="plan-lit" clip-path="url(#clip-{key})" pointer-events="none">

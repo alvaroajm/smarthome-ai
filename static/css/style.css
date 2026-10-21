@@ -134,7 +134,7 @@ img { max-width: 100%; height: auto; }
 a { color: var(--link); text-decoration: none; }
 a:hover { text-decoration: underline; text-underline-offset: 3px; }
 /* Links no corpo dos artigos e nas seções de texto da home: sublinhado, não só cor (WCAG 1.4.1) */
-.prose p a, .prose li a, .prose td a, .prose figcaption a, .prose dd a,
+.prose p a, .prose li a, .prose td a, figcaption a, .byline a, .prose dd a,
 .feature-small a, .section p a:not(.btn):not(.card):not(.install-card), .section li a:not(.btn):not(.card) { text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--link) 45%, transparent); text-underline-offset: 3px; }
 .prose p a:hover, .prose li a:hover, .feature-small a:hover, .section p a:hover, .section li a:hover { text-decoration-color: currentColor; }
 
