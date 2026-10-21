@@ -2,7 +2,7 @@
 level: avancado
 title: Conheça o Home Assistant Cloud
 slug: nabu-casa
-description: Entenda o acesso remoto e as conexões com assistentes de voz.
+description: O que o Home Assistant Cloud (Nabu Casa) oferece: acesso remoto seguro, Alexa e Google Assistant sem abrir portas, preço e quando vale assinar.
 category: Serviços
 icon: cloud
 order: 111

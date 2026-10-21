@@ -2,7 +2,7 @@
 level: avancado
 title: MQTT sem complicação
 slug: mqtt
-description: Entenda como os dispositivos trocam mensagens.
+description: O que é MQTT, como funcionam broker, tópicos e mensagens retidas, quando o Home Assistant precisa dele e como instalar o Mosquitto no HAOS.
 category: Protocolos
 icon: message
 order: 109

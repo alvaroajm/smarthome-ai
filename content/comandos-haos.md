@@ -2,7 +2,7 @@
 level: avancado
 title: Comandos do Home Assistant OS
 slug: comandos-haos
-description: Consulte comandos de manutenção e diagnóstico.
+description: Referência de comandos do Home Assistant OS para manutenção e diagnóstico: ha core, supervisor, backups, rede, logs, banco de dados e recuperação.
 category: Referência
 icon: terminal
 order: 118

@@ -1,7 +1,7 @@
 ---
 title: Integrações, Apps, HACS e câmeras
 slug: apps-integracoes
-description: O que é cada peça do Home Assistant (integrações, Apps, HACS), quais valem a pena no começo, como reconhecer uma integração local ou de nuvem, os Apps mais úteis e como colocar a primeira câmera no painel.
+description: Integrações, Apps e HACS explicados: quais valem no começo, como reconhecer uma integração local ou de nuvem e como colocar a primeira câmera no painel.
 category: Passo a passo
 icon: book
 order: 8

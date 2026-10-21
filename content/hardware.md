@@ -2,7 +2,7 @@
 level: avancado
 title: Escolha sua central
 slug: hardware
-description: Compare Home Assistant Green, Raspberry Pi e mini-PC.
+description: Home Assistant Green, Raspberry Pi 5 ou mini-PC: desempenho, consumo, preço no Brasil e para quem cada central faz sentido, com fotos e tabela.
 category: Hardware
 icon: server
 order: 104

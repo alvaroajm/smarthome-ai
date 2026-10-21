@@ -2,7 +2,7 @@
 level: avancado
 title: Conecte suas câmeras
 slug: scrypted
-description: Conheça Scrypted, Frigate e as opções do app Casa.
+description: Leve as câmeras ao painel do Home Assistant, ao HomeKit Secure Video e ao app Casa com Scrypted e Frigate: requisitos, gravação e opções locais.
 category: Câmeras & vídeo
 icon: camera
 order: 112

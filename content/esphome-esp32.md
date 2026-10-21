@@ -2,7 +2,7 @@
 level: avancado
 title: Sensores com ESPHome e ESP32
 slug: esphome-esp32
-description: Conheça os componentes e monte seu primeiro projeto.
+description: Monte sensores de temperatura, presença e energia com ESP32 e ESPHome, sem programar em C: componentes, primeiro projeto e integração com o HA.
 category: DIY & firmware
 icon: chip
 order: 105

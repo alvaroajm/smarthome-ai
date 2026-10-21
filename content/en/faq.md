@@ -1,5 +1,5 @@
 ---
-title: Home Assistant, servers and protocols: questions and answers
+title: FAQ: Home Assistant, servers and protocols
 slug: faq
 key: faq
 description: Answers about Home Assistant OS, Raspberry Pi, x86 mini PCs, Zigbee, ZHA, Zigbee2MQTT, Thread, Matter, Wi-Fi, backups and automations.

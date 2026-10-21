@@ -1,5 +1,5 @@
 ---
-title: Home Assistant, servidores e protocolos: perguntas e respostas
+title: Dúvidas frequentes: Home Assistant, servidores e protocolos
 slug: faq
 description: Tire dúvidas sobre Home Assistant OS, Raspberry Pi, mini-PC x86, Zigbee, ZHA, Zigbee2MQTT, Thread, Matter, Wi-Fi, backups e automações.
 category: FAQ

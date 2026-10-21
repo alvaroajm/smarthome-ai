@@ -1,7 +1,7 @@
 ---
 title: Zigbee: o básico para luzes e sensores
 slug: zigbee
-description: Nossa primeira rede: local, de baixo consumo e gerenciada pelo ZHA.
+description: Como o Zigbee conecta luzes e sensores sem Wi-Fi: coordenador, roteadores, dispositivos de bateria, canais, alcance e o que conferir antes de comprar.
 category: Passo a passo
 icon: book
 order: 4

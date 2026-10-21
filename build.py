@@ -292,8 +292,8 @@ FOOTER_LINKS = {
         "f_site": [("Todos os guias", "/artigos/"), ("Dúvidas frequentes", "/faq/"), ("Sobre", "/sobre/"), ("Contato", "/contato/"), ("Privacidade", "/privacidade/"), ("Termos de uso", "/termos/")],
     },
     "en": {
-        "f_platforms": [("Start here", "/en/start/"), ("Home Assistant (PT)", "/home-assistant/"), ("Install HAOS (PT)", "/instalar-haos/")],
-        "f_protocols": [("Zigbee (PT)", "/zigbee/"), ("ZBT-2 with ZHA (PT)", "/zbt-dongles/"), ("First automation (PT)", "/primeira-automacao/")],
+        "f_platforms": [("Start here", "/en/start/"), ("Home Assistant", "/en/home-assistant/"), ("Install HAOS", "/en/install-haos/")],
+        "f_protocols": [("Zigbee", "/en/zigbee/"), ("ZBT-2 with ZHA", "/en/zbt-dongles/"), ("First automation (PT)", "/primeira-automacao/")],
         "f_ai": [("Integrations and Apps (PT)", "/apps-integracoes/"), ("Further learning (PT)", "/aprofundamento/")],
         "f_site": [("All guides", "/en/guides/"), ("FAQ", "/en/faq/"), ("About", "/en/about/"), ("Contact", "/en/contact/"), ("Privacy", "/en/privacy/"), ("Terms of use", "/en/terms/")],
     },
@@ -509,7 +509,7 @@ def header_html(lang: str, current: str) -> str:
     home = "/" + LANGS[lang]["prefix"]
     return f"""<header class="site-header">
     <div class="wrap header-inner">
-      <a class="brand" href="{home}" aria-label="{SITE['name']}">
+      <a class="brand" href="{home}">
         <img class="brand-mark" src="/static/img/logo-smarthome-ai-marca.png" width="44" height="44" alt="" loading="eager">
         <span class="brand-text">
           <strong>SmartHome<span class="accent">-AI</span></strong>
@@ -564,7 +564,7 @@ def footer_html(lang: str) -> str:
     cols = []
     for key in ("f_platforms", "f_protocols", "f_ai", "f_site"):
         items = "".join(f'<a href="{u}">{esc(t)}</a>' for t, u in links[key])
-        cols.append(f'<div><h4>{ui[key]}</h4>{items}</div>')
+        cols.append(f'<div><h3>{ui[key]}</h3>{items}</div>')
     social = "".join(
         f'<a class="social" href="{url}" target="_blank" rel="noopener me" aria-label="{name}" title="{name}">{brand_svg(key)}</a>'
         for name, url, key in SOCIAL
@@ -590,14 +590,14 @@ def footer_html(lang: str) -> str:
         </div>
       </div>
       <div class="contact-actions">
-        <h4>{ui['f_contact']}</h4>
+        <h3>{ui['f_contact']}</h3>
         <a class="contact-line" href="mailto:{CONTACT['email']}">{icon_svg('mail')}<span>{esc(CONTACT['email'])}</span></a>
         <a class="contact-line" href="{CONTACT['whatsapp_url']}" target="_blank" rel="noopener">{icon_svg('whatsapp')}<span>WhatsApp {esc(CONTACT['whatsapp'])}</span></a>
         <a class="contact-line" href="{CONTACT['card']}" target="_blank" rel="noopener">{icon_svg('card')}<span>{ui['f_card']}</span></a>
         <a class="contact-line" href="https://radapps.app" target="_blank" rel="noopener">{icon_svg('rocket')}<span>RadApps ↗</span></a>
       </div>
       <div class="contact-places">
-        <h4>{ui['f_places']}</h4>
+        <h3>{ui['f_places']}</h3>
         <ul>{places}</ul>
       </div>
     </section>
@@ -898,30 +898,49 @@ def build_articles(lang: str, pages: list[Page], alts_for, pool: list[Page] | No
         log(page.url)
 
 
+def localize_links(html_text: str, own: list[Page]) -> str:
+    """Nos blocos da home em inglês, troca links de guias em português pela tradução, quando existe,
+    e remove a marca "(PT)" do texto desses links."""
+    equiv = {f"/{p.key}/": p.url for p in own if p.section == "artigo" and p.key != p.slug or p.lang == "en"}
+    equiv.update({"/instalacao/": "/en/start/", "/faq/": "/en/faq/", "/sobre/": "/en/about/",
+                  "/privacidade/": "/en/privacy/", "/contato/": "/en/contact/", "/termos/": "/en/terms/"})
+    for pt_url, en_url in equiv.items():
+        if pt_url != en_url:
+            html_text = html_text.replace(f'href="{pt_url}"', f'href="{en_url}"')
+    return re.sub(r'(<a\b[^>]*href="/en/[^"]*"[^>]*>[^<]*?) \(PT\)', r"\1", html_text)
+
+
+def untranslated(own: list[Page], foreign: list[Page]) -> list[Page]:
+    """Artigos do outro idioma que ainda não têm tradução neste idioma (pela chave `key`)."""
+    own_keys = {p.key for p in own}
+    return [p for p in foreign if p.section == "artigo" and p.key not in own_keys]
+
+
 def build_home(lang: str, own: list[Page], foreign: list[Page], alts_for) -> None:
     cfg = LANGS[lang]
     ui = cfg["ui"]
     tpl = read_template(cfg["home_tpl"])
     tpl_base = read_template("base.html")
 
-    guides = [p for p in foreign if p.section == "artigo"] if lang == "en" else \
-             [p for p in own if p.section == "artigo"]
-    featured = [p for p in (foreign if lang == "en" else own) if p.featured]
-    is_foreign = lang == "en"
+    own_articles = [p for p in own if p.section == "artigo"]
+    guides = sorted(own_articles + untranslated(own, foreign), key=lambda p: p.order) if lang == "en" else own_articles
+    featured = [p for p in (own + untranslated(own, foreign) if lang == "en" else own) if p.featured]
 
     visual = home_visual_context(lang)
     discovery = render(read_template(f"discovery.{lang}.html"), visual)
     body = render(tpl, {
         **visual,
         "beginner_path": beginner_home(lang, discovery),
-        "cards": "\n      ".join(card_html(p, ui, is_foreign) for p in featured if p.slug in {"instalacao", "home-assistant", "hardware", "zigbee", "matter-thread", "apple-homekit"}),
-        "recentes": "\n      ".join(list_item_html(p, ui, is_foreign) for p in guides[:6]),
+        "cards": "\n      ".join(card_html(p, ui, p.lang != lang) for p in featured if p.key in {"instalacao", "home-assistant", "hardware", "zigbee", "matter-thread", "apple-homekit"}),
+        "recentes": "\n      ".join(list_item_html(p, ui, p.lang != lang) for p in guides[:6]),
         "total_guias": len(guides),
         "tagline": cfg["tagline"],
     })
+    if lang == "en":
+        body = localize_links(body, own)
     url = "/" + cfg["prefix"]
-    home_title = ("Casa inteligente e Home Assistant: guias para iniciantes" if lang == "pt"
-                  else "Smart home and Home Assistant: beginner guides")
+    home_title = ("Casa inteligente com Home Assistant, do zero" if lang == "pt"
+                  else "Smart home with Home Assistant, from scratch")
     ctx = base_context(lang, home_title, cfg["description"], url,
                        alts_for("home", url), body, "home")
     write(out_path(url), render(tpl_base, ctx))
@@ -935,10 +954,10 @@ def build_listing(lang: str, own: list[Page], foreign: list[Page], alts_for) -> 
     url = "/" + cfg["prefix"] + ("artigos/" if lang == "pt" else "guides/")
 
     own_articles = [p for p in own if p.section == "artigo"]
-    foreign_articles = [p for p in foreign if p.section == "artigo"] if lang == "en" else []
+    foreign_articles = untranslated(own, foreign) if lang == "en" else []
     total = len(own_articles) + len(foreign_articles)
 
-    all_articles = own_articles + foreign_articles
+    all_articles = sorted(own_articles + foreign_articles, key=lambda p: p.order)
     basics = [p for p in all_articles if p.level == "basico"]
     advanced = [p for p in all_articles if p.level != "basico"]
     items = "\n".join(list_item_html(p, ui, p.lang != lang) for p in basics)
@@ -948,9 +967,9 @@ def build_listing(lang: str, own: list[Page], foreign: list[Page], alts_for) -> 
 
     note = ""
     if lang == "en":
-        note = ('<p class="table-note">The full guide library is currently written in Brazilian '
-                'Portuguese and is being translated. Every guide below is open and readable — '
-                'browser translation works well on these pages.</p>')
+        note = ('<p class="table-note">The core guides of the beginner path are available in English. '
+                'Guides marked PT are still in Brazilian Portuguese and are being translated — '
+                'browser translation works well on those pages.</p>')
 
     body = f"""<article class="page">
     <header class="page-head">
@@ -996,7 +1015,7 @@ def build_404(lang: str, alts_for) -> None:
 
 
 def build_search_index(lang: str, own: list[Page], foreign: list[Page]) -> None:
-    pages = own + ([p for p in foreign if p.section == "artigo"] if lang == "en" else [])
+    pages = own + (untranslated(own, foreign) if lang == "en" else [])
     data = [{"t": p.title, "u": p.url, "d": p.description, "c": p.category, "x": p.text[:1200]}
             for p in pages]
     path = DIST / (LANGS[lang]["prefix"] + "search-index.json")
@@ -1031,10 +1050,23 @@ def build_sitemap(urls: list[tuple[str, str, dict]]) -> None:
     log("sitemap.xml + robots.txt")
 
 
+def minify_css(css: str) -> str:
+    """Minificação conservadora: remove comentários e espaço supérfluo, sem tocar em valores."""
+    css = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
+    css = re.sub(r"\s+", " ", css)
+    css = re.sub(r"\s*([{};,>])\s*", r"\1", css)
+    css = re.sub(r":\s+", ":", css)
+    css = css.replace(";}", "}")
+    return css.strip()
+
+
 def copy_static() -> None:
     if STATIC.exists():
         shutil.copytree(STATIC, DIST / "static", dirs_exist_ok=True)
-        log("static/")
+        css_src = STATIC / "css/style.css"
+        if css_src.exists():
+            (DIST / "static/css/style.css").write_text(minify_css(css_src.read_text(encoding="utf-8")), encoding="utf-8")
+        log("static/ (CSS minificado)")
     shutil.copy2(STATIC / "img/favicon-sa.ico", DIST / "favicon.ico")
     for extra in ("_headers", "_redirects", "ads.txt"):
         src = ROOT / extra
@@ -1083,9 +1115,11 @@ def main() -> None:
         build_listing(lang, pages[lang], pages[other], alts_for)
         build_404(lang, alts_for)
         build_search_index(lang, pages[lang], pages[other])
-        all_urls.append(("/" + LANGS[lang]["prefix"], "", alts_for("home", "")))
+        # Home e listagem mudam sempre que qualquer guia muda: lastmod = data mais recente do idioma.
+        newest = max((str(p.updated or "") for p in pages[lang] + pages[other]), default="")
+        all_urls.append(("/" + LANGS[lang]["prefix"], newest, alts_for("home", "")))
         all_urls.append(("/" + LANGS[lang]["prefix"] + ("artigos/" if lang == "pt" else "guides/"),
-                         "", alts_for("listing", "")))
+                         newest, alts_for("listing", "")))
         all_urls.extend((p.url, str(p.updated or ""), alts_for(p.key, p.url)) for p in pages[lang])
 
     build_sitemap(all_urls)

@@ -1,7 +1,7 @@
 ---
 title: Aprofundamento: para depois do básico
 slug: aprofundamento
-description: Um roteiro para a segunda fase da casa inteligente — tipos de instalação do Home Assistant, Zigbee2MQTT, câmeras com Scrypted e Frigate, ESPHome, MQTT, rede, servidores, acesso remoto, agentes de IA e a rotina de manutenção.
+description: Roteiro para a segunda fase: tipos de instalação, Zigbee2MQTT, câmeras com Scrypted e Frigate, ESPHome, MQTT, rede, acesso remoto, IA e manutenção.
 category: Aprofundamento
 icon: book
 order: 90

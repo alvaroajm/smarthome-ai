@@ -16,7 +16,7 @@ FILES = {
     "nabu-casa": "nabu-casa.svg", "zigbee2mqtt": "zigbee2mqtt.png",
     "wled": "wled.png", "home-assistant-brasil": "home-assistant-brasil.png",
     "scrypted": "scrypted.png", "open-home": "open-home.png",
-    "github": "github.svg", "wikipedia": "wikipedia.svg", "assist": "assist.png",
+    "github": "github.svg", "wikipedia": "wikipedia.png", "assist": "assist.png",
     "proxmox": "proxmox.png", "ubuntu": "ubuntu.png", "hacs": "hacs.png",
     "frigate": "frigate.svg", "ollama": "ollama.png", "balena-etcher": "balena-etcher.png",
     "ventoy": "ventoy.ico", "llmvision": "llmvision.png", "alpine": "alpine.ico",

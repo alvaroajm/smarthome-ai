@@ -2,7 +2,7 @@
 level: avancado
 title: Prepare a rede da casa
 slug: rede-wifi
-description: Organize o Wi-Fi e entenda quando separar os dispositivos.
+description: Prepare a rede da casa para automação: canais de 2,4 GHz sem brigar com o Zigbee, IP reservado, mDNS, VLAN para IoT e diagnóstico de quedas.
 category: Rede
 icon: wifi
 order: 116

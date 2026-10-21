@@ -1,7 +1,7 @@
 ---
 title: Sua primeira automação pelas telas
 slug: primeira-automacao
-description: Acenda uma luz ao anoitecer, sem escrever código.
+description: Crie no editor visual do Home Assistant uma automação que acende a luz ao pôr do sol, teste cada etapa e aprenda a diagnosticar quando não funciona.
 category: Passo a passo
 icon: book
 order: 7

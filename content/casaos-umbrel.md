@@ -2,7 +2,7 @@
 level: avancado
 title: Seu servidor com CasaOS ou umbrelOS
 slug: casaos-umbrel
-description: Conheça as opções para guardar arquivos e rodar aplicativos.
+description: CasaOS e umbrelOS num Raspberry Pi ou mini-PC: arquivos, mídia e aplicativos fora do Home Assistant, com instalação, diferenças e cuidados.
 category: Home server
 icon: server
 order: 117

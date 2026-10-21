@@ -1,7 +1,7 @@
 ---
 title: Home Assistant OS: escolha sua instalação
 slug: instalar-haos
-description: Qual equipamento escolher para o Home Assistant OS (Green, Raspberry Pi 5 ou mini-PC), o que preparar antes, o que acontece no primeiro acesso, como resolver quando o endereço não abre e o que fazer logo depois de instalar.
+description: Green, Raspberry Pi 5 ou mini-PC: qual escolher, o que preparar, o que acontece no primeiro acesso, o que fazer quando o endereço não abre e os passos seguintes.
 category: Instalação guiada
 icon: book
 order: 3

@@ -2,7 +2,7 @@
 level: avancado
 title: Câmeras com inteligência artificial
 slug: cameras-ia
-description: Entenda os alertas e as opções de análise de imagens.
+description: Detecção de pessoas, veículos e animais com Frigate e descrições por modelos de visão: o que cada opção exige de hardware, custo e privacidade.
 category: Câmeras & vídeo
 icon: eye
 order: 113

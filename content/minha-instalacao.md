@@ -1,5 +1,5 @@
 ---
-title: Minha instalação: Home Assistant, iluminação e controles da casa
+title: Minha instalação: Home Assistant, luzes e controles
 slug: minha-instalacao
 description: Fotos e equipamentos da casa de Álvaro Menezes: mini-PC com HAOS, WLED, Philips Hue, Alexa, Apple HomeKit e uma tela ESP32-S3 com ESPHome.
 category: Instalação do autor

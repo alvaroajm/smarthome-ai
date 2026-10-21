@@ -35,8 +35,8 @@
   <link rel="apple-touch-icon" href="/static/img/apple-touch-icon-sa.png?v=1ca56a26" sizes="180x180">
   <link rel="preload" href="/static/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/static/fonts/inter-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/static/fonts/newsreader-500.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="/static/css/style.css?v=4732026d">
+  <link rel="preload" href="/static/fonts/newsreader-500.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/static/css/style.css?v=5f66bbad">
   <script>
     (function () {
       try {
@@ -85,7 +85,7 @@
 
   <header class="site-header">
     <div class="wrap header-inner">
-      <a class="brand" href="/" aria-label="SmartHome-AI">
+      <a class="brand" href="/">
         <img class="brand-mark" src="/static/img/logo-smarthome-ai-marca.png" width="44" height="44" alt="" loading="eager">
         <span class="brand-text">
           <strong>SmartHome<span class="accent">-AI</span></strong>
@@ -165,22 +165,22 @@
 </table>
 <p>Antes de alterar algo, anote o horário, os modelos afetados e o que mudou recentemente. Faça um teste manual no aparelho e na interface do Zigbee2MQTT para separar uma falha de automação de uma falha de comunicação.</p>
 <h2 id="2-se-o-servico-nao-inicia-confira-o-coordenador">2. Se o serviço não inicia, confira o coordenador<a class="headerlink" href="#2-se-o-servico-nao-inicia-confira-o-coordenador" title="Permanent link">#</a></h2>
-<p>Um erro de descoberta do adaptador é diferente de um sensor com bateria fraca. Verifique o cabo, a alimentação, a porta configurada e o tipo de adaptador exigido pelo seu modelo. A documentação de <a class="ext" target="_blank" rel="noopener" href="https://www.zigbee2mqtt.io/guide/configuration/adapter-settings.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="zigbee2mqtt" src="/static/img/brands/zigbee2mqtt.png?v=ebb91261" width="32" height="32" alt="" decoding="async"></span>configuração do adaptador</a> explica como identificar a porta.</p>
-<p>O coordenador deve estar dedicado àquela rede: ZHA e Zigbee2MQTT não podem usar o mesmo rádio ao mesmo tempo. Se o log apontar outro erro, consulte o <a class="ext" target="_blank" rel="noopener" href="https://www.zigbee2mqtt.io/guide/installation/20_zigbee2mqtt-fails-to-start_crashes-runtime.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="zigbee2mqtt" src="/static/img/brands/zigbee2mqtt.png?v=ebb91261" width="32" height="32" alt="" decoding="async"></span>guia de falhas na inicialização</a> antes de apagar dados ou atualizar firmware.</p>
+<p>Um erro de descoberta do adaptador é diferente de um sensor com bateria fraca. Verifique o cabo, a alimentação, a porta configurada e o tipo de adaptador exigido pelo seu modelo. A documentação de <a class="ext" target="_blank" rel="noopener" href="https://www.zigbee2mqtt.io/guide/configuration/adapter-settings.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="zigbee2mqtt" src="/static/img/brands/zigbee2mqtt.png?v=2d56cc31" width="32" height="32" alt="" decoding="async"></span>configuração do adaptador</a> explica como identificar a porta.</p>
+<p>O coordenador deve estar dedicado àquela rede: ZHA e Zigbee2MQTT não podem usar o mesmo rádio ao mesmo tempo. Se o log apontar outro erro, consulte o <a class="ext" target="_blank" rel="noopener" href="https://www.zigbee2mqtt.io/guide/installation/20_zigbee2mqtt-fails-to-start_crashes-runtime.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="zigbee2mqtt" src="/static/img/brands/zigbee2mqtt.png?v=2d56cc31" width="32" height="32" alt="" decoding="async"></span>guia de falhas na inicialização</a> antes de apagar dados ou atualizar firmware.</p>
 <h2 id="3-se-o-problema-esta-no-mqtt-confira-essa-conexao">3. Se o problema está no MQTT, confira essa conexão<a class="headerlink" href="#3-se-o-problema-esta-no-mqtt-confira-essa-conexao" title="Permanent link">#</a></h2>
 <p>O Zigbee2MQTT depende de um servidor MQTT. Confira se ele está disponível e se endereço e autenticação correspondem à configuração. Leia os logs dos dois serviços no mesmo horário; uma mensagem de falha de conexão não comprova defeito no rádio Zigbee.</p>
-<p>Veja as <a class="ext" target="_blank" rel="noopener" href="https://www.zigbee2mqtt.io/guide/configuration/mqtt.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="zigbee2mqtt" src="/static/img/brands/zigbee2mqtt.png?v=ebb91261" width="32" height="32" alt="" decoding="async"></span>configurações MQTT oficiais</a>. Não publique senhas nem arquivos de configuração completos ao pedir ajuda.</p>
+<p>Veja as <a class="ext" target="_blank" rel="noopener" href="https://www.zigbee2mqtt.io/guide/configuration/mqtt.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="zigbee2mqtt" src="/static/img/brands/zigbee2mqtt.png?v=2d56cc31" width="32" height="32" alt="" decoding="async"></span>configurações MQTT oficiais</a>. Não publique senhas nem arquivos de configuração completos ao pedir ajuda.</p>
 <h2 id="4-se-um-dispositivo-aparece-offline-entenda-o-criterio">4. Se um dispositivo aparece offline, entenda o critério<a class="headerlink" href="#4-se-um-dispositivo-aparece-offline-entenda-o-criterio" title="Permanent link">#</a></h2>
 <p>A opção de disponibilidade é desativada por padrão. Quando habilitada, diferencia aparelhos alimentados pela rede elétrica de aparelhos a bateria. Nos valores padrão documentados, os primeiros são verificados após dez minutos sem comunicação; os segundos podem ficar até 25 horas sem comunicação antes de serem marcados offline.</p>
 <p>Esses tempos podem ser personalizados. Um sensor silencioso não deve ser julgado pelo mesmo intervalo de uma tomada. Após reiniciar o Zigbee2MQTT, aparelhos também podem aparecer offline até voltarem a comunicar.</p>
-<p>Confira a <a class="ext" target="_blank" rel="noopener" href="https://www.zigbee2mqtt.io/guide/configuration/device-availability.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="zigbee2mqtt" src="/static/img/brands/zigbee2mqtt.png?v=ebb91261" width="32" height="32" alt="" decoding="async"></span>documentação de disponibilidade</a> e a página do seu dispositivo no <a class="ext" target="_blank" rel="noopener" href="https://www.zigbee2mqtt.io/supported-devices/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="zigbee2mqtt" src="/static/img/brands/zigbee2mqtt.png?v=ebb91261" width="32" height="32" alt="" decoding="async"></span>catálogo oficial</a>. Teste uma ação prevista pelo fabricante, como abrir a porta monitorada pelo sensor.</p>
+<p>Confira a <a class="ext" target="_blank" rel="noopener" href="https://www.zigbee2mqtt.io/guide/configuration/device-availability.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="zigbee2mqtt" src="/static/img/brands/zigbee2mqtt.png?v=2d56cc31" width="32" height="32" alt="" decoding="async"></span>documentação de disponibilidade</a> e a página do seu dispositivo no <a class="ext" target="_blank" rel="noopener" href="https://www.zigbee2mqtt.io/supported-devices/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="zigbee2mqtt" src="/static/img/brands/zigbee2mqtt.png?v=2d56cc31" width="32" height="32" alt="" decoding="async"></span>catálogo oficial</a>. Teste uma ação prevista pelo fabricante, como abrir a porta monitorada pelo sensor.</p>
 <h2 id="5-se-a-rede-esta-instavel-comece-pelo-posicionamento">5. Se a rede está instável, comece pelo posicionamento<a class="headerlink" href="#5-se-a-rede-esta-instavel-comece-pelo-posicionamento" title="Permanent link">#</a></h2>
 <p>Para coordenadores USB, use uma extensão para afastar o rádio do computador, SSD e roteador Wi-Fi. O projeto cita uma extensão de 50 cm como medida que já pode reduzir interferência e sugere avaliar uma porta USB 2 em vez de USB 3.</p>
 <p>Observe também a alimentação dos roteadores Zigbee. Aparelhos que fazem parte da malha precisam permanecer ligados; confirme a função do modelo no catálogo. Aumentar apenas a potência do coordenador não garante que a resposta do sensor consiga retornar.</p>
-<p>Alterar o canal Zigbee pode exigir novo pareamento de alguns dispositivos. Primeiro teste o posicionamento, registre o resultado e consulte o <a class="ext" target="_blank" rel="noopener" href="https://www.zigbee2mqtt.io/advanced/zigbee/02_improve_network_range_and_stability.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="zigbee2mqtt" src="/static/img/brands/zigbee2mqtt.png?v=ebb91261" width="32" height="32" alt="" decoding="async"></span>guia oficial de alcance e estabilidade</a>.</p>
+<p>Alterar o canal Zigbee pode exigir novo pareamento de alguns dispositivos. Primeiro teste o posicionamento, registre o resultado e consulte o <a class="ext" target="_blank" rel="noopener" href="https://www.zigbee2mqtt.io/advanced/zigbee/02_improve_network_range_and_stability.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="zigbee2mqtt" src="/static/img/brands/zigbee2mqtt.png?v=2d56cc31" width="32" height="32" alt="" decoding="async"></span>guia oficial de alcance e estabilidade</a>.</p>
 <h2 id="6-mudou-a-malha-de-tempo-para-ela-se-reorganizar">6. Mudou a malha? Dê tempo para ela se reorganizar<a class="headerlink" href="#6-mudou-a-malha-de-tempo-para-ela-se-reorganizar" title="Permanent link">#</a></h2>
 <p>Mover, remover ou parear novamente um roteador pode causar erros de rota e respostas lentas temporárias. A documentação recomenda deixar a rede se estabilizar antes de realizar novas mudanças; isso pode levar de minutos a algumas horas.</p>
-<p>Faça uma alteração por vez. Antes de qualquer migração ou reset, preserve os backups e siga o procedimento específico do adaptador. Consulte o <a class="ext" target="_blank" rel="noopener" href="https://www.zigbee2mqtt.io/guide/usage/troubleshooting.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="zigbee2mqtt" src="/static/img/brands/zigbee2mqtt.png?v=ebb91261" width="32" height="32" alt="" decoding="async"></span>roteiro de troubleshooting</a>.</p>
+<p>Faça uma alteração por vez. Antes de qualquer migração ou reset, preserve os backups e siga o procedimento específico do adaptador. Consulte o <a class="ext" target="_blank" rel="noopener" href="https://www.zigbee2mqtt.io/guide/usage/troubleshooting.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="zigbee2mqtt" src="/static/img/brands/zigbee2mqtt.png?v=2d56cc31" width="32" height="32" alt="" decoding="async"></span>roteiro de troubleshooting</a>.</p>
 <h2 id="o-que-registrar-para-pedir-ajuda">O que registrar para pedir ajuda<a class="headerlink" href="#o-que-registrar-para-pedir-ajuda" title="Permanent link">#</a></h2>
 <ul>
 <li>Modelo do coordenador e versão do Zigbee2MQTT.</li>
@@ -197,26 +197,26 @@
         <span class="card-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2Z"/><path d="M6 17h13"/></svg></span>
         <span class="card-tag">Aprofundamento</span>
         <h3>Aprofundamento: para depois do básico</h3>
-        <p>Um roteiro para a segunda fase da casa inteligente — tipos de instalação do Home Assistant, Zigbee2MQTT, câmeras com Scrypted e Frigate, ESPHome, MQTT, rede, servidores, acesso remoto, agentes de IA e a rotina de manutenção.</p>
+        <p>Roteiro para a segunda fase: tipos de instalação, Zigbee2MQTT, câmeras com Scrypted e Frigate, ESPHome, MQTT, rede, acesso remoto, IA e manutenção.</p>
         <span class="card-go">Ler o guia <span aria-hidden="true">→</span></span>
       </a>
       <a class="card" href="/zigbee2mqtt/">
-        <span class="card-icon"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="zigbee2mqtt" src="/static/img/brands/zigbee2mqtt.png?v=ebb91261" width="32" height="32" alt="" decoding="async"></span></span>
+        <span class="card-icon"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="zigbee2mqtt" src="/static/img/brands/zigbee2mqtt.png?v=2d56cc31" width="32" height="32" alt="" decoding="async"></span></span>
         <span class="card-tag">Aprofundamento</span>
         <h3>Zigbee2MQTT ou ZHA: quando considerar a mudança</h3>
-        <p>ZHA e Zigbee2MQTT comparados ponto a ponto — arquitetura, suporte a dispositivos, interface, manutenção — e um roteiro para decidir se vale migrar, como conferir seu modelo e como planejar a troca sem perder a rede.</p>
+        <p>ZHA e Zigbee2MQTT comparados ponto a ponto, os sinais de que vale migrar, como conferir seu modelo no catálogo e como planejar a troca sem perder a rede.</p>
         <span class="card-go">Ler o guia <span aria-hidden="true">→</span></span>
       </a>
       <a class="card" href="/minha-instalacao/">
         <span class="card-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v4m0 10v4m9-9h-4M7 12H3m12.4-5.4-2.8 2.8m-5.2 5.2-2.8 2.8m10.8 0-2.8-2.8M8.6 8.6 5.8 5.8"/><circle cx="12" cy="12" r="3"/></svg></span>
         <span class="card-tag">Instalação do autor</span>
-        <h3>Minha instalação: Home Assistant, iluminação e controles da casa</h3>
+        <h3>Minha instalação: Home Assistant, luzes e controles</h3>
         <p>Fotos e equipamentos da casa de Álvaro Menezes: mini-PC com HAOS, WLED, Philips Hue, Alexa, Apple HomeKit e uma tela ESP32-S3 com ESPHome.</p>
         <span class="card-go">Ler o guia <span aria-hidden="true">→</span></span>
       </a></div></section>
     <nav class="pager">
-      <a class="pager-prev" href="/zigbee2mqtt/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="zigbee2mqtt" src="/static/img/brands/zigbee2mqtt.png?v=ebb91261" width="32" height="32" alt="" decoding="async"></span><span>← Anterior</span><strong>Zigbee2MQTT ou ZHA: quando considerar a mudança</strong></a>
-      <a class="pager-next" href="/minha-instalacao/"><span>Próximo →</span><strong>Minha instalação: Home Assistant, iluminação e controles da casa</strong></a>
+      <a class="pager-prev" href="/zigbee2mqtt/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="zigbee2mqtt" src="/static/img/brands/zigbee2mqtt.png?v=2d56cc31" width="32" height="32" alt="" decoding="async"></span><span>← Anterior</span><strong>Zigbee2MQTT ou ZHA: quando considerar a mudança</strong></a>
+      <a class="pager-next" href="/minha-instalacao/"><span>Próximo →</span><strong>Minha instalação: Home Assistant, luzes e controles</strong></a>
     </nav>
   </article>
 
@@ -253,14 +253,14 @@
         </div>
       </div>
       <div class="contact-actions">
-        <h4>Contato</h4>
+        <h3>Contato</h3>
         <a class="contact-line" href="mailto:alvaroajm@gmail.com"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6 8.5-6"/></svg><span>alvaroajm@gmail.com</span></a>
         <a class="contact-line" href="https://wa.me/5585996621818" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5a8.5 8.5 0 0 0-7.3 12.9L3.5 20.5l4.2-1.1A8.5 8.5 0 1 0 12 3.5Z"/><path d="M9.2 8.6c.2-.5.6-.5 1-.5l.7 1.6-.6.8c.6 1.2 1.6 2.2 2.8 2.8l.8-.6 1.6.7c0 .4 0 .8-.5 1-2.7.7-6.5-3.1-5.8-5.8Z"/></svg><span>WhatsApp +55 (85) 99662-1818</span></a>
         <a class="contact-line" href="https://alvaro-menezes.com/" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3 10h18M7 14.5h4"/></svg><span>Cartão de contato</span></a>
         <a class="contact-line" href="https://radapps.app" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 15c-1 2-1 4-1 4s2 0 4-1"/><path d="M13.5 4.5C16 2 21 3 21 3s1 5-1.5 7.5L14 16l-6-6 5.5-5.5Z"/><circle cx="15.5" cy="8.5" r="1.5"/><path d="m8 10-4 1 1 4 4-1"/></svg><span>RadApps ↗</span></a>
       </div>
       <div class="contact-places">
-        <h4>Locais de atendimento</h4>
+        <h3>Locais de atendimento</h3>
         <ul><li><strong>Instituto Doutor José Frota</strong><span>Rua Barão do Rio Branco, 1816 · Centro, Fortaleza/CE</span></li><li><strong>Hospital Universitário Walter Cantídio</strong><span>Rua Pastor Samuel Munguba, 1290 · Rodolfo Teófilo, Fortaleza/CE</span></li><li><strong>Clínica Boghos Boyadjian</strong><span>Av. Rui Barbosa, 1975 · Aldeota, Fortaleza/CE</span></li></ul>
       </div>
     </section>
@@ -271,7 +271,7 @@
         <p>Inteligência para o seu lar — Guias independentes de casa inteligente, automação local e código aberto.</p>
       </div>
       <nav class="footer-nav" aria-label="Site">
-        <div><h4>Primeiros passos</h4><a href="/casa-inteligente/">O que é casa inteligente?</a><a href="/home-assistant/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Home Assistant</a><a href="/instalar-haos/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Instalar o HAOS</a></div><div><h4>Conectar e automatizar</h4><a href="/zigbee/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Entender Zigbee</a><a href="/zbt-dongles/">ZBT-2 com ZHA</a><a href="/primeira-automacao/">Primeira automação</a></div><div><h4>Depois do básico</h4><a href="/apps-integracoes/">Integrações e Apps</a><a href="/aprofundamento/">Aprofundamento</a></div><div><h4>Site</h4><a href="/artigos/">Todos os guias</a><a href="/faq/">Dúvidas frequentes</a><a href="/sobre/">Sobre</a><a href="/contato/">Contato</a><a href="/privacidade/">Privacidade</a><a href="/termos/">Termos de uso</a></div>
+        <div><h3>Primeiros passos</h3><a href="/casa-inteligente/">O que é casa inteligente?</a><a href="/home-assistant/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Home Assistant</a><a href="/instalar-haos/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Instalar o HAOS</a></div><div><h3>Conectar e automatizar</h3><a href="/zigbee/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Entender Zigbee</a><a href="/zbt-dongles/">ZBT-2 com ZHA</a><a href="/primeira-automacao/">Primeira automação</a></div><div><h3>Depois do básico</h3><a href="/apps-integracoes/">Integrações e Apps</a><a href="/aprofundamento/">Aprofundamento</a></div><div><h3>Site</h3><a href="/artigos/">Todos os guias</a><a href="/faq/">Dúvidas frequentes</a><a href="/sobre/">Sobre</a><a href="/contato/">Contato</a><a href="/privacidade/">Privacidade</a><a href="/termos/">Termos de uso</a></div>
       </nav>
     </div>
     <div class="wrap footer-bottom">

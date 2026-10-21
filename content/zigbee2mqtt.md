@@ -1,7 +1,7 @@
 ---
 title: Zigbee2MQTT ou ZHA: quando considerar a mudança
 slug: zigbee2mqtt
-description: ZHA e Zigbee2MQTT comparados ponto a ponto — arquitetura, suporte a dispositivos, interface, manutenção — e um roteiro para decidir se vale migrar, como conferir seu modelo e como planejar a troca sem perder a rede.
+description: ZHA e Zigbee2MQTT comparados ponto a ponto, os sinais de que vale migrar, como conferir seu modelo no catálogo e como planejar a troca sem perder a rede.
 category: Aprofundamento
 icon: book
 order: 91

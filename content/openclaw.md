@@ -2,7 +2,7 @@
 level: avancado
 title: Conheça o OpenClaw
 slug: openclaw
-description: Entenda o agente de IA e os cuidados ao dar acesso à casa.
+description: O que é o OpenClaw, como o agente autônomo age sobre a casa e os riscos de injeção de prompt, skills maliciosas e segredos sem criptografia.
 category: IA & agentes
 icon: key
 order: 115

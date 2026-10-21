@@ -12,7 +12,7 @@ updated: 2026-10-20
 tags: [Sobre, Contato, Open Source]
 ---
 
-![SmartHome-AI](/static/img/smarthome-banner.jpg)
+<img src="/static/img/smarthome-banner.jpg" alt="Banner do SmartHome-AI" width="1400" height="788" decoding="async">
 
 
 O **SmartHome-AI** nasceu de uma frustração comum: a maior parte do conteúdo sobre casa inteligente ou é

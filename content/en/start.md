@@ -2,7 +2,7 @@
 title: Start your smart home
 slug: start
 key: instalacao
-description: The full path from nothing to your first automated light, without programming — what to buy, in which order, how long it takes and the mistakes that slow beginners down.
+description: The full path from nothing to your first automated light, without programming: what to buy, in which order, how long it takes and the usual mistakes.
 category: Getting started
 icon: rocket
 order: 0
@@ -15,17 +15,17 @@ level: basico
 ---
 
 Start small: **Home Assistant OS → ZBT-2 with ZHA → one light → one visual automation**. You do not
-need to program. This page is the map; each step has its own illustrated guide. The guides are in
-Portuguese, but the screenshots are from the English Home Assistant interface, and the
-[English homepage](/en/#casa-inteligente) introduces every topic.
+need to program. This page is the map; each step has its own illustrated guide. The core guides of this path are
+available in English; the remaining guides are in Portuguese, with screenshots from the English
+Home Assistant interface, and the [English homepage](/en/#casa-inteligente) introduces every topic.
 
 ## What you need on the table
 
 | Item | What it does | Where to choose |
 |---|---|---|
 | **A hub running Home Assistant OS** | Runs Home Assistant 24/7. A Home Assistant Green, a Raspberry Pi 5 or a mini PC. | [Choose your hub (PT)](/hardware/) |
-| **A Zigbee adapter (ZBT-2)** | Creates your Zigbee network and talks to lights and sensors. | [ZBT-1 vs ZBT-2 (PT)](/zbt-dongles/) |
-| **One Zigbee bulb or switch** | Your first device. Pick a model listed as supported by ZHA. | [Zigbee basics (PT)](/zigbee/) |
+| **A Zigbee adapter (ZBT-2)** | Creates your Zigbee network and talks to lights and sensors. | [ZBT-1 vs ZBT-2](/en/zbt-dongles/) |
+| **One Zigbee bulb or switch** | Your first device. Pick a model listed as supported by ZHA. | [Zigbee basics](/en/zigbee/) |
 | **An Ethernet cable** | The hub should be wired to the router, not on Wi-Fi. | — |
 | **Another computer or phone** | Where you open the Home Assistant dashboard in a browser. | — |
 
@@ -42,17 +42,17 @@ comes later, when a real need shows up.
 Every guide ends with something working. Times are rough estimates for a first-timer, not counting
 shopping.
 
-1. [What is a smart home?](/casa-inteligente/) — 10 minutes. Compare Home Assistant, Alexa, Google
+1. [What is a smart home?](/en/smart-home/) — 10 minutes. Compare Home Assistant, Alexa, Google
    Home, Apple Home, SmartThings and Tuya, and learn what "local automation" means.
-2. [Meet Home Assistant](/home-assistant/) — 15 minutes. Dashboard, devices, entities, areas and
+2. [Meet Home Assistant](/en/home-assistant/) — 15 minutes. Dashboard, devices, entities, areas and
    automations, before you install anything.
-3. [Install Home Assistant OS](/instalar-haos/) — 30 minutes (Green) to 1 hour (Pi 5 or mini PC).
+3. [Install Home Assistant OS](/en/install-haos/) — 30 minutes (Green) to 1 hour (Pi 5 or mini PC).
    You end up at `http://homeassistant.local:8123`, with an account and an empty dashboard.
-4. [Understand Zigbee](/zigbee/) — 10 minutes. Coordinator, routers and end devices, and why mains-
+4. [Understand Zigbee](/en/zigbee/) — 10 minutes. Coordinator, routers and end devices, and why mains-
    powered bulbs strengthen the mesh.
 5. [Thread and Matter, briefly](/matter-thread/) — 10 minutes. Enough to read a box in the shop and
    avoid buying what your network cannot serve yet.
-6. [Connect ZBT-2 and set up ZHA](/zbt-dongles/) — 20 minutes. The bulb shows up on the dashboard
+6. [Connect ZBT-2 and set up ZHA](/en/zbt-dongles/) — 20 minutes. The bulb shows up on the dashboard
    and turns on from your phone.
 7. [Create your first automation](/primeira-automacao/) — 20 minutes. The light turns on at sunset,
    with menus only.

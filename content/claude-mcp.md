@@ -2,7 +2,7 @@
 level: avancado
 title: Converse com sua casa
 slug: claude-mcp
-description: Entenda como Claude e MCP se conectam ao Home Assistant.
+description: Como conectar o Claude ao Home Assistant pelo protocolo MCP: servidor MCP oficial, Claude Desktop, Claude no terminal e os melhores servidores.
 category: IA & agentes
 icon: bot
 order: 114

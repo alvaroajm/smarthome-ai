@@ -133,6 +133,10 @@ img { max-width: 100%; height: auto; }
 
 a { color: var(--link); text-decoration: none; }
 a:hover { text-decoration: underline; text-underline-offset: 3px; }
+/* Links no corpo dos artigos e nas seções de texto da home: sublinhado, não só cor (WCAG 1.4.1) */
+.prose p a, .prose li a, .prose td a, .prose figcaption a, .prose dd a,
+.feature-small a, .section p a:not(.btn):not(.card):not(.install-card), .section li a:not(.btn):not(.card) { text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--link) 45%, transparent); text-underline-offset: 3px; }
+.prose p a:hover, .prose li a:hover, .feature-small a:hover, .section p a:hover, .section li a:hover { text-decoration-color: currentColor; }
 
 h1, h2, h3, h4 { line-height: 1.2; letter-spacing: -.02em; margin: 0 0 .5em; }
 h1 { font-size: clamp(2rem, 1.3rem + 2.6vw, 3.2rem); font-weight: 700; }
@@ -432,7 +436,7 @@ pre:hover .copy-btn, .copy-btn:focus { opacity: 1; }
 .footer-brand strong { font-size: 1.1rem; }
 .footer-brand p { color: var(--text-dim); font-size: .92rem; margin: .5rem 0 0; max-width: 40ch; }
 .footer-nav { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
-.footer-nav h4 { font-size: .76rem; text-transform: uppercase; letter-spacing: .1em; color: var(--text-dim); margin: 0 0 .7rem; }
+.footer-nav h3 { font-size: .76rem; text-transform: uppercase; letter-spacing: .1em; color: var(--text-dim); margin: 0 0 .7rem; }
 .footer-nav a { display: block; color: var(--text-soft); font-size: .92rem; padding: .18rem 0; }
 .footer-nav a:hover { color: var(--accent); text-decoration: none; }
 .footer-bottom { display: flex; flex-wrap: wrap; gap: .5rem 2rem; justify-content: space-between; padding: 1.2rem 0 2rem; border-top: 1px solid var(--border-soft); }
@@ -564,7 +568,7 @@ mark { background: color-mix(in srgb, var(--gold-500) 35%, transparent); color: 
 .social:hover { color: var(--accent); border-color: var(--accent); transform: translateY(-2px); text-decoration: none; }
 .social .icon { width: 17px; height: 17px; }
 
-.contact-actions h4, .contact-places h4 {
+.contact-actions h3, .contact-places h3 {
   font-size: .76rem; text-transform: uppercase; letter-spacing: .1em;
   color: var(--text-dim); margin: 0 0 .8rem;
 }
@@ -673,7 +677,7 @@ body:not(.article) .progress { display: none; }
 }
 
 /* Visual editorial system — SmartHome-AI, September 2026. */
-@font-face{font-family:Newsreader;font-style:normal;font-weight:500;font-display:swap;src:url('/static/fonts/newsreader-500.ttf') format('truetype')}
+@font-face{font-family:Newsreader;font-style:normal;font-weight:500;font-display:swap;src:url('/static/fonts/newsreader-500.woff2') format('woff2')}
 :root{--wrap:1240px;--display:Newsreader,Georgia,'Times New Roman',serif;--text-dim:#9cac9f;--gold-600:#816329;--radius:16px}
 :root[data-theme="light"]{--bg:#f8f8f1;--bg-soft:#eff2e9;--surface:#fffef9;--surface-2:#edf1e6;--border:#d2d9c9;--border-soft:#e0e5d8;--text:#193d2c;--text-soft:#53604f;--text-dim:#626e5c;--accent:#80602a;--link:#226147;--good:#227144}
 body{font-size:18px;line-height:1.7}

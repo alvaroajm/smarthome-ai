@@ -13,3 +13,6 @@ venv/
 
 # Logs
 *.log
+
+# Arquivos substituídos, mantidos localmente
+_unused/

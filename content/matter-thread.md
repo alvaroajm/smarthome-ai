@@ -1,7 +1,7 @@
 ---
 title: Thread e Matter, sem confusão
 slug: matter-thread
-description: Thread é a rede, Matter é o padrão. Entenda os papéis (controlador, roteador de borda, pareamento), o que conferir na embalagem, o que o Home Assistant precisa para cada caso e quando isso faz sentido na sua casa.
+description: Thread é a rede, Matter é o padrão: papéis, o que conferir na embalagem, o que o Home Assistant precisa para cada caso e quando faz sentido na sua casa.
 category: Passo a passo
 icon: book
 order: 5

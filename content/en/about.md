@@ -13,7 +13,7 @@ updated: 2026-10-20
 tags: [About, Contact, Open Source]
 ---
 
-![SmartHome-AI](/static/img/smarthome-banner.jpg)
+<img src="/static/img/smarthome-banner.jpg" alt="SmartHome-AI banner" width="1400" height="788" decoding="async">
 
 
 **SmartHome-AI** started from a common frustration: most smart home content is either product marketing, or
