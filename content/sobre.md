@@ -88,9 +88,13 @@ Além do meu canal principal no YouTube, mantenho projetos de vídeo gerados com
 
 Uso **Home Assistant OS em um mini-PC com processador Ryzen 7**, **interruptores inteligentes Zemismart Zigbee** e **luzes Philips Hue Zigbee**.
 
+Controlo minha rede Zigbee pelo **Home Assistant**, por meio do **Zigbee2MQTT**, com o **ZBT-2 da Nabu Casa** como coordenador.
+
+Minha rede **Thread** é compartilhada com a rede Thread da **Apple**. Uso o **ZBT-1** como adaptador de rádio Thread, separado do ZBT-2 usado para Zigbee.
+
 Na **sala**, tenho uma **tomada Zemismart** que controla as luzes do ambiente. Uso **Philips Hue** na **sala** e na **suíte master**. Aciono as luzes pelo **aplicativo Casa da Apple (HomeKit)** no celular, por voz pela **Alexa** e diretamente pelo **Home Assistant**.
 
-Esta é a minha instalação, não uma lista de produtos que submeti a testes comparativos. Ainda preciso detalhar aqui os modelos exatos, o coordenador e a integração Zigbee. Não apresento essa relação como garantia de compatibilidade para uma compra.
+Esta é a minha instalação, não uma lista de produtos que submeti a testes comparativos. Ainda preciso detalhar aqui os modelos exatos dos demais dispositivos. Não apresento essa relação como garantia de compatibilidade para uma compra.
 
 Uso vários dispositivos que identifiquei como **Echo Dot Max** e **um Echo Studio Max na sala**. Faço a integração da Alexa com o Home Assistant pelo **Nabu Casa**. Também uso **duas Apple TV 4K como centrais do Apple HomeKit**.
 

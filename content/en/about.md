@@ -91,9 +91,13 @@ Besides my main YouTube channel, I run AI-generated video projects that are not 
 
 I use **Home Assistant OS on a mini-PC with a Ryzen 7 processor**, **Zemismart Zigbee smart switches** and **Philips Hue Zigbee lights**.
 
+I control my Zigbee network from **Home Assistant** through **Zigbee2MQTT**, with the **ZBT-2 from Nabu Casa** as the coordinator.
+
+My **Thread** network is shared with **Apple's** Thread network. I use the **ZBT-1** as the Thread radio adapter, separate from the ZBT-2 used for Zigbee.
+
 In my **living room**, a **Zemismart smart plug** controls the room's lights. I use **Philips Hue** in the **living room** and the **primary suite**. I operate the lights from my phone using **Apple Home (HomeKit)**, by voice through **Alexa**, and directly through **Home Assistant**.
 
-This is my installation, not a list of products I subjected to comparative tests. I still need to document the exact models, coordinator and Zigbee integration here. I do not present this list as a compatibility guarantee for a purchase.
+This is my installation, not a list of products I subjected to comparative tests. I still need to document the exact models of the other devices here. I do not present this list as a compatibility guarantee for a purchase.
 
 I use several devices I identified as **Echo Dot Max** and **one Echo Studio Max in the living room**. I connect Alexa to Home Assistant through **Nabu Casa**. I also use **two Apple TV 4K devices as Apple HomeKit home hubs**.
 

@@ -39,6 +39,10 @@ Uso ainda um **controle Broadlink IR e RF**. Ainda não detalhei aqui o modelo e
 
 Instalei o Home Assistant OS num **mini-PC com processador Ryzen 7**. Na minha bancada também há um **Mac mini M4**, visível na fotografia. São computadores distintos: uso o mini-PC como central do Home Assistant.
 
+Controlo minha rede Zigbee pelo **Home Assistant**, por meio do **Zigbee2MQTT**, com o **ZBT-2 da Nabu Casa** como coordenador.
+
+Minha rede **Thread** é compartilhada com a rede Thread da **Apple**. Uso o **ZBT-1** como adaptador de rádio Thread, separado do ZBT-2 usado para Zigbee.
+
 <figure class="ha-screen"><a href="/static/img/casa-do-autor/central-home-assistant.jpg" target="_blank" rel="noopener" aria-label="Ampliar: Bancada com mini-PC rodando Home Assistant, Mac mini M4 e painel da casa no monitor."><img src="/static/img/casa-do-autor/central-home-assistant.jpg" alt="Bancada com mini-PC rodando Home Assistant, Mac mini M4 e painel da casa no monitor." width="960" height="1280" loading="lazy" decoding="async"></a><figcaption>Bancada com mini-PC rodando Home Assistant, Mac mini M4 e painel da casa no monitor. Foto da minha instalação.</figcaption></figure>
 
 O painel no monitor organiza a navegação por áreas da casa. Essa organização ajuda a localizar o ambiente antes de escolher o dispositivo. Não publico aqui medições de consumo elétrico, uso de memória ou tempo de resposta; não apresento minha instalação como benchmark do processador.
@@ -83,7 +87,7 @@ Antes de transformar esse relato em instruções, é necessário registrar a ori
 
 | Parte | Informação que precisa acompanhar um passo a passo |
 |---|---|
-| Zigbee | Coordenador, integração e modelos exatos dos dispositivos. |
+| Zigbee | Modelos exatos dos dispositivos e configuração necessária para reproduzir a rede. |
 | WLED | Controlador das tiras e sua configuração. |
 | ESPHome | Modelo completo da tela e YAML sem credenciais. |
 | Câmeras | Modelo do DVR, plugins e origem de vídeo no Scrypted. |
