@@ -289,13 +289,13 @@ FOOTER_LINKS = {
         "f_platforms": [("O que é casa inteligente?", "/casa-inteligente/"), ("Home Assistant", "/home-assistant/"), ("Instalar o HAOS", "/instalar-haos/")],
         "f_protocols": [("Entender Zigbee", "/zigbee/"), ("ZBT-2 com ZHA", "/zbt-dongles/"), ("Primeira automação", "/primeira-automacao/")],
         "f_ai": [("Integrações e Apps", "/apps-integracoes/"), ("Aprofundamento", "/aprofundamento/")],
-        "f_site": [("Todos os guias", "/artigos/"), ("Dúvidas frequentes", "/faq/"), ("Sobre", "/sobre/"), ("Privacidade", "/privacidade/")],
+        "f_site": [("Todos os guias", "/artigos/"), ("Dúvidas frequentes", "/faq/"), ("Sobre", "/sobre/"), ("Contato", "/contato/"), ("Privacidade", "/privacidade/"), ("Termos de uso", "/termos/")],
     },
     "en": {
         "f_platforms": [("Start here", "/en/start/"), ("Home Assistant (PT)", "/home-assistant/"), ("Install HAOS (PT)", "/instalar-haos/")],
         "f_protocols": [("Zigbee (PT)", "/zigbee/"), ("ZBT-2 with ZHA (PT)", "/zbt-dongles/"), ("First automation (PT)", "/primeira-automacao/")],
         "f_ai": [("Integrations and Apps (PT)", "/apps-integracoes/"), ("Further learning (PT)", "/aprofundamento/")],
-        "f_site": [("All guides", "/en/guides/"), ("FAQ", "/en/faq/"), ("About", "/en/about/"), ("Privacy", "/en/privacy/")],
+        "f_site": [("All guides", "/en/guides/"), ("FAQ", "/en/faq/"), ("About", "/en/about/"), ("Contact", "/en/contact/"), ("Privacy", "/en/privacy/"), ("Terms of use", "/en/terms/")],
     },
 }
 
@@ -800,7 +800,7 @@ def base_context(lang: str, page_title: str, description: str, url_path: str,
         "ui_search_suggest": ui["search_suggest"],
         "ui_to_top": ui["to_top"],
         "extra_head": gtag_snippet() + jsonld(site_ld(lang)) + extra_head,
-        "adsense_code": "" if url_path in ("/privacidade/", "/en/privacy/", "/404.html", "/en/404.html") else (
+        "adsense_code": "" if url_path in ("/privacidade/", "/en/privacy/", "/termos/", "/en/terms/", "/404.html", "/en/404.html") else (
             '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4633113806110595" crossorigin="anonymous"></script>'
         ),
         "tagline_meta": esc(cfg["tagline"]),

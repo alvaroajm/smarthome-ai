@@ -9,6 +9,7 @@ order: 4
 section: pagina
 reading: 4 min read
 date: 2026-10-09
+updated: 2026-10-20
 tags: [Privacy, Cookies]
 ---
 
@@ -45,7 +46,13 @@ cookies, use pixels or web beacons, and process IP addresses and other identifie
 measure performance and prevent fraud. Advertising cookies may enable personalized ads based on
 previous visits to this site or other sites.
 
-You can adjust or disable personalization in [Google's My Ad Center](https://myadcenter.google.com/).
+In particular, Google, as a third-party vendor, uses cookies to serve ads on this site. Google's use
+of the **DoubleClick cookie** (`IDE`, set by `doubleclick.net`) enables it and its partners to serve
+ads to you based on your visits to this site and other sites on the internet.
+
+You can opt out of the DoubleClick cookie for interest-based advertising in
+[Google Ads Settings](https://adssettings.google.com/) or adjust personalization in
+[Google's My Ad Center](https://myadcenter.google.com/).
 For choices offered by other participating providers, see [YourAdChoices](https://optout.aboutads.info/).
 You can also block or delete cookies through your browser settings. These choices do not necessarily
 stop all advertisements from appearing.
@@ -63,4 +70,4 @@ To ask questions or exercise rights concerning data under the site's responsibil
 above. Data held by third parties may also require a request directly to that provider.
 This policy will be updated when the services and uses described here change.
 
-Updated on **9 October 2026**.
+Updated on **October 20, 2026**.

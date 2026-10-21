@@ -8,6 +8,7 @@ order: 21
 section: pagina
 reading: 4 min de leitura
 date: 2026-10-09
+updated: 2026-10-20
 tags: [Privacidade, Cookies]
 ---
 
@@ -46,7 +47,13 @@ podem inserir e ler cookies, usar pixels ou web beacons e processar endereço IP
 para entregar anúncios, medir resultados e prevenir fraude. Cookies de publicidade podem permitir
 anúncios personalizados com base em visitas anteriores a este site ou a outros sites.
 
-Você pode ajustar ou desativar a personalização na [Minha central de anúncios do Google](https://myadcenter.google.com/).
+Em particular, o Google, como fornecedor terceirizado, usa cookies para veicular anúncios neste site.
+O **cookie DoubleClick** (`IDE`, do domínio `doubleclick.net`) permite que o Google e seus parceiros
+veiculem anúncios com base nas visitas que você fez a este e a outros sites na internet.
+
+Você pode desativar o uso do cookie DoubleClick para publicidade baseada em interesses nas
+[Configurações de anúncios do Google](https://adssettings.google.com/) ou ajustar a personalização na
+[Minha central de anúncios do Google](https://myadcenter.google.com/).
 Para opções de outros fornecedores participantes, consulte [YourAdChoices](https://optout.aboutads.info/).
 Também pode bloquear ou apagar cookies nas configurações do navegador. Essas opções não significam
 necessariamente que todos os anúncios deixarão de aparecer.
@@ -64,4 +71,4 @@ Para pedir esclarecimentos ou exercer direitos relacionados aos dados sob respon
 escreva para o contato acima. Dados mantidos por terceiros também podem exigir solicitação diretamente
 ao fornecedor. Esta política será atualizada quando os serviços e usos descritos mudarem.
 
-Atualizada em **9 de outubro de 2026**.
+Atualizada em **20 de outubro de 2026**.
