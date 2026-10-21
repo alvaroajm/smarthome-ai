@@ -135,6 +135,7 @@
 <li><a href="#example-c6geek">A ready-made example: a Thread display with temperature and humidity (Waveshare C6-GEEK)</a></li>
 <li><a href="#example-panel7b">Reference example: a 7" wall panel for the whole home (Waveshare 7B)</a></li>
 <li><a href="#example-voice">A ready-made example: a voice assistant with a display (M5Stack AtomS3R + Echo Base)</a></li>
+<li><a href="#example-rfid">A ready-made example: an RFID/NFC reader with a display (M5Stack AtomS3R + RFID 2)</a></li>
 </ul>
 </div>
 </nav>
@@ -151,6 +152,7 @@
 <li><a href="#example-c6geek">A Thread display with temperature and humidity (C6-GEEK)</a></li>
 <li><a href="#example-panel7b">A 7" wall panel for the whole home (Waveshare 7B)</a></li>
 <li><a href="#example-voice">A voice assistant with a display (AtomS3R + Echo Base)</a></li>
+<li><a href="#example-rfid">An RFID/NFC reader with a display (AtomS3R + RFID 2)</a></li>
 </ul>
 <h2 id="example-scale">A ready-made example: a scale in Home Assistant over Bluetooth<a class="headerlink" href="#example-scale" title="Permanent link">#</a></h2>
 <p>A gateway that listens to the <strong>Bluetooth (BLE)</strong> advertisement from scales and publishes the weight to Home Assistant — without relying on the manufacturer's cloud. It runs on an <strong>M5Stack ATOM Lite (ESP32)</strong> and covers two protocols: <strong>OKOK/QJ-J</strong> scales (weight read straight from the advertisement) and the <strong>Xiaomi Mi Scale 2</strong> (through the native <code>xiaomi_miscale</code> component, with weight and impedance).</p>
@@ -3117,8 +3119,403 @@ text_sensor:
 <li>You can choose the <strong>wake-word engine</strong> (on device or in HA) and the <strong>sensitivity</strong>, plus a timer that plays a sound when it finishes.</li>
 </ul>
 <p>Enable <strong>Assist</strong> in Home Assistant, validate it in the <strong>ESPHome Device Builder</strong> and test the wake words.</p>
+<h2 id="example-rfid">A ready-made example: an RFID/NFC reader with a display (M5Stack AtomS3R + RFID 2)<a class="headerlink" href="#example-rfid" title="Permanent link">#</a></h2>
+<p>An <strong>RFID/NFC reader</strong> with a small screen, built with the <strong>M5Stack AtomS3R + RFID 2 unit (WS1850S)</strong>. When you bring a tag close, it shows the UID on the screen, counts the scans and <strong>sends the tag to Home Assistant</strong> (<code>tag_scanned</code> + an event), where you trigger automations — unlock the door, run a scene, identify who arrived.</p>
+<blockquote>
+<p><strong>Replace with your own data before flashing.</strong> The API key and the static IP are examples; generate/adjust your own. To show a <em>friendly name</em> for the tag on the screen, create an <code>input_text.rfid_tag_nome</code> helper in HA (optional). It requires <strong>ESPHome 2026.7+</strong>.</p>
+</blockquote>
+<pre><code class="language-yaml">substitutions:
+  name: atom-s3r-rfid
+  friendly_name: &quot;ATOM S3R RFID&quot;
+
+esphome:
+  name: ${name}
+  friendly_name: ${friendly_name}
+  min_version: 2026.7.0
+  platformio_options:
+    board_build.flash_mode: opi
+
+  on_boot:
+    priority: -100
+    then:
+      - light.turn_on:
+          id: lcd_backlight
+          brightness: 100%
+      - delay: 500ms
+      - lambda: |-
+          id(scan_total).publish_state(id(scan_count));
+          if (!id(last_uid).empty()) {
+            id(last_uid_text).publish_state(id(last_uid));
+            id(uid_length).publish_state(
+              (float)((id(last_uid).size() + 1) / 3)
+            );
+          }
+      - component.update: meu_display
+
+esp32:
+  variant: esp32s3
+  flash_size: 8MB
+  cpu_frequency: 240MHz
+  framework:
+    type: esp-idf
+    sdkconfig_options:
+      CONFIG_ESP32S3_DEFAULT_CPU_FREQ_240: &quot;y&quot;
+      CONFIG_ESP32S3_DATA_CACHE_64KB: &quot;y&quot;
+      CONFIG_ESP32S3_DATA_CACHE_LINE_64B: &quot;y&quot;
+
+psram:
+  mode: octal
+  speed: 80MHz
+  enable_ecc: true
+
+logger:
+  level: DEBUG
+  hardware_uart: USB_SERIAL_JTAG
+
+api:
+  encryption:
+    key: !secret api_encryption_key   # generate yours in the ESPHome Builder
+
+ota:
+  - platform: esphome
+    encryption:
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  manual_ip:                    # adjust to your network or remove it to use DHCP
+    static_ip: 192.168.1.61
+    gateway: 192.168.1.1
+    subnet: 255.255.255.0
+    dns1: 8.8.8.8
+    dns2: 8.8.4.4
+  power_save_mode: NONE
+
+external_components:
+  - source: github://m5stack/esphome-yaml/components@main
+    components:
+      - lp5562
+    refresh: 1d
+
+globals:
+  - id: status_leitura
+    type: bool
+    restore_value: no
+    initial_value: &quot;false&quot;
+
+  - id: last_uid
+    type: std::string
+    restore_value: yes
+    initial_value: '&quot;&quot;'
+
+  - id: scan_count
+    type: int
+    restore_value: yes
+    initial_value: &quot;0&quot;
+
+  - id: last_scan_ts
+    type: time_t
+    restore_value: yes
+    initial_value: &quot;0&quot;
+
+i2c:
+  # Internal bus: LP5562 backlight
+  - id: bsp_bus
+    sda:
+      number: GPIO45
+      ignore_strapping_warning: true
+    scl:
+      number: GPIO0
+      ignore_strapping_warning: true
+    scan: true
+
+  # Port A: RFID 2 / WS1850S
+  - id: bus_grove
+    sda: GPIO2
+    scl: GPIO1
+    scan: true
+
+spi:
+  id: spi_bus
+  clk_pin: GPIO15
+  mosi_pin: GPIO21
+
+lp5562:
+  id: lp5562_led
+  i2c_id: bsp_bus
+  use_internal_clk: true
+  white_current: 17.5
+
+output:
+  - platform: lp5562
+    id: lp5562_white_channel
+    lp5562_id: lp5562_led
+    channel: white
+
+light:
+  - platform: monochromatic
+    name: &quot;LCD Backlight&quot;
+    id: lcd_backlight
+    output: lp5562_white_channel
+    icon: mdi:television
+    restore_mode: ALWAYS_ON
+
+time:
+  - platform: sntp
+    id: sntp_time
+    servers:
+      - time.google.com
+    timezone: &quot;America/Fortaleza&quot;
+
+rc522_i2c:
+  i2c_id: bus_grove
+  address: 0x28
+  update_interval: 0.5s
+
+  on_tag:
+    then:
+      - lambda: |-
+          id(last_uid) = x;
+          id(scan_count) += 1;
+          id(status_leitura) = true;
+
+          auto now = id(sntp_time).now();
+
+          if (now.is_valid()) {
+            id(last_scan_ts) = now.timestamp;
+
+            char buf[32];
+            now.strftime(
+              buf,
+              sizeof(buf),
+              &quot;%d/%m/%Y %H:%M:%S&quot;
+            );
+
+            id(last_scan_text).publish_state(buf);
+          }
+
+          id(last_uid_text).publish_state(x);
+          id(uid_length).publish_state(
+            (float)((x.size() + 1) / 3)
+          );
+          id(scan_total).publish_state(id(scan_count));
+          id(tag_present_bs).publish_state(true);
+
+      - homeassistant.tag_scanned: !lambda &quot;return x;&quot;
+
+      - homeassistant.event:
+          event: esphome.rfid_tag_scanned
+          data:
+            device: ${name}
+          data_template:
+            uid: &quot;{{ uid }}&quot;
+          variables:
+            uid: !lambda &quot;return x;&quot;
+
+      - component.update: meu_display
+      - delay: 3s
+
+      - lambda: |-
+          id(status_leitura) = false;
+          id(tag_present_bs).publish_state(false);
+
+      - component.update: meu_display
+
+  on_tag_removed:
+    then:
+      - lambda: |-
+          id(tag_present_bs).publish_state(false);
+
+font:
+  - file: &quot;gfonts://Roboto@700&quot;
+    id: fonte_hora
+    size: 28
+    glyphsets:
+      - GF_Latin_Core
+
+  - file: &quot;gfonts://Roboto&quot;
+    id: fonte_texto
+    size: 16
+    glyphsets:
+      - GF_Latin_Core
+
+  - file: &quot;gfonts://Roboto&quot;
+    id: fonte_mini
+    size: 12
+    glyphsets:
+      - GF_Latin_Core
+
+display:
+  - platform: mipi_spi
+    id: meu_display
+    spi_id: spi_bus
+    model: M5STACK-ATOMS3R-GC9107
+    rotation: 180°
+    update_interval: 1s
+
+    lambda: |-
+      it.fill(Color::BLACK);
+
+      Color white  = Color(255, 255, 255);
+      Color gray   = Color(150, 150, 150);
+      Color green  = Color(0, 255, 0);
+      Color yellow = Color(255, 255, 0);
+
+      auto now = id(sntp_time).now();
+
+      if (now.is_valid()) {
+        it.strftime(64, 2, id(fonte_hora), white, TextAlign::TOP_CENTER, &quot;%H:%M&quot;, now);
+        it.strftime(64, 38, id(fonte_texto), white, TextAlign::TOP_CENTER, &quot;%d/%m/%Y&quot;, now);
+      } else {
+        it.print(64, 2, id(fonte_hora), white, TextAlign::TOP_CENTER, &quot;--:--&quot;);
+      }
+
+      if (id(status_leitura)) {
+        it.print(64, 70, id(fonte_hora), yellow, TextAlign::CENTER, &quot;READING!&quot;);
+      } else {
+        it.print(64, 70, id(fonte_hora), green, TextAlign::CENTER, &quot;READY!&quot;);
+      }
+
+      std::string label = id(ha_tag_name).state;
+
+      if (label.empty() || label == &quot;unknown&quot; || label == &quot;unavailable&quot;) {
+        label = id(last_uid);
+      }
+
+      if (!label.empty()) {
+        if (label.size() &gt; 20) {
+          label = label.substr(0, 19) + &quot;...&quot;;
+        }
+        it.printf(64, 110, id(fonte_mini), gray, TextAlign::CENTER, &quot;%s&quot;, label.c_str());
+      }
+
+text_sensor:
+  - platform: template
+    name: &quot;Last tag (UID)&quot;
+    id: last_uid_text
+    icon: mdi:nfc-variant
+    update_interval: never
+
+  - platform: template
+    name: &quot;Last scan (date/time)&quot;
+    id: last_scan_text
+    icon: mdi:clock-outline
+    update_interval: never
+
+  - platform: homeassistant
+    id: ha_tag_name
+    entity_id: input_text.rfid_tag_nome
+    internal: true
+
+  - platform: wifi_info
+    ip_address:
+      name: &quot;IP&quot;
+    dns_address:
+      name: &quot;DNS&quot;
+    mac_address:
+      name: &quot;MAC&quot;
+
+  - platform: version
+    name: &quot;ESPHome version&quot;
+    entity_category: diagnostic
+
+sensor:
+  - platform: template
+    name: &quot;Total scans&quot;
+    id: scan_total
+    icon: mdi:counter
+    accuracy_decimals: 0
+    state_class: total_increasing
+    update_interval: never
+
+  - platform: template
+    name: &quot;UID length (bytes)&quot;
+    id: uid_length
+    icon: mdi:ruler
+    accuracy_decimals: 0
+    update_interval: never
+
+  - platform: template
+    name: &quot;Time since last scan&quot;
+    id: time_since_scan
+    icon: mdi:timer-sand
+    unit_of_measurement: s
+    device_class: duration
+    accuracy_decimals: 0
+    update_interval: 10s
+    lambda: |-
+      if (id(last_scan_ts) == 0) {
+        return NAN;
+      }
+
+      auto now = id(sntp_time).now();
+
+      if (!now.is_valid()) {
+        return NAN;
+      }
+
+      return (float)(now.timestamp - id(last_scan_ts));
+
+  - platform: wifi_signal
+    name: &quot;Wi-Fi signal&quot;
+    update_interval: 60s
+    entity_category: diagnostic
+
+  - platform: uptime
+    name: &quot;Uptime&quot;
+    entity_category: diagnostic
+
+binary_sensor:
+  - platform: template
+    name: &quot;Tag present&quot;
+    id: tag_present_bs
+    device_class: presence
+
+  - platform: status
+    name: &quot;Status&quot;
+    entity_category: diagnostic
+
+button:
+  - platform: template
+    name: &quot;RFID: Reset counter&quot;
+    icon: mdi:counter
+    entity_category: config
+    on_press:
+      - lambda: |-
+          id(scan_count) = 0;
+          id(scan_total).publish_state(0);
+
+  - platform: template
+    name: &quot;RFID: Clear last tag&quot;
+    icon: mdi:nfc-variant-off
+    entity_category: config
+    on_press:
+      - lambda: |-
+          id(last_uid) = &quot;&quot;;
+          id(last_scan_ts) = 0;
+          id(last_uid_text).publish_state(&quot;&quot;);
+          id(last_scan_text).publish_state(&quot;&quot;);
+
+      - component.update: meu_display
+
+  - platform: restart
+    name: &quot;RFID: Restart&quot;
+    entity_category: config
+
+web_server:
+  port: 80
+  include_internal: true
+</code></pre>
+<p><strong>How it works, in short:</strong></p>
+<ul>
+<li><strong><code>rc522_i2c</code></strong> reads the tags on Port A (Grove I²C). In <code>on_tag</code>, the UID is stored, the counter increments and the tag is sent to HA with <strong><code>homeassistant.tag_scanned</code></strong> and an <strong>event</strong> (<code>esphome.rfid_tag_scanned</code>).</li>
+<li>The screen (<strong><code>mipi_spi</code></strong>, AtomS3R GC9107) shows the time and date and the state — <strong>READY!</strong> (idle) or <strong>READING!</strong> (reading) — plus the last tag's name/UID.</li>
+<li>Sensors expose to HA: the UID, the last-scan timestamp, the total scans, the UID length, the time since the last scan and tag presence.</li>
+<li>Config buttons: reset the counter, clear the last tag and restart.</li>
+</ul>
+<p>In Home Assistant, use the <strong>“Tag”</strong> trigger (or the event) to build automations. Validate it in the <strong>ESPHome Device Builder</strong> before flashing.</p>
 <p><a href="/en/home-assistant/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="home-assistant" src="/static/img/brands/home-assistant.svg?v=53c14d37" width="32" height="32" alt="" decoding="async"></span>Back to Home Assistant</a>.</p>
-<p>Sources: <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/sensor/xiaomi_miscale.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>xiaomi_miscale component</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/bluetooth_proxy.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>Bluetooth Proxy</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/remote_receiver.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>remote_receiver (IR)</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/openthread.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>OpenThread</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/lvgl/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>LVGL</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/display/st7789v.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>ST7789V display</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/http_request.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>http_request</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/touchscreen/gt911.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>GT911 touchscreen</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/voice_assistant/index.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>voice_assistant</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/micro_wake_word.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>micro_wake_word</a> and <a class="ext" target="_blank" rel="noopener" href="https://www.nabucasa.com/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="nabu-casa" src="/static/img/brands/nabu-casa.svg?v=fd7f86f9" width="32" height="32" alt="" decoding="async"></span>Nabu Casa and the Open Home Foundation</a>.</p>
+<p>Sources: <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/sensor/xiaomi_miscale.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>xiaomi_miscale component</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/bluetooth_proxy.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>Bluetooth Proxy</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/remote_receiver.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>remote_receiver (IR)</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/openthread.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>OpenThread</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/lvgl/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>LVGL</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/display/st7789v.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>ST7789V display</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/http_request.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>http_request</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/touchscreen/gt911.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>GT911 touchscreen</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/voice_assistant/index.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>voice_assistant</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/micro_wake_word.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>micro_wake_word</a>, <a class="ext" target="_blank" rel="noopener" href="https://esphome.io/components/rc522.html"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="esphome" src="/static/img/brands/esphome.svg?v=cfbe720f" width="32" height="32" alt="" decoding="async"></span>RC522 (RFID)</a> and <a class="ext" target="_blank" rel="noopener" href="https://www.nabucasa.com/"><span class="project-icons" aria-hidden="true"><img class="project-logo" data-project="nabu-casa" src="/static/img/brands/nabu-casa.svg?v=fd7f86f9" width="32" height="32" alt="" decoding="async"></span>Nabu Casa and the Open Home Foundation</a>.</p>
         <ul class="tags"><li>ESPHome</li><li>ESP32</li><li>YAML</li><li>Examples</li><li>Thread</li></ul>
       </div>
     </div>
