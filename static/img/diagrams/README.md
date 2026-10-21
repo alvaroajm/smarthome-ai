@@ -37,3 +37,12 @@ As referências técnicas oficiais continuam nos guias. As imagens antigas ficam
 | `/static/img/devices/shelly-plug-gen4.png` | `/static/img/diagrams/devices-shelly-plug-gen4.svg` |
 | `/static/img/devices/raspberry-pi-5-case.jpg` | `/static/img/diagrams/devices-raspberry-pi-5-case.svg` |
 | `/static/img/devices/modern-mini-pc.png` | `/static/img/diagrams/devices-modern-mini-pc.svg` |
+| `/static/img/install/disks-image.png` | `/static/img/diagrams/install-disks-image.svg` |
+| `/static/img/install/disks-progress.png` | `/static/img/diagrams/install-disks-progress.svg` |
+| `/static/img/install/disks-restore.png` | `/static/img/diagrams/install-disks-restore.svg` |
+| `/static/img/install/etcher-file.png` | `/static/img/diagrams/install-etcher-file.svg` |
+| `/static/img/install/green-power.webp` | `/static/img/diagrams/install-green-power.svg` |
+| `/static/img/install/green-zbt.png` | `/static/img/diagrams/install-green-zbt.svg` |
+| `/static/img/install/pi-ribbon.png` | `/static/img/diagrams/install-pi-ribbon.svg` |
+| `/static/img/install/secure-boot.jpg` | `/static/img/diagrams/install-secure-boot.svg` |
+| `/static/img/install/uefi.jpg` | `/static/img/diagrams/install-uefi.svg` |

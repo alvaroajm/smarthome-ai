@@ -31,6 +31,12 @@ add('devices', 'shelly-plug-gen4.png', ('Uma tomada conectada', 'A connected plu
 add('devices', 'raspberry-pi-5-case.jpg modern-mini-pc.png', ('Uma central doméstica', 'A home hub'), [('Energia e Ethernet','Power and Ethernet'),('Computador com HAOS','Computer with HAOS'),('Rede de dispositivos','Device network')])
 
 
+add('install', 'disks-image.png disks-progress.png disks-restore.png etcher-file.png', ('Gravar o sistema no disco', 'Write the system to storage'), [('Selecionar imagem HAOS','Select HAOS image'),('Conferir o disco de destino','Check target storage'),('Gravar e iniciar a central','Write and start the hub')])
+add('install', 'green-power.webp green-zbt.png', ('Preparar a central', 'Prepare the hub'), [('Conectar a rede e energia','Connect Ethernet and power'),('Abrir o Home Assistant','Open Home Assistant'),('Configurar dispositivos','Set up devices')])
+add('install', 'pi-ribbon.png', ('Armazenamento no Raspberry Pi', 'Raspberry Pi storage'), [('Placa e adaptador compatíveis','Compatible board and adapter'),('Conectar o SSD','Connect SSD storage'),('Gravar e iniciar o HAOS','Write and boot HAOS')])
+add('install', 'secure-boot.jpg uefi.jpg', ('Preparar o boot do mini-PC', 'Prepare mini PC boot'), [('Consultar o manual do modelo','Read the model manual'),('Conferir os requisitos HAOS','Check HAOS requirements'),('Selecionar a mídia de boot','Select boot media')])
+
+
 def diagram_url(source):
     return '/static/img/diagrams/' + DIAGRAMS[source][0] + '.svg'
 
@@ -75,7 +81,7 @@ def replace_editorial_images(content, lang):
         result = IMAGE.sub(image, original)
         for source in sources:
             result = result.replace(f'href="{source}"', f'href="{diagram_url(source)}"')
-        if any('/ha-guide/' in s for s in sources):
+        if any('/ha-guide/' in s or '/install/' in s for s in sources):
             refs = re.findall(r'<a\b[^>]*href="https://[^\"]+"[^>]*>.*?</a>', original, re.S)
             refs = [re.sub(r'>[^<]*(?:Official screenshot|Tela oficial)[^<]*<', '>' + ('Official instructions' if en else 'Instruções oficiais') + '<', ref) for ref in refs]
             result = re.sub(r'aria-label="[^"]*"', 'aria-label="' + ('Enlarge original diagram' if en else 'Ampliar diagrama original') + '"', result)
