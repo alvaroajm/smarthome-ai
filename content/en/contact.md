@@ -2,13 +2,14 @@
 title: Contact
 slug: contact
 key: contato
-description: How to reach SmartHome-AI — my email, WhatsApp and social channels, and what to include in a Home Assistant, Zigbee or ESPHome question.
+description: How to reach SmartHome-AI by email and GitHub, and what to include in a Home Assistant, Zigbee or ESPHome question.
 category: Site
 icon: message
 order: 5
 section: pagina
 reading: 2 min read
 date: 2026-10-20
+updated: 2026-10-22
 tags: [Contact, Site]
 ---
 

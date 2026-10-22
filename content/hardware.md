@@ -2,13 +2,14 @@
 level: avancado
 title: Escolha sua central
 slug: hardware
-description: Home Assistant Green, Raspberry Pi 5 ou mini-PC: desempenho, consumo, preço no Brasil e para quem cada central faz sentido, com fotos e tabela.
+description: Home Assistant Green, Raspberry Pi 5 ou mini-PC: desempenho, consumo, consulta de preços e para quem cada central faz sentido, com fotos e tabela.
 category: Hardware
 icon: server
 order: 104
 featured: true
 reading: 9 min de leitura
 date: 2026-09-21
+updated: 2026-10-22
 tags: [Raspberry Pi, Mini-PC, Proxmox, NAS, Hardware]
 ---
 
@@ -21,7 +22,7 @@ Quem escolhe hardware demais acaba com um servidor para cuidar; quem escolhe de 
 |---|---|---|---|---|
 | **Instalação** | Ligou, funcionou | Média | Média | Avançada (Docker/VM) |
 | **Consumo típico** | ~2 W | 4–7 W | 7–15 W | 20–40 W |
-| **Preço (BR, estimado)** | Médio | Médio-alto | Médio-alto | Já é seu |
+| **Consulta de preços (BR)** | Consultar fornecedores | Cotar kit completo | Consultar modelo e disponibilidade | Já é seu |
 | **Roda Frigate/IA** | Não | Limitado | **Sim** (veja Intel x AMD abaixo) | Sim |
 | **Expansão** | Baixa | Boa (HAT, PoE) | Ótima | Ótima |
 | **Manutenção** | Mínima | Baixa | Baixa | Alta |
@@ -29,6 +30,18 @@ Quem escolhe hardware demais acaba com um servidor para cuidar; quem escolhe de 
 !!! dica "Resumo em uma linha"
     Quer uma casa inteligente? **HA Green ou Pi 5 com SSD.** Quer também câmeras com detecção de objetos,
     dupla função de servidor de mídia e experimentos com IA local? **Mini-PC x86.**
+
+### Consulta de preços
+
+As [fontes e ofertas da comparação na home](/#hardware-haos) foram consultadas em **21/10/2026**.
+Para o Green, consulte fornecedores e confirme frete e tributos de importação. No Pi 5, cote o kit
+completo: placa, SSD, case, cooler, fonte e adaptador M.2. O NTC 14N150-1103 de 16 GB/512 GB estava
+esgotado e sem preço no anúncio consultado; confirme disponibilidade e preço. Para Ryzen 5,
+consulte o modelo escolhido e confirme CPU, RAM e SSD.
+
+As ofertas Ryzen 7 são de dois modelos distintos: **GMKtec K6 7840HS, 16 GB DDR5 e SSD de 1 TB**, e
+**GMKtec K8 Plus 8845HS, 32 GB DDR5 e NVMe de 1 TB**. Os valores anunciados e as condições de Pix
+estão nas fontes da home. Confirme condições, tributos e disponibilidade antes da compra.
 
 ## Armazenamento: onde quase todo projeto morre
 
@@ -64,8 +77,8 @@ recorder:
 
 Um N100 com 16 GB de RAM e SSD de 512 GB roda, ao mesmo tempo: Home Assistant, Frigate com detecção por
 aceleração Intel (OpenVINO/Quick Sync), Zigbee2MQTT, Mosquitto, Scrypted, um servidor de mídia e ainda sobra.
-Um Ryzen 5 ou Ryzen 7 entrega bem mais processamento pelo mesmo preço — com uma ressalva nas câmeras que
-está explicada na seção seguinte. Duas formas de instalar:
+Um Ryzen 5 ou Ryzen 7 é outra opção, com preço e configuração que variam entre modelos — e uma ressalva
+nas câmeras que está explicada na seção seguinte. Duas formas de instalar:
 
 1. **HAOS direto no disco** — mais simples, o aparelho é "do Home Assistant".
 2. **Proxmox com o Home Assistant em VM** — permite snapshots antes de cada atualização, outras VMs e
@@ -87,7 +100,7 @@ isso de formas diferentes.
 | Consumo em repouso | ~7 W (N100) | ~10–20 W |
 
 Traduzindo: o **Intel é o caminho sem atrito** para quem quer câmeras funcionando rápido. O **AMD entrega
-muito mais processamento pelo mesmo dinheiro**, ao custo de meia hora de configuração no Frigate — ou de um
+mais processamento em modelos recentes**, ao custo de meia hora de configuração no Frigate — ou de um
 plano B.
 
 !!! dica "O plano B do AMD para câmeras"

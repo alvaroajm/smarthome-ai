@@ -135,6 +135,7 @@ LANGS = {
             ("Dispositivos", "#dispositivos"),
             ("Links úteis", "#recursos"),
             ("Comece aqui", "instalacao/"),
+            ("Minha instalação", "minha-instalacao/"),
             ("Sobre", "sobre/"),
         ],
         "ui": {
@@ -199,6 +200,7 @@ LANGS = {
             ("Devices", "#dispositivos"),
             ("Resources", "#recursos"),
             ("Start here", "start/"),
+            ("My setup (PT)", "/minha-instalacao/"),
             ("FAQ", "faq/"),
             ("About", "about/"),
         ],
@@ -401,7 +403,7 @@ def nav_html(lang: str, current: str) -> str:
     prefix = "/" + LANGS[lang]["prefix"]
     items = []
     for label, path in LANGS[lang]["nav"]:
-        url = prefix + path
+        url = path if path.startswith("/") else prefix + path
         active = ' class="active" aria-current="page"' if url == current else ""
         items.append(f'<a href="{url}"{active}>{label}</a>')
     return "\n        ".join(items)

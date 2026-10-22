@@ -1,13 +1,14 @@
 ---
 title: Contato
 slug: contato
-description: Como falar com o SmartHome-AI — e-mail, WhatsApp e minhas redes sociais, e o que incluir numa dúvida sobre Home Assistant, Zigbee ou ESPHome.
+description: Como falar com o SmartHome-AI por e-mail e GitHub, e o que incluir numa dúvida sobre Home Assistant, Zigbee ou ESPHome.
 category: Site
 icon: message
 order: 22
 section: pagina
 reading: 2 min de leitura
 date: 2026-10-20
+updated: 2026-10-22
 tags: [Contato, Site]
 ---
 
