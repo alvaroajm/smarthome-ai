@@ -52,7 +52,7 @@ SITE = {
 # Deixe vazio ("") para desabilitar o respectivo rastreamento.
 # --------------------------------------------------------------------------
 GA_MEASUREMENT_ID = "G-1TKBR87DTZ"
-GOOGLE_ADS_ID     = ""   # TODO: preencher com o ID do Google Ads, ex: "AW-123456789"
+GOOGLE_ADS_ID     = "AW-18463774874"
 
 # --------------------------------------------------------------------------
 # Contato e ecossistema
