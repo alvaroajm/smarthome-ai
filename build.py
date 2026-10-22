@@ -70,7 +70,7 @@ SOCIAL = [
 CHANNELS = [
     ("Clara Vilar", "https://youtube.com/@clara_vilar?si=RTeMR2ECLdKVlHxf", "YouTube"),
     ("AIvaro", "https://youtube.com/@aivaro-movies?si=XvFktd0cXM51t848", "YouTube"),
-    ("Clara Vilar · @clara_vilar_24", "https://www.tiktok.com/@clara_vilar_24", "TikTok"),
+    ("Clara Vilar · @Clara_Vilar_24", "https://www.tiktok.com/@Clara_Vilar_24", "TikTok"),
 ]
 
 # Ícones de marca — Simple Icons (CC0)
